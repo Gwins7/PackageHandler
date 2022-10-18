@@ -446,6 +446,105 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
+module ArbitDecoder(
+  input  [31:0] io_in_mask,
+  output [5:0]  io_out_dec
+);
+  wire  grant_0 = io_in_mask[0]; // @[ArbitDecoder.scala 18:25]
+  wire  notgranted_0 = ~grant_0; // @[ArbitDecoder.scala 19:20]
+  wire  grant_1 = notgranted_0 & io_in_mask[1]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_1 = notgranted_0 & ~io_in_mask[1]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_2 = notgranted_1 & io_in_mask[2]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_2 = notgranted_1 & ~io_in_mask[2]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_3 = notgranted_2 & io_in_mask[3]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_3 = notgranted_2 & ~io_in_mask[3]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_4 = notgranted_3 & io_in_mask[4]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_4 = notgranted_3 & ~io_in_mask[4]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_5 = notgranted_4 & io_in_mask[5]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_5 = notgranted_4 & ~io_in_mask[5]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_6 = notgranted_5 & io_in_mask[6]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_6 = notgranted_5 & ~io_in_mask[6]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_7 = notgranted_6 & io_in_mask[7]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_7 = notgranted_6 & ~io_in_mask[7]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_8 = notgranted_7 & io_in_mask[8]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_8 = notgranted_7 & ~io_in_mask[8]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_9 = notgranted_8 & io_in_mask[9]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_9 = notgranted_8 & ~io_in_mask[9]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_10 = notgranted_9 & io_in_mask[10]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_10 = notgranted_9 & ~io_in_mask[10]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_11 = notgranted_10 & io_in_mask[11]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_11 = notgranted_10 & ~io_in_mask[11]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_12 = notgranted_11 & io_in_mask[12]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_12 = notgranted_11 & ~io_in_mask[12]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_13 = notgranted_12 & io_in_mask[13]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_13 = notgranted_12 & ~io_in_mask[13]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_14 = notgranted_13 & io_in_mask[14]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_14 = notgranted_13 & ~io_in_mask[14]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_15 = notgranted_14 & io_in_mask[15]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_15 = notgranted_14 & ~io_in_mask[15]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_16 = notgranted_15 & io_in_mask[16]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_16 = notgranted_15 & ~io_in_mask[16]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_17 = notgranted_16 & io_in_mask[17]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_17 = notgranted_16 & ~io_in_mask[17]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_18 = notgranted_17 & io_in_mask[18]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_18 = notgranted_17 & ~io_in_mask[18]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_19 = notgranted_18 & io_in_mask[19]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_19 = notgranted_18 & ~io_in_mask[19]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_20 = notgranted_19 & io_in_mask[20]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_20 = notgranted_19 & ~io_in_mask[20]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_21 = notgranted_20 & io_in_mask[21]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_21 = notgranted_20 & ~io_in_mask[21]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_22 = notgranted_21 & io_in_mask[22]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_22 = notgranted_21 & ~io_in_mask[22]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_23 = notgranted_22 & io_in_mask[23]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_23 = notgranted_22 & ~io_in_mask[23]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_24 = notgranted_23 & io_in_mask[24]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_24 = notgranted_23 & ~io_in_mask[24]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_25 = notgranted_24 & io_in_mask[25]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_25 = notgranted_24 & ~io_in_mask[25]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_26 = notgranted_25 & io_in_mask[26]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_26 = notgranted_25 & ~io_in_mask[26]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_27 = notgranted_26 & io_in_mask[27]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_27 = notgranted_26 & ~io_in_mask[27]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_28 = notgranted_27 & io_in_mask[28]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_28 = notgranted_27 & ~io_in_mask[28]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_29 = notgranted_28 & io_in_mask[29]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_29 = notgranted_28 & ~io_in_mask[29]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_30 = notgranted_29 & io_in_mask[30]; // @[ArbitDecoder.scala 21:33]
+  wire  notgranted_30 = notgranted_29 & ~io_in_mask[30]; // @[ArbitDecoder.scala 22:38]
+  wire  grant_31 = notgranted_30 & io_in_mask[31]; // @[ArbitDecoder.scala 21:33]
+  wire [1:0] _T_7 = grant_2 ? 2'h2 : {{1'd0}, grant_1}; // @[ArbitDecoder.scala 25:73]
+  wire [1:0] _T_11 = grant_3 ? 2'h3 : _T_7; // @[ArbitDecoder.scala 25:73]
+  wire [2:0] _T_15 = grant_4 ? 3'h4 : {{1'd0}, _T_11}; // @[ArbitDecoder.scala 25:73]
+  wire [2:0] _T_19 = grant_5 ? 3'h5 : _T_15; // @[ArbitDecoder.scala 25:73]
+  wire [2:0] _T_23 = grant_6 ? 3'h6 : _T_19; // @[ArbitDecoder.scala 25:73]
+  wire [2:0] _T_27 = grant_7 ? 3'h7 : _T_23; // @[ArbitDecoder.scala 25:73]
+  wire [3:0] _T_31 = grant_8 ? 4'h8 : {{1'd0}, _T_27}; // @[ArbitDecoder.scala 25:73]
+  wire [3:0] _T_35 = grant_9 ? 4'h9 : _T_31; // @[ArbitDecoder.scala 25:73]
+  wire [3:0] _T_39 = grant_10 ? 4'ha : _T_35; // @[ArbitDecoder.scala 25:73]
+  wire [3:0] _T_43 = grant_11 ? 4'hb : _T_39; // @[ArbitDecoder.scala 25:73]
+  wire [3:0] _T_47 = grant_12 ? 4'hc : _T_43; // @[ArbitDecoder.scala 25:73]
+  wire [3:0] _T_51 = grant_13 ? 4'hd : _T_47; // @[ArbitDecoder.scala 25:73]
+  wire [3:0] _T_55 = grant_14 ? 4'he : _T_51; // @[ArbitDecoder.scala 25:73]
+  wire [3:0] _T_59 = grant_15 ? 4'hf : _T_55; // @[ArbitDecoder.scala 25:73]
+  wire [4:0] _T_63 = grant_16 ? 5'h10 : {{1'd0}, _T_59}; // @[ArbitDecoder.scala 25:73]
+  wire [4:0] _T_67 = grant_17 ? 5'h11 : _T_63; // @[ArbitDecoder.scala 25:73]
+  wire [4:0] _T_71 = grant_18 ? 5'h12 : _T_67; // @[ArbitDecoder.scala 25:73]
+  wire [4:0] _T_75 = grant_19 ? 5'h13 : _T_71; // @[ArbitDecoder.scala 25:73]
+  wire [4:0] _T_79 = grant_20 ? 5'h14 : _T_75; // @[ArbitDecoder.scala 25:73]
+  wire [4:0] _T_83 = grant_21 ? 5'h15 : _T_79; // @[ArbitDecoder.scala 25:73]
+  wire [4:0] _T_87 = grant_22 ? 5'h16 : _T_83; // @[ArbitDecoder.scala 25:73]
+  wire [4:0] _T_91 = grant_23 ? 5'h17 : _T_87; // @[ArbitDecoder.scala 25:73]
+  wire [4:0] _T_95 = grant_24 ? 5'h18 : _T_91; // @[ArbitDecoder.scala 25:73]
+  wire [4:0] _T_99 = grant_25 ? 5'h19 : _T_95; // @[ArbitDecoder.scala 25:73]
+  wire [4:0] _T_103 = grant_26 ? 5'h1a : _T_99; // @[ArbitDecoder.scala 25:73]
+  wire [4:0] _T_107 = grant_27 ? 5'h1b : _T_103; // @[ArbitDecoder.scala 25:73]
+  wire [4:0] _T_111 = grant_28 ? 5'h1c : _T_107; // @[ArbitDecoder.scala 25:73]
+  wire [4:0] _T_115 = grant_29 ? 5'h1d : _T_111; // @[ArbitDecoder.scala 25:73]
+  wire [4:0] _T_119 = grant_30 ? 5'h1e : _T_115; // @[ArbitDecoder.scala 25:73]
+  wire [4:0] _T_123 = grant_31 ? 5'h1f : _T_119; // @[ArbitDecoder.scala 25:73]
+  assign io_out_dec = {{1'd0}, _T_123}; // @[ArbitDecoder.scala 26:14]
+endmodule
 module PackageHandler(
   input          clock,
   input          reset,
@@ -468,41 +567,48 @@ module PackageHandler(
   output         io_QDMA_c2h_stub_in_tuser,
   output         io_QDMA_c2h_stub_in_tlast,
   output         io_QDMA_c2h_stub_in_tvalid,
-  input          io_QDMA_c2h_stub_in_tready
+  input          io_QDMA_c2h_stub_in_tready,
+  input  [31:0]  io_c2h_sw_qid_mask
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
   reg [31:0] _RAND_1;
 `endif // RANDOMIZE_REG_INIT
-  wire  buf__clock; // @[PackageHandler.scala 70:19]
-  wire  buf__reset; // @[PackageHandler.scala 70:19]
-  wire [511:0] buf__io_in_tdata; // @[PackageHandler.scala 70:19]
-  wire  buf__io_in_tlast; // @[PackageHandler.scala 70:19]
-  wire  buf__io_in_tvalid; // @[PackageHandler.scala 70:19]
-  wire  buf__io_in_tready; // @[PackageHandler.scala 70:19]
-  wire [63:0] buf__io_in_tkeep; // @[PackageHandler.scala 70:19]
-  wire [15:0] buf__io_out_tlen; // @[PackageHandler.scala 70:19]
-  wire [511:0] buf__io_out_tdata; // @[PackageHandler.scala 70:19]
-  wire  buf__io_out_tlast; // @[PackageHandler.scala 70:19]
-  wire  buf__io_out_tvalid; // @[PackageHandler.scala 70:19]
-  wire  buf__io_out_tready; // @[PackageHandler.scala 70:19]
-  wire  _buf_io_out_tready_T = ~io_QDMA_c2h_stub_in_tuser; // @[PackageHandler.scala 80:63]
-  reg  QDMA_c2h_stub_in_tuser_status_reg; // @[PackageHandler.scala 83:50]
-  wire  _T = io_QDMA_c2h_stub_in_tlast & io_QDMA_c2h_stub_in_tvalid; // @[PackageHandler.scala 84:34]
-  wire  _T_1 = _T & io_QDMA_c2h_stub_in_tready; // @[PackageHandler.scala 85:35]
-  wire  _T_3 = _T_1 & _buf_io_out_tready_T; // @[PackageHandler.scala 86:35]
-  wire  _GEN_0 = io_QDMA_c2h_stub_in_tvalid & io_QDMA_c2h_stub_in_tready ? 1'h0 : QDMA_c2h_stub_in_tuser_status_reg; // @[PackageHandler.scala 88:104 83:50 88:69]
-  wire  _GEN_1 = _T_3 | _GEN_0; // @[PackageHandler.scala 87:{36,71}]
-  reg [1:0] RR_counter_reg; // @[PackageHandler.scala 92:31]
-  wire [1:0] _GEN_3 = {{1'd0}, io_QDMA_c2h_stub_in_tlast}; // @[PackageHandler.scala 93:36]
-  wire [1:0] _RR_counter_reg_T_1 = RR_counter_reg + _GEN_3; // @[PackageHandler.scala 93:36]
-  wire [10:0] Gen_c2h_hdr_qid = {{9'd0}, RR_counter_reg}; // @[PackageHandler.scala 105:21 98:27]
-  wire [5:0] Gen_c2h_hdr_flow_id = Gen_c2h_hdr_qid[5:0]; // @[PackageHandler.scala 103:25 98:27]
-  wire [15:0] Gen_c2h_hdr_tdest = {{5'd0}, Gen_c2h_hdr_qid}; // @[PackageHandler.scala 98:27 103:63]
-  wire [15:0] Gen_c2h_hdr_pkt_len = buf__io_out_tlen; // @[PackageHandler.scala 106:25 98:27]
+  wire  buf__clock; // @[PackageHandler.scala 72:19]
+  wire  buf__reset; // @[PackageHandler.scala 72:19]
+  wire [511:0] buf__io_in_tdata; // @[PackageHandler.scala 72:19]
+  wire  buf__io_in_tlast; // @[PackageHandler.scala 72:19]
+  wire  buf__io_in_tvalid; // @[PackageHandler.scala 72:19]
+  wire  buf__io_in_tready; // @[PackageHandler.scala 72:19]
+  wire [63:0] buf__io_in_tkeep; // @[PackageHandler.scala 72:19]
+  wire [15:0] buf__io_out_tlen; // @[PackageHandler.scala 72:19]
+  wire [511:0] buf__io_out_tdata; // @[PackageHandler.scala 72:19]
+  wire  buf__io_out_tlast; // @[PackageHandler.scala 72:19]
+  wire  buf__io_out_tvalid; // @[PackageHandler.scala 72:19]
+  wire  buf__io_out_tready; // @[PackageHandler.scala 72:19]
+  wire [31:0] arbitDecoder_io_in_mask; // @[PackageHandler.scala 97:28]
+  wire [5:0] arbitDecoder_io_out_dec; // @[PackageHandler.scala 97:28]
+  wire  _buf_io_out_tready_T = ~io_QDMA_c2h_stub_in_tuser; // @[PackageHandler.scala 82:63]
+  reg  QDMA_c2h_stub_in_tuser_status_reg; // @[PackageHandler.scala 85:50]
+  wire  _T = io_QDMA_c2h_stub_in_tlast & io_QDMA_c2h_stub_in_tvalid; // @[PackageHandler.scala 86:34]
+  wire  _T_1 = _T & io_QDMA_c2h_stub_in_tready; // @[PackageHandler.scala 87:35]
+  wire  _T_3 = _T_1 & _buf_io_out_tready_T; // @[PackageHandler.scala 88:35]
+  wire  _GEN_0 = io_QDMA_c2h_stub_in_tvalid & io_QDMA_c2h_stub_in_tready ? 1'h0 : QDMA_c2h_stub_in_tuser_status_reg; // @[PackageHandler.scala 90:104 85:50 90:69]
+  wire  _GEN_1 = _T_3 | _GEN_0; // @[PackageHandler.scala 89:{36,71}]
+  reg [31:0] cur_qid_mask_reg; // @[PackageHandler.scala 94:33]
+  wire [5:0] cur_qid = arbitDecoder_io_out_dec; // @[PackageHandler.scala 101:11 96:21]
+  wire [63:0] _next_qid_mask_T = 64'h1 << cur_qid; // @[PackageHandler.scala 99:47]
+  wire [63:0] _next_qid_mask_T_1 = ~_next_qid_mask_T; // @[PackageHandler.scala 99:41]
+  wire [63:0] _GEN_5 = {{32'd0}, cur_qid_mask_reg}; // @[PackageHandler.scala 99:38]
+  wire [63:0] _next_qid_mask_T_2 = _GEN_5 & _next_qid_mask_T_1; // @[PackageHandler.scala 99:38]
+  wire [31:0] next_qid_mask = _next_qid_mask_T_2[31:0]; // @[PackageHandler.scala 95:27 99:17]
+  wire [10:0] Gen_c2h_hdr_qid = {{5'd0}, cur_qid}; // @[PackageHandler.scala 115:27 122:21]
+  wire [5:0] Gen_c2h_hdr_flow_id = Gen_c2h_hdr_qid[5:0]; // @[PackageHandler.scala 115:27 120:25]
+  wire [15:0] Gen_c2h_hdr_tdest = {{5'd0}, Gen_c2h_hdr_qid}; // @[PackageHandler.scala 115:27 120:63]
+  wire [15:0] Gen_c2h_hdr_pkt_len = buf__io_out_tlen; // @[PackageHandler.scala 115:27 123:25]
   wire [511:0] _io_QDMA_c2h_stub_in_tdata_T = {362'h0,2'h0,4'h0,Gen_c2h_hdr_pkt_len,80'h0,Gen_c2h_hdr_tdest,10'h0,
-    Gen_c2h_hdr_flow_id,5'h0,Gen_c2h_hdr_qid}; // @[PackageHandler.scala 107:46]
-  PackageBufferFifo buf_ ( // @[PackageHandler.scala 70:19]
+    Gen_c2h_hdr_flow_id,5'h0,Gen_c2h_hdr_qid}; // @[PackageHandler.scala 124:46]
+  PackageBufferFifo buf_ ( // @[PackageHandler.scala 72:19]
     .clock(buf__clock),
     .reset(buf__reset),
     .io_in_tdata(buf__io_in_tdata),
@@ -516,29 +622,38 @@ module PackageHandler(
     .io_out_tvalid(buf__io_out_tvalid),
     .io_out_tready(buf__io_out_tready)
   );
-  assign io_QDMA_h2c_stub_out_tready = io_CMAC_in_tready; // @[PackageHandler.scala 59:31]
-  assign io_CMAC_in_tdata = io_QDMA_h2c_stub_out_tdata; // @[PackageHandler.scala 60:31]
+  ArbitDecoder arbitDecoder ( // @[PackageHandler.scala 97:28]
+    .io_in_mask(arbitDecoder_io_in_mask),
+    .io_out_dec(arbitDecoder_io_out_dec)
+  );
+  assign io_QDMA_h2c_stub_out_tready = io_CMAC_in_tready; // @[PackageHandler.scala 61:31]
+  assign io_CMAC_in_tdata = io_QDMA_h2c_stub_out_tdata; // @[PackageHandler.scala 62:31]
   assign io_CMAC_in_tkeep = 64'hffffffffffffffff; // @[Bitwise.scala 74:12]
-  assign io_CMAC_in_tlast = io_QDMA_h2c_stub_out_tlast; // @[PackageHandler.scala 61:31]
-  assign io_CMAC_in_tvalid = io_QDMA_h2c_stub_out_tvalid & ~io_QDMA_h2c_stub_out_tuser; // @[PackageHandler.scala 62:62]
-  assign io_CMAC_out_tready = buf__io_in_tready; // @[PackageHandler.scala 76:31]
-  assign io_QDMA_c2h_stub_in_tdata = io_QDMA_c2h_stub_in_tuser ? _io_QDMA_c2h_stub_in_tdata_T : buf__io_out_tdata; // @[PackageHandler.scala 107:31 110:31 96:34]
-  assign io_QDMA_c2h_stub_in_tuser = QDMA_c2h_stub_in_tuser_status_reg & io_QDMA_c2h_stub_in_tvalid; // @[PackageHandler.scala 90:73]
-  assign io_QDMA_c2h_stub_in_tlast = buf__io_out_tlast; // @[PackageHandler.scala 78:31]
-  assign io_QDMA_c2h_stub_in_tvalid = buf__io_out_tvalid; // @[PackageHandler.scala 79:31]
+  assign io_CMAC_in_tlast = io_QDMA_h2c_stub_out_tlast; // @[PackageHandler.scala 63:31]
+  assign io_CMAC_in_tvalid = io_QDMA_h2c_stub_out_tvalid & ~io_QDMA_h2c_stub_out_tuser; // @[PackageHandler.scala 64:62]
+  assign io_CMAC_out_tready = buf__io_in_tready; // @[PackageHandler.scala 78:31]
+  assign io_QDMA_c2h_stub_in_tdata = io_QDMA_c2h_stub_in_tuser ? _io_QDMA_c2h_stub_in_tdata_T : buf__io_out_tdata; // @[PackageHandler.scala 113:34 124:31 127:31]
+  assign io_QDMA_c2h_stub_in_tuser = QDMA_c2h_stub_in_tuser_status_reg & io_QDMA_c2h_stub_in_tvalid; // @[PackageHandler.scala 92:73]
+  assign io_QDMA_c2h_stub_in_tlast = buf__io_out_tlast; // @[PackageHandler.scala 80:31]
+  assign io_QDMA_c2h_stub_in_tvalid = buf__io_out_tvalid; // @[PackageHandler.scala 81:31]
   assign buf__clock = clock;
   assign buf__reset = reset;
-  assign buf__io_in_tdata = io_CMAC_out_tdata; // @[PackageHandler.scala 72:31]
-  assign buf__io_in_tlast = io_CMAC_out_tlast; // @[PackageHandler.scala 74:31]
-  assign buf__io_in_tvalid = io_CMAC_out_tvalid; // @[PackageHandler.scala 73:31]
-  assign buf__io_in_tkeep = io_CMAC_out_tkeep; // @[PackageHandler.scala 75:31]
-  assign buf__io_out_tready = io_QDMA_c2h_stub_in_tready & ~io_QDMA_c2h_stub_in_tuser; // @[PackageHandler.scala 80:61]
+  assign buf__io_in_tdata = io_CMAC_out_tdata; // @[PackageHandler.scala 74:31]
+  assign buf__io_in_tlast = io_CMAC_out_tlast; // @[PackageHandler.scala 76:31]
+  assign buf__io_in_tvalid = io_CMAC_out_tvalid; // @[PackageHandler.scala 75:31]
+  assign buf__io_in_tkeep = io_CMAC_out_tkeep; // @[PackageHandler.scala 77:31]
+  assign buf__io_out_tready = io_QDMA_c2h_stub_in_tready & ~io_QDMA_c2h_stub_in_tuser; // @[PackageHandler.scala 82:61]
+  assign arbitDecoder_io_in_mask = cur_qid_mask_reg; // @[PackageHandler.scala 100:27]
   always @(posedge clock) begin
-    QDMA_c2h_stub_in_tuser_status_reg <= reset | _GEN_1; // @[PackageHandler.scala 83:{50,50}]
-    if (reset) begin // @[PackageHandler.scala 92:31]
-      RR_counter_reg <= 2'h0; // @[PackageHandler.scala 92:31]
-    end else begin
-      RR_counter_reg <= _RR_counter_reg_T_1; // @[PackageHandler.scala 93:18]
+    QDMA_c2h_stub_in_tuser_status_reg <= reset | _GEN_1; // @[PackageHandler.scala 85:{50,50}]
+    if (reset) begin // @[PackageHandler.scala 94:33]
+      cur_qid_mask_reg <= io_c2h_sw_qid_mask; // @[PackageHandler.scala 94:33]
+    end else if (io_QDMA_c2h_stub_in_tlast) begin // @[PackageHandler.scala 103:34]
+      if (next_qid_mask == 32'h0) begin // @[PackageHandler.scala 104:36]
+        cur_qid_mask_reg <= io_c2h_sw_qid_mask; // @[PackageHandler.scala 105:26]
+      end else begin
+        cur_qid_mask_reg <= next_qid_mask; // @[PackageHandler.scala 108:26]
+      end
     end
   end
 // Register and memory initialization
@@ -580,7 +695,7 @@ initial begin
   _RAND_0 = {1{`RANDOM}};
   QDMA_c2h_stub_in_tuser_status_reg = _RAND_0[0:0];
   _RAND_1 = {1{`RANDOM}};
-  RR_counter_reg = _RAND_1[1:0];
+  cur_qid_mask_reg = _RAND_1[31:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
