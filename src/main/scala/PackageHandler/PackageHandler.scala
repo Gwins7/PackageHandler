@@ -91,18 +91,23 @@ class PackageHandler extends Module {
 
   io.QDMA_c2h_stub_in_tuser := QDMA_c2h_stub_in_tuser_status_reg.asBool & io.QDMA_c2h_stub_in_tvalid
 
+  val sav_qid_mask_reg = RegInit(io.c2h_sw_qid_mask)
   val cur_qid_mask_reg = RegInit(io.c2h_sw_qid_mask)
   val next_qid_mask = Wire(UInt(32.W))
   val cur_qid = Wire(UInt(6.W))
   val arbitDecoder = Module(new ArbitDecoder(32))
 
-  next_qid_mask := (cur_qid_mask_reg & (~(1.U << cur_qid)).asUInt)
+  next_qid_mask := (cur_qid_mask_reg & (~(1.U(32.W) << cur_qid)).asUInt)
   arbitDecoder.io.in_mask := cur_qid_mask_reg
   cur_qid := arbitDecoder.io.out_dec
 
-  when(io.QDMA_c2h_stub_in_tlast){
+  when((sav_qid_mask_reg =/= io.c2h_sw_qid_mask).asBool) {
+    cur_qid_mask_reg := io.c2h_sw_qid_mask
+    sav_qid_mask_reg := io.c2h_sw_qid_mask
+  }
+  .elsewhen(io.QDMA_c2h_stub_in_tlast) {
       when (next_qid_mask === 0.U) {
-        cur_qid_mask_reg := io.c2h_sw_qid_mask
+        cur_qid_mask_reg := sav_qid_mask_reg
       }
       .otherwise {
         cur_qid_mask_reg := next_qid_mask
