@@ -20,7 +20,8 @@ class PackageHandler extends Module {
     val tdest = UInt(16.W)
     val rsv2  = UInt(10.W)
     val flow_id  = UInt(6.W)
-    val rsv1  = UInt(5.W)
+    val rsv1  = UInt(2.W)
+    val port_id = UInt(3.W)
     val qid  = UInt(11.W)
   }
 
@@ -53,6 +54,7 @@ class PackageHandler extends Module {
     val QDMA_c2h_stub_in_tready  = Input(Bool())
 
     val c2h_sw_qid_mask          = Input(UInt(32.W))
+    val c2h_sw_port_mask          = Input(UInt(32.W))
   })
 /*
   h2c direction
@@ -91,28 +93,16 @@ class PackageHandler extends Module {
 
   io.QDMA_c2h_stub_in_tuser := QDMA_c2h_stub_in_tuser_status_reg.asBool & io.QDMA_c2h_stub_in_tvalid
 
-  val sav_qid_mask_reg = RegInit(io.c2h_sw_qid_mask)
-  val cur_qid_mask_reg = RegInit(io.c2h_sw_qid_mask)
-  val next_qid_mask = Wire(UInt(32.W))
-  val cur_qid = Wire(UInt(6.W))
-  val arbitDecoder = Module(new ArbitDecoder(32))
+  val qid_mask_wrapper = Module(new SoftwareRegWrapper(32))
+  qid_mask_wrapper.io.in_mask := io.c2h_sw_qid_mask
+  qid_mask_wrapper.io.in_tlast := io.QDMA_c2h_stub_in_tlast
+  val cur_qid = qid_mask_wrapper.io.out_dec
 
-  next_qid_mask := (cur_qid_mask_reg & (~(1.U(32.W) << cur_qid)).asUInt)
-  arbitDecoder.io.in_mask := cur_qid_mask_reg
-  cur_qid := arbitDecoder.io.out_dec
+  val port_mask_wrapper = Module(new SoftwareRegWrapper(32))
+  port_mask_wrapper.io.in_mask := io.c2h_sw_port_mask
+  port_mask_wrapper.io.in_tlast := io.QDMA_c2h_stub_in_tlast
+  val cur_port = port_mask_wrapper.io.out_dec
 
-  when((sav_qid_mask_reg =/= io.c2h_sw_qid_mask).asBool) {
-    cur_qid_mask_reg := io.c2h_sw_qid_mask
-    sav_qid_mask_reg := io.c2h_sw_qid_mask
-  }
-  .elsewhen(io.QDMA_c2h_stub_in_tlast) {
-      when (next_qid_mask === 0.U) {
-        cur_qid_mask_reg := sav_qid_mask_reg
-      }
-      .otherwise {
-        cur_qid_mask_reg := next_qid_mask
-      }
-    }
 
   // transport tdata (when tuser = 1, generate a header and send it first)
   when(io.QDMA_c2h_stub_in_tuser){
@@ -124,6 +114,7 @@ class PackageHandler extends Module {
     Gen_c2h_hdr.usr_int := 0.U; Gen_c2h_hdr.eot := 0.U; Gen_c2h_hdr.cmp_data_0 := 0.U
     Gen_c2h_hdr.flow_id := Gen_c2h_hdr.qid; Gen_c2h_hdr.tdest := Gen_c2h_hdr.qid
     //only useful information
+    Gen_c2h_hdr.port_id := cur_port(2,0) //temp
     Gen_c2h_hdr.qid := cur_qid; // [5:0]
     Gen_c2h_hdr.pkt_len := buf.io.out_tlen
     io.QDMA_c2h_stub_in_tdata := Gen_c2h_hdr.asUInt

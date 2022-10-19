@@ -1,5 +1,29 @@
 [
   {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~PackageHandler|ArbitDecoder",
+    "duplicate":"~PackageHandler|PackageHandler/qid_mask_wrapper:SoftwareRegWrapper/arbitDecoder:ArbitDecoder",
+    "index":0.2
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~PackageHandler|SoftwareRegWrapper",
+    "duplicate":"~PackageHandler|PackageHandler/qid_mask_wrapper:SoftwareRegWrapper",
+    "index":0.4
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~PackageHandler|ArbitDecoder_1",
+    "duplicate":"~PackageHandler|PackageHandler/port_mask_wrapper:SoftwareRegWrapper/arbitDecoder:ArbitDecoder",
+    "index":0.6
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~PackageHandler|SoftwareRegWrapper_1",
+    "duplicate":"~PackageHandler|PackageHandler/port_mask_wrapper:SoftwareRegWrapper",
+    "index":0.8
+  },
+  {
     "class":"firrtl.EmitCircuitAnnotation",
     "emitter":"firrtl.VerilogEmitter"
   },

@@ -450,218 +450,142 @@ module ArbitDecoder(
   input  [31:0] io_in_mask,
   output [5:0]  io_out_dec
 );
-  wire  grant_0 = io_in_mask[0]; // @[ArbitDecoder.scala 18:25]
-  wire  notgranted_0 = ~grant_0; // @[ArbitDecoder.scala 19:20]
-  wire  grant_1 = notgranted_0 & io_in_mask[1]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_1 = notgranted_0 & ~io_in_mask[1]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_2 = notgranted_1 & io_in_mask[2]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_2 = notgranted_1 & ~io_in_mask[2]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_3 = notgranted_2 & io_in_mask[3]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_3 = notgranted_2 & ~io_in_mask[3]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_4 = notgranted_3 & io_in_mask[4]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_4 = notgranted_3 & ~io_in_mask[4]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_5 = notgranted_4 & io_in_mask[5]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_5 = notgranted_4 & ~io_in_mask[5]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_6 = notgranted_5 & io_in_mask[6]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_6 = notgranted_5 & ~io_in_mask[6]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_7 = notgranted_6 & io_in_mask[7]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_7 = notgranted_6 & ~io_in_mask[7]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_8 = notgranted_7 & io_in_mask[8]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_8 = notgranted_7 & ~io_in_mask[8]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_9 = notgranted_8 & io_in_mask[9]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_9 = notgranted_8 & ~io_in_mask[9]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_10 = notgranted_9 & io_in_mask[10]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_10 = notgranted_9 & ~io_in_mask[10]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_11 = notgranted_10 & io_in_mask[11]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_11 = notgranted_10 & ~io_in_mask[11]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_12 = notgranted_11 & io_in_mask[12]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_12 = notgranted_11 & ~io_in_mask[12]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_13 = notgranted_12 & io_in_mask[13]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_13 = notgranted_12 & ~io_in_mask[13]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_14 = notgranted_13 & io_in_mask[14]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_14 = notgranted_13 & ~io_in_mask[14]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_15 = notgranted_14 & io_in_mask[15]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_15 = notgranted_14 & ~io_in_mask[15]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_16 = notgranted_15 & io_in_mask[16]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_16 = notgranted_15 & ~io_in_mask[16]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_17 = notgranted_16 & io_in_mask[17]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_17 = notgranted_16 & ~io_in_mask[17]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_18 = notgranted_17 & io_in_mask[18]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_18 = notgranted_17 & ~io_in_mask[18]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_19 = notgranted_18 & io_in_mask[19]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_19 = notgranted_18 & ~io_in_mask[19]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_20 = notgranted_19 & io_in_mask[20]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_20 = notgranted_19 & ~io_in_mask[20]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_21 = notgranted_20 & io_in_mask[21]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_21 = notgranted_20 & ~io_in_mask[21]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_22 = notgranted_21 & io_in_mask[22]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_22 = notgranted_21 & ~io_in_mask[22]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_23 = notgranted_22 & io_in_mask[23]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_23 = notgranted_22 & ~io_in_mask[23]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_24 = notgranted_23 & io_in_mask[24]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_24 = notgranted_23 & ~io_in_mask[24]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_25 = notgranted_24 & io_in_mask[25]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_25 = notgranted_24 & ~io_in_mask[25]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_26 = notgranted_25 & io_in_mask[26]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_26 = notgranted_25 & ~io_in_mask[26]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_27 = notgranted_26 & io_in_mask[27]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_27 = notgranted_26 & ~io_in_mask[27]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_28 = notgranted_27 & io_in_mask[28]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_28 = notgranted_27 & ~io_in_mask[28]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_29 = notgranted_28 & io_in_mask[29]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_29 = notgranted_28 & ~io_in_mask[29]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_30 = notgranted_29 & io_in_mask[30]; // @[ArbitDecoder.scala 21:33]
-  wire  notgranted_30 = notgranted_29 & ~io_in_mask[30]; // @[ArbitDecoder.scala 22:38]
-  wire  grant_31 = notgranted_30 & io_in_mask[31]; // @[ArbitDecoder.scala 21:33]
-  wire [1:0] _T_7 = grant_2 ? 2'h2 : {{1'd0}, grant_1}; // @[ArbitDecoder.scala 25:73]
-  wire [1:0] _T_11 = grant_3 ? 2'h3 : _T_7; // @[ArbitDecoder.scala 25:73]
-  wire [2:0] _T_15 = grant_4 ? 3'h4 : {{1'd0}, _T_11}; // @[ArbitDecoder.scala 25:73]
-  wire [2:0] _T_19 = grant_5 ? 3'h5 : _T_15; // @[ArbitDecoder.scala 25:73]
-  wire [2:0] _T_23 = grant_6 ? 3'h6 : _T_19; // @[ArbitDecoder.scala 25:73]
-  wire [2:0] _T_27 = grant_7 ? 3'h7 : _T_23; // @[ArbitDecoder.scala 25:73]
-  wire [3:0] _T_31 = grant_8 ? 4'h8 : {{1'd0}, _T_27}; // @[ArbitDecoder.scala 25:73]
-  wire [3:0] _T_35 = grant_9 ? 4'h9 : _T_31; // @[ArbitDecoder.scala 25:73]
-  wire [3:0] _T_39 = grant_10 ? 4'ha : _T_35; // @[ArbitDecoder.scala 25:73]
-  wire [3:0] _T_43 = grant_11 ? 4'hb : _T_39; // @[ArbitDecoder.scala 25:73]
-  wire [3:0] _T_47 = grant_12 ? 4'hc : _T_43; // @[ArbitDecoder.scala 25:73]
-  wire [3:0] _T_51 = grant_13 ? 4'hd : _T_47; // @[ArbitDecoder.scala 25:73]
-  wire [3:0] _T_55 = grant_14 ? 4'he : _T_51; // @[ArbitDecoder.scala 25:73]
-  wire [3:0] _T_59 = grant_15 ? 4'hf : _T_55; // @[ArbitDecoder.scala 25:73]
-  wire [4:0] _T_63 = grant_16 ? 5'h10 : {{1'd0}, _T_59}; // @[ArbitDecoder.scala 25:73]
-  wire [4:0] _T_67 = grant_17 ? 5'h11 : _T_63; // @[ArbitDecoder.scala 25:73]
-  wire [4:0] _T_71 = grant_18 ? 5'h12 : _T_67; // @[ArbitDecoder.scala 25:73]
-  wire [4:0] _T_75 = grant_19 ? 5'h13 : _T_71; // @[ArbitDecoder.scala 25:73]
-  wire [4:0] _T_79 = grant_20 ? 5'h14 : _T_75; // @[ArbitDecoder.scala 25:73]
-  wire [4:0] _T_83 = grant_21 ? 5'h15 : _T_79; // @[ArbitDecoder.scala 25:73]
-  wire [4:0] _T_87 = grant_22 ? 5'h16 : _T_83; // @[ArbitDecoder.scala 25:73]
-  wire [4:0] _T_91 = grant_23 ? 5'h17 : _T_87; // @[ArbitDecoder.scala 25:73]
-  wire [4:0] _T_95 = grant_24 ? 5'h18 : _T_91; // @[ArbitDecoder.scala 25:73]
-  wire [4:0] _T_99 = grant_25 ? 5'h19 : _T_95; // @[ArbitDecoder.scala 25:73]
-  wire [4:0] _T_103 = grant_26 ? 5'h1a : _T_99; // @[ArbitDecoder.scala 25:73]
-  wire [4:0] _T_107 = grant_27 ? 5'h1b : _T_103; // @[ArbitDecoder.scala 25:73]
-  wire [4:0] _T_111 = grant_28 ? 5'h1c : _T_107; // @[ArbitDecoder.scala 25:73]
-  wire [4:0] _T_115 = grant_29 ? 5'h1d : _T_111; // @[ArbitDecoder.scala 25:73]
-  wire [4:0] _T_119 = grant_30 ? 5'h1e : _T_115; // @[ArbitDecoder.scala 25:73]
-  wire [4:0] _T_123 = grant_31 ? 5'h1f : _T_119; // @[ArbitDecoder.scala 25:73]
-  assign io_out_dec = {{1'd0}, _T_123}; // @[ArbitDecoder.scala 26:14]
+  wire  grant_0 = io_in_mask[0]; // @[SoftwareRegWrapper.scala 53:25]
+  wire  notgranted_0 = ~grant_0; // @[SoftwareRegWrapper.scala 54:20]
+  wire  grant_1 = notgranted_0 & io_in_mask[1]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_1 = notgranted_0 & ~io_in_mask[1]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_2 = notgranted_1 & io_in_mask[2]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_2 = notgranted_1 & ~io_in_mask[2]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_3 = notgranted_2 & io_in_mask[3]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_3 = notgranted_2 & ~io_in_mask[3]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_4 = notgranted_3 & io_in_mask[4]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_4 = notgranted_3 & ~io_in_mask[4]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_5 = notgranted_4 & io_in_mask[5]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_5 = notgranted_4 & ~io_in_mask[5]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_6 = notgranted_5 & io_in_mask[6]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_6 = notgranted_5 & ~io_in_mask[6]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_7 = notgranted_6 & io_in_mask[7]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_7 = notgranted_6 & ~io_in_mask[7]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_8 = notgranted_7 & io_in_mask[8]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_8 = notgranted_7 & ~io_in_mask[8]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_9 = notgranted_8 & io_in_mask[9]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_9 = notgranted_8 & ~io_in_mask[9]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_10 = notgranted_9 & io_in_mask[10]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_10 = notgranted_9 & ~io_in_mask[10]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_11 = notgranted_10 & io_in_mask[11]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_11 = notgranted_10 & ~io_in_mask[11]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_12 = notgranted_11 & io_in_mask[12]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_12 = notgranted_11 & ~io_in_mask[12]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_13 = notgranted_12 & io_in_mask[13]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_13 = notgranted_12 & ~io_in_mask[13]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_14 = notgranted_13 & io_in_mask[14]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_14 = notgranted_13 & ~io_in_mask[14]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_15 = notgranted_14 & io_in_mask[15]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_15 = notgranted_14 & ~io_in_mask[15]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_16 = notgranted_15 & io_in_mask[16]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_16 = notgranted_15 & ~io_in_mask[16]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_17 = notgranted_16 & io_in_mask[17]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_17 = notgranted_16 & ~io_in_mask[17]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_18 = notgranted_17 & io_in_mask[18]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_18 = notgranted_17 & ~io_in_mask[18]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_19 = notgranted_18 & io_in_mask[19]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_19 = notgranted_18 & ~io_in_mask[19]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_20 = notgranted_19 & io_in_mask[20]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_20 = notgranted_19 & ~io_in_mask[20]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_21 = notgranted_20 & io_in_mask[21]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_21 = notgranted_20 & ~io_in_mask[21]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_22 = notgranted_21 & io_in_mask[22]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_22 = notgranted_21 & ~io_in_mask[22]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_23 = notgranted_22 & io_in_mask[23]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_23 = notgranted_22 & ~io_in_mask[23]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_24 = notgranted_23 & io_in_mask[24]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_24 = notgranted_23 & ~io_in_mask[24]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_25 = notgranted_24 & io_in_mask[25]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_25 = notgranted_24 & ~io_in_mask[25]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_26 = notgranted_25 & io_in_mask[26]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_26 = notgranted_25 & ~io_in_mask[26]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_27 = notgranted_26 & io_in_mask[27]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_27 = notgranted_26 & ~io_in_mask[27]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_28 = notgranted_27 & io_in_mask[28]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_28 = notgranted_27 & ~io_in_mask[28]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_29 = notgranted_28 & io_in_mask[29]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_29 = notgranted_28 & ~io_in_mask[29]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_30 = notgranted_29 & io_in_mask[30]; // @[SoftwareRegWrapper.scala 56:33]
+  wire  notgranted_30 = notgranted_29 & ~io_in_mask[30]; // @[SoftwareRegWrapper.scala 57:38]
+  wire  grant_31 = notgranted_30 & io_in_mask[31]; // @[SoftwareRegWrapper.scala 56:33]
+  wire [1:0] _T_7 = grant_2 ? 2'h2 : {{1'd0}, grant_1}; // @[SoftwareRegWrapper.scala 60:73]
+  wire [1:0] _T_11 = grant_3 ? 2'h3 : _T_7; // @[SoftwareRegWrapper.scala 60:73]
+  wire [2:0] _T_15 = grant_4 ? 3'h4 : {{1'd0}, _T_11}; // @[SoftwareRegWrapper.scala 60:73]
+  wire [2:0] _T_19 = grant_5 ? 3'h5 : _T_15; // @[SoftwareRegWrapper.scala 60:73]
+  wire [2:0] _T_23 = grant_6 ? 3'h6 : _T_19; // @[SoftwareRegWrapper.scala 60:73]
+  wire [2:0] _T_27 = grant_7 ? 3'h7 : _T_23; // @[SoftwareRegWrapper.scala 60:73]
+  wire [3:0] _T_31 = grant_8 ? 4'h8 : {{1'd0}, _T_27}; // @[SoftwareRegWrapper.scala 60:73]
+  wire [3:0] _T_35 = grant_9 ? 4'h9 : _T_31; // @[SoftwareRegWrapper.scala 60:73]
+  wire [3:0] _T_39 = grant_10 ? 4'ha : _T_35; // @[SoftwareRegWrapper.scala 60:73]
+  wire [3:0] _T_43 = grant_11 ? 4'hb : _T_39; // @[SoftwareRegWrapper.scala 60:73]
+  wire [3:0] _T_47 = grant_12 ? 4'hc : _T_43; // @[SoftwareRegWrapper.scala 60:73]
+  wire [3:0] _T_51 = grant_13 ? 4'hd : _T_47; // @[SoftwareRegWrapper.scala 60:73]
+  wire [3:0] _T_55 = grant_14 ? 4'he : _T_51; // @[SoftwareRegWrapper.scala 60:73]
+  wire [3:0] _T_59 = grant_15 ? 4'hf : _T_55; // @[SoftwareRegWrapper.scala 60:73]
+  wire [4:0] _T_63 = grant_16 ? 5'h10 : {{1'd0}, _T_59}; // @[SoftwareRegWrapper.scala 60:73]
+  wire [4:0] _T_67 = grant_17 ? 5'h11 : _T_63; // @[SoftwareRegWrapper.scala 60:73]
+  wire [4:0] _T_71 = grant_18 ? 5'h12 : _T_67; // @[SoftwareRegWrapper.scala 60:73]
+  wire [4:0] _T_75 = grant_19 ? 5'h13 : _T_71; // @[SoftwareRegWrapper.scala 60:73]
+  wire [4:0] _T_79 = grant_20 ? 5'h14 : _T_75; // @[SoftwareRegWrapper.scala 60:73]
+  wire [4:0] _T_83 = grant_21 ? 5'h15 : _T_79; // @[SoftwareRegWrapper.scala 60:73]
+  wire [4:0] _T_87 = grant_22 ? 5'h16 : _T_83; // @[SoftwareRegWrapper.scala 60:73]
+  wire [4:0] _T_91 = grant_23 ? 5'h17 : _T_87; // @[SoftwareRegWrapper.scala 60:73]
+  wire [4:0] _T_95 = grant_24 ? 5'h18 : _T_91; // @[SoftwareRegWrapper.scala 60:73]
+  wire [4:0] _T_99 = grant_25 ? 5'h19 : _T_95; // @[SoftwareRegWrapper.scala 60:73]
+  wire [4:0] _T_103 = grant_26 ? 5'h1a : _T_99; // @[SoftwareRegWrapper.scala 60:73]
+  wire [4:0] _T_107 = grant_27 ? 5'h1b : _T_103; // @[SoftwareRegWrapper.scala 60:73]
+  wire [4:0] _T_111 = grant_28 ? 5'h1c : _T_107; // @[SoftwareRegWrapper.scala 60:73]
+  wire [4:0] _T_115 = grant_29 ? 5'h1d : _T_111; // @[SoftwareRegWrapper.scala 60:73]
+  wire [4:0] _T_119 = grant_30 ? 5'h1e : _T_115; // @[SoftwareRegWrapper.scala 60:73]
+  wire [4:0] _T_123 = grant_31 ? 5'h1f : _T_119; // @[SoftwareRegWrapper.scala 60:73]
+  assign io_out_dec = {{1'd0}, _T_123}; // @[SoftwareRegWrapper.scala 61:14]
 endmodule
-module PackageHandler(
-  input          clock,
-  input          reset,
-  input  [511:0] io_QDMA_h2c_stub_out_tdata,
-  input          io_QDMA_h2c_stub_out_tuser,
-  input          io_QDMA_h2c_stub_out_tlast,
-  input          io_QDMA_h2c_stub_out_tvalid,
-  output         io_QDMA_h2c_stub_out_tready,
-  output [511:0] io_CMAC_in_tdata,
-  output [63:0]  io_CMAC_in_tkeep,
-  output         io_CMAC_in_tlast,
-  output         io_CMAC_in_tvalid,
-  input          io_CMAC_in_tready,
-  input  [511:0] io_CMAC_out_tdata,
-  input  [63:0]  io_CMAC_out_tkeep,
-  input          io_CMAC_out_tlast,
-  input          io_CMAC_out_tvalid,
-  output         io_CMAC_out_tready,
-  output [511:0] io_QDMA_c2h_stub_in_tdata,
-  output         io_QDMA_c2h_stub_in_tuser,
-  output         io_QDMA_c2h_stub_in_tlast,
-  output         io_QDMA_c2h_stub_in_tvalid,
-  input          io_QDMA_c2h_stub_in_tready,
-  input  [31:0]  io_c2h_sw_qid_mask
+module SoftwareRegWrapper(
+  input         clock,
+  input         reset,
+  input  [31:0] io_in_mask,
+  input         io_in_tlast,
+  output [5:0]  io_out_dec
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
   reg [31:0] _RAND_1;
-  reg [31:0] _RAND_2;
 `endif // RANDOMIZE_REG_INIT
-  wire  buf__clock; // @[PackageHandler.scala 72:19]
-  wire  buf__reset; // @[PackageHandler.scala 72:19]
-  wire [511:0] buf__io_in_tdata; // @[PackageHandler.scala 72:19]
-  wire  buf__io_in_tlast; // @[PackageHandler.scala 72:19]
-  wire  buf__io_in_tvalid; // @[PackageHandler.scala 72:19]
-  wire  buf__io_in_tready; // @[PackageHandler.scala 72:19]
-  wire [63:0] buf__io_in_tkeep; // @[PackageHandler.scala 72:19]
-  wire [15:0] buf__io_out_tlen; // @[PackageHandler.scala 72:19]
-  wire [511:0] buf__io_out_tdata; // @[PackageHandler.scala 72:19]
-  wire  buf__io_out_tlast; // @[PackageHandler.scala 72:19]
-  wire  buf__io_out_tvalid; // @[PackageHandler.scala 72:19]
-  wire  buf__io_out_tready; // @[PackageHandler.scala 72:19]
-  wire [31:0] arbitDecoder_io_in_mask; // @[PackageHandler.scala 98:28]
-  wire [5:0] arbitDecoder_io_out_dec; // @[PackageHandler.scala 98:28]
-  wire  _buf_io_out_tready_T = ~io_QDMA_c2h_stub_in_tuser; // @[PackageHandler.scala 82:63]
-  reg  QDMA_c2h_stub_in_tuser_status_reg; // @[PackageHandler.scala 85:50]
-  wire  _T = io_QDMA_c2h_stub_in_tlast & io_QDMA_c2h_stub_in_tvalid; // @[PackageHandler.scala 86:34]
-  wire  _T_1 = _T & io_QDMA_c2h_stub_in_tready; // @[PackageHandler.scala 87:35]
-  wire  _T_3 = _T_1 & _buf_io_out_tready_T; // @[PackageHandler.scala 88:35]
-  wire  _GEN_0 = io_QDMA_c2h_stub_in_tvalid & io_QDMA_c2h_stub_in_tready ? 1'h0 : QDMA_c2h_stub_in_tuser_status_reg; // @[PackageHandler.scala 90:104 85:50 90:69]
-  wire  _GEN_1 = _T_3 | _GEN_0; // @[PackageHandler.scala 89:{36,71}]
-  reg [31:0] sav_qid_mask_reg; // @[PackageHandler.scala 94:33]
-  reg [31:0] cur_qid_mask_reg; // @[PackageHandler.scala 95:33]
-  wire [5:0] cur_qid = arbitDecoder_io_out_dec; // @[PackageHandler.scala 102:11 97:21]
-  wire [94:0] _next_qid_mask_T = 95'h1 << cur_qid; // @[PackageHandler.scala 100:53]
-  wire [94:0] _next_qid_mask_T_1 = ~_next_qid_mask_T; // @[PackageHandler.scala 100:41]
-  wire [94:0] _GEN_7 = {{63'd0}, cur_qid_mask_reg}; // @[PackageHandler.scala 100:38]
-  wire [94:0] _next_qid_mask_T_2 = _GEN_7 & _next_qid_mask_T_1; // @[PackageHandler.scala 100:38]
-  wire [31:0] next_qid_mask = _next_qid_mask_T_2[31:0]; // @[PackageHandler.scala 100:17 96:27]
-  wire [10:0] Gen_c2h_hdr_qid = {{5'd0}, cur_qid}; // @[PackageHandler.scala 120:27 127:21]
-  wire [5:0] Gen_c2h_hdr_flow_id = Gen_c2h_hdr_qid[5:0]; // @[PackageHandler.scala 120:27 125:25]
-  wire [15:0] Gen_c2h_hdr_tdest = {{5'd0}, Gen_c2h_hdr_qid}; // @[PackageHandler.scala 120:27 125:63]
-  wire [15:0] Gen_c2h_hdr_pkt_len = buf__io_out_tlen; // @[PackageHandler.scala 120:27 128:25]
-  wire [511:0] _io_QDMA_c2h_stub_in_tdata_T = {362'h0,2'h0,4'h0,Gen_c2h_hdr_pkt_len,80'h0,Gen_c2h_hdr_tdest,10'h0,
-    Gen_c2h_hdr_flow_id,5'h0,Gen_c2h_hdr_qid}; // @[PackageHandler.scala 129:46]
-  PackageBufferFifo buf_ ( // @[PackageHandler.scala 72:19]
-    .clock(buf__clock),
-    .reset(buf__reset),
-    .io_in_tdata(buf__io_in_tdata),
-    .io_in_tlast(buf__io_in_tlast),
-    .io_in_tvalid(buf__io_in_tvalid),
-    .io_in_tready(buf__io_in_tready),
-    .io_in_tkeep(buf__io_in_tkeep),
-    .io_out_tlen(buf__io_out_tlen),
-    .io_out_tdata(buf__io_out_tdata),
-    .io_out_tlast(buf__io_out_tlast),
-    .io_out_tvalid(buf__io_out_tvalid),
-    .io_out_tready(buf__io_out_tready)
-  );
-  ArbitDecoder arbitDecoder ( // @[PackageHandler.scala 98:28]
+  wire [31:0] arbitDecoder_io_in_mask; // @[SoftwareRegWrapper.scala 21:28]
+  wire [5:0] arbitDecoder_io_out_dec; // @[SoftwareRegWrapper.scala 21:28]
+  reg [31:0] sav_mask_reg; // @[SoftwareRegWrapper.scala 18:29]
+  reg [31:0] cur_mask_reg; // @[SoftwareRegWrapper.scala 19:29]
+  wire [94:0] _next_mask_T = 95'h1 << io_out_dec; // @[SoftwareRegWrapper.scala 23:48]
+  wire [94:0] _next_mask_T_1 = ~_next_mask_T; // @[SoftwareRegWrapper.scala 23:33]
+  wire [94:0] _GEN_4 = {{63'd0}, cur_mask_reg}; // @[SoftwareRegWrapper.scala 23:30]
+  wire [94:0] _next_mask_T_2 = _GEN_4 & _next_mask_T_1; // @[SoftwareRegWrapper.scala 23:30]
+  wire [31:0] next_mask = _next_mask_T_2[31:0]; // @[SoftwareRegWrapper.scala 20:23 23:13]
+  ArbitDecoder arbitDecoder ( // @[SoftwareRegWrapper.scala 21:28]
     .io_in_mask(arbitDecoder_io_in_mask),
     .io_out_dec(arbitDecoder_io_out_dec)
   );
-  assign io_QDMA_h2c_stub_out_tready = io_CMAC_in_tready; // @[PackageHandler.scala 61:31]
-  assign io_CMAC_in_tdata = io_QDMA_h2c_stub_out_tdata; // @[PackageHandler.scala 62:31]
-  assign io_CMAC_in_tkeep = 64'hffffffffffffffff; // @[Bitwise.scala 74:12]
-  assign io_CMAC_in_tlast = io_QDMA_h2c_stub_out_tlast; // @[PackageHandler.scala 63:31]
-  assign io_CMAC_in_tvalid = io_QDMA_h2c_stub_out_tvalid & ~io_QDMA_h2c_stub_out_tuser; // @[PackageHandler.scala 64:62]
-  assign io_CMAC_out_tready = buf__io_in_tready; // @[PackageHandler.scala 78:31]
-  assign io_QDMA_c2h_stub_in_tdata = io_QDMA_c2h_stub_in_tuser ? _io_QDMA_c2h_stub_in_tdata_T : buf__io_out_tdata; // @[PackageHandler.scala 118:34 129:31 132:31]
-  assign io_QDMA_c2h_stub_in_tuser = QDMA_c2h_stub_in_tuser_status_reg & io_QDMA_c2h_stub_in_tvalid; // @[PackageHandler.scala 92:73]
-  assign io_QDMA_c2h_stub_in_tlast = buf__io_out_tlast; // @[PackageHandler.scala 80:31]
-  assign io_QDMA_c2h_stub_in_tvalid = buf__io_out_tvalid; // @[PackageHandler.scala 81:31]
-  assign buf__clock = clock;
-  assign buf__reset = reset;
-  assign buf__io_in_tdata = io_CMAC_out_tdata; // @[PackageHandler.scala 74:31]
-  assign buf__io_in_tlast = io_CMAC_out_tlast; // @[PackageHandler.scala 76:31]
-  assign buf__io_in_tvalid = io_CMAC_out_tvalid; // @[PackageHandler.scala 75:31]
-  assign buf__io_in_tkeep = io_CMAC_out_tkeep; // @[PackageHandler.scala 77:31]
-  assign buf__io_out_tready = io_QDMA_c2h_stub_in_tready & ~io_QDMA_c2h_stub_in_tuser; // @[PackageHandler.scala 82:61]
-  assign arbitDecoder_io_in_mask = cur_qid_mask_reg; // @[PackageHandler.scala 101:27]
+  assign io_out_dec = arbitDecoder_io_out_dec; // @[SoftwareRegWrapper.scala 39:14]
+  assign arbitDecoder_io_in_mask = cur_mask_reg; // @[SoftwareRegWrapper.scala 24:27]
   always @(posedge clock) begin
-    QDMA_c2h_stub_in_tuser_status_reg <= reset | _GEN_1; // @[PackageHandler.scala 85:{50,50}]
-    if (reset) begin // @[PackageHandler.scala 94:33]
-      sav_qid_mask_reg <= io_c2h_sw_qid_mask; // @[PackageHandler.scala 94:33]
-    end else if (sav_qid_mask_reg != io_c2h_sw_qid_mask) begin // @[PackageHandler.scala 104:58]
-      sav_qid_mask_reg <= io_c2h_sw_qid_mask; // @[PackageHandler.scala 106:22]
+    if (reset) begin // @[SoftwareRegWrapper.scala 18:29]
+      sav_mask_reg <= io_in_mask; // @[SoftwareRegWrapper.scala 18:29]
+    end else if (sav_mask_reg != io_in_mask) begin // @[SoftwareRegWrapper.scala 26:46]
+      sav_mask_reg <= io_in_mask; // @[SoftwareRegWrapper.scala 28:18]
     end
-    if (reset) begin // @[PackageHandler.scala 95:33]
-      cur_qid_mask_reg <= io_c2h_sw_qid_mask; // @[PackageHandler.scala 95:33]
-    end else if (sav_qid_mask_reg != io_c2h_sw_qid_mask) begin // @[PackageHandler.scala 104:58]
-      cur_qid_mask_reg <= io_c2h_sw_qid_mask; // @[PackageHandler.scala 105:22]
-    end else if (io_QDMA_c2h_stub_in_tlast) begin // @[PackageHandler.scala 108:40]
-      if (next_qid_mask == 32'h0) begin // @[PackageHandler.scala 109:36]
-        cur_qid_mask_reg <= sav_qid_mask_reg; // @[PackageHandler.scala 110:26]
+    if (reset) begin // @[SoftwareRegWrapper.scala 19:29]
+      cur_mask_reg <= io_in_mask; // @[SoftwareRegWrapper.scala 19:29]
+    end else if (sav_mask_reg != io_in_mask) begin // @[SoftwareRegWrapper.scala 26:46]
+      cur_mask_reg <= io_in_mask; // @[SoftwareRegWrapper.scala 27:18]
+    end else if (io_in_tlast) begin // @[SoftwareRegWrapper.scala 30:28]
+      if (next_mask == 32'h0) begin // @[SoftwareRegWrapper.scala 31:32]
+        cur_mask_reg <= sav_mask_reg; // @[SoftwareRegWrapper.scala 32:22]
       end else begin
-        cur_qid_mask_reg <= next_qid_mask; // @[PackageHandler.scala 113:26]
+        cur_mask_reg <= next_mask; // @[SoftwareRegWrapper.scala 35:24]
       end
     end
   end
@@ -702,11 +626,177 @@ initial begin
     `endif
 `ifdef RANDOMIZE_REG_INIT
   _RAND_0 = {1{`RANDOM}};
-  QDMA_c2h_stub_in_tuser_status_reg = _RAND_0[0:0];
+  sav_mask_reg = _RAND_0[31:0];
   _RAND_1 = {1{`RANDOM}};
-  sav_qid_mask_reg = _RAND_1[31:0];
-  _RAND_2 = {1{`RANDOM}};
-  cur_qid_mask_reg = _RAND_2[31:0];
+  cur_mask_reg = _RAND_1[31:0];
+`endif // RANDOMIZE_REG_INIT
+  `endif // RANDOMIZE
+end // initial
+`ifdef FIRRTL_AFTER_INITIAL
+`FIRRTL_AFTER_INITIAL
+`endif
+`endif // SYNTHESIS
+endmodule
+module PackageHandler(
+  input          clock,
+  input          reset,
+  input  [511:0] io_QDMA_h2c_stub_out_tdata,
+  input          io_QDMA_h2c_stub_out_tuser,
+  input          io_QDMA_h2c_stub_out_tlast,
+  input          io_QDMA_h2c_stub_out_tvalid,
+  output         io_QDMA_h2c_stub_out_tready,
+  output [511:0] io_CMAC_in_tdata,
+  output [63:0]  io_CMAC_in_tkeep,
+  output         io_CMAC_in_tlast,
+  output         io_CMAC_in_tvalid,
+  input          io_CMAC_in_tready,
+  input  [511:0] io_CMAC_out_tdata,
+  input  [63:0]  io_CMAC_out_tkeep,
+  input          io_CMAC_out_tlast,
+  input          io_CMAC_out_tvalid,
+  output         io_CMAC_out_tready,
+  output [511:0] io_QDMA_c2h_stub_in_tdata,
+  output         io_QDMA_c2h_stub_in_tuser,
+  output         io_QDMA_c2h_stub_in_tlast,
+  output         io_QDMA_c2h_stub_in_tvalid,
+  input          io_QDMA_c2h_stub_in_tready,
+  input  [31:0]  io_c2h_sw_qid_mask,
+  input  [31:0]  io_c2h_sw_port_mask
+);
+`ifdef RANDOMIZE_REG_INIT
+  reg [31:0] _RAND_0;
+`endif // RANDOMIZE_REG_INIT
+  wire  buf__clock; // @[PackageHandler.scala 74:19]
+  wire  buf__reset; // @[PackageHandler.scala 74:19]
+  wire [511:0] buf__io_in_tdata; // @[PackageHandler.scala 74:19]
+  wire  buf__io_in_tlast; // @[PackageHandler.scala 74:19]
+  wire  buf__io_in_tvalid; // @[PackageHandler.scala 74:19]
+  wire  buf__io_in_tready; // @[PackageHandler.scala 74:19]
+  wire [63:0] buf__io_in_tkeep; // @[PackageHandler.scala 74:19]
+  wire [15:0] buf__io_out_tlen; // @[PackageHandler.scala 74:19]
+  wire [511:0] buf__io_out_tdata; // @[PackageHandler.scala 74:19]
+  wire  buf__io_out_tlast; // @[PackageHandler.scala 74:19]
+  wire  buf__io_out_tvalid; // @[PackageHandler.scala 74:19]
+  wire  buf__io_out_tready; // @[PackageHandler.scala 74:19]
+  wire  qid_mask_wrapper_clock; // @[PackageHandler.scala 96:32]
+  wire  qid_mask_wrapper_reset; // @[PackageHandler.scala 96:32]
+  wire [31:0] qid_mask_wrapper_io_in_mask; // @[PackageHandler.scala 96:32]
+  wire  qid_mask_wrapper_io_in_tlast; // @[PackageHandler.scala 96:32]
+  wire [5:0] qid_mask_wrapper_io_out_dec; // @[PackageHandler.scala 96:32]
+  wire  port_mask_wrapper_clock; // @[PackageHandler.scala 101:33]
+  wire  port_mask_wrapper_reset; // @[PackageHandler.scala 101:33]
+  wire [31:0] port_mask_wrapper_io_in_mask; // @[PackageHandler.scala 101:33]
+  wire  port_mask_wrapper_io_in_tlast; // @[PackageHandler.scala 101:33]
+  wire [5:0] port_mask_wrapper_io_out_dec; // @[PackageHandler.scala 101:33]
+  wire  _buf_io_out_tready_T = ~io_QDMA_c2h_stub_in_tuser; // @[PackageHandler.scala 84:63]
+  reg  QDMA_c2h_stub_in_tuser_status_reg; // @[PackageHandler.scala 87:50]
+  wire  _T = io_QDMA_c2h_stub_in_tlast & io_QDMA_c2h_stub_in_tvalid; // @[PackageHandler.scala 88:34]
+  wire  _T_1 = _T & io_QDMA_c2h_stub_in_tready; // @[PackageHandler.scala 89:35]
+  wire  _T_3 = _T_1 & _buf_io_out_tready_T; // @[PackageHandler.scala 90:35]
+  wire  _GEN_0 = io_QDMA_c2h_stub_in_tvalid & io_QDMA_c2h_stub_in_tready ? 1'h0 : QDMA_c2h_stub_in_tuser_status_reg; // @[PackageHandler.scala 92:104 87:50 92:69]
+  wire  _GEN_1 = _T_3 | _GEN_0; // @[PackageHandler.scala 91:{36,71}]
+  wire [2:0] Gen_c2h_hdr_port_id = port_mask_wrapper_io_out_dec[2:0]; // @[PackageHandler.scala 117:36]
+  wire [10:0] Gen_c2h_hdr_qid = {{5'd0}, qid_mask_wrapper_io_out_dec}; // @[PackageHandler.scala 110:27 118:21]
+  wire [5:0] Gen_c2h_hdr_flow_id = Gen_c2h_hdr_qid[5:0]; // @[PackageHandler.scala 110:27 115:25]
+  wire [15:0] Gen_c2h_hdr_tdest = {{5'd0}, Gen_c2h_hdr_qid}; // @[PackageHandler.scala 110:27 115:63]
+  wire [127:0] io_QDMA_c2h_stub_in_tdata_lo = {80'h0,Gen_c2h_hdr_tdest,10'h0,Gen_c2h_hdr_flow_id,2'h0,
+    Gen_c2h_hdr_port_id,Gen_c2h_hdr_qid}; // @[PackageHandler.scala 120:46]
+  wire [15:0] Gen_c2h_hdr_pkt_len = buf__io_out_tlen; // @[PackageHandler.scala 110:27 119:25]
+  wire [511:0] _io_QDMA_c2h_stub_in_tdata_T = {362'h0,2'h0,4'h0,Gen_c2h_hdr_pkt_len,io_QDMA_c2h_stub_in_tdata_lo}; // @[PackageHandler.scala 120:46]
+  PackageBufferFifo buf_ ( // @[PackageHandler.scala 74:19]
+    .clock(buf__clock),
+    .reset(buf__reset),
+    .io_in_tdata(buf__io_in_tdata),
+    .io_in_tlast(buf__io_in_tlast),
+    .io_in_tvalid(buf__io_in_tvalid),
+    .io_in_tready(buf__io_in_tready),
+    .io_in_tkeep(buf__io_in_tkeep),
+    .io_out_tlen(buf__io_out_tlen),
+    .io_out_tdata(buf__io_out_tdata),
+    .io_out_tlast(buf__io_out_tlast),
+    .io_out_tvalid(buf__io_out_tvalid),
+    .io_out_tready(buf__io_out_tready)
+  );
+  SoftwareRegWrapper qid_mask_wrapper ( // @[PackageHandler.scala 96:32]
+    .clock(qid_mask_wrapper_clock),
+    .reset(qid_mask_wrapper_reset),
+    .io_in_mask(qid_mask_wrapper_io_in_mask),
+    .io_in_tlast(qid_mask_wrapper_io_in_tlast),
+    .io_out_dec(qid_mask_wrapper_io_out_dec)
+  );
+  SoftwareRegWrapper port_mask_wrapper ( // @[PackageHandler.scala 101:33]
+    .clock(port_mask_wrapper_clock),
+    .reset(port_mask_wrapper_reset),
+    .io_in_mask(port_mask_wrapper_io_in_mask),
+    .io_in_tlast(port_mask_wrapper_io_in_tlast),
+    .io_out_dec(port_mask_wrapper_io_out_dec)
+  );
+  assign io_QDMA_h2c_stub_out_tready = io_CMAC_in_tready; // @[PackageHandler.scala 63:31]
+  assign io_CMAC_in_tdata = io_QDMA_h2c_stub_out_tdata; // @[PackageHandler.scala 64:31]
+  assign io_CMAC_in_tkeep = 64'hffffffffffffffff; // @[Bitwise.scala 74:12]
+  assign io_CMAC_in_tlast = io_QDMA_h2c_stub_out_tlast; // @[PackageHandler.scala 65:31]
+  assign io_CMAC_in_tvalid = io_QDMA_h2c_stub_out_tvalid & ~io_QDMA_h2c_stub_out_tuser; // @[PackageHandler.scala 66:62]
+  assign io_CMAC_out_tready = buf__io_in_tready; // @[PackageHandler.scala 80:31]
+  assign io_QDMA_c2h_stub_in_tdata = io_QDMA_c2h_stub_in_tuser ? _io_QDMA_c2h_stub_in_tdata_T : buf__io_out_tdata; // @[PackageHandler.scala 108:34 120:31 123:31]
+  assign io_QDMA_c2h_stub_in_tuser = QDMA_c2h_stub_in_tuser_status_reg & io_QDMA_c2h_stub_in_tvalid; // @[PackageHandler.scala 94:73]
+  assign io_QDMA_c2h_stub_in_tlast = buf__io_out_tlast; // @[PackageHandler.scala 82:31]
+  assign io_QDMA_c2h_stub_in_tvalid = buf__io_out_tvalid; // @[PackageHandler.scala 83:31]
+  assign buf__clock = clock;
+  assign buf__reset = reset;
+  assign buf__io_in_tdata = io_CMAC_out_tdata; // @[PackageHandler.scala 76:31]
+  assign buf__io_in_tlast = io_CMAC_out_tlast; // @[PackageHandler.scala 78:31]
+  assign buf__io_in_tvalid = io_CMAC_out_tvalid; // @[PackageHandler.scala 77:31]
+  assign buf__io_in_tkeep = io_CMAC_out_tkeep; // @[PackageHandler.scala 79:31]
+  assign buf__io_out_tready = io_QDMA_c2h_stub_in_tready & ~io_QDMA_c2h_stub_in_tuser; // @[PackageHandler.scala 84:61]
+  assign qid_mask_wrapper_clock = clock;
+  assign qid_mask_wrapper_reset = reset;
+  assign qid_mask_wrapper_io_in_mask = io_c2h_sw_qid_mask; // @[PackageHandler.scala 97:31]
+  assign qid_mask_wrapper_io_in_tlast = io_QDMA_c2h_stub_in_tlast; // @[PackageHandler.scala 98:32]
+  assign port_mask_wrapper_clock = clock;
+  assign port_mask_wrapper_reset = reset;
+  assign port_mask_wrapper_io_in_mask = io_c2h_sw_port_mask; // @[PackageHandler.scala 102:32]
+  assign port_mask_wrapper_io_in_tlast = io_QDMA_c2h_stub_in_tlast; // @[PackageHandler.scala 103:33]
+  always @(posedge clock) begin
+    QDMA_c2h_stub_in_tuser_status_reg <= reset | _GEN_1; // @[PackageHandler.scala 87:{50,50}]
+  end
+// Register and memory initialization
+`ifdef RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_REG_INIT
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+`define RANDOMIZE
+`endif
+`ifndef RANDOM
+`define RANDOM $random
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+  integer initvar;
+`endif
+`ifndef SYNTHESIS
+`ifdef FIRRTL_BEFORE_INITIAL
+`FIRRTL_BEFORE_INITIAL
+`endif
+initial begin
+  `ifdef RANDOMIZE
+    `ifdef INIT_RANDOM
+      `INIT_RANDOM
+    `endif
+    `ifndef VERILATOR
+      `ifdef RANDOMIZE_DELAY
+        #`RANDOMIZE_DELAY begin end
+      `else
+        #0.002 begin end
+      `endif
+    `endif
+`ifdef RANDOMIZE_REG_INIT
+  _RAND_0 = {1{`RANDOM}};
+  QDMA_c2h_stub_in_tuser_status_reg = _RAND_0[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
