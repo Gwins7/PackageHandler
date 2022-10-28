@@ -33,6 +33,7 @@ class PackageBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Mo
   def index_inc(index: UInt): UInt ={
     (index + 1.U) & (depth-1).U
   }
+
   val burst_unit_num = depth * burst_size
 
   val data_buf_reg = SyncReadMem(burst_unit_num,UInt(512.W))

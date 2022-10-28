@@ -20,8 +20,7 @@ class PackageHandler extends Module {
     val tdest = UInt(16.W)
     val rsv2  = UInt(10.W)
     val flow_id  = UInt(6.W)
-    val rsv1  = UInt(2.W)
-    val port_id = UInt(3.W)
+    val rsv1  = UInt(5.W)
     val qid  = UInt(11.W)
   }
 
@@ -54,7 +53,6 @@ class PackageHandler extends Module {
     val QDMA_c2h_stub_in_tready  = Input(Bool())
 
     val c2h_sw_qid_mask          = Input(UInt(32.W))
-    val c2h_sw_port_mask          = Input(UInt(32.W))
   })
 /*
   h2c direction
@@ -79,30 +77,27 @@ class PackageHandler extends Module {
   buf.io.in_tkeep             := io.CMAC_out_tkeep
   io.CMAC_out_tready          := buf.io.in_tready
 
-  io.QDMA_c2h_stub_in_tlast   := buf.io.out_tlast
-  io.QDMA_c2h_stub_in_tvalid  := buf.io.out_tvalid
-  buf.io.out_tready           := io.QDMA_c2h_stub_in_tready & !io.QDMA_c2h_stub_in_tuser
-
   //QDMA's tuser is used to find out whether the packet is a header or not.
-  val QDMA_c2h_stub_in_tuser_status_reg = RegInit(1.U(1.W))
-  when(io.QDMA_c2h_stub_in_tlast &
-       io.QDMA_c2h_stub_in_tvalid &
-       io.QDMA_c2h_stub_in_tready &
-       !io.QDMA_c2h_stub_in_tuser) {QDMA_c2h_stub_in_tuser_status_reg := 1.U}
-  .elsewhen(io.QDMA_c2h_stub_in_tvalid & io.QDMA_c2h_stub_in_tready){QDMA_c2h_stub_in_tuser_status_reg := 0.U}
+  val QDMA_c2h_stub_in_tuser_reg = RegInit(true.B)
+  when (io.QDMA_c2h_stub_in_tvalid & io.QDMA_c2h_stub_in_tready){
+    QDMA_c2h_stub_in_tuser_reg := io.QDMA_c2h_stub_in_tlast
+  }
+  io.QDMA_c2h_stub_in_tuser := QDMA_c2h_stub_in_tuser_reg & io.QDMA_c2h_stub_in_tvalid
 
-  io.QDMA_c2h_stub_in_tuser := QDMA_c2h_stub_in_tuser_status_reg.asBool & io.QDMA_c2h_stub_in_tvalid
+  // maybe we need to use sequential logic in package_filter to avoid timing violation
 
-  val qid_mask_wrapper = Module(new SoftwareRegWrapper(32))
-  qid_mask_wrapper.io.in_mask := io.c2h_sw_qid_mask
-  qid_mask_wrapper.io.in_tlast := io.QDMA_c2h_stub_in_tlast
-  val cur_qid = qid_mask_wrapper.io.out_dec
+  val package_filter = Module(new PackageFilter())
+  package_filter.io.in_tdata  := buf.io.out_tdata
+  package_filter.io.in_tvalid := buf.io.out_tvalid
+  package_filter.io.in_tlast  := buf.io.out_tlast
+  package_filter.io.in_tlen   := buf.io.out_tlen
+  buf.io.out_tready := package_filter.io.in_tready
 
-  val port_mask_wrapper = Module(new SoftwareRegWrapper(32))
-  port_mask_wrapper.io.in_mask := io.c2h_sw_port_mask
-  port_mask_wrapper.io.in_tlast := io.QDMA_c2h_stub_in_tlast
-  val cur_port = port_mask_wrapper.io.out_dec
+  package_filter.io.in_sw_qid_mask := io.c2h_sw_qid_mask
 
+  io.QDMA_c2h_stub_in_tvalid := package_filter.io.out_tvalid
+  io.QDMA_c2h_stub_in_tlast  := package_filter.io.out_tlast & !io.QDMA_c2h_stub_in_tuser
+  package_filter.io.out_tready := io.QDMA_c2h_stub_in_tready & !io.QDMA_c2h_stub_in_tuser
 
   // transport tdata (when tuser = 1, generate a header and send it first)
   when(io.QDMA_c2h_stub_in_tuser){
@@ -114,12 +109,11 @@ class PackageHandler extends Module {
     Gen_c2h_hdr.usr_int := 0.U; Gen_c2h_hdr.eot := 0.U; Gen_c2h_hdr.cmp_data_0 := 0.U
     Gen_c2h_hdr.flow_id := Gen_c2h_hdr.qid; Gen_c2h_hdr.tdest := Gen_c2h_hdr.qid
     //only useful information
-    Gen_c2h_hdr.port_id := cur_port(2,0) //temp
-    Gen_c2h_hdr.qid := cur_qid; // [5:0]
-    Gen_c2h_hdr.pkt_len := buf.io.out_tlen
+    Gen_c2h_hdr.qid := package_filter.io.out_qid; // [5:0]
+    Gen_c2h_hdr.pkt_len := package_filter.io.out_tlen
     io.QDMA_c2h_stub_in_tdata := Gen_c2h_hdr.asUInt
 
   }.otherwise{
-    io.QDMA_c2h_stub_in_tdata := buf.io.out_tdata
+    io.QDMA_c2h_stub_in_tdata := package_filter.io.out_tdata
   }
 }
