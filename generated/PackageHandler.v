@@ -28,11 +28,18 @@ module PackageBufferFifo(
   reg [31:0] _RAND_10;
   reg [31:0] _RAND_11;
   reg [31:0] _RAND_12;
+  reg [31:0] _RAND_13;
+  reg [31:0] _RAND_14;
+  reg [31:0] _RAND_15;
+  reg [31:0] _RAND_16;
 `endif // RANDOMIZE_REG_INIT
   reg [511:0] data_buf_reg [0:63]; // @[PackageBufferFifo.scala 38:33]
   wire  data_buf_reg_io_out_tdata_MPORT_en; // @[PackageBufferFifo.scala 38:33]
   wire [5:0] data_buf_reg_io_out_tdata_MPORT_addr; // @[PackageBufferFifo.scala 38:33]
   wire [511:0] data_buf_reg_io_out_tdata_MPORT_data; // @[PackageBufferFifo.scala 38:33]
+  wire  data_buf_reg_io_out_tdata_MPORT_1_en; // @[PackageBufferFifo.scala 38:33]
+  wire [5:0] data_buf_reg_io_out_tdata_MPORT_1_addr; // @[PackageBufferFifo.scala 38:33]
+  wire [511:0] data_buf_reg_io_out_tdata_MPORT_1_data; // @[PackageBufferFifo.scala 38:33]
   wire [511:0] data_buf_reg_MPORT_data; // @[PackageBufferFifo.scala 38:33]
   wire [5:0] data_buf_reg_MPORT_addr; // @[PackageBufferFifo.scala 38:33]
   wire  data_buf_reg_MPORT_mask; // @[PackageBufferFifo.scala 38:33]
@@ -43,6 +50,8 @@ module PackageBufferFifo(
   wire  data_buf_reg_MPORT_1_en; // @[PackageBufferFifo.scala 38:33]
   reg  data_buf_reg_io_out_tdata_MPORT_en_pipe_0;
   reg [5:0] data_buf_reg_io_out_tdata_MPORT_addr_pipe_0;
+  reg  data_buf_reg_io_out_tdata_MPORT_1_en_pipe_0;
+  reg [5:0] data_buf_reg_io_out_tdata_MPORT_1_addr_pipe_0;
   reg  info_buf_reg_0_valid; // @[PackageBufferFifo.scala 41:29]
   reg [15:0] info_buf_reg_0_len; // @[PackageBufferFifo.scala 41:29]
   reg [5:0] info_buf_reg_0_burst; // @[PackageBufferFifo.scala 41:29]
@@ -181,13 +190,13 @@ module PackageBufferFifo(
   wire [7:0] _cur_burst_size_T_123 = _cur_burst_size_T_117 + _cur_burst_size_T_119; // @[PackageBufferFifo.scala 50:46]
   wire [7:0] cur_burst_size = _cur_burst_size_T_121 + _cur_burst_size_T_123; // @[PackageBufferFifo.scala 50:46]
   wire  buf_full = info_buf_reg_0_valid & info_buf_reg_1_valid; // @[PackageBufferFifo.scala 54:40]
-  wire  _GEN_99 = ~wr_index_reg[0]; // @[PackageBufferFifo.scala 41:29 62:{39,39}]
-  wire  _GEN_6 = _GEN_99 | info_buf_reg_0_valid; // @[PackageBufferFifo.scala 41:29 66:{40,40}]
+  wire  _GEN_86 = ~wr_index_reg[0]; // @[PackageBufferFifo.scala 41:29 62:{39,39}]
+  wire  _GEN_6 = _GEN_86 | info_buf_reg_0_valid; // @[PackageBufferFifo.scala 41:29 66:{40,40}]
   wire  _GEN_7 = wr_index_reg[0] | info_buf_reg_1_valid; // @[PackageBufferFifo.scala 41:29 66:{40,40}]
   wire [6:0] _wr_index_reg_T_1 = wr_index_reg + 7'h1; // @[PackageBufferFifo.scala 34:12]
   wire [6:0] _wr_index_reg_T_2 = _wr_index_reg_T_1 & 7'h1; // @[PackageBufferFifo.scala 34:19]
-  wire [11:0] _GEN_101 = {_wr_index_reg_T_2, 5'h0}; // @[PackageBufferFifo.scala 68:45]
-  wire [13:0] _wr_pos_reg_T_3 = {{2'd0}, _GEN_101}; // @[PackageBufferFifo.scala 68:45]
+  wire [11:0] _GEN_88 = {_wr_index_reg_T_2, 5'h0}; // @[PackageBufferFifo.scala 68:45]
+  wire [13:0] _wr_pos_reg_T_3 = {{2'd0}, _GEN_88}; // @[PackageBufferFifo.scala 68:45]
   wire [6:0] _wr_pos_reg_T_5 = wr_pos_reg + 7'h1; // @[PackageBufferFifo.scala 70:32]
   wire  _GEN_8 = io_in_tlast ? _GEN_6 : info_buf_reg_0_valid; // @[PackageBufferFifo.scala 65:24 41:29]
   wire  _GEN_9 = io_in_tlast ? _GEN_7 : info_buf_reg_1_valid; // @[PackageBufferFifo.scala 65:24 41:29]
@@ -197,8 +206,8 @@ module PackageBufferFifo(
   wire [5:0] _GEN_14 = ~wr_index_reg[0] ? _info_buf_reg_burst_T_2 : info_buf_reg_0_burst; // @[PackageBufferFifo.scala 41:29 74:{38,38}]
   wire [5:0] _GEN_15 = wr_index_reg[0] ? _info_buf_reg_burst_T_2 : info_buf_reg_1_burst; // @[PackageBufferFifo.scala 41:29 74:{38,38}]
   wire [15:0] _GEN_17 = wr_index_reg[0] ? info_buf_reg_1_len : info_buf_reg_0_len; // @[PackageBufferFifo.scala 75:{70,70}]
-  wire [15:0] _GEN_102 = {{8'd0}, cur_burst_size}; // @[PackageBufferFifo.scala 75:70]
-  wire [15:0] _info_buf_reg_len_T_2 = _GEN_17 + _GEN_102; // @[PackageBufferFifo.scala 75:70]
+  wire [15:0] _GEN_89 = {{8'd0}, cur_burst_size}; // @[PackageBufferFifo.scala 75:70]
+  wire [15:0] _info_buf_reg_len_T_2 = _GEN_17 + _GEN_89; // @[PackageBufferFifo.scala 75:70]
   wire [15:0] _GEN_18 = ~wr_index_reg[0] ? _info_buf_reg_len_T_2 : info_buf_reg_0_len; // @[PackageBufferFifo.scala 41:29 75:{36,36}]
   wire [15:0] _GEN_19 = wr_index_reg[0] ? _info_buf_reg_len_T_2 : info_buf_reg_1_len; // @[PackageBufferFifo.scala 41:29 75:{36,36}]
   wire  _GEN_22 = io_in_tready & io_in_tvalid ? _GEN_8 : info_buf_reg_0_valid; // @[PackageBufferFifo.scala 41:29 59:38]
@@ -208,32 +217,29 @@ module PackageBufferFifo(
   wire [5:0] _GEN_32 = io_in_tready & io_in_tvalid ? _GEN_15 : info_buf_reg_1_burst; // @[PackageBufferFifo.scala 41:29 59:38]
   wire [15:0] _GEN_33 = io_in_tready & io_in_tvalid ? _GEN_18 : info_buf_reg_0_len; // @[PackageBufferFifo.scala 41:29 59:38]
   wire [15:0] _GEN_34 = io_in_tready & io_in_tvalid ? _GEN_19 : info_buf_reg_1_len; // @[PackageBufferFifo.scala 41:29 59:38]
-  wire [5:0] _GEN_40 = rd_index_reg[0] ? info_buf_reg_1_burst : info_buf_reg_0_burst; // @[PackageBufferFifo.scala 81:{70,70}]
-  wire  _io_out_tlast_T_1 = _GEN_40 == 6'h1; // @[PackageBufferFifo.scala 81:70]
-  wire  _T_8 = io_out_tready & io_out_tvalid; // @[PackageBufferFifo.scala 84:23]
-  wire  _T_10 = _GEN_40 > 6'h0; // @[PackageBufferFifo.scala 85:44]
+  reg  fetch_ok_reg; // @[PackageBufferFifo.scala 80:29]
+  reg  rd_init_reg; // @[PackageBufferFifo.scala 81:28]
+  wire  _fetch_ok_reg_T = io_out_tready & io_out_tvalid; // @[PackageBufferFifo.scala 82:35]
+  wire [5:0] _GEN_40 = rd_index_reg[0] ? info_buf_reg_1_burst : info_buf_reg_0_burst; // @[PackageBufferFifo.scala 86:{70,70}]
+  wire  _io_out_tlast_T_1 = _GEN_40 == 6'h1; // @[PackageBufferFifo.scala 86:70]
+  wire  _io_out_tdata_T = ~rd_init_reg; // @[PackageBufferFifo.scala 88:39]
   wire [6:0] _rd_pos_next_T_1 = rd_index_reg + 7'h1; // @[PackageBufferFifo.scala 34:12]
   wire [6:0] _rd_pos_next_T_2 = _rd_pos_next_T_1 & 7'h1; // @[PackageBufferFifo.scala 34:19]
-  wire [11:0] _GEN_103 = {_rd_pos_next_T_2, 5'h0}; // @[PackageBufferFifo.scala 91:48]
-  wire [13:0] _rd_pos_next_T_3 = {{2'd0}, _GEN_103}; // @[PackageBufferFifo.scala 91:48]
-  wire [6:0] _rd_pos_next_T_5 = rd_pos_reg + 7'h1; // @[PackageBufferFifo.scala 94:35]
-  wire [13:0] _GEN_66 = _io_out_tlast_T_1 ? _rd_pos_next_T_3 : {{7'd0}, _rd_pos_next_T_5}; // @[PackageBufferFifo.scala 88:55 91:21 94:21]
-  wire [13:0] _GEN_82 = _GEN_40 > 6'h0 ? _GEN_66 : 14'h0; // @[PackageBufferFifo.scala 85:51]
-  wire [13:0] _GEN_98 = io_out_tready & io_out_tvalid ? _GEN_82 : 14'h0; // @[PackageBufferFifo.scala 84:39]
-  wire [6:0] rd_pos_next = _GEN_98[6:0];
-  wire [5:0] _GEN_45 = ~rd_index_reg[0] ? 6'h0 : _GEN_31; // @[PackageBufferFifo.scala 89:{36,36}]
-  wire [5:0] _GEN_46 = rd_index_reg[0] ? 6'h0 : _GEN_32; // @[PackageBufferFifo.scala 89:{36,36}]
-  wire [15:0] _GEN_47 = ~rd_index_reg[0] ? 16'h0 : _GEN_33; // @[PackageBufferFifo.scala 89:{36,36}]
-  wire [15:0] _GEN_48 = rd_index_reg[0] ? 16'h0 : _GEN_34; // @[PackageBufferFifo.scala 89:{36,36}]
-  wire  _GEN_49 = ~rd_index_reg[0] ? 1'h0 : _GEN_22; // @[PackageBufferFifo.scala 89:{36,36}]
-  wire  _GEN_50 = rd_index_reg[0] ? 1'h0 : _GEN_23; // @[PackageBufferFifo.scala 89:{36,36}]
-  wire [5:0] _info_buf_reg_burst_T_5 = _GEN_40 - 6'h1; // @[PackageBufferFifo.scala 93:78]
-  wire [5:0] _GEN_55 = ~rd_index_reg[0] ? _info_buf_reg_burst_T_5 : _GEN_31; // @[PackageBufferFifo.scala 93:{42,42}]
-  wire [5:0] _GEN_56 = rd_index_reg[0] ? _info_buf_reg_burst_T_5 : _GEN_32; // @[PackageBufferFifo.scala 93:{42,42}]
-  wire [13:0] _GEN_104 = reset ? 14'h0 : _GEN_25; // @[PackageBufferFifo.scala 44:{29,29}]
+  wire [11:0] _GEN_90 = {_rd_pos_next_T_2, 5'h0}; // @[PackageBufferFifo.scala 107:44]
+  wire [13:0] _rd_pos_next_T_3 = {{2'd0}, _GEN_90}; // @[PackageBufferFifo.scala 107:44]
+  wire [6:0] _rd_pos_next_T_5 = rd_pos_reg + 7'h1; // @[PackageBufferFifo.scala 109:31]
+  wire [13:0] _GEN_85 = _io_out_tlast_T_1 ? _rd_pos_next_T_3 : {{7'd0}, _rd_pos_next_T_5}; // @[PackageBufferFifo.scala 106:51 107:17 109:17]
+  wire [6:0] rd_pos_next = _GEN_85[6:0];
+  wire  _T_10 = _GEN_40 > 6'h0; // @[PackageBufferFifo.scala 90:74]
+  wire  _GEN_43 = _io_out_tdata_T | rd_init_reg; // @[PackageBufferFifo.scala 95:27 96:21 81:28]
+  wire [5:0] _info_buf_reg_burst_T_5 = _GEN_40 - 6'h1; // @[PackageBufferFifo.scala 102:78]
+  wire [13:0] _GEN_91 = reset ? 14'h0 : _GEN_25; // @[PackageBufferFifo.scala 44:{29,29}]
   assign data_buf_reg_io_out_tdata_MPORT_en = data_buf_reg_io_out_tdata_MPORT_en_pipe_0;
   assign data_buf_reg_io_out_tdata_MPORT_addr = data_buf_reg_io_out_tdata_MPORT_addr_pipe_0;
   assign data_buf_reg_io_out_tdata_MPORT_data = data_buf_reg[data_buf_reg_io_out_tdata_MPORT_addr]; // @[PackageBufferFifo.scala 38:33]
+  assign data_buf_reg_io_out_tdata_MPORT_1_en = data_buf_reg_io_out_tdata_MPORT_1_en_pipe_0;
+  assign data_buf_reg_io_out_tdata_MPORT_1_addr = data_buf_reg_io_out_tdata_MPORT_1_addr_pipe_0;
+  assign data_buf_reg_io_out_tdata_MPORT_1_data = data_buf_reg[data_buf_reg_io_out_tdata_MPORT_1_addr]; // @[PackageBufferFifo.scala 38:33]
   assign data_buf_reg_MPORT_data = io_in_tdata;
   assign data_buf_reg_MPORT_addr = wr_pos_reg[5:0];
   assign data_buf_reg_MPORT_mask = 1'h1;
@@ -241,12 +247,13 @@ module PackageBufferFifo(
   assign data_buf_reg_MPORT_1_data = 512'h0;
   assign data_buf_reg_MPORT_1_addr = rd_pos_reg[5:0];
   assign data_buf_reg_MPORT_1_mask = 1'h1;
-  assign data_buf_reg_MPORT_1_en = _T_8 & _T_10;
+  assign data_buf_reg_MPORT_1_en = _fetch_ok_reg_T & _T_10;
   assign io_in_tready = ~buf_full; // @[PackageBufferFifo.scala 56:19]
-  assign io_out_tlen = rd_index_reg[0] ? info_buf_reg_1_len : info_buf_reg_0_len; // @[PackageBufferFifo.scala 80:{17,17}]
-  assign io_out_tdata = data_buf_reg_io_out_tdata_MPORT_data; // @[PackageBufferFifo.scala 82:17]
-  assign io_out_tlast = io_out_tvalid & _GEN_40 == 6'h1; // @[PackageBufferFifo.scala 81:34]
-  assign io_out_tvalid = rd_index_reg[0] ? info_buf_reg_1_valid : info_buf_reg_0_valid; // @[PackageBufferFifo.scala 79:{17,17}]
+  assign io_out_tlen = rd_index_reg[0] ? info_buf_reg_1_len : info_buf_reg_0_len; // @[PackageBufferFifo.scala 85:{17,17}]
+  assign io_out_tdata = fetch_ok_reg | ~rd_init_reg ? data_buf_reg_io_out_tdata_MPORT_data :
+    data_buf_reg_io_out_tdata_MPORT_1_data; // @[PackageBufferFifo.scala 88:23]
+  assign io_out_tlast = io_out_tvalid & _GEN_40 == 6'h1; // @[PackageBufferFifo.scala 86:34]
+  assign io_out_tvalid = rd_index_reg[0] ? info_buf_reg_1_valid : info_buf_reg_0_valid; // @[PackageBufferFifo.scala 84:{17,17}]
   always @(posedge clock) begin
     if (data_buf_reg_MPORT_en & data_buf_reg_MPORT_mask) begin
       data_buf_reg[data_buf_reg_MPORT_addr] <= data_buf_reg_MPORT_data; // @[PackageBufferFifo.scala 38:33]
@@ -256,14 +263,18 @@ module PackageBufferFifo(
     end
     data_buf_reg_io_out_tdata_MPORT_en_pipe_0 <= 1'h1;
     if (1'h1) begin
-      data_buf_reg_io_out_tdata_MPORT_addr_pipe_0 <= rd_pos_next[5:0];
+      data_buf_reg_io_out_tdata_MPORT_addr_pipe_0 <= rd_pos_reg[5:0];
+    end
+    data_buf_reg_io_out_tdata_MPORT_1_en_pipe_0 <= 1'h1;
+    if (1'h1) begin
+      data_buf_reg_io_out_tdata_MPORT_1_addr_pipe_0 <= rd_pos_next[5:0];
     end
     if (reset) begin // @[PackageBufferFifo.scala 41:29]
       info_buf_reg_0_valid <= 1'h0; // @[PackageBufferFifo.scala 41:29]
-    end else if (io_out_tready & io_out_tvalid) begin // @[PackageBufferFifo.scala 84:39]
-      if (_GEN_40 > 6'h0) begin // @[PackageBufferFifo.scala 85:51]
-        if (_io_out_tlast_T_1) begin // @[PackageBufferFifo.scala 88:55]
-          info_buf_reg_0_valid <= _GEN_49;
+    end else if (_fetch_ok_reg_T & _GEN_40 > 6'h0) begin // @[PackageBufferFifo.scala 90:80]
+      if (_io_out_tlast_T_1) begin // @[PackageBufferFifo.scala 98:55]
+        if (~rd_index_reg[0]) begin // @[PackageBufferFifo.scala 99:36]
+          info_buf_reg_0_valid <= 1'h0; // @[PackageBufferFifo.scala 99:36]
         end else begin
           info_buf_reg_0_valid <= _GEN_22;
         end
@@ -275,10 +286,10 @@ module PackageBufferFifo(
     end
     if (reset) begin // @[PackageBufferFifo.scala 41:29]
       info_buf_reg_0_len <= 16'h0; // @[PackageBufferFifo.scala 41:29]
-    end else if (io_out_tready & io_out_tvalid) begin // @[PackageBufferFifo.scala 84:39]
-      if (_GEN_40 > 6'h0) begin // @[PackageBufferFifo.scala 85:51]
-        if (_io_out_tlast_T_1) begin // @[PackageBufferFifo.scala 88:55]
-          info_buf_reg_0_len <= _GEN_47;
+    end else if (_fetch_ok_reg_T & _GEN_40 > 6'h0) begin // @[PackageBufferFifo.scala 90:80]
+      if (_io_out_tlast_T_1) begin // @[PackageBufferFifo.scala 98:55]
+        if (~rd_index_reg[0]) begin // @[PackageBufferFifo.scala 99:36]
+          info_buf_reg_0_len <= 16'h0; // @[PackageBufferFifo.scala 99:36]
         end else begin
           info_buf_reg_0_len <= _GEN_33;
         end
@@ -290,13 +301,15 @@ module PackageBufferFifo(
     end
     if (reset) begin // @[PackageBufferFifo.scala 41:29]
       info_buf_reg_0_burst <= 6'h0; // @[PackageBufferFifo.scala 41:29]
-    end else if (io_out_tready & io_out_tvalid) begin // @[PackageBufferFifo.scala 84:39]
-      if (_GEN_40 > 6'h0) begin // @[PackageBufferFifo.scala 85:51]
-        if (_io_out_tlast_T_1) begin // @[PackageBufferFifo.scala 88:55]
-          info_buf_reg_0_burst <= _GEN_45;
+    end else if (_fetch_ok_reg_T & _GEN_40 > 6'h0) begin // @[PackageBufferFifo.scala 90:80]
+      if (_io_out_tlast_T_1) begin // @[PackageBufferFifo.scala 98:55]
+        if (~rd_index_reg[0]) begin // @[PackageBufferFifo.scala 99:36]
+          info_buf_reg_0_burst <= 6'h0; // @[PackageBufferFifo.scala 99:36]
         end else begin
-          info_buf_reg_0_burst <= _GEN_55;
+          info_buf_reg_0_burst <= _GEN_31;
         end
+      end else if (~rd_index_reg[0]) begin // @[PackageBufferFifo.scala 102:42]
+        info_buf_reg_0_burst <= _info_buf_reg_burst_T_5; // @[PackageBufferFifo.scala 102:42]
       end else begin
         info_buf_reg_0_burst <= _GEN_31;
       end
@@ -305,10 +318,10 @@ module PackageBufferFifo(
     end
     if (reset) begin // @[PackageBufferFifo.scala 41:29]
       info_buf_reg_1_valid <= 1'h0; // @[PackageBufferFifo.scala 41:29]
-    end else if (io_out_tready & io_out_tvalid) begin // @[PackageBufferFifo.scala 84:39]
-      if (_GEN_40 > 6'h0) begin // @[PackageBufferFifo.scala 85:51]
-        if (_io_out_tlast_T_1) begin // @[PackageBufferFifo.scala 88:55]
-          info_buf_reg_1_valid <= _GEN_50;
+    end else if (_fetch_ok_reg_T & _GEN_40 > 6'h0) begin // @[PackageBufferFifo.scala 90:80]
+      if (_io_out_tlast_T_1) begin // @[PackageBufferFifo.scala 98:55]
+        if (rd_index_reg[0]) begin // @[PackageBufferFifo.scala 99:36]
+          info_buf_reg_1_valid <= 1'h0; // @[PackageBufferFifo.scala 99:36]
         end else begin
           info_buf_reg_1_valid <= _GEN_23;
         end
@@ -320,10 +333,10 @@ module PackageBufferFifo(
     end
     if (reset) begin // @[PackageBufferFifo.scala 41:29]
       info_buf_reg_1_len <= 16'h0; // @[PackageBufferFifo.scala 41:29]
-    end else if (io_out_tready & io_out_tvalid) begin // @[PackageBufferFifo.scala 84:39]
-      if (_GEN_40 > 6'h0) begin // @[PackageBufferFifo.scala 85:51]
-        if (_io_out_tlast_T_1) begin // @[PackageBufferFifo.scala 88:55]
-          info_buf_reg_1_len <= _GEN_48;
+    end else if (_fetch_ok_reg_T & _GEN_40 > 6'h0) begin // @[PackageBufferFifo.scala 90:80]
+      if (_io_out_tlast_T_1) begin // @[PackageBufferFifo.scala 98:55]
+        if (rd_index_reg[0]) begin // @[PackageBufferFifo.scala 99:36]
+          info_buf_reg_1_len <= 16'h0; // @[PackageBufferFifo.scala 99:36]
         end else begin
           info_buf_reg_1_len <= _GEN_34;
         end
@@ -335,13 +348,15 @@ module PackageBufferFifo(
     end
     if (reset) begin // @[PackageBufferFifo.scala 41:29]
       info_buf_reg_1_burst <= 6'h0; // @[PackageBufferFifo.scala 41:29]
-    end else if (io_out_tready & io_out_tvalid) begin // @[PackageBufferFifo.scala 84:39]
-      if (_GEN_40 > 6'h0) begin // @[PackageBufferFifo.scala 85:51]
-        if (_io_out_tlast_T_1) begin // @[PackageBufferFifo.scala 88:55]
-          info_buf_reg_1_burst <= _GEN_46;
+    end else if (_fetch_ok_reg_T & _GEN_40 > 6'h0) begin // @[PackageBufferFifo.scala 90:80]
+      if (_io_out_tlast_T_1) begin // @[PackageBufferFifo.scala 98:55]
+        if (rd_index_reg[0]) begin // @[PackageBufferFifo.scala 99:36]
+          info_buf_reg_1_burst <= 6'h0; // @[PackageBufferFifo.scala 99:36]
         end else begin
-          info_buf_reg_1_burst <= _GEN_56;
+          info_buf_reg_1_burst <= _GEN_32;
         end
+      end else if (rd_index_reg[0]) begin // @[PackageBufferFifo.scala 102:42]
+        info_buf_reg_1_burst <= _info_buf_reg_burst_T_5; // @[PackageBufferFifo.scala 102:42]
       end else begin
         info_buf_reg_1_burst <= _GEN_32;
       end
@@ -357,20 +372,26 @@ module PackageBufferFifo(
     end
     if (reset) begin // @[PackageBufferFifo.scala 43:29]
       rd_index_reg <= 7'h0; // @[PackageBufferFifo.scala 43:29]
-    end else if (io_out_tready & io_out_tvalid) begin // @[PackageBufferFifo.scala 84:39]
-      if (_GEN_40 > 6'h0) begin // @[PackageBufferFifo.scala 85:51]
-        if (_io_out_tlast_T_1) begin // @[PackageBufferFifo.scala 88:55]
-          rd_index_reg <= _rd_pos_next_T_2; // @[PackageBufferFifo.scala 90:22]
-        end
+    end else if (_fetch_ok_reg_T & _GEN_40 > 6'h0) begin // @[PackageBufferFifo.scala 90:80]
+      if (_io_out_tlast_T_1) begin // @[PackageBufferFifo.scala 98:55]
+        rd_index_reg <= _rd_pos_next_T_2; // @[PackageBufferFifo.scala 100:22]
       end
     end
-    wr_pos_reg <= _GEN_104[6:0]; // @[PackageBufferFifo.scala 44:{29,29}]
+    wr_pos_reg <= _GEN_91[6:0]; // @[PackageBufferFifo.scala 44:{29,29}]
     if (reset) begin // @[PackageBufferFifo.scala 45:29]
       rd_pos_reg <= 7'h0; // @[PackageBufferFifo.scala 45:29]
-    end else if (io_out_tready & io_out_tvalid) begin // @[PackageBufferFifo.scala 84:39]
-      if (_GEN_40 > 6'h0) begin // @[PackageBufferFifo.scala 85:51]
-        rd_pos_reg <= rd_pos_next; // @[PackageBufferFifo.scala 87:18]
-      end
+    end else if (_fetch_ok_reg_T & _GEN_40 > 6'h0) begin // @[PackageBufferFifo.scala 90:80]
+      rd_pos_reg <= rd_pos_next; // @[PackageBufferFifo.scala 93:18]
+    end
+    if (reset) begin // @[PackageBufferFifo.scala 80:29]
+      fetch_ok_reg <= 1'h0; // @[PackageBufferFifo.scala 80:29]
+    end else begin
+      fetch_ok_reg <= ~(io_out_tready & io_out_tvalid); // @[PackageBufferFifo.scala 82:16]
+    end
+    if (reset) begin // @[PackageBufferFifo.scala 81:28]
+      rd_init_reg <= 1'h0; // @[PackageBufferFifo.scala 81:28]
+    end else if (_fetch_ok_reg_T & _GEN_40 > 6'h0) begin // @[PackageBufferFifo.scala 90:80]
+      rd_init_reg <= _GEN_43;
     end
   end
 // Register and memory initialization
@@ -419,25 +440,33 @@ initial begin
   _RAND_2 = {1{`RANDOM}};
   data_buf_reg_io_out_tdata_MPORT_addr_pipe_0 = _RAND_2[5:0];
   _RAND_3 = {1{`RANDOM}};
-  info_buf_reg_0_valid = _RAND_3[0:0];
+  data_buf_reg_io_out_tdata_MPORT_1_en_pipe_0 = _RAND_3[0:0];
   _RAND_4 = {1{`RANDOM}};
-  info_buf_reg_0_len = _RAND_4[15:0];
+  data_buf_reg_io_out_tdata_MPORT_1_addr_pipe_0 = _RAND_4[5:0];
   _RAND_5 = {1{`RANDOM}};
-  info_buf_reg_0_burst = _RAND_5[5:0];
+  info_buf_reg_0_valid = _RAND_5[0:0];
   _RAND_6 = {1{`RANDOM}};
-  info_buf_reg_1_valid = _RAND_6[0:0];
+  info_buf_reg_0_len = _RAND_6[15:0];
   _RAND_7 = {1{`RANDOM}};
-  info_buf_reg_1_len = _RAND_7[15:0];
+  info_buf_reg_0_burst = _RAND_7[5:0];
   _RAND_8 = {1{`RANDOM}};
-  info_buf_reg_1_burst = _RAND_8[5:0];
+  info_buf_reg_1_valid = _RAND_8[0:0];
   _RAND_9 = {1{`RANDOM}};
-  wr_index_reg = _RAND_9[6:0];
+  info_buf_reg_1_len = _RAND_9[15:0];
   _RAND_10 = {1{`RANDOM}};
-  rd_index_reg = _RAND_10[6:0];
+  info_buf_reg_1_burst = _RAND_10[5:0];
   _RAND_11 = {1{`RANDOM}};
-  wr_pos_reg = _RAND_11[6:0];
+  wr_index_reg = _RAND_11[6:0];
   _RAND_12 = {1{`RANDOM}};
-  rd_pos_reg = _RAND_12[6:0];
+  rd_index_reg = _RAND_12[6:0];
+  _RAND_13 = {1{`RANDOM}};
+  wr_pos_reg = _RAND_13[6:0];
+  _RAND_14 = {1{`RANDOM}};
+  rd_pos_reg = _RAND_14[6:0];
+  _RAND_15 = {1{`RANDOM}};
+  fetch_ok_reg = _RAND_15[0:0];
+  _RAND_16 = {1{`RANDOM}};
+  rd_init_reg = _RAND_16[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
