@@ -76,25 +76,19 @@ class PackageBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Mo
   }
 
   //read part of ring buffer
-
-  val fetch_ok_reg = RegInit(false.B)
-  val rd_init_reg = RegInit(false.B)
-  fetch_ok_reg := !(io.out_tready & io.out_tvalid) // the data is not out instantly
+  val shake_hand = io.out_tready & io.out_tvalid // we finished shake hand in current beat
 
   io.out_tvalid := info_buf_reg(rd_index_reg).valid
   io.out_tlen   := info_buf_reg(rd_index_reg).len
   io.out_tlast  := io.out_tvalid & (info_buf_reg(rd_index_reg).burst === 1.U)
-  //when we are in the first beat, or we wait and read-sync-mem process is done, we should use data_buf_reg(rd_pos_reg)
-  io.out_tdata  := Mux(fetch_ok_reg | !rd_init_reg, data_buf_reg(rd_pos_reg), data_buf_reg(rd_pos_next))
+  // if we shake hand in current beat, then in next beat we would read next data;
+  // otherwise in next beat we read current data
+  io.out_tdata  := data_buf_reg(Mux(shake_hand, rd_pos_next, rd_pos_reg))
 
-  when (io.out_tready & io.out_tvalid & info_buf_reg(rd_index_reg).burst > 0.U){
-
-      data_buf_reg(rd_pos_reg) := 0.U
+  when (shake_hand){
+      // data_buf_reg(rd_pos_reg) := 0.U
       rd_pos_reg := rd_pos_next
 
-      when (!rd_init_reg) {
-        rd_init_reg := true.B
-      }
       when (info_buf_reg(rd_index_reg).burst === 1.U) {
         info_buf_reg(rd_index_reg) := 0.U.asTypeOf(new BufferInfo)
         rd_index_reg := index_inc(rd_index_reg)

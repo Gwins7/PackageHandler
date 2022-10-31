@@ -82,6 +82,7 @@ class PackageHandler extends Module {
   when (io.QDMA_c2h_stub_in_tvalid & io.QDMA_c2h_stub_in_tready){
     QDMA_c2h_stub_in_tuser_reg := io.QDMA_c2h_stub_in_tlast
   }
+  // we give tuser only when tvalid is high
   io.QDMA_c2h_stub_in_tuser := QDMA_c2h_stub_in_tuser_reg & io.QDMA_c2h_stub_in_tvalid
 
   // maybe we need to use sequential logic in package_filter to avoid timing violation
@@ -96,6 +97,7 @@ class PackageHandler extends Module {
   package_filter.io.in_sw_qid_mask := io.c2h_sw_qid_mask
 
   io.QDMA_c2h_stub_in_tvalid := package_filter.io.out_tvalid
+  // when we send the header, the buffer should be blocked and the tlast should be low
   io.QDMA_c2h_stub_in_tlast  := package_filter.io.out_tlast & !io.QDMA_c2h_stub_in_tuser
   package_filter.io.out_tready := io.QDMA_c2h_stub_in_tready & !io.QDMA_c2h_stub_in_tuser
 
