@@ -40,5 +40,6 @@ class PackageFilter() extends Module{
   val qid_mask_wrapper = Module(new SoftwareRegWrapper(32))
   qid_mask_wrapper.io.in_mask := io.in_sw_qid_mask
   qid_mask_wrapper.io.in_tlast := io.in_tlast
+
   io.out_qid := qid_mask_wrapper.io.out_dec
 }

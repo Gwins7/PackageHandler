@@ -17,6 +17,7 @@ class SoftwareRegWrapper(width: Int) extends Module {
   })
   val sav_mask_reg = RegInit(io.in_mask)
   val cur_mask_reg = RegInit(io.in_mask)
+
   val next_mask = Wire(UInt(width.W))
   val arbitDecoder = Module(new ArbitDecoder(width))
 

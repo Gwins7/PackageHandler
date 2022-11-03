@@ -52,7 +52,10 @@ class PackageHandler extends Module {
     val QDMA_c2h_stub_in_tvalid  = Output(Bool())
     val QDMA_c2h_stub_in_tready  = Input(Bool())
 
+    val c2h_reset_counter        = Input(Bool())
     val c2h_sw_qid_mask          = Input(UInt(32.W))
+    val c2h_pack_counter         = Output(UInt(32.W))
+    val c2h_overflow_counter     = Output(UInt(32.W))
   })
 /*
   h2c direction
@@ -77,6 +80,10 @@ class PackageHandler extends Module {
   buf.io.in_tkeep             := io.CMAC_out_tkeep
   io.CMAC_out_tready          := buf.io.in_tready
 
+  buf.io.reset_counter := io.c2h_reset_counter
+  io.c2h_pack_counter := buf.io.out_pack_counter
+  io.c2h_overflow_counter := buf.io.out_overflow_counter
+
   //QDMA's tuser is used to find out whether the packet is a header or not.
   val QDMA_c2h_stub_in_tuser_reg = RegInit(true.B)
   when (io.QDMA_c2h_stub_in_tvalid & io.QDMA_c2h_stub_in_tready){
@@ -88,14 +95,16 @@ class PackageHandler extends Module {
   // maybe we need to use sequential logic in package_filter to avoid timing violation
 
   val package_filter = Module(new PackageFilter())
+
   package_filter.io.in_tdata  := buf.io.out_tdata
   package_filter.io.in_tvalid := buf.io.out_tvalid
   package_filter.io.in_tlast  := buf.io.out_tlast
   package_filter.io.in_tlen   := buf.io.out_tlen
   buf.io.out_tready := package_filter.io.in_tready
 
-  package_filter.io.in_sw_qid_mask := io.c2h_sw_qid_mask
 
+
+  package_filter.io.in_sw_qid_mask := io.c2h_sw_qid_mask
   io.QDMA_c2h_stub_in_tvalid := package_filter.io.out_tvalid
   // when we send the header, the buffer should be blocked and the tlast should be low
   io.QDMA_c2h_stub_in_tlast  := package_filter.io.out_tlast & !io.QDMA_c2h_stub_in_tuser
