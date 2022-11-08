@@ -38,10 +38,7 @@ class PackageHandler extends Module {
     val c2h_pack_counter         = Output(UInt(32.W))
     val c2h_overflow_counter     = Output(UInt(32.W))
   })
-/*
-  h2c direction
-  Directly connect the two interface; tkeep is {64{1'b1}}.
-  */
+
   val tx_handler = Module(new TxHandler)
   io.QDMA_h2c_stub_out_tready  := tx_handler.io.QDMA_h2c_stub_out_tready
   tx_handler.io.QDMA_h2c_stub_out_tdata  := io.QDMA_h2c_stub_out_tdata

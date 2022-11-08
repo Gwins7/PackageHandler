@@ -16,6 +16,10 @@ class TxHandler extends Module{
     val CMAC_in_tvalid            = Output(Bool())
     val CMAC_in_tready            = Input(Bool())
   })
+  /*
+  h2c direction
+  Directly connect the two interface; tkeep is {64{1'b1}}.
+  */
   val chksum_generator = Module(new ChksumGenerator)
   io.QDMA_h2c_stub_out_tready  := chksum_generator.io.in_tready
   chksum_generator.io.in_tdata  := io.QDMA_h2c_stub_out_tdata
