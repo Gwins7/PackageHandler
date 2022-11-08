@@ -49,9 +49,9 @@ class PackageBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Mo
   val rd_pos_reg   = RegInit(0.U(unsignedBitLength(burst_unit_num).W))
   val rd_pos_next = WireDefault(0.U(unsignedBitLength(burst_unit_num).W)) // used for sync-mem
 
-  val burst_vec = Wire(Vec(64,UInt(8.W)))
-  for (i <- 0 until 64) burst_vec(i) := io.in_tkeep(i)
-  val cur_burst_size = burst_vec.reduceTree(_+_)
+  val burst_add_64 = Module(new reduce_add_64)
+  burst_add_64.io.in_vec := io.in_tkeep
+  val cur_burst_size = burst_add_64.io.out_sum
 
   val valid_vec = Wire(Vec(depth,Bool()))
   for (i <- 0 until depth) valid_vec(i) := info_buf_reg(i).valid
