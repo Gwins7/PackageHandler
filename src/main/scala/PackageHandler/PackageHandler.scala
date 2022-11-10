@@ -37,11 +37,10 @@ class PackageHandler extends Module {
 
     val c2h_sw_qid_mask          = Input(UInt(32.W))
     val c2h_pack_counter         = Output(UInt(32.W))
-    val c2h_overflow_counter     = Output(UInt(32.W))
-    val c2h_wrong_chksum_counter = Output(UInt(32.W))
+    val c2h_err_counter          = Output(UInt(32.W))
 
     val h2c_pack_counter         = Output(UInt(32.W))
-    val h2c_overflow_counter     = Output(UInt(32.W))
+    val h2c_err_counter          = Output(UInt(32.W))
   })
 
   val tx_handler = Module(new TxHandler)
@@ -59,7 +58,7 @@ class PackageHandler extends Module {
 
   tx_handler.io.reset_counter := io.reset_counter
   io.h2c_pack_counter := tx_handler.io.h2c_pack_counter
-  io.h2c_overflow_counter := tx_handler.io.h2c_overflow_counter
+  io.h2c_err_counter := tx_handler.io.h2c_err_counter
 
   val rx_handler = Module(new RxHandler)
   io.CMAC_out_tready  := rx_handler.io.CMAC_out_tready
@@ -77,6 +76,5 @@ class PackageHandler extends Module {
   rx_handler.io.reset_counter            := io.reset_counter
   rx_handler.io.c2h_sw_qid_mask          := io.c2h_sw_qid_mask
   io.c2h_pack_counter                    := rx_handler.io.c2h_pack_counter
-  io.c2h_overflow_counter                := rx_handler.io.c2h_overflow_counter
-  io.c2h_wrong_chksum_counter            := rx_handler.io.c2h_wrong_chksum_counter
+  io.c2h_err_counter                := rx_handler.io.c2h_err_counter
 }

@@ -30,7 +30,7 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
 
     val reset_counter = Input(Bool())
     val out_pack_counter = Output(UInt(32.W))
-    val out_overflow_counter = Output(UInt(32.W))
+    val out_err_counter = Output(UInt(32.W))
   })
 
   def index_inc(index: UInt): UInt ={
@@ -54,10 +54,10 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
 
   io.in_tready := !buf_full
   val pack_counter = RegInit(0.U(32.W))
-  val overflow_counter = RegInit(0.U(32.W))
+  val err_counter = RegInit(0.U(32.W))
 
   io.out_pack_counter := pack_counter
-  io.out_overflow_counter := overflow_counter
+  io.out_err_counter := err_counter
 
   val is_overflowed = RegInit(false.B)
 
@@ -89,7 +89,7 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   // write part of ring buffer
   when (io.reset_counter){ // if the counter need to be reset, then reset the register
     pack_counter := 0.U
-    overflow_counter := 0.U
+    err_counter := 0.U
   }
     .elsewhen (io.in_tready & io.in_tvalid) {
       when (io.in_tlast) { // count the total num of the rx packet (calculated by tlast)
@@ -107,7 +107,7 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
             wr_pos_reg := wr_index_reg << log2Ceil(burst_size).U
             // rewrite the same wr unit
           }
-        overflow_counter := overflow_counter + 1.U // count overflow packet num
+        err_counter := err_counter + 1.U // count overflow packet num
         info_buf_reg(wr_index_reg) := 0.U.asTypeOf(new BufferInfo)
 
       }.otherwise{

@@ -20,7 +20,7 @@ class TxHandler extends Module{
 
     val reset_counter            = Input(Bool())
     val h2c_pack_counter         = Output(UInt(32.W))
-    val h2c_overflow_counter     = Output(UInt(32.W))
+    val h2c_err_counter     = Output(UInt(32.W))
   })
   /*
   h2c direction
@@ -34,7 +34,7 @@ class TxHandler extends Module{
 
   tx_buffer_fifo.io.reset_counter := io.reset_counter
   io.h2c_pack_counter := tx_buffer_fifo.io.out_pack_counter
-  io.h2c_overflow_counter := tx_buffer_fifo.io.out_overflow_counter
+  io.h2c_err_counter := tx_buffer_fifo.io.out_err_counter
 
   io.CMAC_in_tkeep := "h_ffffffff_ffffffff_ffffffff_ffffffff".U
   io.CMAC_in_tdata := tx_buffer_fifo.io.out_tdata

@@ -38,8 +38,7 @@ class RxHandler extends Module{
     val reset_counter            = Input(Bool())
     val c2h_sw_qid_mask          = Input(UInt(32.W))
     val c2h_pack_counter         = Output(UInt(32.W))
-    val c2h_overflow_counter     = Output(UInt(32.W))
-    val c2h_wrong_chksum_counter = Output(UInt(32.W))
+    val c2h_err_counter     = Output(UInt(32.W))
   })
   /*
      c2h direction
@@ -56,8 +55,7 @@ class RxHandler extends Module{
 
   rx_buffer_fifo.io.reset_counter := io.reset_counter
   io.c2h_pack_counter := rx_buffer_fifo.io.out_pack_counter
-  io.c2h_overflow_counter := rx_buffer_fifo.io.out_overflow_counter
-  io.c2h_wrong_chksum_counter := rx_buffer_fifo.io.out_wrong_chksum_counter
+  io.c2h_err_counter := rx_buffer_fifo.io.out_err_counter
   //QDMA's tuser is used to find out whether the packet is a header or not.
   val QDMA_c2h_stub_in_tuser_reg = RegInit(true.B)
   when (io.QDMA_c2h_stub_in_tvalid & io.QDMA_c2h_stub_in_tready){

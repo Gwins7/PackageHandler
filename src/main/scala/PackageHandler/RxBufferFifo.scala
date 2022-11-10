@@ -33,8 +33,7 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
 
     val reset_counter = Input(Bool())
     val out_pack_counter = Output(UInt(32.W))
-    val out_overflow_counter = Output(UInt(32.W))
-    val out_wrong_chksum_counter = Output(UInt(32.W))
+    val out_err_counter = Output(UInt(32.W))
   })
 
   def index_inc(index: UInt): UInt ={
@@ -62,12 +61,10 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
 
   io.in_tready := !buf_full
   val pack_counter = RegInit(0.U(32.W))
-  val overflow_counter = RegInit(0.U(32.W))
-  val wrong_chksum_counter = RegInit(0.U(32.W))
+  val err_counter = RegInit(0.U(32.W))
 
   io.out_pack_counter := pack_counter
-  io.out_overflow_counter := overflow_counter
-  io.out_wrong_chksum_counter := wrong_chksum_counter
+  io.out_err_counter := err_counter
 
   val is_overflowed = RegInit(false.B)
   // ATTENTION: because we drop packet on CMAC's out fifo if tx is so fast,
@@ -101,7 +98,7 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   // write part of ring buffer
   when (io.reset_counter){ // if the counter need to be reset, then reset the register
     pack_counter := 0.U
-    overflow_counter := 0.U
+    err_counter := 0.U
   }
   .elsewhen (io.in_tready & io.in_tvalid) {
     when (io.in_tlast) { // count the total num of the rx packet (calculated by tlast)
@@ -119,11 +116,11 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
           wr_pos_reg := wr_index_reg << log2Ceil(burst_size).U
           // rewrite the same wr unit
         }
-      overflow_counter := overflow_counter + 1.U // count overflow packet num
+      err_counter := err_counter + 1.U // count overflow packet num
       info_buf_reg(wr_index_reg) := 0.U.asTypeOf(new BufferInfo)
 
     }.elsewhen (io.in_tlast && ((end_tcp_chksum =/= 0.U) || (end_ip_chksum =/= 0.U))) {
-      wrong_chksum_counter := wrong_chksum_counter + 1.U
+      err_counter := err_counter + 1.U
       wr_pos_reg := wr_index_reg << log2Ceil(burst_size).U
       info_buf_reg(wr_index_reg) := 0.U.asTypeOf(new BufferInfo)
 
