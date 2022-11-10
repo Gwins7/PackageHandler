@@ -80,7 +80,7 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
 
   val tcp_hdr_chksum_vec = Wire(Vec(32,UInt(32.W)))
   for (i <- 0 until 32) {
-    if (i==9 || (i>=13 && i!=25)) tcp_hdr_chksum_vec(i) := Cat(io.in_tdata(16*i+7,16*i+0),io.in_tdata(16*i+15,16*i+8))
+    if (i==8 || (i>=13 && i!=25)) tcp_hdr_chksum_vec(i) := Cat(io.in_tdata(16*i+7,16*i+0),io.in_tdata(16*i+15,16*i+8))
     else if (i==11) tcp_hdr_chksum_vec(i) := io.in_tdata(16*i+15,16*i+8)
     else tcp_hdr_chksum_vec(i) := 0.U
   }
@@ -117,7 +117,7 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
           when (!info_buf_reg(wr_index_reg).used) { //ready to receive this package; first burst
             info_buf_reg(wr_index_reg).used := true.B
             info_buf_reg(wr_index_reg).ip_chksum := ip_chksum_vec.reduceTree(_+_)
-            info_buf_reg(wr_index_reg).tcp_chksum := tcp_hdr_chksum_vec.reduceTree(_+_)
+            info_buf_reg(wr_index_reg).tcp_chksum := tcp_hdr_chksum_vec.reduceTree(_+_) - 20.U
           }.otherwise{
             info_buf_reg(wr_index_reg).tcp_chksum := info_buf_reg(wr_index_reg).tcp_chksum + tcp_pld_chksum_vec.reduceTree(_+_)
           }

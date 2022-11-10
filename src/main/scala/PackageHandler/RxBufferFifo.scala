@@ -84,17 +84,23 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
 
   val tcp_hdr_chksum_vec = Wire(Vec(32,UInt(32.W)))
   for (i <- 0 until 32) {
-    if (i==9 || i>=13) tcp_hdr_chksum_vec(i) := Cat(io.in_tdata(16*i+7,16*i+0),io.in_tdata(16*i+15,16*i+8))
+    if (i==8 || i>=13) tcp_hdr_chksum_vec(i) := Cat(io.in_tdata(16*i+7,16*i+0),io.in_tdata(16*i+15,16*i+8))
     else if (i==11) tcp_hdr_chksum_vec(i) := io.in_tdata(16*i+15,16*i+8)
     else tcp_hdr_chksum_vec(i) := 0.U
   }
+  val cal_ip_chksum = Wire(UInt(32.W))
+  cal_ip_chksum := Mux(info_buf_reg(wr_index_reg).burst === 0.U,
+      ip_chksum_vec.reduceTree(_+_),info_buf_reg(wr_index_reg).ip_chksum)
+  val cal_tcp_chksum = Wire(UInt(32.W))
+  cal_tcp_chksum := Mux(info_buf_reg(wr_index_reg).burst === 0.U,
+      info_buf_reg(wr_index_reg).tcp_chksum + tcp_hdr_chksum_vec.reduceTree(_+_) - 20.U, info_buf_reg(wr_index_reg).tcp_chksum + tcp_pld_chksum_vec.reduceTree(_+_))
 
   val end_ip_chksum = Wire(UInt(16.W))
-  end_ip_chksum := Mux(info_buf_reg(wr_index_reg).ip_chksum(31,16) > 0.U,
-    ~(info_buf_reg(wr_index_reg).ip_chksum(31,16) + info_buf_reg(wr_index_reg).ip_chksum(15,0)), ~info_buf_reg(wr_index_reg).ip_chksum(15,0))
+  end_ip_chksum := Mux(cal_ip_chksum(31,16) > 0.U,
+    ~(cal_ip_chksum(31,16) + cal_ip_chksum(15,0)), ~cal_ip_chksum(15,0))
   val end_tcp_chksum = Wire(UInt(16.W))
-  end_tcp_chksum := Mux(info_buf_reg(wr_index_reg).tcp_chksum(31,16) > 0.U,
-    ~(info_buf_reg(wr_index_reg).tcp_chksum(31,16) + info_buf_reg(wr_index_reg).tcp_chksum(15,0)), ~info_buf_reg(wr_index_reg).tcp_chksum(15,0))
+  end_tcp_chksum := Mux(cal_tcp_chksum(31,16) > 0.U,
+    ~(cal_tcp_chksum(31,16) + cal_tcp_chksum(15,0)), ~cal_tcp_chksum(15,0))
 
   // write part of ring buffer
   when (io.reset_counter){ // if the counter need to be reset, then reset the register
@@ -130,11 +136,10 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
         // normal transmission process
         when (!info_buf_reg(wr_index_reg).used) { //ready to receive this package; first burst
           info_buf_reg(wr_index_reg).used := true.B
-          info_buf_reg(wr_index_reg).ip_chksum := ip_chksum_vec.reduceTree(_+_)
-          info_buf_reg(wr_index_reg).tcp_chksum := tcp_hdr_chksum_vec.reduceTree(_+_)
-        }.otherwise{
-          info_buf_reg(wr_index_reg).tcp_chksum := info_buf_reg(wr_index_reg).tcp_chksum + tcp_pld_chksum_vec.reduceTree(_+_)
         }
+
+        info_buf_reg(wr_index_reg).tcp_chksum := cal_tcp_chksum
+        info_buf_reg(wr_index_reg).ip_chksum := cal_ip_chksum
         data_buf_reg(wr_pos_reg) := io.in_tdata
         info_buf_reg(wr_index_reg).burst := info_buf_reg(wr_index_reg).burst + 1.U
         info_buf_reg(wr_index_reg).len := info_buf_reg(wr_index_reg).len + cur_burst_size
