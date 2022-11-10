@@ -28,6 +28,7 @@ class RxHandler extends Module{
     val CMAC_out_tlast             = Input(Bool())
     val CMAC_out_tvalid            = Input(Bool())
     val CMAC_out_tready            = Output(Bool())
+    val CMAC_out_tuser             = Input(Bool())
 
     val QDMA_c2h_stub_in_tdata   = Output(UInt(512.W))
     val QDMA_c2h_stub_in_tuser   = Output(Bool())
@@ -51,6 +52,7 @@ class RxHandler extends Module{
   rx_buffer_fifo.io.in_tvalid            := io.CMAC_out_tvalid
   rx_buffer_fifo.io.in_tlast             := io.CMAC_out_tlast
   rx_buffer_fifo.io.in_tkeep             := io.CMAC_out_tkeep
+  rx_buffer_fifo.io.in_tuser             := io.CMAC_out_tuser
   io.CMAC_out_tready          := rx_buffer_fifo.io.in_tready
 
   rx_buffer_fifo.io.reset_counter := io.reset_counter

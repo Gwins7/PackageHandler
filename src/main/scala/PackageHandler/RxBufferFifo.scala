@@ -24,6 +24,7 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
     val in_tvalid = Input(Bool())
     val in_tready = Output(Bool())
     val in_tkeep = Input(UInt(64.W))
+    val in_tuser = Input(Bool())
 
     val out_tlen = Output(UInt(16.W))
     val out_tdata = Output(UInt(512.W))
@@ -119,11 +120,10 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
       err_counter := err_counter + 1.U // count overflow packet num
       info_buf_reg(wr_index_reg) := 0.U.asTypeOf(new BufferInfo)
 
-    }.elsewhen (io.in_tlast && ((end_tcp_chksum =/= 0.U) || (end_ip_chksum =/= 0.U))) {
+    }.elsewhen (io.in_tlast && ((end_tcp_chksum =/= 0.U) || (end_ip_chksum =/= 0.U) || io.in_tuser)) {
       err_counter := err_counter + 1.U
       wr_pos_reg := wr_index_reg << log2Ceil(burst_size).U
       info_buf_reg(wr_index_reg) := 0.U.asTypeOf(new BufferInfo)
-
     }.otherwise{
       // normal condition (overflow just not started in this beat)
       when (!is_overflowed){
