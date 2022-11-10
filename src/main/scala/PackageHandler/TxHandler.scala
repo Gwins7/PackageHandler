@@ -1,6 +1,8 @@
 package PackageHandler
+
 import chisel3._
 import chisel3.util._
+
 class TxHandler extends Module{
   val io = IO(new Bundle {
     // val QDMA_h2c_stub_out_tdest   = Input(UInt(16.W))
@@ -15,21 +17,34 @@ class TxHandler extends Module{
     val CMAC_in_tlast             = Output(Bool())
     val CMAC_in_tvalid            = Output(Bool())
     val CMAC_in_tready            = Input(Bool())
+
+    val reset_counter            = Input(Bool())
+    val h2c_pack_counter         = Output(UInt(32.W))
+    val h2c_overflow_counter     = Output(UInt(32.W))
   })
   /*
   h2c direction
   Directly connect the two interface; tkeep is {64{1'b1}}.
   */
-  val chksum_generator = Module(new ChksumGenerator)
-  io.QDMA_h2c_stub_out_tready  := chksum_generator.io.in_tready
-  chksum_generator.io.in_tdata  := io.QDMA_h2c_stub_out_tdata
-  chksum_generator.io.in_tvalid := io.QDMA_h2c_stub_out_tvalid
-  chksum_generator.io.in_tlast  := io.QDMA_h2c_stub_out_tlast
-  chksum_generator.io.in_tuser  := io.QDMA_h2c_stub_out_tuser
+  val tx_buffer_fifo = Module(new TxBufferFifo())
+  tx_buffer_fifo.io.in_tlast := io.QDMA_h2c_stub_out_tlast
+  tx_buffer_fifo.io.in_tvalid := io.QDMA_h2c_stub_out_tvalid & !io.QDMA_h2c_stub_out_tuser
+  tx_buffer_fifo.io.in_tdata := io.QDMA_h2c_stub_out_tdata
+  io.QDMA_h2c_stub_out_tready := tx_buffer_fifo.io.in_tready
 
-  chksum_generator.io.out_tready := io.CMAC_in_tready
-  io.CMAC_in_tdata  := chksum_generator.io.out_tdata
-  io.CMAC_in_tvalid := chksum_generator.io.out_tvalid
-  io.CMAC_in_tlast  := chksum_generator.io.out_tlast
-  io.CMAC_in_tkeep  := chksum_generator.io.out_tkeep
+  tx_buffer_fifo.io.reset_counter := io.reset_counter
+  io.h2c_pack_counter := tx_buffer_fifo.io.out_pack_counter
+  io.h2c_overflow_counter := tx_buffer_fifo.io.out_overflow_counter
+
+  io.CMAC_in_tkeep := "h_ffffffff_ffffffff_ffffffff_ffffffff".U
+  io.CMAC_in_tdata := tx_buffer_fifo.io.out_tdata
+  io.CMAC_in_tvalid := tx_buffer_fifo.io.out_tvalid
+  io.CMAC_in_tlast := tx_buffer_fifo.io.out_tlast
+  tx_buffer_fifo.io.out_tready := io.CMAC_in_tready
+
+//  io.QDMA_h2c_stub_out_tready            := io.CMAC_in_tready
+//  io.CMAC_in_tdata                       := io.QDMA_h2c_stub_out_tdata
+//  io.CMAC_in_tlast                       := io.QDMA_h2c_stub_out_tlast
+//  io.CMAC_in_tvalid                      := io.QDMA_h2c_stub_out_tvalid & !io.QDMA_h2c_stub_out_tuser
+//  io.CMAC_in_tkeep                       := Fill(64,1.U(1.W))
 }

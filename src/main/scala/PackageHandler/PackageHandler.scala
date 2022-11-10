@@ -33,10 +33,15 @@ class PackageHandler extends Module {
     val QDMA_c2h_stub_in_tvalid  = Output(Bool())
     val QDMA_c2h_stub_in_tready  = Input(Bool())
 
-    val c2h_reset_counter        = Input(Bool())
+    val reset_counter            = Input(Bool())
+
     val c2h_sw_qid_mask          = Input(UInt(32.W))
     val c2h_pack_counter         = Output(UInt(32.W))
     val c2h_overflow_counter     = Output(UInt(32.W))
+    val c2h_wrong_chksum_counter = Output(UInt(32.W))
+
+    val h2c_pack_counter         = Output(UInt(32.W))
+    val h2c_overflow_counter     = Output(UInt(32.W))
   })
 
   val tx_handler = Module(new TxHandler)
@@ -52,6 +57,10 @@ class PackageHandler extends Module {
   io.CMAC_in_tlast  := tx_handler.io.CMAC_in_tlast
   io.CMAC_in_tkeep  := tx_handler.io.CMAC_in_tkeep
 
+  tx_handler.io.reset_counter := io.reset_counter
+  io.h2c_pack_counter := tx_handler.io.h2c_pack_counter
+  io.h2c_overflow_counter := tx_handler.io.h2c_overflow_counter
+
   val rx_handler = Module(new RxHandler)
   io.CMAC_out_tready  := rx_handler.io.CMAC_out_tready
   rx_handler.io.CMAC_out_tdata  := io.CMAC_out_tdata
@@ -65,8 +74,9 @@ class PackageHandler extends Module {
   io.QDMA_c2h_stub_in_tlast  := rx_handler.io.QDMA_c2h_stub_in_tlast
   io.QDMA_c2h_stub_in_tuser  := rx_handler.io.QDMA_c2h_stub_in_tuser
 
-  rx_handler.io.c2h_reset_counter        := io.c2h_reset_counter
+  rx_handler.io.reset_counter            := io.reset_counter
   rx_handler.io.c2h_sw_qid_mask          := io.c2h_sw_qid_mask
   io.c2h_pack_counter                    := rx_handler.io.c2h_pack_counter
   io.c2h_overflow_counter                := rx_handler.io.c2h_overflow_counter
+  io.c2h_wrong_chksum_counter            := rx_handler.io.c2h_wrong_chksum_counter
 }

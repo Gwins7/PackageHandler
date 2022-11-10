@@ -3,7 +3,7 @@ package PackageHandler
 import chisel3._
 import chisel3.util._
 
-class PackageBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module {
+class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module {
   /*
     ATTENTION: in order to avoid using multiplier, we assume that the depth and the burst size must be power of 2
    */
@@ -13,6 +13,8 @@ class PackageBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Mo
     val used = Bool()  // this is high when we start writing
     val valid = Bool() // this is high when we finish writing (ready to read)
     val len = UInt(16.W) // actual length of current packet; used to generate c2h header
+    val ip_chksum = UInt(32.W)
+    val tcp_chksum = UInt(32.W)
     val burst = UInt(unsignedBitLength(burst_size).W)
   }
 
@@ -32,6 +34,7 @@ class PackageBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Mo
     val reset_counter = Input(Bool())
     val out_pack_counter = Output(UInt(32.W))
     val out_overflow_counter = Output(UInt(32.W))
+    val out_wrong_chksum_counter = Output(UInt(32.W))
   })
 
   def index_inc(index: UInt): UInt ={
@@ -60,14 +63,40 @@ class PackageBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Mo
   io.in_tready := !buf_full
   val pack_counter = RegInit(0.U(32.W))
   val overflow_counter = RegInit(0.U(32.W))
+  val wrong_chksum_counter = RegInit(0.U(32.W))
 
   io.out_pack_counter := pack_counter
   io.out_overflow_counter := overflow_counter
+  io.out_wrong_chksum_counter := wrong_chksum_counter
 
   val is_overflowed = RegInit(false.B)
-
   // ATTENTION: because we drop packet on CMAC's out fifo if tx is so fast,
   // the overflow handling function here is used only when the tx sends over-sized packets deliberately.
+
+  //chksum part
+  val ip_chksum_vec = Wire(Vec(10,UInt(32.W)))
+  for (i <- 0 until 10) {
+    ip_chksum_vec(i) := Cat(io.in_tdata(16*i+119,16*i+112),io.in_tdata(16*i+127,16*i+120))
+  }
+
+  val tcp_pld_chksum_vec = Wire(Vec(32,UInt(32.W)))
+  for (i <- 0 until 32) {
+    tcp_pld_chksum_vec(i) := Cat(io.in_tdata(16*i+7,16*i+0),io.in_tdata(16*i+15,16*i+8))
+  }
+
+  val tcp_hdr_chksum_vec = Wire(Vec(32,UInt(32.W)))
+  for (i <- 0 until 32) {
+    if (i==9 || i>=13) tcp_hdr_chksum_vec(i) := Cat(io.in_tdata(16*i+7,16*i+0),io.in_tdata(16*i+15,16*i+8))
+    else if (i==11) tcp_hdr_chksum_vec(i) := io.in_tdata(16*i+15,16*i+8)
+    else tcp_hdr_chksum_vec(i) := 0.U
+  }
+
+  val end_ip_chksum = Wire(UInt(16.W))
+  end_ip_chksum := Mux(info_buf_reg(wr_index_reg).ip_chksum(31,16) > 0.U,
+    ~(info_buf_reg(wr_index_reg).ip_chksum(31,16) + info_buf_reg(wr_index_reg).ip_chksum(15,0)), ~info_buf_reg(wr_index_reg).ip_chksum(15,0))
+  val end_tcp_chksum = Wire(UInt(16.W))
+  end_tcp_chksum := Mux(info_buf_reg(wr_index_reg).tcp_chksum(31,16) > 0.U,
+    ~(info_buf_reg(wr_index_reg).tcp_chksum(31,16) + info_buf_reg(wr_index_reg).tcp_chksum(15,0)), ~info_buf_reg(wr_index_reg).tcp_chksum(15,0))
 
   // write part of ring buffer
   when (io.reset_counter){ // if the counter need to be reset, then reset the register
@@ -93,12 +122,21 @@ class PackageBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Mo
       overflow_counter := overflow_counter + 1.U // count overflow packet num
       info_buf_reg(wr_index_reg) := 0.U.asTypeOf(new BufferInfo)
 
+    }.elsewhen (io.in_tlast && ((end_tcp_chksum =/= 0.U) || (end_ip_chksum =/= 0.U))) {
+      wrong_chksum_counter := wrong_chksum_counter + 1.U
+      wr_pos_reg := wr_index_reg << log2Ceil(burst_size).U
+      info_buf_reg(wr_index_reg) := 0.U.asTypeOf(new BufferInfo)
+
     }.otherwise{
       // normal condition (overflow just not started in this beat)
       when (!is_overflowed){
         // normal transmission process
-        when (!info_buf_reg(wr_index_reg).used) { //ready to receive this package
+        when (!info_buf_reg(wr_index_reg).used) { //ready to receive this package; first burst
           info_buf_reg(wr_index_reg).used := true.B
+          info_buf_reg(wr_index_reg).ip_chksum := ip_chksum_vec.reduceTree(_+_)
+          info_buf_reg(wr_index_reg).tcp_chksum := tcp_hdr_chksum_vec.reduceTree(_+_)
+        }.otherwise{
+          info_buf_reg(wr_index_reg).tcp_chksum := info_buf_reg(wr_index_reg).tcp_chksum + tcp_pld_chksum_vec.reduceTree(_+_)
         }
         data_buf_reg(wr_pos_reg) := io.in_tdata
         info_buf_reg(wr_index_reg).burst := info_buf_reg(wr_index_reg).burst + 1.U
@@ -115,7 +153,6 @@ class PackageBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Mo
           is_overflowed := false.B
           wr_pos_reg := wr_index_reg << log2Ceil(burst_size).U
       }
-
     }
   }
 

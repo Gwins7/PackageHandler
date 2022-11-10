@@ -6,57 +6,5 @@
   {
     "class":"firrtl.transforms.BlackBoxTargetDirAnno",
     "targetDir":"generated"
-  },
-  {
-    "class":"firrtl.transforms.CombinationalPath",
-    "sink":"~PackageHandler|PackageHandler>io_CMAC_in_tvalid",
-    "sources":[
-      "~PackageHandler|PackageHandler>io_QDMA_h2c_stub_out_tvalid",
-      "~PackageHandler|PackageHandler>io_QDMA_h2c_stub_out_tuser"
-    ]
-  },
-  {
-    "class":"firrtl.transforms.CombinationalPath",
-    "sink":"~PackageHandler|PackageHandler>io_CMAC_in_tdata",
-    "sources":[
-      "~PackageHandler|PackageHandler>io_QDMA_h2c_stub_out_tdata"
-    ]
-  },
-  {
-    "class":"firrtl.transforms.CombinationalPath",
-    "sink":"~PackageHandler|PackageHandler>io_QDMA_h2c_stub_out_tready",
-    "sources":[
-      "~PackageHandler|PackageHandler>io_CMAC_in_tready"
-    ]
-  },
-  {
-    "class":"firrtl.transforms.CombinationalPath",
-    "sink":"~PackageHandler|PackageHandler>io_QDMA_c2h_stub_in_tlast",
-    "sources":[
-      "~PackageHandler|PackageHandler>io_QDMA_c2h_stub_in_tuser",
-      "~PackageHandler|PackageHandler>io_QDMA_c2h_stub_in_tvalid"
-    ]
-  },
-  {
-    "class":"firrtl.transforms.CombinationalPath",
-    "sink":"~PackageHandler|PackageHandler>io_QDMA_c2h_stub_in_tuser",
-    "sources":[
-      "~PackageHandler|PackageHandler>io_QDMA_c2h_stub_in_tvalid"
-    ]
-  },
-  {
-    "class":"firrtl.transforms.CombinationalPath",
-    "sink":"~PackageHandler|PackageHandler>io_CMAC_in_tlast",
-    "sources":[
-      "~PackageHandler|PackageHandler>io_QDMA_h2c_stub_out_tlast"
-    ]
-  },
-  {
-    "class":"firrtl.transforms.CombinationalPath",
-    "sink":"~PackageHandler|PackageHandler>io_QDMA_c2h_stub_in_tdata",
-    "sources":[
-      "~PackageHandler|PackageHandler>io_QDMA_c2h_stub_in_tuser",
-      "~PackageHandler|PackageHandler>io_QDMA_c2h_stub_in_tvalid"
-    ]
   }
 ]

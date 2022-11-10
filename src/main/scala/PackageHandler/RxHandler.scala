@@ -35,17 +35,18 @@ class RxHandler extends Module{
     val QDMA_c2h_stub_in_tvalid  = Output(Bool())
     val QDMA_c2h_stub_in_tready  = Input(Bool())
 
-    val c2h_reset_counter        = Input(Bool())
+    val reset_counter            = Input(Bool())
     val c2h_sw_qid_mask          = Input(UInt(32.W))
     val c2h_pack_counter         = Output(UInt(32.W))
     val c2h_overflow_counter     = Output(UInt(32.W))
+    val c2h_wrong_chksum_counter = Output(UInt(32.W))
   })
   /*
      c2h direction
      Set a buffer on c2h direction in order to receive the whole package,
      generate a new c2h header,and then send to QDMA in the first burst.
     */
-  val rx_buffer_fifo = Module(new PackageBufferFifo()) // a packet's max burst is 24 (1536 bytes)
+  val rx_buffer_fifo = Module(new RxBufferFifo()) // a packet's max burst is 24 (1536 bytes)
 
   rx_buffer_fifo.io.in_tdata             := io.CMAC_out_tdata
   rx_buffer_fifo.io.in_tvalid            := io.CMAC_out_tvalid
@@ -53,10 +54,10 @@ class RxHandler extends Module{
   rx_buffer_fifo.io.in_tkeep             := io.CMAC_out_tkeep
   io.CMAC_out_tready          := rx_buffer_fifo.io.in_tready
 
-  rx_buffer_fifo.io.reset_counter := io.c2h_reset_counter
+  rx_buffer_fifo.io.reset_counter := io.reset_counter
   io.c2h_pack_counter := rx_buffer_fifo.io.out_pack_counter
   io.c2h_overflow_counter := rx_buffer_fifo.io.out_overflow_counter
-
+  io.c2h_wrong_chksum_counter := rx_buffer_fifo.io.out_wrong_chksum_counter
   //QDMA's tuser is used to find out whether the packet is a header or not.
   val QDMA_c2h_stub_in_tuser_reg = RegInit(true.B)
   when (io.QDMA_c2h_stub_in_tvalid & io.QDMA_c2h_stub_in_tready){
