@@ -36,7 +36,7 @@ class TxHandler extends Module{
   io.h2c_pack_counter := tx_buffer_fifo.io.out_pack_counter
   io.h2c_err_counter := tx_buffer_fifo.io.out_err_counter
 
-  io.CMAC_in_tkeep := "h_ffffffff_ffffffff_ffffffff_ffffffff".U
+  io.CMAC_in_tkeep := "h_ffffffff_ffffffff".U
   io.CMAC_in_tdata := tx_buffer_fifo.io.out_tdata
   io.CMAC_in_tvalid := tx_buffer_fifo.io.out_tvalid
   io.CMAC_in_tlast := tx_buffer_fifo.io.out_tlast
