@@ -160,12 +160,19 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   val rd_data = data_buf_reg(Mux(out_shake_hand, rd_pos_next, rd_pos_reg))
 
   //calculate and insert chksum into first beat of data
-  val end_ip_chksum = Wire(UInt(16.W))
-  end_ip_chksum := Mux(info_buf_reg(rd_index_reg).ip_chksum(31,16) > 0.U,
-                        ~(info_buf_reg(rd_index_reg).ip_chksum(31,16) + info_buf_reg(rd_index_reg).ip_chksum(15,0)), ~info_buf_reg(rd_index_reg).ip_chksum(15,0))
+  val mid_ip_chksum = Wire(UInt(32.W))
+  mid_ip_chksum := Mux(info_buf_reg(rd_index_reg).ip_chksum(31,16) > 0.U,
+    (info_buf_reg(rd_index_reg).ip_chksum(31,16) + info_buf_reg(rd_index_reg).ip_chksum(15,0)), info_buf_reg(rd_index_reg).ip_chksum(15,0))
+  val mid_tcp_chksum = Wire(UInt(32.W))
+  mid_tcp_chksum := Mux(info_buf_reg(rd_index_reg).tcp_chksum(31,16) > 0.U,
+    (info_buf_reg(rd_index_reg).tcp_chksum(31,16) + info_buf_reg(rd_index_reg).tcp_chksum(15,0)), info_buf_reg(rd_index_reg).tcp_chksum(15,0))
+
+  val end_ip_chksum  = Wire(UInt(16.W))
+  end_ip_chksum := Mux(mid_ip_chksum(31,16) > 0.U,
+    ~(mid_ip_chksum(31,16) + mid_ip_chksum(15,0)),~mid_ip_chksum(15,0))
   val end_tcp_chksum = Wire(UInt(16.W))
-  end_tcp_chksum := Mux(info_buf_reg(rd_index_reg).tcp_chksum(31,16) > 0.U,
-                        ~(info_buf_reg(rd_index_reg).tcp_chksum(31,16) + info_buf_reg(rd_index_reg).tcp_chksum(15,0)), ~info_buf_reg(rd_index_reg).tcp_chksum(15,0))
+  end_tcp_chksum := Mux(mid_tcp_chksum(31,16) > 0.U,
+    ~(mid_tcp_chksum(31,16) + mid_tcp_chksum(15,0)), ~mid_tcp_chksum(15,0))
 
   val rev_ip_chksum = Cat(end_ip_chksum(7,0),end_ip_chksum(15,8))
   val rev_tcp_chksum = Cat(end_tcp_chksum(7,0),end_tcp_chksum(15,8))
