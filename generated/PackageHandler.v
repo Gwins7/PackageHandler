@@ -1306,8 +1306,8 @@ module RxBufferFifo(
   input          io_in_tvalid,
   output         io_in_tready,
   input          io_in_tlast,
-  input  [63:0]  io_in_tkeep,
   input          io_in_tuser,
+  input  [63:0]  io_in_tkeep,
   output [511:0] io_out_tdata,
   output         io_out_tvalid,
   input          io_out_tready,
@@ -2620,28 +2620,28 @@ module PackageFilterPipeline(
   input  [31:0]  io_in_sw_qid_mask,
   output [5:0]   io_out_qid
 );
-  wire  qid_mask_wrapper_clock; // @[PackageFilterPipeline.scala 38:32]
-  wire  qid_mask_wrapper_reset; // @[PackageFilterPipeline.scala 38:32]
-  wire [31:0] qid_mask_wrapper_io_in_mask; // @[PackageFilterPipeline.scala 38:32]
-  wire  qid_mask_wrapper_io_in_tlast; // @[PackageFilterPipeline.scala 38:32]
-  wire [5:0] qid_mask_wrapper_io_out_dec; // @[PackageFilterPipeline.scala 38:32]
-  SoftwareRegWrapper qid_mask_wrapper ( // @[PackageFilterPipeline.scala 38:32]
+  wire  qid_mask_wrapper_clock; // @[PackageFilterPipeline.scala 39:32]
+  wire  qid_mask_wrapper_reset; // @[PackageFilterPipeline.scala 39:32]
+  wire [31:0] qid_mask_wrapper_io_in_mask; // @[PackageFilterPipeline.scala 39:32]
+  wire  qid_mask_wrapper_io_in_tlast; // @[PackageFilterPipeline.scala 39:32]
+  wire [5:0] qid_mask_wrapper_io_out_dec; // @[PackageFilterPipeline.scala 39:32]
+  SoftwareRegWrapper qid_mask_wrapper ( // @[PackageFilterPipeline.scala 39:32]
     .clock(qid_mask_wrapper_clock),
     .reset(qid_mask_wrapper_reset),
     .io_in_mask(qid_mask_wrapper_io_in_mask),
     .io_in_tlast(qid_mask_wrapper_io_in_tlast),
     .io_out_dec(qid_mask_wrapper_io_out_dec)
   );
-  assign io_in_tready = io_out_tready; // @[PackageFilterPipeline.scala 28:10]
-  assign io_out_tdata = io_in_tdata; // @[PackageFilterPipeline.scala 28:10]
-  assign io_out_tvalid = io_in_tvalid; // @[PackageFilterPipeline.scala 28:10]
-  assign io_out_tlast = io_in_tlast; // @[PackageFilterPipeline.scala 28:10]
-  assign io_out_tlen = io_in_tlen; // @[PackageFilterPipeline.scala 28:10]
-  assign io_out_qid = qid_mask_wrapper_io_out_dec; // @[PackageFilterPipeline.scala 42:14]
+  assign io_in_tready = io_out_tready; // @[PackageFilterPipeline.scala 29:9]
+  assign io_out_tdata = io_in_tdata; // @[PackageFilterPipeline.scala 29:9]
+  assign io_out_tvalid = io_in_tvalid; // @[PackageFilterPipeline.scala 29:9]
+  assign io_out_tlast = io_in_tlast; // @[PackageFilterPipeline.scala 29:9]
+  assign io_out_tlen = io_in_tlen; // @[PackageFilterPipeline.scala 29:9]
+  assign io_out_qid = qid_mask_wrapper_io_out_dec; // @[PackageFilterPipeline.scala 43:14]
   assign qid_mask_wrapper_clock = clock;
   assign qid_mask_wrapper_reset = reset;
-  assign qid_mask_wrapper_io_in_mask = io_in_sw_qid_mask; // @[PackageFilterPipeline.scala 39:31]
-  assign qid_mask_wrapper_io_in_tlast = io_in_tvalid & io_in_tready & io_in_tlast; // @[PackageFilterPipeline.scala 40:63]
+  assign qid_mask_wrapper_io_in_mask = io_in_sw_qid_mask; // @[PackageFilterPipeline.scala 40:31]
+  assign qid_mask_wrapper_io_in_tlast = io_in_tvalid & io_in_tready & io_in_tlast; // @[PackageFilterPipeline.scala 41:63]
 endmodule
 module RxHandler(
   input          clock,
@@ -2650,17 +2650,17 @@ module RxHandler(
   input          io_CMAC_out_tvalid,
   output         io_CMAC_out_tready,
   input          io_CMAC_out_tlast,
-  input  [63:0]  io_CMAC_out_tkeep,
   input          io_CMAC_out_tuser,
+  input  [63:0]  io_CMAC_out_tkeep,
   output [511:0] io_QDMA_c2h_stub_in_tdata,
   output         io_QDMA_c2h_stub_in_tvalid,
   input          io_QDMA_c2h_stub_in_tready,
   output         io_QDMA_c2h_stub_in_tlast,
   output         io_QDMA_c2h_stub_in_tuser,
   input          io_reset_counter,
-  input  [31:0]  io_c2h_sw_qid_mask,
   output [31:0]  io_c2h_pack_counter,
-  output [31:0]  io_c2h_err_counter
+  output [31:0]  io_c2h_err_counter,
+  input  [31:0]  io_c2h_sw_qid_mask
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
@@ -2671,8 +2671,8 @@ module RxHandler(
   wire  rx_buffer_fifo_io_in_tvalid; // @[RxHandler.scala 39:30]
   wire  rx_buffer_fifo_io_in_tready; // @[RxHandler.scala 39:30]
   wire  rx_buffer_fifo_io_in_tlast; // @[RxHandler.scala 39:30]
-  wire [63:0] rx_buffer_fifo_io_in_tkeep; // @[RxHandler.scala 39:30]
   wire  rx_buffer_fifo_io_in_tuser; // @[RxHandler.scala 39:30]
+  wire [63:0] rx_buffer_fifo_io_in_tkeep; // @[RxHandler.scala 39:30]
   wire [511:0] rx_buffer_fifo_io_out_tdata; // @[RxHandler.scala 39:30]
   wire  rx_buffer_fifo_io_out_tvalid; // @[RxHandler.scala 39:30]
   wire  rx_buffer_fifo_io_out_tready; // @[RxHandler.scala 39:30]
@@ -2712,8 +2712,8 @@ module RxHandler(
     .io_in_tvalid(rx_buffer_fifo_io_in_tvalid),
     .io_in_tready(rx_buffer_fifo_io_in_tready),
     .io_in_tlast(rx_buffer_fifo_io_in_tlast),
-    .io_in_tkeep(rx_buffer_fifo_io_in_tkeep),
     .io_in_tuser(rx_buffer_fifo_io_in_tuser),
+    .io_in_tkeep(rx_buffer_fifo_io_in_tkeep),
     .io_out_tdata(rx_buffer_fifo_io_out_tdata),
     .io_out_tvalid(rx_buffer_fifo_io_out_tvalid),
     .io_out_tready(rx_buffer_fifo_io_out_tready),
@@ -2752,8 +2752,8 @@ module RxHandler(
   assign rx_buffer_fifo_io_in_tdata = io_CMAC_out_tdata; // @[RxHandler.scala 41:15]
   assign rx_buffer_fifo_io_in_tvalid = io_CMAC_out_tvalid; // @[RxHandler.scala 41:15]
   assign rx_buffer_fifo_io_in_tlast = io_CMAC_out_tlast; // @[RxHandler.scala 41:15]
-  assign rx_buffer_fifo_io_in_tkeep = io_CMAC_out_tkeep; // @[RxHandler.scala 41:15]
   assign rx_buffer_fifo_io_in_tuser = io_CMAC_out_tuser; // @[RxHandler.scala 41:15]
+  assign rx_buffer_fifo_io_in_tkeep = io_CMAC_out_tkeep; // @[RxHandler.scala 41:15]
   assign rx_buffer_fifo_io_out_tready = package_filter_io_in_tready; // @[RxHandler.scala 58:24]
   assign rx_buffer_fifo_io_reset_counter = io_reset_counter; // @[RxHandler.scala 43:35]
   assign package_filter_clock = clock;
@@ -2825,14 +2825,14 @@ module PackageHandler(
   output         io_CMAC_in_tvalid,
   input          io_CMAC_in_tready,
   output         io_CMAC_in_tlast,
-  output [63:0]  io_CMAC_in_tkeep,
   output         io_CMAC_in_tuser,
+  output [63:0]  io_CMAC_in_tkeep,
   input  [511:0] io_CMAC_out_tdata,
   input          io_CMAC_out_tvalid,
   output         io_CMAC_out_tready,
   input          io_CMAC_out_tlast,
-  input  [63:0]  io_CMAC_out_tkeep,
   input          io_CMAC_out_tuser,
+  input  [63:0]  io_CMAC_out_tkeep,
   output [511:0] io_QDMA_c2h_stub_in_tdata,
   output         io_QDMA_c2h_stub_in_tvalid,
   input          io_QDMA_c2h_stub_in_tready,
@@ -2865,17 +2865,17 @@ module PackageHandler(
   wire  rx_handler_io_CMAC_out_tvalid; // @[PackageHandler.scala 34:26]
   wire  rx_handler_io_CMAC_out_tready; // @[PackageHandler.scala 34:26]
   wire  rx_handler_io_CMAC_out_tlast; // @[PackageHandler.scala 34:26]
-  wire [63:0] rx_handler_io_CMAC_out_tkeep; // @[PackageHandler.scala 34:26]
   wire  rx_handler_io_CMAC_out_tuser; // @[PackageHandler.scala 34:26]
+  wire [63:0] rx_handler_io_CMAC_out_tkeep; // @[PackageHandler.scala 34:26]
   wire [511:0] rx_handler_io_QDMA_c2h_stub_in_tdata; // @[PackageHandler.scala 34:26]
   wire  rx_handler_io_QDMA_c2h_stub_in_tvalid; // @[PackageHandler.scala 34:26]
   wire  rx_handler_io_QDMA_c2h_stub_in_tready; // @[PackageHandler.scala 34:26]
   wire  rx_handler_io_QDMA_c2h_stub_in_tlast; // @[PackageHandler.scala 34:26]
   wire  rx_handler_io_QDMA_c2h_stub_in_tuser; // @[PackageHandler.scala 34:26]
   wire  rx_handler_io_reset_counter; // @[PackageHandler.scala 34:26]
-  wire [31:0] rx_handler_io_c2h_sw_qid_mask; // @[PackageHandler.scala 34:26]
   wire [31:0] rx_handler_io_c2h_pack_counter; // @[PackageHandler.scala 34:26]
   wire [31:0] rx_handler_io_c2h_err_counter; // @[PackageHandler.scala 34:26]
+  wire [31:0] rx_handler_io_c2h_sw_qid_mask; // @[PackageHandler.scala 34:26]
   TxHandler tx_handler ( // @[PackageHandler.scala 27:26]
     .clock(tx_handler_clock),
     .reset(tx_handler_reset),
@@ -2899,24 +2899,24 @@ module PackageHandler(
     .io_CMAC_out_tvalid(rx_handler_io_CMAC_out_tvalid),
     .io_CMAC_out_tready(rx_handler_io_CMAC_out_tready),
     .io_CMAC_out_tlast(rx_handler_io_CMAC_out_tlast),
-    .io_CMAC_out_tkeep(rx_handler_io_CMAC_out_tkeep),
     .io_CMAC_out_tuser(rx_handler_io_CMAC_out_tuser),
+    .io_CMAC_out_tkeep(rx_handler_io_CMAC_out_tkeep),
     .io_QDMA_c2h_stub_in_tdata(rx_handler_io_QDMA_c2h_stub_in_tdata),
     .io_QDMA_c2h_stub_in_tvalid(rx_handler_io_QDMA_c2h_stub_in_tvalid),
     .io_QDMA_c2h_stub_in_tready(rx_handler_io_QDMA_c2h_stub_in_tready),
     .io_QDMA_c2h_stub_in_tlast(rx_handler_io_QDMA_c2h_stub_in_tlast),
     .io_QDMA_c2h_stub_in_tuser(rx_handler_io_QDMA_c2h_stub_in_tuser),
     .io_reset_counter(rx_handler_io_reset_counter),
-    .io_c2h_sw_qid_mask(rx_handler_io_c2h_sw_qid_mask),
     .io_c2h_pack_counter(rx_handler_io_c2h_pack_counter),
-    .io_c2h_err_counter(rx_handler_io_c2h_err_counter)
+    .io_c2h_err_counter(rx_handler_io_c2h_err_counter),
+    .io_c2h_sw_qid_mask(rx_handler_io_c2h_sw_qid_mask)
   );
   assign io_QDMA_h2c_stub_out_tready = tx_handler_io_QDMA_h2c_stub_out_tready; // @[PackageHandler.scala 28:24]
   assign io_CMAC_in_tdata = tx_handler_io_CMAC_in_tdata; // @[PackageHandler.scala 29:24]
   assign io_CMAC_in_tvalid = tx_handler_io_CMAC_in_tvalid; // @[PackageHandler.scala 29:24]
   assign io_CMAC_in_tlast = tx_handler_io_CMAC_in_tlast; // @[PackageHandler.scala 29:24]
-  assign io_CMAC_in_tkeep = 64'hffffffffffffffff; // @[PackageHandler.scala 29:24]
   assign io_CMAC_in_tuser = 1'h0; // @[PackageHandler.scala 29:24]
+  assign io_CMAC_in_tkeep = 64'hffffffffffffffff; // @[PackageHandler.scala 29:24]
   assign io_CMAC_out_tready = rx_handler_io_CMAC_out_tready; // @[PackageHandler.scala 36:23]
   assign io_QDMA_c2h_stub_in_tdata = rx_handler_io_QDMA_c2h_stub_in_tdata; // @[PackageHandler.scala 35:23]
   assign io_QDMA_c2h_stub_in_tvalid = rx_handler_io_QDMA_c2h_stub_in_tvalid; // @[PackageHandler.scala 35:23]
@@ -2939,8 +2939,8 @@ module PackageHandler(
   assign rx_handler_io_CMAC_out_tdata = io_CMAC_out_tdata; // @[PackageHandler.scala 36:23]
   assign rx_handler_io_CMAC_out_tvalid = io_CMAC_out_tvalid; // @[PackageHandler.scala 36:23]
   assign rx_handler_io_CMAC_out_tlast = io_CMAC_out_tlast; // @[PackageHandler.scala 36:23]
-  assign rx_handler_io_CMAC_out_tkeep = io_CMAC_out_tkeep; // @[PackageHandler.scala 36:23]
   assign rx_handler_io_CMAC_out_tuser = io_CMAC_out_tuser; // @[PackageHandler.scala 36:23]
+  assign rx_handler_io_CMAC_out_tkeep = io_CMAC_out_tkeep; // @[PackageHandler.scala 36:23]
   assign rx_handler_io_QDMA_c2h_stub_in_tready = io_QDMA_c2h_stub_in_tready; // @[PackageHandler.scala 35:23]
   assign rx_handler_io_reset_counter = io_reset_counter; // @[PackageHandler.scala 37:33]
   assign rx_handler_io_c2h_sw_qid_mask = io_c2h_sw_qid_mask; // @[PackageHandler.scala 38:33]

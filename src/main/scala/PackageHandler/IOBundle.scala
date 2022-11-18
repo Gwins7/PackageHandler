@@ -18,7 +18,6 @@ class QDMAAxisIO extends AxisIO{
   val tuser = Input(Bool())
 }
 
-class CMACAxisIO extends AxisIO{
+class CMACAxisIO extends QDMAAxisIO{
   val tkeep = Input(UInt(64.W))
-  val tuser = Input(Bool())
 }

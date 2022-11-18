@@ -278,7 +278,7 @@ circuit PackageHandler :
   module TxBufferFifo :
     input clock : Clock
     input reset : Reset
-    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tkeep : UInt<64>, flip tuser : UInt<1>}, flip reset_counter : UInt<1>, h2c_pack_counter : UInt<32>, h2c_err_counter : UInt<32>}
+    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip tkeep : UInt<64>}, flip reset_counter : UInt<1>, h2c_pack_counter : UInt<32>, h2c_err_counter : UInt<32>}
 
     node _true_tvalid_T = eq(io.in.tuser, UInt<1>("h0")) @[TxBufferFifo.scala 40:36]
     node true_tvalid = and(io.in.tvalid, _true_tvalid_T) @[TxBufferFifo.scala 40:34]
@@ -809,7 +809,7 @@ circuit PackageHandler :
   module TxHandler :
     input clock : Clock
     input reset : Reset
-    output io : { QDMA_h2c_stub_out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, flip CMAC_in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tkeep : UInt<64>, flip tuser : UInt<1>}, flip reset_counter : UInt<1>, h2c_pack_counter : UInt<32>, h2c_err_counter : UInt<32>}
+    output io : { QDMA_h2c_stub_out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, flip CMAC_in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip tkeep : UInt<64>}, flip reset_counter : UInt<1>, h2c_pack_counter : UInt<32>, h2c_err_counter : UInt<32>}
 
     inst tx_buffer_fifo of TxBufferFifo @[TxHandler.scala 20:30]
     tx_buffer_fifo.clock <= clock
@@ -819,8 +819,8 @@ circuit PackageHandler :
     io.QDMA_h2c_stub_out.tready <= tx_buffer_fifo.io.in.tready @[TxHandler.scala 22:24]
     tx_buffer_fifo.io.in.tvalid <= io.QDMA_h2c_stub_out.tvalid @[TxHandler.scala 22:24]
     tx_buffer_fifo.io.in.tdata <= io.QDMA_h2c_stub_out.tdata @[TxHandler.scala 22:24]
-    io.CMAC_in.tuser <= tx_buffer_fifo.io.out.tuser @[TxHandler.scala 23:24]
     io.CMAC_in.tkeep <= tx_buffer_fifo.io.out.tkeep @[TxHandler.scala 23:24]
+    io.CMAC_in.tuser <= tx_buffer_fifo.io.out.tuser @[TxHandler.scala 23:24]
     io.CMAC_in.tlast <= tx_buffer_fifo.io.out.tlast @[TxHandler.scala 23:24]
     tx_buffer_fifo.io.out.tready <= io.CMAC_in.tready @[TxHandler.scala 23:24]
     io.CMAC_in.tvalid <= tx_buffer_fifo.io.out.tvalid @[TxHandler.scala 23:24]
@@ -1316,7 +1316,7 @@ circuit PackageHandler :
   module RxBufferFifo :
     input clock : Clock
     input reset : Reset
-    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tkeep : UInt<64>, flip tuser : UInt<1>}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tlen : UInt<16>}, flip reset_counter : UInt<1>, c2h_pack_counter : UInt<32>, c2h_err_counter : UInt<32>}
+    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip tkeep : UInt<64>}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tlen : UInt<16>}, flip reset_counter : UInt<1>, c2h_pack_counter : UInt<32>, c2h_err_counter : UInt<32>}
 
     node in_shake_hand = and(io.in.tvalid, io.in.tready) @[RxBufferFifo.scala 40:36]
     reg in_tdata_reg : UInt, clock with :
@@ -2479,35 +2479,35 @@ circuit PackageHandler :
     input reset : Reset
     output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tlen : UInt<16>}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tlen : UInt<16>}, flip in_sw_qid_mask : UInt<32>, out_qid : UInt<6>}
 
-    io.out.tlen <= io.in.tlen @[PackageFilterPipeline.scala 28:10]
-    io.out.tlast <= io.in.tlast @[PackageFilterPipeline.scala 28:10]
-    io.in.tready <= io.out.tready @[PackageFilterPipeline.scala 28:10]
-    io.out.tvalid <= io.in.tvalid @[PackageFilterPipeline.scala 28:10]
-    io.out.tdata <= io.in.tdata @[PackageFilterPipeline.scala 28:10]
+    io.out.tlen <= io.in.tlen @[PackageFilterPipeline.scala 29:9]
+    io.out.tlast <= io.in.tlast @[PackageFilterPipeline.scala 29:9]
+    io.in.tready <= io.out.tready @[PackageFilterPipeline.scala 29:9]
+    io.out.tvalid <= io.in.tvalid @[PackageFilterPipeline.scala 29:9]
+    io.out.tdata <= io.in.tdata @[PackageFilterPipeline.scala 29:9]
     reg pld_first_beat_reg : UInt<1>, clock with :
-      reset => (reset, UInt<1>("h1")) @[PackageFilterPipeline.scala 33:35]
-    node _T = and(io.out.tvalid, io.out.tready) @[PackageFilterPipeline.scala 34:23]
-    when _T : @[PackageFilterPipeline.scala 34:40]
-      pld_first_beat_reg <= io.out.tlast @[PackageFilterPipeline.scala 35:24]
-    inst qid_mask_wrapper of SoftwareRegWrapper @[PackageFilterPipeline.scala 38:32]
+      reset => (reset, UInt<1>("h1")) @[PackageFilterPipeline.scala 34:35]
+    node _T = and(io.out.tvalid, io.out.tready) @[PackageFilterPipeline.scala 35:23]
+    when _T : @[PackageFilterPipeline.scala 35:40]
+      pld_first_beat_reg <= io.out.tlast @[PackageFilterPipeline.scala 36:24]
+    inst qid_mask_wrapper of SoftwareRegWrapper @[PackageFilterPipeline.scala 39:32]
     qid_mask_wrapper.clock <= clock
     qid_mask_wrapper.reset <= reset
-    qid_mask_wrapper.io.in_mask <= io.in_sw_qid_mask @[PackageFilterPipeline.scala 39:31]
-    node _qid_mask_wrapper_io_in_tlast_T = and(io.in.tvalid, io.in.tready) @[PackageFilterPipeline.scala 40:48]
-    node _qid_mask_wrapper_io_in_tlast_T_1 = and(_qid_mask_wrapper_io_in_tlast_T, io.in.tlast) @[PackageFilterPipeline.scala 40:63]
-    qid_mask_wrapper.io.in_tlast <= _qid_mask_wrapper_io_in_tlast_T_1 @[PackageFilterPipeline.scala 40:32]
-    io.out_qid <= qid_mask_wrapper.io.out_dec @[PackageFilterPipeline.scala 42:14]
+    qid_mask_wrapper.io.in_mask <= io.in_sw_qid_mask @[PackageFilterPipeline.scala 40:31]
+    node _qid_mask_wrapper_io_in_tlast_T = and(io.in.tvalid, io.in.tready) @[PackageFilterPipeline.scala 41:48]
+    node _qid_mask_wrapper_io_in_tlast_T_1 = and(_qid_mask_wrapper_io_in_tlast_T, io.in.tlast) @[PackageFilterPipeline.scala 41:63]
+    qid_mask_wrapper.io.in_tlast <= _qid_mask_wrapper_io_in_tlast_T_1 @[PackageFilterPipeline.scala 41:32]
+    io.out_qid <= qid_mask_wrapper.io.out_dec @[PackageFilterPipeline.scala 43:14]
 
   module RxHandler :
     input clock : Clock
     input reset : Reset
-    output io : { CMAC_out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tkeep : UInt<64>, flip tuser : UInt<1>}, flip QDMA_c2h_stub_in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, flip reset_counter : UInt<1>, flip c2h_sw_qid_mask : UInt<32>, c2h_pack_counter : UInt<32>, c2h_err_counter : UInt<32>}
+    output io : { CMAC_out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip tkeep : UInt<64>}, flip QDMA_c2h_stub_in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, flip reset_counter : UInt<1>, c2h_pack_counter : UInt<32>, c2h_err_counter : UInt<32>, flip c2h_sw_qid_mask : UInt<32>}
 
     inst rx_buffer_fifo of RxBufferFifo @[RxHandler.scala 39:30]
     rx_buffer_fifo.clock <= clock
     rx_buffer_fifo.reset <= reset
-    rx_buffer_fifo.io.in.tuser <= io.CMAC_out.tuser @[RxHandler.scala 41:15]
     rx_buffer_fifo.io.in.tkeep <= io.CMAC_out.tkeep @[RxHandler.scala 41:15]
+    rx_buffer_fifo.io.in.tuser <= io.CMAC_out.tuser @[RxHandler.scala 41:15]
     rx_buffer_fifo.io.in.tlast <= io.CMAC_out.tlast @[RxHandler.scala 41:15]
     io.CMAC_out.tready <= rx_buffer_fifo.io.in.tready @[RxHandler.scala 41:15]
     rx_buffer_fifo.io.in.tvalid <= io.CMAC_out.tvalid @[RxHandler.scala 41:15]
@@ -2576,7 +2576,7 @@ circuit PackageHandler :
   module PackageHandler :
     input clock : Clock
     input reset : UInt<1>
-    output io : { QDMA_h2c_stub_out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, flip CMAC_in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tkeep : UInt<64>, flip tuser : UInt<1>}, CMAC_out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tkeep : UInt<64>, flip tuser : UInt<1>}, flip QDMA_c2h_stub_in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, flip reset_counter : UInt<1>, flip c2h_sw_qid_mask : UInt<32>, c2h_pack_counter : UInt<32>, c2h_err_counter : UInt<32>, h2c_pack_counter : UInt<32>, h2c_err_counter : UInt<32>}
+    output io : { QDMA_h2c_stub_out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, flip CMAC_in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip tkeep : UInt<64>}, CMAC_out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip tkeep : UInt<64>}, flip QDMA_c2h_stub_in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, flip reset_counter : UInt<1>, flip c2h_sw_qid_mask : UInt<32>, c2h_pack_counter : UInt<32>, c2h_err_counter : UInt<32>, h2c_pack_counter : UInt<32>, h2c_err_counter : UInt<32>}
 
     inst tx_handler of TxHandler @[PackageHandler.scala 27:26]
     tx_handler.clock <= clock
@@ -2586,8 +2586,8 @@ circuit PackageHandler :
     io.QDMA_h2c_stub_out.tready <= tx_handler.io.QDMA_h2c_stub_out.tready @[PackageHandler.scala 28:24]
     tx_handler.io.QDMA_h2c_stub_out.tvalid <= io.QDMA_h2c_stub_out.tvalid @[PackageHandler.scala 28:24]
     tx_handler.io.QDMA_h2c_stub_out.tdata <= io.QDMA_h2c_stub_out.tdata @[PackageHandler.scala 28:24]
-    io.CMAC_in.tuser <= tx_handler.io.CMAC_in.tuser @[PackageHandler.scala 29:24]
     io.CMAC_in.tkeep <= tx_handler.io.CMAC_in.tkeep @[PackageHandler.scala 29:24]
+    io.CMAC_in.tuser <= tx_handler.io.CMAC_in.tuser @[PackageHandler.scala 29:24]
     io.CMAC_in.tlast <= tx_handler.io.CMAC_in.tlast @[PackageHandler.scala 29:24]
     tx_handler.io.CMAC_in.tready <= io.CMAC_in.tready @[PackageHandler.scala 29:24]
     io.CMAC_in.tvalid <= tx_handler.io.CMAC_in.tvalid @[PackageHandler.scala 29:24]
@@ -2603,8 +2603,8 @@ circuit PackageHandler :
     rx_handler.io.QDMA_c2h_stub_in.tready <= io.QDMA_c2h_stub_in.tready @[PackageHandler.scala 35:23]
     io.QDMA_c2h_stub_in.tvalid <= rx_handler.io.QDMA_c2h_stub_in.tvalid @[PackageHandler.scala 35:23]
     io.QDMA_c2h_stub_in.tdata <= rx_handler.io.QDMA_c2h_stub_in.tdata @[PackageHandler.scala 35:23]
-    rx_handler.io.CMAC_out.tuser <= io.CMAC_out.tuser @[PackageHandler.scala 36:23]
     rx_handler.io.CMAC_out.tkeep <= io.CMAC_out.tkeep @[PackageHandler.scala 36:23]
+    rx_handler.io.CMAC_out.tuser <= io.CMAC_out.tuser @[PackageHandler.scala 36:23]
     rx_handler.io.CMAC_out.tlast <= io.CMAC_out.tlast @[PackageHandler.scala 36:23]
     io.CMAC_out.tready <= rx_handler.io.CMAC_out.tready @[PackageHandler.scala 36:23]
     rx_handler.io.CMAC_out.tvalid <= io.CMAC_out.tvalid @[PackageHandler.scala 36:23]

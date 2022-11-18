@@ -27,9 +27,9 @@ class RxHandler extends Module{
     val QDMA_c2h_stub_in = Flipped(new QDMAAxisIO())
 
     val reset_counter            = Input(Bool())
-    val c2h_sw_qid_mask          = Input(UInt(32.W))
     val c2h_pack_counter         = Output(UInt(32.W))
     val c2h_err_counter          = Output(UInt(32.W))
+    val c2h_sw_qid_mask          = Input(UInt(32.W))
   })
   /*
      c2h direction
