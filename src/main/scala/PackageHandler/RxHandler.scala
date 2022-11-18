@@ -57,7 +57,7 @@ class RxHandler extends Module{
 
   package_filter.io.in <> rx_buffer_fifo.io.out
 
-  package_filter.io.in_sw_qid_mask := io.c2h_sw_qid_mask
+  package_filter.io.c2h_sw_qid_mask := io.c2h_sw_qid_mask
 
   io.QDMA_c2h_stub_in.tvalid := package_filter.io.out.tvalid
   // when we send the header, the buffer should be blocked and the tlast should be low
@@ -74,7 +74,7 @@ class RxHandler extends Module{
     Gen_c2h_hdr.usr_int := 0.U; Gen_c2h_hdr.eot := 0.U; Gen_c2h_hdr.cmp_data_0 := 0.U
     Gen_c2h_hdr.flow_id := Gen_c2h_hdr.qid; Gen_c2h_hdr.tdest := Gen_c2h_hdr.qid
     //only useful information
-    Gen_c2h_hdr.qid := package_filter.io.out_qid; // [5:0]
+    Gen_c2h_hdr.qid := package_filter.io.c2h_qid; // [5:0]
     Gen_c2h_hdr.pkt_len := package_filter.io.out.tlen
     io.QDMA_c2h_stub_in.tdata := Gen_c2h_hdr.asUInt
 

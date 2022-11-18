@@ -21,8 +21,8 @@ class PackageFilterPipeline() extends Module{
     val in = new RxPipelineAxisIO()
     val out = Flipped(new RxPipelineAxisIO())
 
-    val in_sw_qid_mask = Input(UInt(32.W))
-    val out_qid    = Output(UInt(6.W))
+    val c2h_sw_qid_mask = Input(UInt(32.W))
+    val c2h_qid    = Output(UInt(6.W))
   })
 
 // place to add filter logic; we need a pipeline
@@ -37,8 +37,8 @@ class PackageFilterPipeline() extends Module{
   }
 
   val qid_mask_wrapper = Module(new SoftwareRegWrapper(32))
-  qid_mask_wrapper.io.in_mask := io.in_sw_qid_mask
+  qid_mask_wrapper.io.in_mask := io.c2h_sw_qid_mask
   qid_mask_wrapper.io.in_tlast := io.in.tvalid & io.in.tready & io.in.tlast
 
-  io.out_qid := qid_mask_wrapper.io.out_dec
+  io.c2h_qid := qid_mask_wrapper.io.out_dec
 }
