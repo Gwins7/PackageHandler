@@ -19,38 +19,33 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   }
 
   val io = IO(new Bundle {
-    val in_tdata = Input(UInt(512.W))
-    val in_tlast = Input(Bool())
-    val in_tvalid = Input(Bool())
-    val in_tready = Output(Bool())
-    val in_tkeep = Input(UInt(64.W))
-    val in_tuser = Input(Bool())
+    val in  = new CMACAxisIO()
+    val out = Flipped(new RxPipelineAxisIO())
 
-    val out_tlen = Output(UInt(16.W))
-    val out_tdata = Output(UInt(512.W))
-    val out_tlast = Output(Bool())
-    val out_tvalid = Output(Bool())
-    val out_tready = Input(Bool())
-
-    val reset_counter = Input(Bool())
-    val out_pack_counter = Output(UInt(32.W))
-    val out_err_counter = Output(UInt(32.W))
+    val reset_counter    = Input(Bool())
+    val c2h_pack_counter = Output(UInt(32.W))
+    val c2h_err_counter  = Output(UInt(32.W))
   })
 
   def index_inc(index: UInt): UInt ={
     (index + 1.U) & (depth-1).U
   }
+  def chksum_cal(input: UInt): UInt ={
+    Mux(input(31,16) > 0.U,
+      input(31,16) + input(15,0), input(15,0))
+  }
+
   val burst_unit_num = depth * burst_size
 
-  val in_shake_hand = io.in_tvalid & io.in_tready
+  val in_shake_hand = io.in.tvalid & io.in.tready
 
   // for timing reason, we save axis_in signal
   // we handle them like sync mem
-  val in_tdata_reg =  RegEnable(io.in_tdata, 0.U, in_shake_hand)
-  val in_tkeep_reg =  RegEnable(io.in_tkeep, 0.U, in_shake_hand)
-  val in_tuser_reg =  RegEnable(io.in_tuser, false.B, in_shake_hand)
-  val in_tlast_reg =  RegEnable(io.in_tlast, false.B, in_shake_hand)
-  val in_tvalid_reg = RegEnable(io.in_tvalid, false.B, in_shake_hand)
+  val in_tdata_reg =  RegEnable(io.in.tdata, 0.U, in_shake_hand)
+  val in_tkeep_reg =  RegEnable(io.in.tkeep, 0.U, in_shake_hand)
+  val in_tuser_reg =  RegEnable(io.in.tuser, false.B, in_shake_hand)
+  val in_tlast_reg =  RegEnable(io.in.tlast, false.B, in_shake_hand)
+  val in_tvalid_reg = RegEnable(io.in.tvalid, false.B, in_shake_hand)
 
   val data_buf_reg = SyncReadMem(burst_unit_num,UInt(512.W))
   // if we want to use block RAM instead of registers, refer:
@@ -62,7 +57,7 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   val rd_pos_reg   = RegInit(0.U(unsignedBitLength(burst_unit_num).W))
   val rd_pos_next = WireDefault(0.U(unsignedBitLength(burst_unit_num).W)) // used for sync-mem
 
-  val cal_tkeep = Mux(in_shake_hand,io.in_tkeep,in_tkeep_reg)
+  val cal_tkeep = Mux(in_shake_hand,io.in.tkeep,in_tkeep_reg)
   val burst_size_cal = Module(new reduce_add_sync(64,8))
   for (i <- 0 until 64) burst_size_cal.io.in_vec(i) := cal_tkeep(i)
   val cur_burst_size = burst_size_cal.io.out_sum
@@ -71,20 +66,20 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   for (i <- 0 until depth) valid_vec(i) := info_buf_reg(i).valid
   val buf_full = valid_vec.reduceTree(_&_)
 
-  io.in_tready := !buf_full
+  io.in.tready := !buf_full
   val pack_counter = RegInit(0.U(32.W))
   val err_counter = RegInit(0.U(32.W))
   val wrong_chksum_counter = RegInit(0.U(32.W))
 
-  io.out_pack_counter := pack_counter
-  io.out_err_counter := err_counter + wrong_chksum_counter
+  io.c2h_pack_counter := pack_counter
+  io.c2h_err_counter := err_counter + wrong_chksum_counter
 
   val is_overflowed = RegInit(false.B)
   // ATTENTION: because we drop packet on CMAC's out fifo if tx is so fast,
   // the overflow handling function here is used only when the tx sends over-sized packets deliberately.
 
   //chksum part
-  val cal_tdata = Mux(in_shake_hand,io.in_tdata,in_tdata_reg)
+  val cal_tdata = Mux(in_shake_hand,io.in.tdata,in_tdata_reg)
 
   // ip header
   val ip_chksum_cal = Module(new reduce_add_sync(10,32))
@@ -168,30 +163,26 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   }
 
   // read part of ring buffer
-  val out_shake_hand = io.out_tready & info_buf_reg(rd_index_reg).valid // we finished shake hand in current beat
+  val out_shake_hand = io.out.tready & info_buf_reg(rd_index_reg).valid // we finished shake hand in current beat
 
   // verify the checksum, throw the packets which have invalid checksum(tcp/ip) and count
   val mid_ip_chksum = Wire(UInt(32.W))
-  mid_ip_chksum := Mux(info_buf_reg(rd_index_reg).ip_chksum(31,16) > 0.U,
-    (info_buf_reg(rd_index_reg).ip_chksum(31,16) + info_buf_reg(rd_index_reg).ip_chksum(15,0)), info_buf_reg(rd_index_reg).ip_chksum(15,0))
+  mid_ip_chksum := chksum_cal(info_buf_reg(rd_index_reg).ip_chksum)
   val mid_tcp_chksum = Wire(UInt(32.W))
-  mid_tcp_chksum := Mux(info_buf_reg(rd_index_reg).tcp_chksum(31,16) > 0.U,
-    (info_buf_reg(rd_index_reg).tcp_chksum(31,16) + info_buf_reg(rd_index_reg).tcp_chksum(15,0)), info_buf_reg(rd_index_reg).tcp_chksum(15,0))
+  mid_tcp_chksum := chksum_cal(info_buf_reg(rd_index_reg).tcp_chksum)
 
   val end_ip_chksum  = Wire(UInt(16.W))
-  end_ip_chksum := Mux(mid_ip_chksum(31,16) > 0.U,
-    ~(mid_ip_chksum(31,16) + mid_ip_chksum(15,0)),~mid_ip_chksum(15,0))
+  end_ip_chksum := ~chksum_cal(mid_ip_chksum)
   val end_tcp_chksum = Wire(UInt(16.W))
-  end_tcp_chksum := Mux(mid_tcp_chksum(31,16) > 0.U,
-    ~(mid_tcp_chksum(31,16) + mid_tcp_chksum(15,0)), ~mid_tcp_chksum(15,0))
+  end_tcp_chksum := ~chksum_cal(mid_tcp_chksum)
 
-  io.out_tvalid := info_buf_reg(rd_index_reg).valid && (end_ip_chksum === 0.U) && (end_tcp_chksum === 0.U)
-  io.out_tlen   := info_buf_reg(rd_index_reg).len
-  io.out_tlast  := info_buf_reg(rd_index_reg).valid & (info_buf_reg(rd_index_reg).burst === 1.U)
-  wrong_chksum_counter := wrong_chksum_counter + (io.out_tlast && !((end_ip_chksum === 0.U) && (end_tcp_chksum === 0.U)))
+  io.out.tvalid := info_buf_reg(rd_index_reg).valid && (end_ip_chksum === 0.U) && (end_tcp_chksum === 0.U)
+  io.out.tlen   := info_buf_reg(rd_index_reg).len
+  io.out.tlast  := info_buf_reg(rd_index_reg).valid & (info_buf_reg(rd_index_reg).burst === 1.U)
+  wrong_chksum_counter := wrong_chksum_counter + (io.out.tlast && !((end_ip_chksum === 0.U) && (end_tcp_chksum === 0.U)))
   // if we shake hand in current beat, then in next beat we would read next data;
   // otherwise in next beat we read current data
-  io.out_tdata  := data_buf_reg(Mux(out_shake_hand, rd_pos_next, rd_pos_reg))
+  io.out.tdata  := data_buf_reg(Mux(out_shake_hand, rd_pos_next, rd_pos_reg))
 
   when (out_shake_hand){
       // data_buf_reg(rd_pos_reg) := 0.U

@@ -18,32 +18,33 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   }
 
   val io = IO(new Bundle {
-    val in_tdata = Input(UInt(512.W))
-    val in_tlast = Input(Bool())
-    val in_tvalid = Input(Bool())
-    val in_tready = Output(Bool())
+    val in  = new QDMAAxisIO()
+    val out = Flipped(new CMACAxisIO())
 
-    val out_tdata = Output(UInt(512.W))
-    val out_tlast = Output(Bool())
-    val out_tvalid = Output(Bool())
-    val out_tready = Input(Bool())
-
-    val reset_counter = Input(Bool())
-    val out_pack_counter = Output(UInt(32.W))
-    val out_err_counter = Output(UInt(32.W))
+    val reset_counter    = Input(Bool())
+    val h2c_pack_counter = Output(UInt(32.W))
+    val h2c_err_counter  = Output(UInt(32.W))
   })
 
   def index_inc(index: UInt): UInt ={
     (index + 1.U) & (depth-1).U
   }
+
+  def chksum_cal(input: UInt): UInt ={
+    Mux(input(31,16) > 0.U,
+      input(31,16) + input(15,0), input(15,0))
+  }
+
   val burst_unit_num = depth * burst_size
 
-  val in_shake_hand = io.in_tvalid & io.in_tready
+  val true_tvalid = io.in.tvalid & !io.in.tuser
+
+  val in_shake_hand = true_tvalid & io.in.tready
   // for timing reason, we save axis_in signal
   // we handle them like sync mem
-  val in_tdata_reg =  RegEnable(io.in_tdata, 0.U, in_shake_hand)
-  val in_tlast_reg =  RegEnable(io.in_tlast, false.B, in_shake_hand)
-  val in_tvalid_reg = RegEnable(io.in_tvalid, false.B, in_shake_hand)
+  val in_tdata_reg =  RegEnable(io.in.tdata, 0.U, in_shake_hand)
+  val in_tlast_reg =  RegEnable(io.in.tlast, false.B, in_shake_hand)
+  val in_tvalid_reg = RegEnable(true_tvalid, false.B, in_shake_hand)
 
   val data_buf_reg = SyncReadMem(burst_unit_num,UInt(512.W))
   // if we want to use block RAM instead of registers, refer:
@@ -59,12 +60,12 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   for (i <- 0 until depth) valid_vec(i) := info_buf_reg(i).valid
   val buf_full = valid_vec.reduceTree(_&_)
 
-  io.in_tready := !buf_full
+  io.in.tready := !buf_full
   val pack_counter = RegInit(0.U(32.W))
   val err_counter = RegInit(0.U(32.W))
 
-  io.out_pack_counter := pack_counter
-  io.out_err_counter := err_counter
+  io.h2c_pack_counter := pack_counter
+  io.h2c_err_counter := err_counter
 
   // ATTENTION: because we drop packet on CMAC's out fifo if tx is so fast,
   // the overflow handling function here is used only when the tx sends over-sized packets deliberately.
@@ -72,7 +73,7 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
 
   //chksum part
 
-  val cal_data = Mux(in_shake_hand,io.in_tdata,in_tdata_reg)
+  val cal_data = Mux(in_shake_hand,io.in.tdata,in_tdata_reg)
 
   // ip header (without existed checksum)
   val ip_chksum_cal = Module(new reduce_add_sync(10,32))
@@ -151,33 +152,31 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
     }
 
   // read part of ring buffer
-  val out_shake_hand = io.out_tready & io.out_tvalid // we finished shake hand in current beat
+  val out_shake_hand = io.out.tready & io.out.tvalid // we finished shake hand in current beat
 
-  io.out_tvalid := info_buf_reg(rd_index_reg).valid
-  io.out_tlast  := io.out_tvalid & (info_buf_reg(rd_index_reg).burst === 1.U)
+  io.out.tkeep := Fill(64,1.U(1.W))
+  io.out.tuser := 0.U
+  io.out.tvalid := info_buf_reg(rd_index_reg).valid
+  io.out.tlast  := io.out.tvalid & (info_buf_reg(rd_index_reg).burst === 1.U)
   // if we shake hand in current beat, then in next beat we would read next data;
   // otherwise in next beat we read current data
   val rd_data = data_buf_reg(Mux(out_shake_hand, rd_pos_next, rd_pos_reg))
 
   //calculate and insert chksum into first beat of data
   val mid_ip_chksum = Wire(UInt(32.W))
-  mid_ip_chksum := Mux(info_buf_reg(rd_index_reg).ip_chksum(31,16) > 0.U,
-    (info_buf_reg(rd_index_reg).ip_chksum(31,16) + info_buf_reg(rd_index_reg).ip_chksum(15,0)), info_buf_reg(rd_index_reg).ip_chksum(15,0))
+  mid_ip_chksum := chksum_cal(info_buf_reg(rd_index_reg).ip_chksum)
   val mid_tcp_chksum = Wire(UInt(32.W))
-  mid_tcp_chksum := Mux(info_buf_reg(rd_index_reg).tcp_chksum(31,16) > 0.U,
-    (info_buf_reg(rd_index_reg).tcp_chksum(31,16) + info_buf_reg(rd_index_reg).tcp_chksum(15,0)), info_buf_reg(rd_index_reg).tcp_chksum(15,0))
+  mid_tcp_chksum := chksum_cal(info_buf_reg(rd_index_reg).tcp_chksum)
 
   val end_ip_chksum  = Wire(UInt(16.W))
-  end_ip_chksum := Mux(mid_ip_chksum(31,16) > 0.U,
-    ~(mid_ip_chksum(31,16) + mid_ip_chksum(15,0)),~mid_ip_chksum(15,0))
+  end_ip_chksum := ~chksum_cal(mid_ip_chksum)
   val end_tcp_chksum = Wire(UInt(16.W))
-  end_tcp_chksum := Mux(mid_tcp_chksum(31,16) > 0.U,
-    ~(mid_tcp_chksum(31,16) + mid_tcp_chksum(15,0)), ~mid_tcp_chksum(15,0))
+  end_tcp_chksum := ~chksum_cal(mid_tcp_chksum)
 
   val rev_ip_chksum = Cat(end_ip_chksum(7,0),end_ip_chksum(15,8))
   val rev_tcp_chksum = Cat(end_tcp_chksum(7,0),end_tcp_chksum(15,8))
 
-  io.out_tdata := Mux(rd_pos_reg === (rd_index_reg << log2Ceil(burst_size).U).asUInt,
+  io.out.tdata := Mux(rd_pos_reg === (rd_index_reg << log2Ceil(burst_size).U).asUInt,
                       Cat(rd_data(511,416), rev_tcp_chksum, rd_data(399,208), rev_ip_chksum, rd_data(191,0)), rd_data)
 
   when (out_shake_hand){
