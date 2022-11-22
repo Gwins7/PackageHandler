@@ -3,7 +3,7 @@ package PackageHandler
 import chisel3._
 import chisel3.util._
 
-trait netfunc {
+trait NetFunc {
   def change_order_16 (i: UInt): UInt = {
     Cat(i(7,0),i(15,8))
   }

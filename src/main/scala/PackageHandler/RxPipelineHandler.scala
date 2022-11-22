@@ -11,7 +11,7 @@ class RxPipelineHandlerReg extends Bundle {
   val qid  = UInt(6.W)
 }
 
-class RxPipelineHandler extends Module with netfunc{
+class RxPipelineHandler extends Module with NetFunc{
   val io = IO(new Bundle {
     val in = new RxPipelineHandlerIO()
     val out = Flipped(new RxPipelineHandlerIO())

@@ -56,7 +56,6 @@ class RxHandler extends Module{
   val package_filter = Module(new PackageFilterPipeline())
 
   package_filter.io.in <> rx_buffer_fifo.io.out
-
   package_filter.io.extern_config := io.extern_config
 
   io.QDMA_c2h_stub_in.tvalid := package_filter.io.out.tvalid

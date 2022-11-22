@@ -3,7 +3,7 @@ package PackageHandler
 import chisel3._
 import chisel3.util._
 
-class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module with netfunc {
+class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module with NetFunc {
   /*
     ATTENTION: in order to avoid using multiplier, we assume that the depth and the burst size must be power of 2
    */
