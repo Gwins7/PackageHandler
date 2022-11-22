@@ -14,6 +14,11 @@ class RxPipelineAxisIO extends AxisIO{
   val tlen   = Input(UInt(16.W))
 }
 
+class RxPipelineHandlerIO extends RxPipelineAxisIO{
+  val qid = Input(UInt(6.W))
+  val extern_config = Input(new ExternConfig())
+}
+
 class QDMAAxisIO extends AxisIO{
   val tuser = Input(Bool())
 }

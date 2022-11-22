@@ -29,7 +29,7 @@ class RxHandler extends Module{
     val reset_counter            = Input(Bool())
     val c2h_pack_counter         = Output(UInt(32.W))
     val c2h_err_counter          = Output(UInt(32.W))
-    val c2h_sw_qid_mask          = Input(UInt(32.W))
+    val extern_config            = Input(new ExternConfig())
   })
   /*
      c2h direction
@@ -57,7 +57,7 @@ class RxHandler extends Module{
 
   package_filter.io.in <> rx_buffer_fifo.io.out
 
-  package_filter.io.c2h_sw_qid_mask := io.c2h_sw_qid_mask
+  package_filter.io.extern_config := io.extern_config
 
   io.QDMA_c2h_stub_in.tvalid := package_filter.io.out.tvalid
   // when we send the header, the buffer should be blocked and the tlast should be low
@@ -67,11 +67,7 @@ class RxHandler extends Module{
   // transport tdata (when tuser = 1, generate a header and send it first)
   when(io.QDMA_c2h_stub_in.tuser){
     // Generate new c2h header
-    val Gen_c2h_hdr = Wire(new c2h_stub_hdr_beat)
-    Gen_c2h_hdr.rsv6 := 0.U; Gen_c2h_hdr.rsv5_1 := 0.U; Gen_c2h_hdr.rsv5_2 := 0.U
-    Gen_c2h_hdr.rsv4 := 0.U; Gen_c2h_hdr.rsv3 := 0.U; Gen_c2h_hdr.rsv2 := 0.U; Gen_c2h_hdr.rsv1 := 0.U
-    Gen_c2h_hdr.cmp_data_1 := 0.U
-    Gen_c2h_hdr.usr_int := 0.U; Gen_c2h_hdr.eot := 0.U; Gen_c2h_hdr.cmp_data_0 := 0.U
+    val Gen_c2h_hdr = WireDefault(0.U.asTypeOf(new c2h_stub_hdr_beat))
     Gen_c2h_hdr.flow_id := Gen_c2h_hdr.qid; Gen_c2h_hdr.tdest := Gen_c2h_hdr.qid
     //only useful information
     Gen_c2h_hdr.qid := package_filter.io.c2h_qid; // [5:0]

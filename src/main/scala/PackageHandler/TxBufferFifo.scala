@@ -3,7 +3,7 @@ package PackageHandler
 import chisel3._
 import chisel3.util._
 
-class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module {
+class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module with netfunc {
   /*
     ATTENTION: in order to avoid using multiplier, we assume that the depth and the burst size must be power of 2
    */
@@ -28,11 +28,6 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
 
   def index_inc(index: UInt): UInt ={
     (index + 1.U) & (depth-1).U
-  }
-
-  def chksum_cal(input: UInt): UInt ={
-    Mux(input(31,16) > 0.U,
-      input(31,16) + input(15,0), input(15,0))
   }
 
   val burst_unit_num = depth * burst_size
@@ -73,28 +68,28 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
 
   //chksum part
 
-  val cal_data = Mux(in_shake_hand,io.in.tdata,in_tdata_reg)
+  val cal_tdata = Mux(in_shake_hand,io.in.tdata,in_tdata_reg)
 
   // ip header (without existed checksum)
-  val ip_chksum_cal = Module(new reduce_add_sync(10,32))
+  val ip_chksum_cal = Module(new ReduceAddSync(10,32))
   for (i <- 0 until 10) {
     if (i == 5) ip_chksum_cal.io.in_vec(i) := 0.U
-    else ip_chksum_cal.io.in_vec(i) := Cat(cal_data(16*i+119,16*i+112),cal_data(16*i+127,16*i+120))
+    else ip_chksum_cal.io.in_vec(i) := change_order_16(cal_tdata(16*i+127,16*i+112))
   }
   val ip_chksum_result = ip_chksum_cal.io.out_sum
 
   // tcp payload
-  val tcp_pld_chksum_cal = Module(new reduce_add_sync(32,32))
+  val tcp_pld_chksum_cal = Module(new ReduceAddSync(32,32))
   for (i <- 0 until 32) {
-    tcp_pld_chksum_cal.io.in_vec(i) := Cat(cal_data(16*i+7,16*i+0),cal_data(16*i+15,16*i+8))
+    tcp_pld_chksum_cal.io.in_vec(i) := change_order_16(cal_tdata(16*i+15,16*i))
   }
   val tcp_pld_chksum_result = tcp_pld_chksum_cal.io.out_sum
 
   // tcp header (attention: some information from ip header is needed) (without existed checksum)
-  val tcp_hdr_chksum_cal = Module(new reduce_add_sync(32,32))
+  val tcp_hdr_chksum_cal = Module(new ReduceAddSync(32,32))
   for (i <- 0 until 32) {
-    if (i==8 || (i>=13 && i!=25)) tcp_hdr_chksum_cal.io.in_vec(i) := Cat(cal_data(16*i+7,16*i+0),cal_data(16*i+15,16*i+8))
-    else if (i==11) tcp_hdr_chksum_cal.io.in_vec(i) := cal_data(16*i+15,16*i+8)
+    if (i==8 || (i>=13 && i!=25)) tcp_hdr_chksum_cal.io.in_vec(i) := change_order_16(cal_tdata(16*i+15,16*i))
+    else if (i==11) tcp_hdr_chksum_cal.io.in_vec(i) := cal_tdata(16*i+15,16*i+8)
     else tcp_hdr_chksum_cal.io.in_vec(i) := 0.U
   }
   val tcp_hdr_chksum_result = tcp_hdr_chksum_cal.io.out_sum - 20.U // - ip header length
@@ -123,7 +118,7 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
         err_counter := err_counter + 1.U // count overflow packet num
         info_buf_reg(wr_index_reg) := 0.U.asTypeOf(new BufferInfo)
 
-      }.otherwise{
+      }.elsewhen(in_tvalid_reg){
         // normal condition (overflow just not started in this beat)
         when (!is_overflowed){
           // normal transmission process
@@ -173,8 +168,8 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   val end_tcp_chksum = Wire(UInt(16.W))
   end_tcp_chksum := ~chksum_cal(mid_tcp_chksum)
 
-  val rev_ip_chksum = Cat(end_ip_chksum(7,0),end_ip_chksum(15,8))
-  val rev_tcp_chksum = Cat(end_tcp_chksum(7,0),end_tcp_chksum(15,8))
+  val rev_ip_chksum = change_order_16(end_ip_chksum(15,0))
+  val rev_tcp_chksum = change_order_16(end_tcp_chksum(15,0))
 
   io.out.tdata := Mux(rd_pos_reg === (rd_index_reg << log2Ceil(burst_size).U).asUInt,
                       Cat(rd_data(511,416), rev_tcp_chksum, rd_data(399,208), rev_ip_chksum, rd_data(191,0)), rd_data)

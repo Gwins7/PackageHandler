@@ -3,7 +3,20 @@ package PackageHandler
 import chisel3._
 import chisel3.util._
 
-class reduce_add_sync(vecnum: Int, width: Int) extends Module {
+trait netfunc {
+  def change_order_16 (i: UInt): UInt = {
+    Cat(i(7,0),i(15,8))
+  }
+  def change_order_32 (i: UInt): UInt = {
+    Cat(i(7,0),i(15,8),i(23,16),i(31,24))
+  }
+  def chksum_cal(i: UInt): UInt ={
+    Mux(i(31,16) > 0.U,
+      i(31,16) + i(15,0), i(15,0))
+  }
+}
+
+class ReduceAddSync (vecnum: Int, width: Int) extends Module {
 
   val io = IO(new Bundle {
     val in_vec = Input(Vec(vecnum,UInt(width.W)))

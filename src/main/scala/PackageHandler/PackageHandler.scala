@@ -3,6 +3,11 @@ package PackageHandler
 import chisel3._
 import chisel3.util._
 
+class ExternConfig extends Bundle {
+  val c2h_sw_qid_mask = UInt(32.W)
+  val c2h_ipfilter_hash_seed = UInt(32.W)
+}
+
 // User-defined package handler module
 class PackageHandler extends Module {
   val io = IO(new Bundle {
@@ -16,7 +21,7 @@ class PackageHandler extends Module {
 
     val reset_counter            = Input(Bool())
 
-    val c2h_sw_qid_mask          = Input(UInt(32.W))
+    val extern_config            = Input(new ExternConfig())
     val c2h_pack_counter         = Output(UInt(32.W))
     val c2h_err_counter          = Output(UInt(32.W))
 
@@ -35,7 +40,7 @@ class PackageHandler extends Module {
   io.QDMA_c2h_stub_in <> rx_handler.io.QDMA_c2h_stub_in
   io.CMAC_out         <> rx_handler.io.CMAC_out
   rx_handler.io.reset_counter   := io.reset_counter
-  rx_handler.io.c2h_sw_qid_mask := io.c2h_sw_qid_mask
+  rx_handler.io.extern_config   := io.extern_config
   io.c2h_pack_counter           := rx_handler.io.c2h_pack_counter
   io.c2h_err_counter            := rx_handler.io.c2h_err_counter
 }

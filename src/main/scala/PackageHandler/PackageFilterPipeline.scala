@@ -15,30 +15,51 @@ import chisel3.util._
   (attention: here we use hardware order;
   to use network order we need to reverse by 8bit
  */
-class PackageFilterPipeline() extends Module{
+
+//val tdata  = Input(UInt(512.W))
+//val tvalid = Input(Bool())
+//val tlast  = Input(Bool())
+//val tlen  = Input(UInt(16.W))
+//val first_beat = Input(Bool())
+
+class PackageFilterPipeline extends Module{
 
   val io = IO(new Bundle {
     val in = new RxPipelineAxisIO()
     val out = Flipped(new RxPipelineAxisIO())
 
-    val c2h_sw_qid_mask = Input(UInt(32.W))
+    val extern_config = Input(new ExternConfig())
     val c2h_qid    = Output(UInt(6.W))
   })
 
 // place to add filter logic; we need a pipeline
-  io.in <> io.out
 
   // this reg is to find out whether current beat is the first beat of a packet.
   // attention: this is different from tuser_reg in PackageHandler,
   // which is associated with previous tuser state.
-  val pld_first_beat_reg = RegInit(true.B)
-  when (io.out.tvalid & io.out.tready) {
-    pld_first_beat_reg := io.out.tlast
-  }
+  val extern_config_reg = RegInit(0.U.asTypeOf(new ExternConfig()))
+  extern_config_reg := io.extern_config
 
   val qid_mask_wrapper = Module(new SoftwareRegWrapper(32))
-  qid_mask_wrapper.io.in_mask := io.c2h_sw_qid_mask
+  qid_mask_wrapper.io.in_mask := extern_config_reg.c2h_sw_qid_mask
   qid_mask_wrapper.io.in_tlast := io.in.tvalid & io.in.tready & io.in.tlast
 
-  io.c2h_qid := qid_mask_wrapper.io.out_dec
+  val ip_filter = Module(new IPFilter())
+
+  ip_filter.io.in.extern_config := extern_config_reg
+  ip_filter.io.in.qid := qid_mask_wrapper.io.out_dec
+  ip_filter.io.in.tvalid := io.in.tvalid
+  ip_filter.io.in.tlast  := io.in.tlast
+  ip_filter.io.in.tdata  := io.in.tdata
+  ip_filter.io.in.tlen   := io.in.tlen
+  io.in.tready           := ip_filter.io.in.tready
+
+  io.out.tvalid := ip_filter.io.out.tvalid
+  io.out.tlast  := ip_filter.io.out.tlast
+  io.out.tdata  := ip_filter.io.out.tdata
+  io.out.tlen   := ip_filter.io.out.tlen
+  ip_filter.io.out.tready := io.out.tready
+
+  io.c2h_qid := ip_filter.io.out.qid
+
 }
