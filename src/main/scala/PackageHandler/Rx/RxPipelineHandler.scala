@@ -1,5 +1,6 @@
-package PackageHandler
+package PackageHandler.Rx
 
+import PackageHandler.Misc._
 import chisel3._
 import chisel3.util._
 
@@ -28,14 +29,16 @@ class RxPipelineHandler extends Module with NetFunc{
   io.in.tready   := WireDefault(io.out.tready | !in_reg_used)
   io.out.extern_config := io.in.extern_config
 
-  val cal_qid = WireDefault(in_reg.rx_info.qid)
-  val cur_packet_qid_reg = RegEnable(cal_qid,0.U(6.W),first_beat_reg)
-  io.out.rx_info.qid := Mux(first_beat_reg,cal_qid,cur_packet_qid_reg)
+//  save the qid calculated in first beat and use it for whole packet
+//  val cal_qid = WireDefault(in_reg.rx_info.qid)
+//  val cur_packet_qid_reg = RegEnable(cal_qid,0.U(6.W),first_beat_reg)
+//  io.out.rx_info.qid := Mux(first_beat_reg,cal_qid,cur_packet_qid_reg)
 }
 
 class RxChksumVerifier extends RxPipelineHandler {
 /*
-  TODO: Verify chksum (reference: TxChksumGenerator and RxBufferFifo)
+  Calculate chksum to be checked later
+  attention: the real verification is in RxBufferFifo
  */
 val cal_tdata = Mux(in_shake_hand,io.in.tdata,in_reg.tdata)
   // ip header (without existed checksum)

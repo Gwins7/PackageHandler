@@ -1,9 +1,10 @@
 package PackageHandler
 
+import PackageHandler.Misc._
+import PackageHandler.Rx._
+import PackageHandler.Tx._
 import chisel3._
 import chisel3.util._
-
-
 
 // User-defined package handler module
 class PackageHandler extends Module {

@@ -1,7 +1,9 @@
-package PackageHandler
+package PackageHandler.Tx
 
+import PackageHandler.Misc._
 import chisel3._
 import chisel3.util._
+
 class TxPipelineHandler extends Module with NetFunc {
   val io = IO(new Bundle {
     val in = new TxPipelineAxisIO()

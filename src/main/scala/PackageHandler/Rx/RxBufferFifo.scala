@@ -1,5 +1,6 @@
-package PackageHandler
+package PackageHandler.Rx
 
+import PackageHandler.Misc._
 import chisel3._
 import chisel3.util._
 
@@ -103,6 +104,7 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
         info_buf_reg(wr_index_reg).burst := info_buf_reg(wr_index_reg).burst + 1.U
         when (io.in.tlast) {
           info_buf_reg(wr_index_reg).valid := true.B
+          // we use the information given by tlast beat as packet's final information
           info_buf_reg(wr_index_reg).ip_chksum := io.in.rx_info.ip_chksum
           info_buf_reg(wr_index_reg).tcp_chksum := io.in.rx_info.tcp_chksum
           info_buf_reg(wr_index_reg).len := io.in.rx_info.tlen
