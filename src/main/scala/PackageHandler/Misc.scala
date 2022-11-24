@@ -25,7 +25,8 @@ class ReduceAddSync (vecnum: Int, width: Int) extends Module {
 
   val vecnum_align_pow2 = Math.pow(2,log2Ceil(vecnum)).toInt
 
-  val pipeline_cut_num = Math.pow(2,log2Ceil(vecnum_align_pow2)/2).toInt
+  val pipeline_cut_num = Math.pow(2,(log2Ceil(vecnum_align_pow2)+1)/2).toInt
+  //to optimize route timing, we want (vecnum_align_pow2/2) to get ceil value in not-int (e.g.5/2) condition
 
   val vec_per_cut = vecnum_align_pow2 / pipeline_cut_num
   val cal_vec = Wire(Vec(pipeline_cut_num, Vec(vec_per_cut,UInt(width.W))))

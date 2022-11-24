@@ -3,17 +3,14 @@ package PackageHandler
 import chisel3._
 import chisel3.util._
 
-class ExternConfig extends Bundle {
-  val c2h_sw_qid_mask = UInt(32.W)
-  val c2h_ipfilter_hash_seed = UInt(32.W)
-}
+
 
 // User-defined package handler module
 class PackageHandler extends Module {
   val io = IO(new Bundle {
     // The default clock and reset are
     // QDMA_axi_aclk and QDMA_axi_aresetn.
-    //    val QDMA_h2c_stub_out_tdest   = Input(UInt(16.W))
+    // val QDMA_h2c_stub_out_tdest   = Input(UInt(16.W))
     val QDMA_h2c_stub_out = new QDMAAxisIO()
     val CMAC_in = Flipped(new CMACAxisIO())
     val CMAC_out = new CMACAxisIO()
@@ -33,6 +30,7 @@ class PackageHandler extends Module {
   io.QDMA_h2c_stub_out <> tx_handler.io.QDMA_h2c_stub_out
   io.CMAC_in           <> tx_handler.io.CMAC_in
   tx_handler.io.reset_counter := io.reset_counter
+  tx_handler.io.extern_config   := io.extern_config
   io.h2c_pack_counter         := tx_handler.io.h2c_pack_counter
   io.h2c_err_counter          := tx_handler.io.h2c_err_counter
 

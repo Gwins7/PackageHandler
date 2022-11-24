@@ -9,13 +9,14 @@ class AxisIO extends Bundle{
   val tready = Output(Bool())
   val tlast  = Input(Bool())
 }
-
-class RxPipelineAxisIO extends AxisIO{
-  val tlen   = Input(UInt(16.W))
+class TxPipelineAxisIO extends AxisIO{
+  val tx_info = Input(new TxInfo())
+  val extern_config = Input(new ExternConfig())
 }
 
-class RxPipelineHandlerIO extends RxPipelineAxisIO{
-  val qid = Input(UInt(6.W))
+class RxPipelineAxisIO extends AxisIO{
+  val tuser = Input(Bool())
+  val rx_info = Input(new RxInfo())
   val extern_config = Input(new ExternConfig())
 }
 
