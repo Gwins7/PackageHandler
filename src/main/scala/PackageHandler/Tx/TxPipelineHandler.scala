@@ -14,6 +14,7 @@ class TxPipelineHandler extends Module with NetFunc {
 
   val in_reg = RegEnable(Cat(io.in.tx_info.asUInt,io.in.tdata,io.in.tvalid,io.in.tlast),1.U,in_shake_hand).asTypeOf(new TxPipelineHandlerReg)
   val first_beat_reg = RegEnable(in_reg.tlast,true.B,in_shake_hand)
+  val extern_config_reg = RegEnable(io.in.extern_config.asUInt,0.U,in_shake_hand).asTypeOf(new ExternConfig)
 
   val in_reg_used = RegInit(false.B)
   when (in_shake_hand){
@@ -27,7 +28,7 @@ class TxPipelineHandler extends Module with NetFunc {
   io.out.tvalid := WireDefault(in_reg.tvalid & in_reg_used)
   io.out.tlast  := WireDefault(in_reg.tlast)
   io.out.tx_info := WireDefault(io.in.tx_info)
-  io.out.extern_config := WireDefault(io.in.extern_config)
+  io.out.extern_config := WireDefault(extern_config_reg)
 }
 
 class TxChksumGenerator extends TxPipelineHandler {

@@ -44,9 +44,10 @@ class RxConverter extends Module{
   for (i <- 0 until 512){
     keep_val(i) := in_reg.tkeep(i/8)
   }
-  val qid_mask_wrapper = Module(new SoftwareRegWrapper(32))
-  qid_mask_wrapper.io.in_mask :=  extern_config_reg.c2h_sw_qid_mask
-  qid_mask_wrapper.io.in_tlast := in_shake_hand & in_reg.tlast
+//  val qid_mask_wrapper = Module(new SoftwareRegWrapper(32))
+//  qid_mask_wrapper.io.in_mask :=  extern_config_reg.c2h_sw_qid_mask
+//  qid_mask_wrapper.io.in_tlast := in_shake_hand & in_reg.tlast
+//  io.out.rx_info.qid := qid_mask_wrapper.io.out_dec
 
   io.out.tuser  := in_reg.tuser
   io.out.tdata  := in_reg.tdata & keep_val.asTypeOf(UInt(512.W))
@@ -55,6 +56,6 @@ class RxConverter extends Module{
   io.in.tready  := io.out.tready | !in_reg_used
   io.out.rx_info := WireDefault(0.U.asTypeOf(new RxInfo))
   io.out.rx_info.tlen := Mux(first_beat_reg,cur_burst_size,tlen_reg + cur_burst_size)
-  io.out.rx_info.qid := qid_mask_wrapper.io.out_dec
+  io.out.rx_info.qid := 0.U
   io.out.extern_config := extern_config_reg
 }

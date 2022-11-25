@@ -21,19 +21,19 @@
     "class":"firrtl.transforms.DedupedResult",
     "original":"~PackageHandler|ReduceAddSync_4",
     "duplicate":"~PackageHandler|PackageHandler/rx_handler:RxHandler/rx_pipeline:RxPipeline/rx_chksum_verifier:RxChksumVerifier/ip_chksum_cal:ReduceAddSync",
-    "index":0.6111111111111112
+    "index":0.5
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~PackageHandler|ReduceAddSync_5",
     "duplicate":"~PackageHandler|PackageHandler/rx_handler:RxHandler/rx_pipeline:RxPipeline/rx_chksum_verifier:RxChksumVerifier/tcp_pld_chksum_cal:ReduceAddSync_1",
-    "index":0.6666666666666666
+    "index":0.5555555555555556
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~PackageHandler|ReduceAddSync_6",
     "duplicate":"~PackageHandler|PackageHandler/rx_handler:RxHandler/rx_pipeline:RxPipeline/rx_chksum_verifier:RxChksumVerifier/tcp_hdr_chksum_cal:ReduceAddSync_1",
-    "index":0.7222222222222222
+    "index":0.6111111111111112
   },
   {
     "class":"firrtl.EmitCircuitAnnotation",

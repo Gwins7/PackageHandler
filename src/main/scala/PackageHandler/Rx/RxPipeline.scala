@@ -36,12 +36,10 @@ class RxPipeline extends Module{
   // attention: this is different from tuser_reg in PackageHandler,
   // which is associated with previous tuser state.
 
-
+  // add pipeline handler here
   val rx_chksum_verifier = Module(new RxChksumVerifier())
-
+  val rx_rss_hash_filter = Module(new RxRSSHashFilter())
   io.in <> rx_chksum_verifier.io.in
-
-// add pipeline handler here
-
-  rx_chksum_verifier.io.out <> io.out
+  rx_chksum_verifier.io.out <> rx_rss_hash_filter.io.in
+  rx_rss_hash_filter.io.out <> io.out
 }
