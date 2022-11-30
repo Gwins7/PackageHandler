@@ -39,6 +39,8 @@ class RxPipelineHandlerReg extends Bundle {
 }
 
 class ExternConfig extends Bundle {
-  val c2h_hash_mask = UInt(16.W)
-  val c2h_hash_seed = UInt(16.W)
+  val c2h_match_op   = UInt(32.W)
+  val c2h_match_arg1 = UInt(32.W)
+  val c2h_match_arg2 = UInt(32.W)
+  val c2h_match_arg3 = UInt(32.W)
 }

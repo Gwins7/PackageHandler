@@ -19,7 +19,7 @@ class SoftwareRegWrapper(width: Int) extends Module {
   val cur_mask_reg = RegInit(io.in_mask)
 
   val next_mask = Wire(UInt(width.W))
-  val arbitDecoder = Module(new ArbitDecoder(width))
+  val arbitDecoder = Module(new LSBArbitDecoder(width))
 
   next_mask := (cur_mask_reg & (~(1.U(width.W) << io.out_dec)).asUInt)
   arbitDecoder.io.in_mask := cur_mask_reg
@@ -44,19 +44,22 @@ class SoftwareRegWrapper(width: Int) extends Module {
   input: a mask
   output: the LSB's decimal val
  */
-class ArbitDecoder(width: Int) extends Module {
+class LSBArbitDecoder(width: Int) extends Module {
   val io = IO(new Bundle {
     val in_mask = Input(UInt(width.W))
     val out_dec = Output(UInt(unsignedBitLength(width).W))
   })
+
   val grant = VecInit.fill(width)(false.B)
   val notgranted = VecInit.fill(width)(false.B)
+
   grant(0) := io.in_mask(0)
   notgranted(0) := !grant(0)
   for (i <- 1 until width) {
     grant(i) := notgranted(i-1) & io.in_mask(i)
     notgranted(i) := notgranted(i-1) & !io.in_mask(i)
   }
+
   val resfun = grant.zipWithIndex.map((x) => (x._1,x._2.U))
     .reduce((x,y) => (Mux(y._1 === true.B,y._1,x._1),Mux(y._1 === true.B,y._2,x._2)))
   io.out_dec := resfun._2.asUInt

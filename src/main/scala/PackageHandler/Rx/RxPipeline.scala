@@ -39,7 +39,10 @@ class RxPipeline extends Module{
   // add pipeline handler here
   val rx_chksum_verifier = Module(new RxChksumVerifier())
   val rx_rss_hash_filter = Module(new RxRSSHashFilter())
+  val rx_match_filter    = Module(new RxMatchFilter())
   io.in <> rx_chksum_verifier.io.in
   rx_chksum_verifier.io.out <> rx_rss_hash_filter.io.in
-  rx_rss_hash_filter.io.out <> io.out
+  rx_match_filter.io.out    <> io.out
+  rx_rss_hash_filter.io.out <> rx_match_filter.io.in
+
 }

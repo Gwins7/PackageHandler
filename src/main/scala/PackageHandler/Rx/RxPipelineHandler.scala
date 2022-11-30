@@ -15,19 +15,19 @@ class RxPipelineHandler extends Module with NetFunc{
   val extern_config_reg = RegEnable(io.in.extern_config.asUInt,0.U,in_shake_hand).asTypeOf(new ExternConfig)
 
   val first_beat_reg = RegEnable(in_reg.tlast,true.B,in_shake_hand)
-  val in_reg_used = RegInit(false.B)
+  val in_reg_used_reg = RegInit(false.B)
   when (in_shake_hand){
-    in_reg_used := true.B
+    in_reg_used_reg := true.B
   }.elsewhen(out_shake_hand){
-    in_reg_used := false.B
+    in_reg_used_reg := false.B
   }
 
   io.out.tuser   := WireDefault(in_reg.tuser)
   io.out.tdata   := WireDefault(in_reg.tdata)
-  io.out.tvalid  := WireDefault(in_reg.tvalid & in_reg_used)
+  io.out.tvalid  := WireDefault(in_reg.tvalid & in_reg_used_reg)
   io.out.tlast   := WireDefault(in_reg.tlast)
   io.out.rx_info := WireDefault(in_reg.rx_info)
-  io.in.tready   := WireDefault(io.out.tready | !in_reg_used)
+  io.in.tready   := WireDefault(io.out.tready | !in_reg_used_reg)
   io.out.extern_config := WireDefault(extern_config_reg)
 }
 
@@ -60,24 +60,25 @@ val cal_tdata = Mux(in_shake_hand,io.in.tdata,in_reg.tdata)
   }
   val tcp_hdr_chksum_result = tcp_hdr_chksum_cal.io.out_sum - 20.U // - ip header length
 
-  val cal_ip_chksum = RegInit(0.U(32.W))
-  val cal_tcp_chksum = RegInit(0.U(32.W))
+  val cal_ip_chksum_reg = RegInit(0.U(32.W))
+  val cal_tcp_chksum_reg = RegInit(0.U(32.W))
 
   when (in_shake_hand) {
     when (first_beat_reg) {
-      cal_ip_chksum := ip_chksum_result
-      cal_tcp_chksum := tcp_hdr_chksum_result
+      cal_ip_chksum_reg := ip_chksum_result
+      cal_tcp_chksum_reg := tcp_hdr_chksum_result
     }.otherwise{
-      cal_tcp_chksum := cal_tcp_chksum + tcp_pld_chksum_result
+      cal_tcp_chksum_reg := cal_tcp_chksum_reg + tcp_pld_chksum_result
     }
   }
-  io.out.rx_info.ip_chksum := Mux(first_beat_reg,ip_chksum_result,cal_ip_chksum)
-  io.out.rx_info.tcp_chksum := Mux(first_beat_reg,tcp_hdr_chksum_result,cal_tcp_chksum + tcp_pld_chksum_result)
+  io.out.rx_info.ip_chksum := Mux(first_beat_reg,ip_chksum_result,cal_ip_chksum_reg)
+  io.out.rx_info.tcp_chksum := Mux(first_beat_reg,tcp_hdr_chksum_result,cal_tcp_chksum_reg + tcp_pld_chksum_result)
 
 }
-class RxRSSHashFilter extends RxPipelineHandler {
 
-  val hash_key = extern_config_reg.c2h_hash_seed // symmetric: fill(20,"h_6d5a".U), we just set 6d5a
+class RxRSSHashFilter extends RxPipelineHandler {
+// op = 0; arg1 = hash_seed; arg2 = hash_mask
+  val hash_key = io.in.extern_config.c2h_match_arg1 // symmetric: fill(20,"h_6d5a".U), we just set 6d5a6d5a
 
   val cal_tdata = Mux(in_shake_hand,io.in.tdata,in_reg.tdata)
   val src_ip   = change_order_32(cal_tdata(239,208))
@@ -88,8 +89,10 @@ class RxRSSHashFilter extends RxPipelineHandler {
 
   val cal_hash_key = Wire(Vec(96,UInt(32.W)))
   for (i <- 0 until 96) {
-    if (i%16==15) cal_hash_key(i) := Mux(info(i),Cat(hash_key(15,0),hash_key(15,0)),0.U)
-    else cal_hash_key(i) := Mux(info(i),Cat(hash_key(i%16,0),hash_key(15,0),hash_key(15,(i%16)+1)),0.U)
+    if (i%32==31) cal_hash_key(i) := Mux(info(i),hash_key(31,0),0.U)
+    else cal_hash_key(i) := Mux(info(i),Cat(hash_key(i%32,0),hash_key(31,(i%32)+1)),0.U)
+//    if (i%16==15) cal_hash_key(i) := Mux(info(i),Cat(hash_key(15,0),hash_key(15,0)),0.U)
+//    else cal_hash_key(i) := Mux(info(i),Cat(hash_key(i%16,0),hash_key(15,0),hash_key(15,(i%16)+1)),0.U)
   }
   val hash_xor_sync = Module(new ReduceXorSync(96,32))
   val hash_xor_result = Wire(UInt(32.W))
@@ -99,11 +102,87 @@ class RxRSSHashFilter extends RxPipelineHandler {
   hash_xor_result := hash_xor_sync.io.out_sum
 
   //  save the qid calculated in first beat and use it for whole packet
-    val cal_qid = hash_xor_result(1,0) & extern_config_reg.c2h_hash_mask(1,0)
+    val cal_qid = hash_xor_result(1,0) & io.in.extern_config.c2h_match_arg2(1,0)
     val cur_packet_qid_reg = RegEnable(cal_qid,0.U,in_shake_hand & first_beat_reg)
+  when (io.in.extern_config.c2h_match_op === 0.U){
     io.out.rx_info.qid := Mux(first_beat_reg,cal_qid,cur_packet_qid_reg)
+  }
 }
 
+// TODO: how to build match/search function?
+// match function
+class RxMatchFilter extends RxPipelineHandler {
+  // op = 1 ~ 6: Match
+  // op = 1: == | op = 2: !=
+  // op = 3: >  | op = 4: <
+  // op = 5: >= | op = 6: <=
+  // arg1:place; arg2:content; arg3:mask
+  def compare(op:UInt,mask:UInt,src1:UInt,src2:UInt):UInt = {
+    val a = Mux((op === 4.U) || (op === 6.U),src2 & mask,src1 & mask)
+    val b = Mux((op === 4.U) || (op === 6.U),src1 & mask,src2 & mask)
+      (op === 1.U && a === b) || (op === 2.U && a =/= b) || ((op === 3.U || op === 4.U) && a > b) || ((op === 5.U || op === 6.U) && a >= b)
+  }
 
+  val match_op      = io.in.extern_config.c2h_match_op
+  val match_content = io.in.extern_config.c2h_match_arg1
+  val match_mask    = io.in.extern_config.c2h_match_arg2
+  val match_place   = io.in.extern_config.c2h_match_arg3 // start from 0
+
+  val match_found = WireDefault(false.B)
+  val match_found_reg = RegInit(false.B)
+
+  val match_continue_reg = RegInit(false.B)
+  val match_continue_val_reg = RegInit(0.U(32.W))
+
+  val cur_place = Mux(io.in.rx_info.tlen(5,0) === 0.U,io.in.rx_info.tlen,Cat(io.in.rx_info.tlen(15,6)+1.U,0.U(6.W)))
+  //ceil align 64; we assum
+  // e that the padding 0 in the tlast beat won't interfere matching process
+  val in_beat_place = match_place - (cur_place - 64.U)
+  val in_beat_content = (io.in.tdata >> (in_beat_place << 3.U))(31,0)
+
+  when (in_shake_hand) {
+      when (in_reg.tlast || !match_found_reg) {
+        // get first beat in / doesn't match so far
+        // we need to update match status
+        match_found_reg := match_found
+      }
+    when (match_continue_reg) {
+      // partly matched before
+      match_continue_reg := false.B
+      match_continue_val_reg := 0.U
+      val match_continue_len = in_beat_place + 4.U // remain len; 1,2,3
+      val match_continue_val = (Fill(32,match_continue_len === 1.U) & Cat(io.in.tdata(7,0),match_continue_val_reg(23,0)))  |
+                               (Fill(32,match_continue_len === 2.U) & Cat(io.in.tdata(15,0),match_continue_val_reg(15,0))) |
+                               (Fill(32,match_continue_len === 3.U) & Cat(io.in.tdata(23,0),match_continue_val_reg(7,0)))
+
+      match_found := compare(match_op,match_mask,change_order_32(match_continue_val),match_content)
+
+    }.elsewhen (match_place >= cur_place - 64.U) {
+        // start in current beat
+        when (match_place <= cur_place - 4.U) {
+          // totally in current beat
+          match_found := compare(match_op,match_mask,change_order_32(in_beat_content),match_content)
+
+        }.elsewhen (match_place < cur_place && !io.in.tlast) {
+          // between current beat and next beat
+          match_continue_reg := true.B
+          match_continue_val_reg := in_beat_content
+        }
+      }
+  }
+  when (io.in.extern_config.c2h_match_op >= 1.U && io.in.extern_config.c2h_match_op <= 6.U) {
+    io.out.rx_info.qid := Mux(match_found_reg,1.U,in_reg.rx_info.qid)
+  }
+}
+
+class RxRESearcher extends RxPipelineHandler {
+  // op = 7: search
+  // arg1:place; arg2:content; arg3:mask
+  val search_op      = io.in.extern_config.c2h_match_op
+  val search_content = io.in.extern_config.c2h_match_arg1
+  val search_mask    = io.in.extern_config.c2h_match_arg2
+
+
+}
 // if we want to cal qid not only by the first beat but also by the whole packet,
 // we need to add fifo in this pipeline, and use qid calculated in tlast beat

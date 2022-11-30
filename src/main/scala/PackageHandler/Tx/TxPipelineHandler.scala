@@ -16,16 +16,16 @@ class TxPipelineHandler extends Module with NetFunc {
   val first_beat_reg = RegEnable(in_reg.tlast,true.B,in_shake_hand)
   val extern_config_reg = RegEnable(io.in.extern_config.asUInt,0.U,in_shake_hand).asTypeOf(new ExternConfig)
 
-  val in_reg_used = RegInit(false.B)
+  val in_reg_used_reg = RegInit(false.B)
   when (in_shake_hand){
-    in_reg_used := true.B
+    in_reg_used_reg := true.B
   }.elsewhen(out_shake_hand){
-    in_reg_used := false.B
+    in_reg_used_reg := false.B
   }
 
-  io.in.tready  := WireDefault(io.out.tready | !in_reg_used)
+  io.in.tready  := WireDefault(io.out.tready | !in_reg_used_reg)
   io.out.tdata  := WireDefault(in_reg.tdata)
-  io.out.tvalid := WireDefault(in_reg.tvalid & in_reg_used)
+  io.out.tvalid := WireDefault(in_reg.tvalid & in_reg_used_reg)
   io.out.tlast  := WireDefault(in_reg.tlast)
   io.out.tx_info := WireDefault(io.in.tx_info)
   io.out.extern_config := WireDefault(extern_config_reg)
@@ -57,17 +57,17 @@ class TxChksumGenerator extends TxPipelineHandler {
   }
   val tcp_hdr_chksum_result = tcp_hdr_chksum_cal.io.out_sum - 20.U // - ip header length
 
-  val cal_ip_chksum = RegInit(0.U(32.W))
-  val cal_tcp_chksum = RegInit(0.U(32.W))
+  val cal_ip_chksum_reg = RegInit(0.U(32.W))
+  val cal_tcp_chksum_reg = RegInit(0.U(32.W))
 
   when (in_shake_hand) {
     when (first_beat_reg) {
-      cal_ip_chksum := ip_chksum_result
-      cal_tcp_chksum := tcp_hdr_chksum_result
+      cal_ip_chksum_reg := ip_chksum_result
+      cal_tcp_chksum_reg := tcp_hdr_chksum_result
     }.otherwise{
-      cal_tcp_chksum := cal_tcp_chksum + tcp_pld_chksum_result
+      cal_tcp_chksum_reg := cal_tcp_chksum_reg + tcp_pld_chksum_result
     }
   }
-  io.out.tx_info.ip_chksum := Mux(first_beat_reg,ip_chksum_result,cal_ip_chksum)
-  io.out.tx_info.tcp_chksum := Mux(first_beat_reg,tcp_hdr_chksum_result,cal_tcp_chksum + tcp_pld_chksum_result)
+  io.out.tx_info.ip_chksum := Mux(first_beat_reg,ip_chksum_result,cal_ip_chksum_reg)
+  io.out.tx_info.tcp_chksum := Mux(first_beat_reg,tcp_hdr_chksum_result,cal_tcp_chksum_reg + tcp_pld_chksum_result)
 }

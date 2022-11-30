@@ -16,11 +16,11 @@ class RxConverter extends Module{
   val out_shake_hand = io.out.tready & io.out.tvalid
   val in_reg = RegEnable(Cat(io.in.tuser,io.in.tkeep,io.in.tdata,io.in.tvalid,io.in.tlast),1.U,in_shake_hand).asTypeOf(new RxConverterReg)
   val first_beat_reg = RegEnable(in_reg.tlast,true.B,in_shake_hand)
-  val in_reg_used = RegInit(false.B)
+  val in_reg_used_reg = RegInit(false.B)
   when (in_shake_hand){
-    in_reg_used := true.B
+    in_reg_used_reg := true.B
   }.elsewhen(out_shake_hand){
-    in_reg_used := false.B
+    in_reg_used_reg := false.B
   }
   val extern_config_reg = RegInit(0.U.asTypeOf(new ExternConfig()))
   extern_config_reg := io.extern_config
@@ -51,9 +51,9 @@ class RxConverter extends Module{
 
   io.out.tuser  := in_reg.tuser
   io.out.tdata  := in_reg.tdata & keep_val.asTypeOf(UInt(512.W))
-  io.out.tvalid := in_reg.tvalid & in_reg_used
+  io.out.tvalid := in_reg.tvalid & in_reg_used_reg
   io.out.tlast  := in_reg.tlast
-  io.in.tready  := io.out.tready | !in_reg_used
+  io.in.tready  := io.out.tready | !in_reg_used_reg
   io.out.rx_info := WireDefault(0.U.asTypeOf(new RxInfo))
   io.out.rx_info.tlen := Mux(first_beat_reg,cur_burst_size,tlen_reg + cur_burst_size)
   io.out.rx_info.qid := 0.U
