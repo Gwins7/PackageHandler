@@ -172,7 +172,7 @@ class RxMatchFilter extends RxPipelineHandler {
     }
   }
   when (io.in.extern_config.c2h_match_op >= 2.U && io.in.extern_config.c2h_match_op <= 7.U) {
-    io.out.rx_info.qid := Mux(match_found_reg,1.U,in_reg.rx_info.qid)
+    io.out.rx_info.qid := Mux(match_found_reg | match_found,1.U,in_reg.rx_info.qid)
   }
 }
 
