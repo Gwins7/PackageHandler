@@ -76,8 +76,10 @@ val cal_tdata = Mux(in_shake_hand,io.in.tdata,in_reg.tdata)
 
 }
 
+// op = 0: do nothing
+
 class RxRSSHashFilter extends RxPipelineHandler {
-// op = 0; arg1 = hash_seed; arg2 = hash_mask
+// op = 1; arg1 = hash_seed; arg2 = hash_mask
   val hash_key = io.in.extern_config.c2h_match_arg1 // symmetric: fill(20,"h_6d5a".U), we just set 6d5a6d5a
 
   val cal_tdata = Mux(in_shake_hand,io.in.tdata,in_reg.tdata)
@@ -87,40 +89,39 @@ class RxRSSHashFilter extends RxPipelineHandler {
   val dst_port = change_order_16(cal_tdata(303,288))
   val info = Cat(src_ip,dst_ip,src_port,dst_port) // 96 bits
 
-  val cal_hash_key = Wire(Vec(96,UInt(32.W)))
+  val cal_hash_key_vec = Wire(Vec(96,UInt(32.W)))
   for (i <- 0 until 96) {
-    if (i%32==31) cal_hash_key(i) := Mux(info(i),hash_key(31,0),0.U)
-    else cal_hash_key(i) := Mux(info(i),Cat(hash_key(i%32,0),hash_key(31,(i%32)+1)),0.U)
+    if (i%32==31) cal_hash_key_vec(i) := Mux(info(i),hash_key(31,0),0.U)
+    else cal_hash_key_vec(i) := Mux(info(i),Cat(hash_key(i%32,0),hash_key(31,(i%32)+1)),0.U)
 //    if (i%16==15) cal_hash_key(i) := Mux(info(i),Cat(hash_key(15,0),hash_key(15,0)),0.U)
 //    else cal_hash_key(i) := Mux(info(i),Cat(hash_key(i%16,0),hash_key(15,0),hash_key(15,(i%16)+1)),0.U)
   }
   val hash_xor_sync = Module(new ReduceXorSync(96,32))
   val hash_xor_result = Wire(UInt(32.W))
   for (i <- 0 until 96) {
-    hash_xor_sync.io.in_vec(i) := cal_hash_key(i)
+    hash_xor_sync.io.in_vec(i) := cal_hash_key_vec(i)
   }
   hash_xor_result := hash_xor_sync.io.out_sum
 
   //  save the qid calculated in first beat and use it for whole packet
     val cal_qid = hash_xor_result(1,0) & io.in.extern_config.c2h_match_arg2(1,0)
     val cur_packet_qid_reg = RegEnable(cal_qid,0.U,in_shake_hand & first_beat_reg)
-  when (io.in.extern_config.c2h_match_op === 0.U){
+  when (io.in.extern_config.c2h_match_op === 1.U){
     io.out.rx_info.qid := Mux(first_beat_reg,cal_qid,cur_packet_qid_reg)
   }
 }
 
-// TODO: how to build match/search function?
 // match function
 class RxMatchFilter extends RxPipelineHandler {
-  // op = 1 ~ 6: Match
-  // op = 1: == | op = 2: !=
-  // op = 3: >  | op = 4: <
-  // op = 5: >= | op = 6: <=
+  // op = 2 ~ 7: Match
+  // op = 2: == | op = 3: !=
+  // op = 4: >  | op = 5: <
+  // op = 6: >= | op = 7: <=
   // arg1:place; arg2:content; arg3:mask
   def compare(op:UInt,mask:UInt,src1:UInt,src2:UInt):UInt = {
-    val a = Mux((op === 4.U) || (op === 6.U),src2 & mask,src1 & mask)
-    val b = Mux((op === 4.U) || (op === 6.U),src1 & mask,src2 & mask)
-      (op === 1.U && a === b) || (op === 2.U && a =/= b) || ((op === 3.U || op === 4.U) && a > b) || ((op === 5.U || op === 6.U) && a >= b)
+    val a = Mux((op === 5.U) || (op === 7.U),src2 & mask,src1 & mask)
+    val b = Mux((op === 5.U) || (op === 7.U),src1 & mask,src2 & mask)
+      (op === 2.U && a === b) || (op === 3.U && a =/= b) || ((op === 4.U || op === 5.U) && a > b) || ((op === 6.U || op === 7.U) && a >= b)
   }
 
   val match_op      = io.in.extern_config.c2h_match_op
@@ -132,7 +133,6 @@ class RxMatchFilter extends RxPipelineHandler {
   val match_found_reg = RegInit(false.B)
 
   val match_continue_reg = RegInit(false.B)
-  val match_continue_val_reg = RegInit(0.U(32.W))
 
   val cur_place = Mux(io.in.rx_info.tlen(5,0) === 0.U,io.in.rx_info.tlen,Cat(io.in.rx_info.tlen(15,6)+1.U,0.U(6.W)))
   //ceil align 64; we assum
@@ -149,11 +149,10 @@ class RxMatchFilter extends RxPipelineHandler {
     when (match_continue_reg) {
       // partly matched before
       match_continue_reg := false.B
-      match_continue_val_reg := 0.U
       val match_continue_len = in_beat_place + 4.U // remain len; 1,2,3
-      val match_continue_val = (Fill(32,match_continue_len === 1.U) & Cat(io.in.tdata(7,0),match_continue_val_reg(23,0)))  |
-                               (Fill(32,match_continue_len === 2.U) & Cat(io.in.tdata(15,0),match_continue_val_reg(15,0))) |
-                               (Fill(32,match_continue_len === 3.U) & Cat(io.in.tdata(23,0),match_continue_val_reg(7,0)))
+      val match_continue_val = (Fill(32,match_continue_len === 1.U) & Cat(io.in.tdata(7,0),in_reg.tdata(511,488)))  |
+                               (Fill(32,match_continue_len === 2.U) & Cat(io.in.tdata(15,0),in_reg.tdata(511,496))) |
+                               (Fill(32,match_continue_len === 3.U) & Cat(io.in.tdata(23,0),in_reg.tdata(511,504)))
 
       match_found := compare(match_op,match_mask,change_order_32(match_continue_val),match_content)
 
@@ -166,23 +165,61 @@ class RxMatchFilter extends RxPipelineHandler {
         }.elsewhen (match_place < cur_place && !io.in.tlast) {
           // between current beat and next beat
           match_continue_reg := true.B
-          match_continue_val_reg := in_beat_content
         }
       }
   }
-  when (io.in.extern_config.c2h_match_op >= 1.U && io.in.extern_config.c2h_match_op <= 6.U) {
+  when (io.in.extern_config.c2h_match_op >= 2.U && io.in.extern_config.c2h_match_op <= 7.U) {
     io.out.rx_info.qid := Mux(match_found_reg,1.U,in_reg.rx_info.qid)
   }
 }
 
+// search function
 class RxRESearcher extends RxPipelineHandler {
-  // op = 7: search
+  // op = 8: search
   // arg1:place; arg2:content; arg3:mask
+
   val search_op      = io.in.extern_config.c2h_match_op
   val search_content = io.in.extern_config.c2h_match_arg1
   val search_mask    = io.in.extern_config.c2h_match_arg2
 
+  val search_value = search_content & search_mask
 
+  def search (src:UInt): Bool = {
+    (change_order_32(src) & search_mask) === search_value
+  }
+
+  val previous_tdata = RegInit(0.U(24.W))
+  val cal_tdata = Mux(in_shake_hand,io.in.tdata,in_reg.tdata)
+
+  val search_vec = Wire(Vec(64,Bool()))
+  for (i <- 0 until 61) {
+    search_vec(i) := search(cal_tdata(8*i+31,8*i))
+  }
+  search_vec(61) := Mux(Mux(in_shake_hand,in_reg.tlast,first_beat_reg),0.U,search(Mux(in_shake_hand,Cat(io.in.tdata( 7,0),in_reg.tdata(511,488)),Cat(in_reg.tdata( 7,0),previous_tdata(23, 0)))))
+  search_vec(62) := Mux(Mux(in_shake_hand,in_reg.tlast,first_beat_reg),0.U,search(Mux(in_shake_hand,Cat(io.in.tdata(15,0),in_reg.tdata(511,496)),Cat(in_reg.tdata(15,0),previous_tdata(23, 8)))))
+  search_vec(63) := Mux(Mux(in_shake_hand,in_reg.tlast,first_beat_reg),0.U,search(Mux(in_shake_hand,Cat(io.in.tdata(23,0),in_reg.tdata(511,504)),Cat(in_reg.tdata(23,0),previous_tdata(23,16)))))
+
+  val search_or_sync = Module(new ReduceOrSync(64,1))
+  val search_or_result = Wire(Bool())
+  for (i <- 0 until 64) {
+    search_or_sync.io.in_vec(i) := search_vec(i)
+  }
+  search_or_result := search_or_sync.io.out_sum
+
+  val search_found_reg = RegInit(false.B)
+  when (in_shake_hand) {
+    previous_tdata := in_reg.tdata(511,488)
+    when (first_beat_reg) {
+      search_found_reg := search_or_result
+    }.otherwise{
+      search_found_reg := search_found_reg | search_or_result
+    }
+  }
+
+  when (io.in.extern_config.c2h_match_op === 8.U) {
+    io.out.rx_info.qid := Mux(search_found_reg | search_or_result,1.U,in_reg.rx_info.qid)
+  }
 }
+// notice:
 // if we want to cal qid not only by the first beat but also by the whole packet,
 // we need to add fifo in this pipeline, and use qid calculated in tlast beat

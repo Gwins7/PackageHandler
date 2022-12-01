@@ -49,6 +49,14 @@ class ReduceAddSync (vecnum: Int, width: Int) extends ReduceOpSync(vecnum, width
   }
   io.out_sum := cal_reg.reduceTree(_+_)
 }
+
+class ReduceOrSync (vecnum: Int, width: Int) extends ReduceOpSync(vecnum, width) {
+  for (i <- 0 until pipeline_cut_num) {
+    cal_reg(i) := cal_vec(i).reduceTree(_|_)
+  }
+  io.out_sum := cal_reg.reduceTree(_|_)
+}
+
 class ReduceXorSync (vecnum: Int, width: Int) extends ReduceOpSync(vecnum, width) {
   for (i <- 0 until pipeline_cut_num) {
     cal_reg(i) := cal_vec(i).reduceTree(_^_)

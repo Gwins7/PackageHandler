@@ -40,9 +40,10 @@ class RxPipeline extends Module{
   val rx_chksum_verifier = Module(new RxChksumVerifier())
   val rx_rss_hash_filter = Module(new RxRSSHashFilter())
   val rx_match_filter    = Module(new RxMatchFilter())
-  io.in <> rx_chksum_verifier.io.in
+  val rx_REsearcher      = Module(new RxRESearcher())
+  io.in                     <> rx_chksum_verifier.io.in
   rx_chksum_verifier.io.out <> rx_rss_hash_filter.io.in
-  rx_match_filter.io.out    <> io.out
   rx_rss_hash_filter.io.out <> rx_match_filter.io.in
-
+  rx_match_filter.io.out    <> rx_REsearcher.io.in
+  rx_REsearcher.io.out      <> io.out
 }
