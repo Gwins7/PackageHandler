@@ -135,10 +135,10 @@ class RxMatchFilter extends RxPipelineHandler {
 
   val previous_tdata_reg = RegInit(0.U(24.W))
 
-  val cur_place = Mux(in_reg.rx_info.tlen(5,0) === 0.U,in_reg.rx_info.tlen,Cat(in_reg.rx_info.tlen(15,6)+1.U,0.U(6.W)))
-  //ceil align 64; we assum
-  // e that the padding 0 in the tlast beat won't interfere matching process
-  val in_beat_place = match_place - (cur_place - 64.U)
+  val cur_place_reg = RegEnable(Mux(io.in.rx_info.tlen(5,0) === 0.U,io.in.rx_info.tlen,Cat(io.in.rx_info.tlen(15,6)+1.U,0.U(6.W))),0.U,in_shake_hand)
+
+  //ceil align 64; we assume that the padding 0 in the tlast beat won't interfere matching process
+  val in_beat_place = match_place - (cur_place_reg - 64.U)
   val in_beat_content = (in_reg.tdata >> (in_beat_place << 3.U))(31,0)
 
   when (in_shake_hand) {
@@ -153,13 +153,13 @@ class RxMatchFilter extends RxPipelineHandler {
 
       match_found := compare(match_op,match_mask,change_order_32(match_continue_val),match_content)
 
-    }.elsewhen (match_place >= cur_place - 64.U) {
+    }.elsewhen (match_place >= cur_place_reg - 64.U) {
         // start in current beat
-        when (match_place <= cur_place - 4.U) {
+        when (match_place <= cur_place_reg - 4.U) {
           // totally in current beat
           match_found := compare(match_op,match_mask,change_order_32(in_beat_content),match_content)
 
-        }.elsewhen (match_place < cur_place && !in_reg.tlast) {
+        }.elsewhen (match_place < cur_place_reg && !in_reg.tlast) {
           // between current beat and next beat
           match_continue_reg := true.B
         }
