@@ -17,22 +17,22 @@ module ReduceAddSync(
   reg [31:0] _RAND_1;
   reg [31:0] _RAND_2;
 `endif // RANDOMIZE_REG_INIT
-  reg [31:0] cal_reg_0; // @[Misc.scala 33:20]
-  reg [31:0] cal_reg_1; // @[Misc.scala 33:20]
-  reg [31:0] cal_reg_2; // @[Misc.scala 33:20]
-  wire [31:0] _cal_reg_0_T_1 = io_in_vec_0 + io_in_vec_1; // @[Misc.scala 48:42]
-  wire [31:0] _cal_reg_0_T_3 = io_in_vec_2 + io_in_vec_3; // @[Misc.scala 48:42]
-  wire [31:0] _cal_reg_1_T_1 = io_in_vec_4 + io_in_vec_5; // @[Misc.scala 48:42]
-  wire [31:0] _cal_reg_1_T_3 = io_in_vec_6 + io_in_vec_7; // @[Misc.scala 48:42]
-  wire [31:0] _cal_reg_2_T_1 = io_in_vec_8 + io_in_vec_9; // @[Misc.scala 48:42]
-  wire [32:0] _cal_reg_2_T_4 = {{1'd0}, _cal_reg_2_T_1}; // @[Misc.scala 48:42]
-  wire [31:0] _io_out_sum_T_1 = cal_reg_0 + cal_reg_1; // @[Misc.scala 50:37]
-  wire [32:0] _io_out_sum_T_2 = {{1'd0}, cal_reg_2}; // @[Misc.scala 50:37]
-  assign io_out_sum = _io_out_sum_T_1 + _io_out_sum_T_2[31:0]; // @[Misc.scala 50:37]
+  reg [31:0] cal_reg_0; // @[Misc.scala 173:20]
+  reg [31:0] cal_reg_1; // @[Misc.scala 173:20]
+  reg [31:0] cal_reg_2; // @[Misc.scala 173:20]
+  wire [31:0] _cal_reg_0_T_1 = io_in_vec_0 + io_in_vec_1; // @[Misc.scala 188:42]
+  wire [31:0] _cal_reg_0_T_3 = io_in_vec_2 + io_in_vec_3; // @[Misc.scala 188:42]
+  wire [31:0] _cal_reg_1_T_1 = io_in_vec_4 + io_in_vec_5; // @[Misc.scala 188:42]
+  wire [31:0] _cal_reg_1_T_3 = io_in_vec_6 + io_in_vec_7; // @[Misc.scala 188:42]
+  wire [31:0] _cal_reg_2_T_1 = io_in_vec_8 + io_in_vec_9; // @[Misc.scala 188:42]
+  wire [32:0] _cal_reg_2_T_4 = {{1'd0}, _cal_reg_2_T_1}; // @[Misc.scala 188:42]
+  wire [31:0] _io_out_sum_T_1 = cal_reg_0 + cal_reg_1; // @[Misc.scala 190:37]
+  wire [32:0] _io_out_sum_T_2 = {{1'd0}, cal_reg_2}; // @[Misc.scala 190:37]
+  assign io_out_sum = _io_out_sum_T_1 + _io_out_sum_T_2[31:0]; // @[Misc.scala 190:37]
   always @(posedge clock) begin
-    cal_reg_0 <= _cal_reg_0_T_1 + _cal_reg_0_T_3; // @[Misc.scala 48:42]
-    cal_reg_1 <= _cal_reg_1_T_1 + _cal_reg_1_T_3; // @[Misc.scala 48:42]
-    cal_reg_2 <= _cal_reg_2_T_4[31:0]; // @[Misc.scala 48:42]
+    cal_reg_0 <= _cal_reg_0_T_1 + _cal_reg_0_T_3; // @[Misc.scala 188:42]
+    cal_reg_1 <= _cal_reg_1_T_1 + _cal_reg_1_T_3; // @[Misc.scala 188:42]
+    cal_reg_2 <= _cal_reg_2_T_4[31:0]; // @[Misc.scala 188:42]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -130,46 +130,46 @@ module ReduceAddSync_1(
   reg [31:0] _RAND_6;
   reg [31:0] _RAND_7;
 `endif // RANDOMIZE_REG_INIT
-  reg [31:0] cal_reg_0; // @[Misc.scala 33:20]
-  reg [31:0] cal_reg_1; // @[Misc.scala 33:20]
-  reg [31:0] cal_reg_2; // @[Misc.scala 33:20]
-  reg [31:0] cal_reg_3; // @[Misc.scala 33:20]
-  reg [31:0] cal_reg_4; // @[Misc.scala 33:20]
-  reg [31:0] cal_reg_5; // @[Misc.scala 33:20]
-  reg [31:0] cal_reg_6; // @[Misc.scala 33:20]
-  reg [31:0] cal_reg_7; // @[Misc.scala 33:20]
-  wire [31:0] _cal_reg_0_T_1 = io_in_vec_0 + io_in_vec_1; // @[Misc.scala 48:42]
-  wire [31:0] _cal_reg_0_T_3 = io_in_vec_2 + io_in_vec_3; // @[Misc.scala 48:42]
-  wire [31:0] _cal_reg_1_T_1 = io_in_vec_4 + io_in_vec_5; // @[Misc.scala 48:42]
-  wire [31:0] _cal_reg_1_T_3 = io_in_vec_6 + io_in_vec_7; // @[Misc.scala 48:42]
-  wire [31:0] _cal_reg_2_T_1 = io_in_vec_8 + io_in_vec_9; // @[Misc.scala 48:42]
-  wire [31:0] _cal_reg_2_T_3 = io_in_vec_10 + io_in_vec_11; // @[Misc.scala 48:42]
-  wire [31:0] _cal_reg_3_T_1 = io_in_vec_12 + io_in_vec_13; // @[Misc.scala 48:42]
-  wire [31:0] _cal_reg_3_T_3 = io_in_vec_14 + io_in_vec_15; // @[Misc.scala 48:42]
-  wire [31:0] _cal_reg_4_T_1 = io_in_vec_16 + io_in_vec_17; // @[Misc.scala 48:42]
-  wire [31:0] _cal_reg_4_T_3 = io_in_vec_18 + io_in_vec_19; // @[Misc.scala 48:42]
-  wire [31:0] _cal_reg_5_T_1 = io_in_vec_20 + io_in_vec_21; // @[Misc.scala 48:42]
-  wire [31:0] _cal_reg_5_T_3 = io_in_vec_22 + io_in_vec_23; // @[Misc.scala 48:42]
-  wire [31:0] _cal_reg_6_T_1 = io_in_vec_24 + io_in_vec_25; // @[Misc.scala 48:42]
-  wire [31:0] _cal_reg_6_T_3 = io_in_vec_26 + io_in_vec_27; // @[Misc.scala 48:42]
-  wire [31:0] _cal_reg_7_T_1 = io_in_vec_28 + io_in_vec_29; // @[Misc.scala 48:42]
-  wire [31:0] _cal_reg_7_T_3 = io_in_vec_30 + io_in_vec_31; // @[Misc.scala 48:42]
-  wire [31:0] _io_out_sum_T_1 = cal_reg_0 + cal_reg_1; // @[Misc.scala 50:37]
-  wire [31:0] _io_out_sum_T_3 = cal_reg_2 + cal_reg_3; // @[Misc.scala 50:37]
-  wire [31:0] _io_out_sum_T_5 = cal_reg_4 + cal_reg_5; // @[Misc.scala 50:37]
-  wire [31:0] _io_out_sum_T_7 = cal_reg_6 + cal_reg_7; // @[Misc.scala 50:37]
-  wire [31:0] _io_out_sum_T_9 = _io_out_sum_T_1 + _io_out_sum_T_3; // @[Misc.scala 50:37]
-  wire [31:0] _io_out_sum_T_11 = _io_out_sum_T_5 + _io_out_sum_T_7; // @[Misc.scala 50:37]
-  assign io_out_sum = _io_out_sum_T_9 + _io_out_sum_T_11; // @[Misc.scala 50:37]
+  reg [31:0] cal_reg_0; // @[Misc.scala 173:20]
+  reg [31:0] cal_reg_1; // @[Misc.scala 173:20]
+  reg [31:0] cal_reg_2; // @[Misc.scala 173:20]
+  reg [31:0] cal_reg_3; // @[Misc.scala 173:20]
+  reg [31:0] cal_reg_4; // @[Misc.scala 173:20]
+  reg [31:0] cal_reg_5; // @[Misc.scala 173:20]
+  reg [31:0] cal_reg_6; // @[Misc.scala 173:20]
+  reg [31:0] cal_reg_7; // @[Misc.scala 173:20]
+  wire [31:0] _cal_reg_0_T_1 = io_in_vec_0 + io_in_vec_1; // @[Misc.scala 188:42]
+  wire [31:0] _cal_reg_0_T_3 = io_in_vec_2 + io_in_vec_3; // @[Misc.scala 188:42]
+  wire [31:0] _cal_reg_1_T_1 = io_in_vec_4 + io_in_vec_5; // @[Misc.scala 188:42]
+  wire [31:0] _cal_reg_1_T_3 = io_in_vec_6 + io_in_vec_7; // @[Misc.scala 188:42]
+  wire [31:0] _cal_reg_2_T_1 = io_in_vec_8 + io_in_vec_9; // @[Misc.scala 188:42]
+  wire [31:0] _cal_reg_2_T_3 = io_in_vec_10 + io_in_vec_11; // @[Misc.scala 188:42]
+  wire [31:0] _cal_reg_3_T_1 = io_in_vec_12 + io_in_vec_13; // @[Misc.scala 188:42]
+  wire [31:0] _cal_reg_3_T_3 = io_in_vec_14 + io_in_vec_15; // @[Misc.scala 188:42]
+  wire [31:0] _cal_reg_4_T_1 = io_in_vec_16 + io_in_vec_17; // @[Misc.scala 188:42]
+  wire [31:0] _cal_reg_4_T_3 = io_in_vec_18 + io_in_vec_19; // @[Misc.scala 188:42]
+  wire [31:0] _cal_reg_5_T_1 = io_in_vec_20 + io_in_vec_21; // @[Misc.scala 188:42]
+  wire [31:0] _cal_reg_5_T_3 = io_in_vec_22 + io_in_vec_23; // @[Misc.scala 188:42]
+  wire [31:0] _cal_reg_6_T_1 = io_in_vec_24 + io_in_vec_25; // @[Misc.scala 188:42]
+  wire [31:0] _cal_reg_6_T_3 = io_in_vec_26 + io_in_vec_27; // @[Misc.scala 188:42]
+  wire [31:0] _cal_reg_7_T_1 = io_in_vec_28 + io_in_vec_29; // @[Misc.scala 188:42]
+  wire [31:0] _cal_reg_7_T_3 = io_in_vec_30 + io_in_vec_31; // @[Misc.scala 188:42]
+  wire [31:0] _io_out_sum_T_1 = cal_reg_0 + cal_reg_1; // @[Misc.scala 190:37]
+  wire [31:0] _io_out_sum_T_3 = cal_reg_2 + cal_reg_3; // @[Misc.scala 190:37]
+  wire [31:0] _io_out_sum_T_5 = cal_reg_4 + cal_reg_5; // @[Misc.scala 190:37]
+  wire [31:0] _io_out_sum_T_7 = cal_reg_6 + cal_reg_7; // @[Misc.scala 190:37]
+  wire [31:0] _io_out_sum_T_9 = _io_out_sum_T_1 + _io_out_sum_T_3; // @[Misc.scala 190:37]
+  wire [31:0] _io_out_sum_T_11 = _io_out_sum_T_5 + _io_out_sum_T_7; // @[Misc.scala 190:37]
+  assign io_out_sum = _io_out_sum_T_9 + _io_out_sum_T_11; // @[Misc.scala 190:37]
   always @(posedge clock) begin
-    cal_reg_0 <= _cal_reg_0_T_1 + _cal_reg_0_T_3; // @[Misc.scala 48:42]
-    cal_reg_1 <= _cal_reg_1_T_1 + _cal_reg_1_T_3; // @[Misc.scala 48:42]
-    cal_reg_2 <= _cal_reg_2_T_1 + _cal_reg_2_T_3; // @[Misc.scala 48:42]
-    cal_reg_3 <= _cal_reg_3_T_1 + _cal_reg_3_T_3; // @[Misc.scala 48:42]
-    cal_reg_4 <= _cal_reg_4_T_1 + _cal_reg_4_T_3; // @[Misc.scala 48:42]
-    cal_reg_5 <= _cal_reg_5_T_1 + _cal_reg_5_T_3; // @[Misc.scala 48:42]
-    cal_reg_6 <= _cal_reg_6_T_1 + _cal_reg_6_T_3; // @[Misc.scala 48:42]
-    cal_reg_7 <= _cal_reg_7_T_1 + _cal_reg_7_T_3; // @[Misc.scala 48:42]
+    cal_reg_0 <= _cal_reg_0_T_1 + _cal_reg_0_T_3; // @[Misc.scala 188:42]
+    cal_reg_1 <= _cal_reg_1_T_1 + _cal_reg_1_T_3; // @[Misc.scala 188:42]
+    cal_reg_2 <= _cal_reg_2_T_1 + _cal_reg_2_T_3; // @[Misc.scala 188:42]
+    cal_reg_3 <= _cal_reg_3_T_1 + _cal_reg_3_T_3; // @[Misc.scala 188:42]
+    cal_reg_4 <= _cal_reg_4_T_1 + _cal_reg_4_T_3; // @[Misc.scala 188:42]
+    cal_reg_5 <= _cal_reg_5_T_1 + _cal_reg_5_T_3; // @[Misc.scala 188:42]
+    cal_reg_6 <= _cal_reg_6_T_1 + _cal_reg_6_T_3; // @[Misc.scala 188:42]
+    cal_reg_7 <= _cal_reg_7_T_1 + _cal_reg_7_T_3; // @[Misc.scala 188:42]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -648,44 +648,44 @@ module TxPipeline(
   output [31:0]  io_out_tx_info_ip_chksum,
   output [31:0]  io_out_tx_info_tcp_chksum
 );
-  wire  chksum_generator_clock; // @[TxPipeline.scala 17:32]
-  wire  chksum_generator_reset; // @[TxPipeline.scala 17:32]
-  wire [511:0] chksum_generator_io_in_tdata; // @[TxPipeline.scala 17:32]
-  wire  chksum_generator_io_in_tvalid; // @[TxPipeline.scala 17:32]
-  wire  chksum_generator_io_in_tready; // @[TxPipeline.scala 17:32]
-  wire  chksum_generator_io_in_tlast; // @[TxPipeline.scala 17:32]
-  wire [511:0] chksum_generator_io_out_tdata; // @[TxPipeline.scala 17:32]
-  wire  chksum_generator_io_out_tvalid; // @[TxPipeline.scala 17:32]
-  wire  chksum_generator_io_out_tready; // @[TxPipeline.scala 17:32]
-  wire  chksum_generator_io_out_tlast; // @[TxPipeline.scala 17:32]
-  wire [31:0] chksum_generator_io_out_tx_info_ip_chksum; // @[TxPipeline.scala 17:32]
-  wire [31:0] chksum_generator_io_out_tx_info_tcp_chksum; // @[TxPipeline.scala 17:32]
-  TxChksumGenerator chksum_generator ( // @[TxPipeline.scala 17:32]
-    .clock(chksum_generator_clock),
-    .reset(chksum_generator_reset),
-    .io_in_tdata(chksum_generator_io_in_tdata),
-    .io_in_tvalid(chksum_generator_io_in_tvalid),
-    .io_in_tready(chksum_generator_io_in_tready),
-    .io_in_tlast(chksum_generator_io_in_tlast),
-    .io_out_tdata(chksum_generator_io_out_tdata),
-    .io_out_tvalid(chksum_generator_io_out_tvalid),
-    .io_out_tready(chksum_generator_io_out_tready),
-    .io_out_tlast(chksum_generator_io_out_tlast),
-    .io_out_tx_info_ip_chksum(chksum_generator_io_out_tx_info_ip_chksum),
-    .io_out_tx_info_tcp_chksum(chksum_generator_io_out_tx_info_tcp_chksum)
+  wire  tx_chksum_generator_clock; // @[TxPipeline.scala 17:35]
+  wire  tx_chksum_generator_reset; // @[TxPipeline.scala 17:35]
+  wire [511:0] tx_chksum_generator_io_in_tdata; // @[TxPipeline.scala 17:35]
+  wire  tx_chksum_generator_io_in_tvalid; // @[TxPipeline.scala 17:35]
+  wire  tx_chksum_generator_io_in_tready; // @[TxPipeline.scala 17:35]
+  wire  tx_chksum_generator_io_in_tlast; // @[TxPipeline.scala 17:35]
+  wire [511:0] tx_chksum_generator_io_out_tdata; // @[TxPipeline.scala 17:35]
+  wire  tx_chksum_generator_io_out_tvalid; // @[TxPipeline.scala 17:35]
+  wire  tx_chksum_generator_io_out_tready; // @[TxPipeline.scala 17:35]
+  wire  tx_chksum_generator_io_out_tlast; // @[TxPipeline.scala 17:35]
+  wire [31:0] tx_chksum_generator_io_out_tx_info_ip_chksum; // @[TxPipeline.scala 17:35]
+  wire [31:0] tx_chksum_generator_io_out_tx_info_tcp_chksum; // @[TxPipeline.scala 17:35]
+  TxChksumGenerator tx_chksum_generator ( // @[TxPipeline.scala 17:35]
+    .clock(tx_chksum_generator_clock),
+    .reset(tx_chksum_generator_reset),
+    .io_in_tdata(tx_chksum_generator_io_in_tdata),
+    .io_in_tvalid(tx_chksum_generator_io_in_tvalid),
+    .io_in_tready(tx_chksum_generator_io_in_tready),
+    .io_in_tlast(tx_chksum_generator_io_in_tlast),
+    .io_out_tdata(tx_chksum_generator_io_out_tdata),
+    .io_out_tvalid(tx_chksum_generator_io_out_tvalid),
+    .io_out_tready(tx_chksum_generator_io_out_tready),
+    .io_out_tlast(tx_chksum_generator_io_out_tlast),
+    .io_out_tx_info_ip_chksum(tx_chksum_generator_io_out_tx_info_ip_chksum),
+    .io_out_tx_info_tcp_chksum(tx_chksum_generator_io_out_tx_info_tcp_chksum)
   );
-  assign io_in_tready = chksum_generator_io_in_tready; // @[TxPipeline.scala 23:26]
-  assign io_out_tdata = chksum_generator_io_out_tdata; // @[TxPipeline.scala 27:10]
-  assign io_out_tvalid = chksum_generator_io_out_tvalid; // @[TxPipeline.scala 27:10]
-  assign io_out_tlast = chksum_generator_io_out_tlast; // @[TxPipeline.scala 27:10]
-  assign io_out_tx_info_ip_chksum = chksum_generator_io_out_tx_info_ip_chksum; // @[TxPipeline.scala 27:10]
-  assign io_out_tx_info_tcp_chksum = chksum_generator_io_out_tx_info_tcp_chksum; // @[TxPipeline.scala 27:10]
-  assign chksum_generator_clock = clock;
-  assign chksum_generator_reset = reset;
-  assign chksum_generator_io_in_tdata = io_in_tdata; // @[TxPipeline.scala 22:33]
-  assign chksum_generator_io_in_tvalid = io_in_tvalid & ~io_in_tuser; // @[TxPipeline.scala 15:34]
-  assign chksum_generator_io_in_tlast = io_in_tlast; // @[TxPipeline.scala 21:33]
-  assign chksum_generator_io_out_tready = io_out_tready; // @[TxPipeline.scala 27:10]
+  assign io_in_tready = tx_chksum_generator_io_in_tready; // @[TxPipeline.scala 23:26]
+  assign io_out_tdata = tx_chksum_generator_io_out_tdata; // @[TxPipeline.scala 29:30]
+  assign io_out_tvalid = tx_chksum_generator_io_out_tvalid; // @[TxPipeline.scala 29:30]
+  assign io_out_tlast = tx_chksum_generator_io_out_tlast; // @[TxPipeline.scala 29:30]
+  assign io_out_tx_info_ip_chksum = tx_chksum_generator_io_out_tx_info_ip_chksum; // @[TxPipeline.scala 29:30]
+  assign io_out_tx_info_tcp_chksum = tx_chksum_generator_io_out_tx_info_tcp_chksum; // @[TxPipeline.scala 29:30]
+  assign tx_chksum_generator_clock = clock;
+  assign tx_chksum_generator_reset = reset;
+  assign tx_chksum_generator_io_in_tdata = io_in_tdata; // @[TxPipeline.scala 22:36]
+  assign tx_chksum_generator_io_in_tvalid = io_in_tvalid & ~io_in_tuser; // @[TxPipeline.scala 15:34]
+  assign tx_chksum_generator_io_in_tlast = io_in_tlast; // @[TxPipeline.scala 21:36]
+  assign tx_chksum_generator_io_out_tready = io_out_tready; // @[TxPipeline.scala 29:30]
 endmodule
 module TxBufferFifo(
   input          clock,
@@ -1335,78 +1335,78 @@ module ReduceAddSync_3(
   reg [31:0] _RAND_6;
   reg [31:0] _RAND_7;
 `endif // RANDOMIZE_REG_INIT
-  reg [7:0] cal_reg_0; // @[Misc.scala 33:20]
-  reg [7:0] cal_reg_1; // @[Misc.scala 33:20]
-  reg [7:0] cal_reg_2; // @[Misc.scala 33:20]
-  reg [7:0] cal_reg_3; // @[Misc.scala 33:20]
-  reg [7:0] cal_reg_4; // @[Misc.scala 33:20]
-  reg [7:0] cal_reg_5; // @[Misc.scala 33:20]
-  reg [7:0] cal_reg_6; // @[Misc.scala 33:20]
-  reg [7:0] cal_reg_7; // @[Misc.scala 33:20]
-  wire [7:0] _cal_reg_0_T_1 = io_in_vec_0 + io_in_vec_1; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_0_T_3 = io_in_vec_2 + io_in_vec_3; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_0_T_5 = io_in_vec_4 + io_in_vec_5; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_0_T_7 = io_in_vec_6 + io_in_vec_7; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_0_T_9 = _cal_reg_0_T_1 + _cal_reg_0_T_3; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_0_T_11 = _cal_reg_0_T_5 + _cal_reg_0_T_7; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_1_T_1 = io_in_vec_8 + io_in_vec_9; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_1_T_3 = io_in_vec_10 + io_in_vec_11; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_1_T_5 = io_in_vec_12 + io_in_vec_13; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_1_T_7 = io_in_vec_14 + io_in_vec_15; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_1_T_9 = _cal_reg_1_T_1 + _cal_reg_1_T_3; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_1_T_11 = _cal_reg_1_T_5 + _cal_reg_1_T_7; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_2_T_1 = io_in_vec_16 + io_in_vec_17; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_2_T_3 = io_in_vec_18 + io_in_vec_19; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_2_T_5 = io_in_vec_20 + io_in_vec_21; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_2_T_7 = io_in_vec_22 + io_in_vec_23; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_2_T_9 = _cal_reg_2_T_1 + _cal_reg_2_T_3; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_2_T_11 = _cal_reg_2_T_5 + _cal_reg_2_T_7; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_3_T_1 = io_in_vec_24 + io_in_vec_25; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_3_T_3 = io_in_vec_26 + io_in_vec_27; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_3_T_5 = io_in_vec_28 + io_in_vec_29; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_3_T_7 = io_in_vec_30 + io_in_vec_31; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_3_T_9 = _cal_reg_3_T_1 + _cal_reg_3_T_3; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_3_T_11 = _cal_reg_3_T_5 + _cal_reg_3_T_7; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_4_T_1 = io_in_vec_32 + io_in_vec_33; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_4_T_3 = io_in_vec_34 + io_in_vec_35; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_4_T_5 = io_in_vec_36 + io_in_vec_37; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_4_T_7 = io_in_vec_38 + io_in_vec_39; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_4_T_9 = _cal_reg_4_T_1 + _cal_reg_4_T_3; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_4_T_11 = _cal_reg_4_T_5 + _cal_reg_4_T_7; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_5_T_1 = io_in_vec_40 + io_in_vec_41; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_5_T_3 = io_in_vec_42 + io_in_vec_43; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_5_T_5 = io_in_vec_44 + io_in_vec_45; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_5_T_7 = io_in_vec_46 + io_in_vec_47; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_5_T_9 = _cal_reg_5_T_1 + _cal_reg_5_T_3; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_5_T_11 = _cal_reg_5_T_5 + _cal_reg_5_T_7; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_6_T_1 = io_in_vec_48 + io_in_vec_49; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_6_T_3 = io_in_vec_50 + io_in_vec_51; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_6_T_5 = io_in_vec_52 + io_in_vec_53; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_6_T_7 = io_in_vec_54 + io_in_vec_55; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_6_T_9 = _cal_reg_6_T_1 + _cal_reg_6_T_3; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_6_T_11 = _cal_reg_6_T_5 + _cal_reg_6_T_7; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_7_T_1 = io_in_vec_56 + io_in_vec_57; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_7_T_3 = io_in_vec_58 + io_in_vec_59; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_7_T_5 = io_in_vec_60 + io_in_vec_61; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_7_T_7 = io_in_vec_62 + io_in_vec_63; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_7_T_9 = _cal_reg_7_T_1 + _cal_reg_7_T_3; // @[Misc.scala 48:42]
-  wire [7:0] _cal_reg_7_T_11 = _cal_reg_7_T_5 + _cal_reg_7_T_7; // @[Misc.scala 48:42]
-  wire [7:0] _io_out_sum_T_1 = cal_reg_0 + cal_reg_1; // @[Misc.scala 50:37]
-  wire [7:0] _io_out_sum_T_3 = cal_reg_2 + cal_reg_3; // @[Misc.scala 50:37]
-  wire [7:0] _io_out_sum_T_5 = cal_reg_4 + cal_reg_5; // @[Misc.scala 50:37]
-  wire [7:0] _io_out_sum_T_7 = cal_reg_6 + cal_reg_7; // @[Misc.scala 50:37]
-  wire [7:0] _io_out_sum_T_9 = _io_out_sum_T_1 + _io_out_sum_T_3; // @[Misc.scala 50:37]
-  wire [7:0] _io_out_sum_T_11 = _io_out_sum_T_5 + _io_out_sum_T_7; // @[Misc.scala 50:37]
-  assign io_out_sum = _io_out_sum_T_9 + _io_out_sum_T_11; // @[Misc.scala 50:37]
+  reg [7:0] cal_reg_0; // @[Misc.scala 173:20]
+  reg [7:0] cal_reg_1; // @[Misc.scala 173:20]
+  reg [7:0] cal_reg_2; // @[Misc.scala 173:20]
+  reg [7:0] cal_reg_3; // @[Misc.scala 173:20]
+  reg [7:0] cal_reg_4; // @[Misc.scala 173:20]
+  reg [7:0] cal_reg_5; // @[Misc.scala 173:20]
+  reg [7:0] cal_reg_6; // @[Misc.scala 173:20]
+  reg [7:0] cal_reg_7; // @[Misc.scala 173:20]
+  wire [7:0] _cal_reg_0_T_1 = io_in_vec_0 + io_in_vec_1; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_0_T_3 = io_in_vec_2 + io_in_vec_3; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_0_T_5 = io_in_vec_4 + io_in_vec_5; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_0_T_7 = io_in_vec_6 + io_in_vec_7; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_0_T_9 = _cal_reg_0_T_1 + _cal_reg_0_T_3; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_0_T_11 = _cal_reg_0_T_5 + _cal_reg_0_T_7; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_1_T_1 = io_in_vec_8 + io_in_vec_9; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_1_T_3 = io_in_vec_10 + io_in_vec_11; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_1_T_5 = io_in_vec_12 + io_in_vec_13; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_1_T_7 = io_in_vec_14 + io_in_vec_15; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_1_T_9 = _cal_reg_1_T_1 + _cal_reg_1_T_3; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_1_T_11 = _cal_reg_1_T_5 + _cal_reg_1_T_7; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_2_T_1 = io_in_vec_16 + io_in_vec_17; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_2_T_3 = io_in_vec_18 + io_in_vec_19; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_2_T_5 = io_in_vec_20 + io_in_vec_21; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_2_T_7 = io_in_vec_22 + io_in_vec_23; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_2_T_9 = _cal_reg_2_T_1 + _cal_reg_2_T_3; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_2_T_11 = _cal_reg_2_T_5 + _cal_reg_2_T_7; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_3_T_1 = io_in_vec_24 + io_in_vec_25; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_3_T_3 = io_in_vec_26 + io_in_vec_27; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_3_T_5 = io_in_vec_28 + io_in_vec_29; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_3_T_7 = io_in_vec_30 + io_in_vec_31; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_3_T_9 = _cal_reg_3_T_1 + _cal_reg_3_T_3; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_3_T_11 = _cal_reg_3_T_5 + _cal_reg_3_T_7; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_4_T_1 = io_in_vec_32 + io_in_vec_33; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_4_T_3 = io_in_vec_34 + io_in_vec_35; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_4_T_5 = io_in_vec_36 + io_in_vec_37; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_4_T_7 = io_in_vec_38 + io_in_vec_39; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_4_T_9 = _cal_reg_4_T_1 + _cal_reg_4_T_3; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_4_T_11 = _cal_reg_4_T_5 + _cal_reg_4_T_7; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_5_T_1 = io_in_vec_40 + io_in_vec_41; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_5_T_3 = io_in_vec_42 + io_in_vec_43; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_5_T_5 = io_in_vec_44 + io_in_vec_45; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_5_T_7 = io_in_vec_46 + io_in_vec_47; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_5_T_9 = _cal_reg_5_T_1 + _cal_reg_5_T_3; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_5_T_11 = _cal_reg_5_T_5 + _cal_reg_5_T_7; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_6_T_1 = io_in_vec_48 + io_in_vec_49; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_6_T_3 = io_in_vec_50 + io_in_vec_51; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_6_T_5 = io_in_vec_52 + io_in_vec_53; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_6_T_7 = io_in_vec_54 + io_in_vec_55; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_6_T_9 = _cal_reg_6_T_1 + _cal_reg_6_T_3; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_6_T_11 = _cal_reg_6_T_5 + _cal_reg_6_T_7; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_7_T_1 = io_in_vec_56 + io_in_vec_57; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_7_T_3 = io_in_vec_58 + io_in_vec_59; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_7_T_5 = io_in_vec_60 + io_in_vec_61; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_7_T_7 = io_in_vec_62 + io_in_vec_63; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_7_T_9 = _cal_reg_7_T_1 + _cal_reg_7_T_3; // @[Misc.scala 188:42]
+  wire [7:0] _cal_reg_7_T_11 = _cal_reg_7_T_5 + _cal_reg_7_T_7; // @[Misc.scala 188:42]
+  wire [7:0] _io_out_sum_T_1 = cal_reg_0 + cal_reg_1; // @[Misc.scala 190:37]
+  wire [7:0] _io_out_sum_T_3 = cal_reg_2 + cal_reg_3; // @[Misc.scala 190:37]
+  wire [7:0] _io_out_sum_T_5 = cal_reg_4 + cal_reg_5; // @[Misc.scala 190:37]
+  wire [7:0] _io_out_sum_T_7 = cal_reg_6 + cal_reg_7; // @[Misc.scala 190:37]
+  wire [7:0] _io_out_sum_T_9 = _io_out_sum_T_1 + _io_out_sum_T_3; // @[Misc.scala 190:37]
+  wire [7:0] _io_out_sum_T_11 = _io_out_sum_T_5 + _io_out_sum_T_7; // @[Misc.scala 190:37]
+  assign io_out_sum = _io_out_sum_T_9 + _io_out_sum_T_11; // @[Misc.scala 190:37]
   always @(posedge clock) begin
-    cal_reg_0 <= _cal_reg_0_T_9 + _cal_reg_0_T_11; // @[Misc.scala 48:42]
-    cal_reg_1 <= _cal_reg_1_T_9 + _cal_reg_1_T_11; // @[Misc.scala 48:42]
-    cal_reg_2 <= _cal_reg_2_T_9 + _cal_reg_2_T_11; // @[Misc.scala 48:42]
-    cal_reg_3 <= _cal_reg_3_T_9 + _cal_reg_3_T_11; // @[Misc.scala 48:42]
-    cal_reg_4 <= _cal_reg_4_T_9 + _cal_reg_4_T_11; // @[Misc.scala 48:42]
-    cal_reg_5 <= _cal_reg_5_T_9 + _cal_reg_5_T_11; // @[Misc.scala 48:42]
-    cal_reg_6 <= _cal_reg_6_T_9 + _cal_reg_6_T_11; // @[Misc.scala 48:42]
-    cal_reg_7 <= _cal_reg_7_T_9 + _cal_reg_7_T_11; // @[Misc.scala 48:42]
+    cal_reg_0 <= _cal_reg_0_T_9 + _cal_reg_0_T_11; // @[Misc.scala 188:42]
+    cal_reg_1 <= _cal_reg_1_T_9 + _cal_reg_1_T_11; // @[Misc.scala 188:42]
+    cal_reg_2 <= _cal_reg_2_T_9 + _cal_reg_2_T_11; // @[Misc.scala 188:42]
+    cal_reg_3 <= _cal_reg_3_T_9 + _cal_reg_3_T_11; // @[Misc.scala 188:42]
+    cal_reg_4 <= _cal_reg_4_T_9 + _cal_reg_4_T_11; // @[Misc.scala 188:42]
+    cal_reg_5 <= _cal_reg_5_T_9 + _cal_reg_5_T_11; // @[Misc.scala 188:42]
+    cal_reg_6 <= _cal_reg_6_T_9 + _cal_reg_6_T_11; // @[Misc.scala 188:42]
+    cal_reg_7 <= _cal_reg_7_T_9 + _cal_reg_7_T_11; // @[Misc.scala 188:42]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -1483,14 +1483,18 @@ module RxConverter(
   output         io_out_tlast,
   output         io_out_tuser,
   output [15:0]  io_out_rx_info_tlen,
-  output [31:0]  io_out_extern_config_c2h_match_op,
+  output [7:0]   io_out_extern_config_c2h_match_op,
   output [31:0]  io_out_extern_config_c2h_match_arg1,
   output [31:0]  io_out_extern_config_c2h_match_arg2,
   output [31:0]  io_out_extern_config_c2h_match_arg3,
-  input  [31:0]  io_extern_config_c2h_match_op,
+  output [127:0] io_out_extern_config_aes_key,
+  output [3:0]   io_out_extern_config_round_time,
+  input  [7:0]   io_extern_config_c2h_match_op,
   input  [31:0]  io_extern_config_c2h_match_arg1,
   input  [31:0]  io_extern_config_c2h_match_arg2,
-  input  [31:0]  io_extern_config_c2h_match_arg3
+  input  [31:0]  io_extern_config_c2h_match_arg3,
+  input  [127:0] io_extern_config_aes_key,
+  input  [3:0]   io_extern_config_round_time
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [607:0] _RAND_0;
@@ -1500,7 +1504,9 @@ module RxConverter(
   reg [31:0] _RAND_4;
   reg [31:0] _RAND_5;
   reg [31:0] _RAND_6;
-  reg [31:0] _RAND_7;
+  reg [127:0] _RAND_7;
+  reg [31:0] _RAND_8;
+  reg [31:0] _RAND_9;
 `endif // RANDOMIZE_REG_INIT
   wire  burst_size_cal_clock; // @[RxConverter.scala 29:30]
   wire [7:0] burst_size_cal_io_in_vec_0; // @[RxConverter.scala 29:30]
@@ -1581,10 +1587,12 @@ module RxConverter(
   reg  in_reg_used_reg; // @[RxConverter.scala 19:32]
   wire  _GEN_2 = out_shake_hand ? 1'h0 : in_reg_used_reg; // @[RxConverter.scala 22:29 23:21 19:32]
   wire  _GEN_3 = in_shake_hand | _GEN_2; // @[RxConverter.scala 20:23 21:21]
-  reg [31:0] extern_config_reg_c2h_match_op; // @[RxConverter.scala 25:34]
+  reg [7:0] extern_config_reg_c2h_match_op; // @[RxConverter.scala 25:34]
   reg [31:0] extern_config_reg_c2h_match_arg1; // @[RxConverter.scala 25:34]
   reg [31:0] extern_config_reg_c2h_match_arg2; // @[RxConverter.scala 25:34]
   reg [31:0] extern_config_reg_c2h_match_arg3; // @[RxConverter.scala 25:34]
+  reg [127:0] extern_config_reg_aes_key; // @[RxConverter.scala 25:34]
+  reg [3:0] extern_config_reg_round_time; // @[RxConverter.scala 25:34]
   wire [63:0] cal_tkeep = in_shake_hand ? io_in_tkeep : in_reg_tkeep; // @[RxConverter.scala 28:22]
   reg [15:0] tlen_reg; // @[RxConverter.scala 34:25]
   wire [15:0] _GEN_6 = {{8'd0}, burst_size_cal_io_out_sum}; // @[RxConverter.scala 39:28]
@@ -1865,6 +1873,8 @@ module RxConverter(
   assign io_out_extern_config_c2h_match_arg1 = extern_config_reg_c2h_match_arg1; // @[RxConverter.scala 60:24]
   assign io_out_extern_config_c2h_match_arg2 = extern_config_reg_c2h_match_arg2; // @[RxConverter.scala 60:24]
   assign io_out_extern_config_c2h_match_arg3 = extern_config_reg_c2h_match_arg3; // @[RxConverter.scala 60:24]
+  assign io_out_extern_config_aes_key = extern_config_reg_aes_key; // @[RxConverter.scala 60:24]
+  assign io_out_extern_config_round_time = extern_config_reg_round_time; // @[RxConverter.scala 60:24]
   assign burst_size_cal_clock = clock;
   assign burst_size_cal_io_in_vec_0 = {{7'd0}, cal_tkeep[0]}; // @[RxConverter.scala 30:53]
   assign burst_size_cal_io_in_vec_1 = {{7'd0}, cal_tkeep[1]}; // @[RxConverter.scala 30:53]
@@ -1943,7 +1953,7 @@ module RxConverter(
       in_reg_used_reg <= _GEN_3;
     end
     if (reset) begin // @[RxConverter.scala 25:34]
-      extern_config_reg_c2h_match_op <= 32'h0; // @[RxConverter.scala 25:34]
+      extern_config_reg_c2h_match_op <= 8'h0; // @[RxConverter.scala 25:34]
     end else begin
       extern_config_reg_c2h_match_op <= io_extern_config_c2h_match_op; // @[RxConverter.scala 26:21]
     end
@@ -1961,6 +1971,16 @@ module RxConverter(
       extern_config_reg_c2h_match_arg3 <= 32'h0; // @[RxConverter.scala 25:34]
     end else begin
       extern_config_reg_c2h_match_arg3 <= io_extern_config_c2h_match_arg3; // @[RxConverter.scala 26:21]
+    end
+    if (reset) begin // @[RxConverter.scala 25:34]
+      extern_config_reg_aes_key <= 128'h0; // @[RxConverter.scala 25:34]
+    end else begin
+      extern_config_reg_aes_key <= io_extern_config_aes_key; // @[RxConverter.scala 26:21]
+    end
+    if (reset) begin // @[RxConverter.scala 25:34]
+      extern_config_reg_round_time <= 4'h0; // @[RxConverter.scala 25:34]
+    end else begin
+      extern_config_reg_round_time <= io_extern_config_round_time; // @[RxConverter.scala 26:21]
     end
     if (reset) begin // @[RxConverter.scala 34:25]
       tlen_reg <= 16'h0; // @[RxConverter.scala 34:25]
@@ -2015,15 +2035,19 @@ initial begin
   _RAND_2 = {1{`RANDOM}};
   in_reg_used_reg = _RAND_2[0:0];
   _RAND_3 = {1{`RANDOM}};
-  extern_config_reg_c2h_match_op = _RAND_3[31:0];
+  extern_config_reg_c2h_match_op = _RAND_3[7:0];
   _RAND_4 = {1{`RANDOM}};
   extern_config_reg_c2h_match_arg1 = _RAND_4[31:0];
   _RAND_5 = {1{`RANDOM}};
   extern_config_reg_c2h_match_arg2 = _RAND_5[31:0];
   _RAND_6 = {1{`RANDOM}};
   extern_config_reg_c2h_match_arg3 = _RAND_6[31:0];
-  _RAND_7 = {1{`RANDOM}};
-  tlen_reg = _RAND_7[15:0];
+  _RAND_7 = {4{`RANDOM}};
+  extern_config_reg_aes_key = _RAND_7[127:0];
+  _RAND_8 = {1{`RANDOM}};
+  extern_config_reg_round_time = _RAND_8[3:0];
+  _RAND_9 = {1{`RANDOM}};
+  tlen_reg = _RAND_9[15:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -2041,10 +2065,12 @@ module RxChksumVerifier(
   input          io_in_tlast,
   input          io_in_tuser,
   input  [15:0]  io_in_rx_info_tlen,
-  input  [31:0]  io_in_extern_config_c2h_match_op,
+  input  [7:0]   io_in_extern_config_c2h_match_op,
   input  [31:0]  io_in_extern_config_c2h_match_arg1,
   input  [31:0]  io_in_extern_config_c2h_match_arg2,
   input  [31:0]  io_in_extern_config_c2h_match_arg3,
+  input  [127:0] io_in_extern_config_aes_key,
+  input  [3:0]   io_in_extern_config_round_time,
   output [511:0] io_out_tdata,
   output         io_out_tvalid,
   input          io_out_tready,
@@ -2054,14 +2080,16 @@ module RxChksumVerifier(
   output [5:0]   io_out_rx_info_qid,
   output [31:0]  io_out_rx_info_ip_chksum,
   output [31:0]  io_out_rx_info_tcp_chksum,
-  output [31:0]  io_out_extern_config_c2h_match_op,
+  output [7:0]   io_out_extern_config_c2h_match_op,
   output [31:0]  io_out_extern_config_c2h_match_arg1,
   output [31:0]  io_out_extern_config_c2h_match_arg2,
-  output [31:0]  io_out_extern_config_c2h_match_arg3
+  output [31:0]  io_out_extern_config_c2h_match_arg3,
+  output [127:0] io_out_extern_config_aes_key,
+  output [3:0]   io_out_extern_config_round_time
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [607:0] _RAND_0;
-  reg [127:0] _RAND_1;
+  reg [255:0] _RAND_1;
   reg [31:0] _RAND_2;
   reg [31:0] _RAND_3;
   reg [31:0] _RAND_4;
@@ -2154,9 +2182,10 @@ module RxChksumVerifier(
   wire  in_reg_tlast = in_reg_r[0]; // @[RxPipelineHandler.scala 14:128]
   wire  in_reg_tvalid = in_reg_r[1]; // @[RxPipelineHandler.scala 14:128]
   wire [511:0] in_reg_tdata = in_reg_r[513:2]; // @[RxPipelineHandler.scala 14:128]
-  wire [127:0] _extern_config_reg_T = {io_in_extern_config_c2h_match_op,io_in_extern_config_c2h_match_arg1,
-    io_in_extern_config_c2h_match_arg2,io_in_extern_config_c2h_match_arg3}; // @[RxPipelineHandler.scala 15:57]
-  reg [127:0] extern_config_reg_r; // @[Reg.scala 28:20]
+  wire [235:0] _extern_config_reg_T = {io_in_extern_config_c2h_match_op,io_in_extern_config_c2h_match_arg1,
+    io_in_extern_config_c2h_match_arg2,io_in_extern_config_c2h_match_arg3,io_in_extern_config_aes_key,
+    io_in_extern_config_round_time}; // @[RxPipelineHandler.scala 15:57]
+  reg [235:0] extern_config_reg_r; // @[Reg.scala 28:20]
   reg  first_beat_reg; // @[Reg.scala 28:20]
   wire  _GEN_2 = in_shake_hand ? in_reg_tlast : first_beat_reg; // @[Reg.scala 29:18 28:20 29:22]
   reg  in_reg_used_reg; // @[RxPipelineHandler.scala 18:32]
@@ -2294,10 +2323,12 @@ module RxChksumVerifier(
   assign io_out_rx_info_qid = in_reg_r[584:579]; // @[RxPipelineHandler.scala 14:128]
   assign io_out_rx_info_ip_chksum = first_beat_reg ? ip_chksum_cal_io_out_sum : cal_ip_chksum_reg; // @[RxPipelineHandler.scala 74:34]
   assign io_out_rx_info_tcp_chksum = first_beat_reg ? tcp_hdr_chksum_result : _cal_tcp_chksum_reg_T_1; // @[RxPipelineHandler.scala 75:35]
-  assign io_out_extern_config_c2h_match_op = extern_config_reg_r[127:96]; // @[RxPipelineHandler.scala 15:91]
-  assign io_out_extern_config_c2h_match_arg1 = extern_config_reg_r[95:64]; // @[RxPipelineHandler.scala 15:91]
-  assign io_out_extern_config_c2h_match_arg2 = extern_config_reg_r[63:32]; // @[RxPipelineHandler.scala 15:91]
-  assign io_out_extern_config_c2h_match_arg3 = extern_config_reg_r[31:0]; // @[RxPipelineHandler.scala 15:91]
+  assign io_out_extern_config_c2h_match_op = extern_config_reg_r[235:228]; // @[RxPipelineHandler.scala 15:91]
+  assign io_out_extern_config_c2h_match_arg1 = extern_config_reg_r[227:196]; // @[RxPipelineHandler.scala 15:91]
+  assign io_out_extern_config_c2h_match_arg2 = extern_config_reg_r[195:164]; // @[RxPipelineHandler.scala 15:91]
+  assign io_out_extern_config_c2h_match_arg3 = extern_config_reg_r[163:132]; // @[RxPipelineHandler.scala 15:91]
+  assign io_out_extern_config_aes_key = extern_config_reg_r[131:4]; // @[RxPipelineHandler.scala 15:91]
+  assign io_out_extern_config_round_time = extern_config_reg_r[3:0]; // @[RxPipelineHandler.scala 15:91]
   assign ip_chksum_cal_clock = clock;
   assign ip_chksum_cal_io_in_vec_0 = {{16'd0}, _ip_chksum_cal_io_in_vec_0_T_3}; // @[RxPipelineHandler.scala 43:32]
   assign ip_chksum_cal_io_in_vec_1 = {{16'd0}, _ip_chksum_cal_io_in_vec_1_T_3}; // @[RxPipelineHandler.scala 43:32]
@@ -2382,7 +2413,7 @@ module RxChksumVerifier(
       in_reg_r <= _in_reg_T_1; // @[Reg.scala 29:22]
     end
     if (reset) begin // @[Reg.scala 28:20]
-      extern_config_reg_r <= 128'h0; // @[Reg.scala 28:20]
+      extern_config_reg_r <= 236'h0; // @[Reg.scala 28:20]
     end else if (in_shake_hand) begin // @[Reg.scala 29:18]
       extern_config_reg_r <= _extern_config_reg_T; // @[Reg.scala 29:22]
     end
@@ -2447,8 +2478,8 @@ initial begin
 `ifdef RANDOMIZE_REG_INIT
   _RAND_0 = {19{`RANDOM}};
   in_reg_r = _RAND_0[600:0];
-  _RAND_1 = {4{`RANDOM}};
-  extern_config_reg_r = _RAND_1[127:0];
+  _RAND_1 = {8{`RANDOM}};
+  extern_config_reg_r = _RAND_1[235:0];
   _RAND_2 = {1{`RANDOM}};
   first_beat_reg = _RAND_2[0:0];
   _RAND_3 = {1{`RANDOM}};
@@ -2579,114 +2610,114 @@ module ReduceXorSync(
   reg [31:0] _RAND_10;
   reg [31:0] _RAND_11;
 `endif // RANDOMIZE_REG_INIT
-  reg [31:0] cal_reg_0; // @[Misc.scala 33:20]
-  reg [31:0] cal_reg_1; // @[Misc.scala 33:20]
-  reg [31:0] cal_reg_2; // @[Misc.scala 33:20]
-  reg [31:0] cal_reg_3; // @[Misc.scala 33:20]
-  reg [31:0] cal_reg_4; // @[Misc.scala 33:20]
-  reg [31:0] cal_reg_5; // @[Misc.scala 33:20]
-  reg [31:0] cal_reg_6; // @[Misc.scala 33:20]
-  reg [31:0] cal_reg_7; // @[Misc.scala 33:20]
-  reg [31:0] cal_reg_8; // @[Misc.scala 33:20]
-  reg [31:0] cal_reg_9; // @[Misc.scala 33:20]
-  reg [31:0] cal_reg_10; // @[Misc.scala 33:20]
-  reg [31:0] cal_reg_11; // @[Misc.scala 33:20]
-  wire [31:0] _cal_reg_0_T = io_in_vec_0 ^ io_in_vec_1; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_0_T_1 = io_in_vec_2 ^ io_in_vec_3; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_0_T_2 = io_in_vec_4 ^ io_in_vec_5; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_0_T_3 = io_in_vec_6 ^ io_in_vec_7; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_0_T_4 = _cal_reg_0_T ^ _cal_reg_0_T_1; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_0_T_5 = _cal_reg_0_T_2 ^ _cal_reg_0_T_3; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_1_T = io_in_vec_8 ^ io_in_vec_9; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_1_T_1 = io_in_vec_10 ^ io_in_vec_11; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_1_T_2 = io_in_vec_12 ^ io_in_vec_13; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_1_T_3 = io_in_vec_14 ^ io_in_vec_15; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_1_T_4 = _cal_reg_1_T ^ _cal_reg_1_T_1; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_1_T_5 = _cal_reg_1_T_2 ^ _cal_reg_1_T_3; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_2_T = io_in_vec_16 ^ io_in_vec_17; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_2_T_1 = io_in_vec_18 ^ io_in_vec_19; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_2_T_2 = io_in_vec_20 ^ io_in_vec_21; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_2_T_3 = io_in_vec_22 ^ io_in_vec_23; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_2_T_4 = _cal_reg_2_T ^ _cal_reg_2_T_1; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_2_T_5 = _cal_reg_2_T_2 ^ _cal_reg_2_T_3; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_3_T = io_in_vec_24 ^ io_in_vec_25; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_3_T_1 = io_in_vec_26 ^ io_in_vec_27; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_3_T_2 = io_in_vec_28 ^ io_in_vec_29; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_3_T_3 = io_in_vec_30 ^ io_in_vec_31; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_3_T_4 = _cal_reg_3_T ^ _cal_reg_3_T_1; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_3_T_5 = _cal_reg_3_T_2 ^ _cal_reg_3_T_3; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_4_T = io_in_vec_32 ^ io_in_vec_33; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_4_T_1 = io_in_vec_34 ^ io_in_vec_35; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_4_T_2 = io_in_vec_36 ^ io_in_vec_37; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_4_T_3 = io_in_vec_38 ^ io_in_vec_39; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_4_T_4 = _cal_reg_4_T ^ _cal_reg_4_T_1; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_4_T_5 = _cal_reg_4_T_2 ^ _cal_reg_4_T_3; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_5_T = io_in_vec_40 ^ io_in_vec_41; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_5_T_1 = io_in_vec_42 ^ io_in_vec_43; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_5_T_2 = io_in_vec_44 ^ io_in_vec_45; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_5_T_3 = io_in_vec_46 ^ io_in_vec_47; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_5_T_4 = _cal_reg_5_T ^ _cal_reg_5_T_1; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_5_T_5 = _cal_reg_5_T_2 ^ _cal_reg_5_T_3; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_6_T = io_in_vec_48 ^ io_in_vec_49; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_6_T_1 = io_in_vec_50 ^ io_in_vec_51; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_6_T_2 = io_in_vec_52 ^ io_in_vec_53; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_6_T_3 = io_in_vec_54 ^ io_in_vec_55; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_6_T_4 = _cal_reg_6_T ^ _cal_reg_6_T_1; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_6_T_5 = _cal_reg_6_T_2 ^ _cal_reg_6_T_3; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_7_T = io_in_vec_56 ^ io_in_vec_57; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_7_T_1 = io_in_vec_58 ^ io_in_vec_59; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_7_T_2 = io_in_vec_60 ^ io_in_vec_61; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_7_T_3 = io_in_vec_62 ^ io_in_vec_63; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_7_T_4 = _cal_reg_7_T ^ _cal_reg_7_T_1; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_7_T_5 = _cal_reg_7_T_2 ^ _cal_reg_7_T_3; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_8_T = io_in_vec_64 ^ io_in_vec_65; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_8_T_1 = io_in_vec_66 ^ io_in_vec_67; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_8_T_2 = io_in_vec_68 ^ io_in_vec_69; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_8_T_3 = io_in_vec_70 ^ io_in_vec_71; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_8_T_4 = _cal_reg_8_T ^ _cal_reg_8_T_1; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_8_T_5 = _cal_reg_8_T_2 ^ _cal_reg_8_T_3; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_9_T = io_in_vec_72 ^ io_in_vec_73; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_9_T_1 = io_in_vec_74 ^ io_in_vec_75; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_9_T_2 = io_in_vec_76 ^ io_in_vec_77; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_9_T_3 = io_in_vec_78 ^ io_in_vec_79; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_9_T_4 = _cal_reg_9_T ^ _cal_reg_9_T_1; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_9_T_5 = _cal_reg_9_T_2 ^ _cal_reg_9_T_3; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_10_T = io_in_vec_80 ^ io_in_vec_81; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_10_T_1 = io_in_vec_82 ^ io_in_vec_83; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_10_T_2 = io_in_vec_84 ^ io_in_vec_85; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_10_T_3 = io_in_vec_86 ^ io_in_vec_87; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_10_T_4 = _cal_reg_10_T ^ _cal_reg_10_T_1; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_10_T_5 = _cal_reg_10_T_2 ^ _cal_reg_10_T_3; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_11_T = io_in_vec_88 ^ io_in_vec_89; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_11_T_1 = io_in_vec_90 ^ io_in_vec_91; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_11_T_2 = io_in_vec_92 ^ io_in_vec_93; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_11_T_3 = io_in_vec_94 ^ io_in_vec_95; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_11_T_4 = _cal_reg_11_T ^ _cal_reg_11_T_1; // @[Misc.scala 62:42]
-  wire [31:0] _cal_reg_11_T_5 = _cal_reg_11_T_2 ^ _cal_reg_11_T_3; // @[Misc.scala 62:42]
-  wire [31:0] _io_out_sum_T = cal_reg_0 ^ cal_reg_1; // @[Misc.scala 64:37]
-  wire [31:0] _io_out_sum_T_1 = cal_reg_2 ^ cal_reg_3; // @[Misc.scala 64:37]
-  wire [31:0] _io_out_sum_T_2 = cal_reg_4 ^ cal_reg_5; // @[Misc.scala 64:37]
-  wire [31:0] _io_out_sum_T_3 = cal_reg_6 ^ cal_reg_7; // @[Misc.scala 64:37]
-  wire [31:0] _io_out_sum_T_4 = cal_reg_8 ^ cal_reg_9; // @[Misc.scala 64:37]
-  wire [31:0] _io_out_sum_T_5 = cal_reg_10 ^ cal_reg_11; // @[Misc.scala 64:37]
-  wire [31:0] _io_out_sum_T_8 = _io_out_sum_T ^ _io_out_sum_T_1; // @[Misc.scala 64:37]
-  wire [31:0] _io_out_sum_T_9 = _io_out_sum_T_2 ^ _io_out_sum_T_3; // @[Misc.scala 64:37]
-  wire [31:0] _io_out_sum_T_10 = _io_out_sum_T_4 ^ _io_out_sum_T_5; // @[Misc.scala 64:37]
-  wire [31:0] _io_out_sum_T_12 = _io_out_sum_T_8 ^ _io_out_sum_T_9; // @[Misc.scala 64:37]
-  assign io_out_sum = _io_out_sum_T_12 ^ _io_out_sum_T_10; // @[Misc.scala 64:37]
+  reg [31:0] cal_reg_0; // @[Misc.scala 173:20]
+  reg [31:0] cal_reg_1; // @[Misc.scala 173:20]
+  reg [31:0] cal_reg_2; // @[Misc.scala 173:20]
+  reg [31:0] cal_reg_3; // @[Misc.scala 173:20]
+  reg [31:0] cal_reg_4; // @[Misc.scala 173:20]
+  reg [31:0] cal_reg_5; // @[Misc.scala 173:20]
+  reg [31:0] cal_reg_6; // @[Misc.scala 173:20]
+  reg [31:0] cal_reg_7; // @[Misc.scala 173:20]
+  reg [31:0] cal_reg_8; // @[Misc.scala 173:20]
+  reg [31:0] cal_reg_9; // @[Misc.scala 173:20]
+  reg [31:0] cal_reg_10; // @[Misc.scala 173:20]
+  reg [31:0] cal_reg_11; // @[Misc.scala 173:20]
+  wire [31:0] _cal_reg_0_T = io_in_vec_0 ^ io_in_vec_1; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_0_T_1 = io_in_vec_2 ^ io_in_vec_3; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_0_T_2 = io_in_vec_4 ^ io_in_vec_5; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_0_T_3 = io_in_vec_6 ^ io_in_vec_7; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_0_T_4 = _cal_reg_0_T ^ _cal_reg_0_T_1; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_0_T_5 = _cal_reg_0_T_2 ^ _cal_reg_0_T_3; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_1_T = io_in_vec_8 ^ io_in_vec_9; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_1_T_1 = io_in_vec_10 ^ io_in_vec_11; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_1_T_2 = io_in_vec_12 ^ io_in_vec_13; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_1_T_3 = io_in_vec_14 ^ io_in_vec_15; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_1_T_4 = _cal_reg_1_T ^ _cal_reg_1_T_1; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_1_T_5 = _cal_reg_1_T_2 ^ _cal_reg_1_T_3; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_2_T = io_in_vec_16 ^ io_in_vec_17; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_2_T_1 = io_in_vec_18 ^ io_in_vec_19; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_2_T_2 = io_in_vec_20 ^ io_in_vec_21; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_2_T_3 = io_in_vec_22 ^ io_in_vec_23; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_2_T_4 = _cal_reg_2_T ^ _cal_reg_2_T_1; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_2_T_5 = _cal_reg_2_T_2 ^ _cal_reg_2_T_3; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_3_T = io_in_vec_24 ^ io_in_vec_25; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_3_T_1 = io_in_vec_26 ^ io_in_vec_27; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_3_T_2 = io_in_vec_28 ^ io_in_vec_29; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_3_T_3 = io_in_vec_30 ^ io_in_vec_31; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_3_T_4 = _cal_reg_3_T ^ _cal_reg_3_T_1; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_3_T_5 = _cal_reg_3_T_2 ^ _cal_reg_3_T_3; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_4_T = io_in_vec_32 ^ io_in_vec_33; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_4_T_1 = io_in_vec_34 ^ io_in_vec_35; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_4_T_2 = io_in_vec_36 ^ io_in_vec_37; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_4_T_3 = io_in_vec_38 ^ io_in_vec_39; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_4_T_4 = _cal_reg_4_T ^ _cal_reg_4_T_1; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_4_T_5 = _cal_reg_4_T_2 ^ _cal_reg_4_T_3; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_5_T = io_in_vec_40 ^ io_in_vec_41; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_5_T_1 = io_in_vec_42 ^ io_in_vec_43; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_5_T_2 = io_in_vec_44 ^ io_in_vec_45; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_5_T_3 = io_in_vec_46 ^ io_in_vec_47; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_5_T_4 = _cal_reg_5_T ^ _cal_reg_5_T_1; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_5_T_5 = _cal_reg_5_T_2 ^ _cal_reg_5_T_3; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_6_T = io_in_vec_48 ^ io_in_vec_49; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_6_T_1 = io_in_vec_50 ^ io_in_vec_51; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_6_T_2 = io_in_vec_52 ^ io_in_vec_53; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_6_T_3 = io_in_vec_54 ^ io_in_vec_55; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_6_T_4 = _cal_reg_6_T ^ _cal_reg_6_T_1; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_6_T_5 = _cal_reg_6_T_2 ^ _cal_reg_6_T_3; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_7_T = io_in_vec_56 ^ io_in_vec_57; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_7_T_1 = io_in_vec_58 ^ io_in_vec_59; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_7_T_2 = io_in_vec_60 ^ io_in_vec_61; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_7_T_3 = io_in_vec_62 ^ io_in_vec_63; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_7_T_4 = _cal_reg_7_T ^ _cal_reg_7_T_1; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_7_T_5 = _cal_reg_7_T_2 ^ _cal_reg_7_T_3; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_8_T = io_in_vec_64 ^ io_in_vec_65; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_8_T_1 = io_in_vec_66 ^ io_in_vec_67; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_8_T_2 = io_in_vec_68 ^ io_in_vec_69; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_8_T_3 = io_in_vec_70 ^ io_in_vec_71; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_8_T_4 = _cal_reg_8_T ^ _cal_reg_8_T_1; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_8_T_5 = _cal_reg_8_T_2 ^ _cal_reg_8_T_3; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_9_T = io_in_vec_72 ^ io_in_vec_73; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_9_T_1 = io_in_vec_74 ^ io_in_vec_75; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_9_T_2 = io_in_vec_76 ^ io_in_vec_77; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_9_T_3 = io_in_vec_78 ^ io_in_vec_79; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_9_T_4 = _cal_reg_9_T ^ _cal_reg_9_T_1; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_9_T_5 = _cal_reg_9_T_2 ^ _cal_reg_9_T_3; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_10_T = io_in_vec_80 ^ io_in_vec_81; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_10_T_1 = io_in_vec_82 ^ io_in_vec_83; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_10_T_2 = io_in_vec_84 ^ io_in_vec_85; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_10_T_3 = io_in_vec_86 ^ io_in_vec_87; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_10_T_4 = _cal_reg_10_T ^ _cal_reg_10_T_1; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_10_T_5 = _cal_reg_10_T_2 ^ _cal_reg_10_T_3; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_11_T = io_in_vec_88 ^ io_in_vec_89; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_11_T_1 = io_in_vec_90 ^ io_in_vec_91; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_11_T_2 = io_in_vec_92 ^ io_in_vec_93; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_11_T_3 = io_in_vec_94 ^ io_in_vec_95; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_11_T_4 = _cal_reg_11_T ^ _cal_reg_11_T_1; // @[Misc.scala 202:42]
+  wire [31:0] _cal_reg_11_T_5 = _cal_reg_11_T_2 ^ _cal_reg_11_T_3; // @[Misc.scala 202:42]
+  wire [31:0] _io_out_sum_T = cal_reg_0 ^ cal_reg_1; // @[Misc.scala 204:37]
+  wire [31:0] _io_out_sum_T_1 = cal_reg_2 ^ cal_reg_3; // @[Misc.scala 204:37]
+  wire [31:0] _io_out_sum_T_2 = cal_reg_4 ^ cal_reg_5; // @[Misc.scala 204:37]
+  wire [31:0] _io_out_sum_T_3 = cal_reg_6 ^ cal_reg_7; // @[Misc.scala 204:37]
+  wire [31:0] _io_out_sum_T_4 = cal_reg_8 ^ cal_reg_9; // @[Misc.scala 204:37]
+  wire [31:0] _io_out_sum_T_5 = cal_reg_10 ^ cal_reg_11; // @[Misc.scala 204:37]
+  wire [31:0] _io_out_sum_T_8 = _io_out_sum_T ^ _io_out_sum_T_1; // @[Misc.scala 204:37]
+  wire [31:0] _io_out_sum_T_9 = _io_out_sum_T_2 ^ _io_out_sum_T_3; // @[Misc.scala 204:37]
+  wire [31:0] _io_out_sum_T_10 = _io_out_sum_T_4 ^ _io_out_sum_T_5; // @[Misc.scala 204:37]
+  wire [31:0] _io_out_sum_T_12 = _io_out_sum_T_8 ^ _io_out_sum_T_9; // @[Misc.scala 204:37]
+  assign io_out_sum = _io_out_sum_T_12 ^ _io_out_sum_T_10; // @[Misc.scala 204:37]
   always @(posedge clock) begin
-    cal_reg_0 <= _cal_reg_0_T_4 ^ _cal_reg_0_T_5; // @[Misc.scala 62:42]
-    cal_reg_1 <= _cal_reg_1_T_4 ^ _cal_reg_1_T_5; // @[Misc.scala 62:42]
-    cal_reg_2 <= _cal_reg_2_T_4 ^ _cal_reg_2_T_5; // @[Misc.scala 62:42]
-    cal_reg_3 <= _cal_reg_3_T_4 ^ _cal_reg_3_T_5; // @[Misc.scala 62:42]
-    cal_reg_4 <= _cal_reg_4_T_4 ^ _cal_reg_4_T_5; // @[Misc.scala 62:42]
-    cal_reg_5 <= _cal_reg_5_T_4 ^ _cal_reg_5_T_5; // @[Misc.scala 62:42]
-    cal_reg_6 <= _cal_reg_6_T_4 ^ _cal_reg_6_T_5; // @[Misc.scala 62:42]
-    cal_reg_7 <= _cal_reg_7_T_4 ^ _cal_reg_7_T_5; // @[Misc.scala 62:42]
-    cal_reg_8 <= _cal_reg_8_T_4 ^ _cal_reg_8_T_5; // @[Misc.scala 62:42]
-    cal_reg_9 <= _cal_reg_9_T_4 ^ _cal_reg_9_T_5; // @[Misc.scala 62:42]
-    cal_reg_10 <= _cal_reg_10_T_4 ^ _cal_reg_10_T_5; // @[Misc.scala 62:42]
-    cal_reg_11 <= _cal_reg_11_T_4 ^ _cal_reg_11_T_5; // @[Misc.scala 62:42]
+    cal_reg_0 <= _cal_reg_0_T_4 ^ _cal_reg_0_T_5; // @[Misc.scala 202:42]
+    cal_reg_1 <= _cal_reg_1_T_4 ^ _cal_reg_1_T_5; // @[Misc.scala 202:42]
+    cal_reg_2 <= _cal_reg_2_T_4 ^ _cal_reg_2_T_5; // @[Misc.scala 202:42]
+    cal_reg_3 <= _cal_reg_3_T_4 ^ _cal_reg_3_T_5; // @[Misc.scala 202:42]
+    cal_reg_4 <= _cal_reg_4_T_4 ^ _cal_reg_4_T_5; // @[Misc.scala 202:42]
+    cal_reg_5 <= _cal_reg_5_T_4 ^ _cal_reg_5_T_5; // @[Misc.scala 202:42]
+    cal_reg_6 <= _cal_reg_6_T_4 ^ _cal_reg_6_T_5; // @[Misc.scala 202:42]
+    cal_reg_7 <= _cal_reg_7_T_4 ^ _cal_reg_7_T_5; // @[Misc.scala 202:42]
+    cal_reg_8 <= _cal_reg_8_T_4 ^ _cal_reg_8_T_5; // @[Misc.scala 202:42]
+    cal_reg_9 <= _cal_reg_9_T_4 ^ _cal_reg_9_T_5; // @[Misc.scala 202:42]
+    cal_reg_10 <= _cal_reg_10_T_4 ^ _cal_reg_10_T_5; // @[Misc.scala 202:42]
+    cal_reg_11 <= _cal_reg_11_T_4 ^ _cal_reg_11_T_5; // @[Misc.scala 202:42]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -2768,10 +2799,12 @@ module RxRSSHashFilter(
   input  [5:0]   io_in_rx_info_qid,
   input  [31:0]  io_in_rx_info_ip_chksum,
   input  [31:0]  io_in_rx_info_tcp_chksum,
-  input  [31:0]  io_in_extern_config_c2h_match_op,
+  input  [7:0]   io_in_extern_config_c2h_match_op,
   input  [31:0]  io_in_extern_config_c2h_match_arg1,
   input  [31:0]  io_in_extern_config_c2h_match_arg2,
   input  [31:0]  io_in_extern_config_c2h_match_arg3,
+  input  [127:0] io_in_extern_config_aes_key,
+  input  [3:0]   io_in_extern_config_round_time,
   output [511:0] io_out_tdata,
   output         io_out_tvalid,
   input          io_out_tready,
@@ -2781,14 +2814,16 @@ module RxRSSHashFilter(
   output [5:0]   io_out_rx_info_qid,
   output [31:0]  io_out_rx_info_ip_chksum,
   output [31:0]  io_out_rx_info_tcp_chksum,
-  output [31:0]  io_out_extern_config_c2h_match_op,
+  output [7:0]   io_out_extern_config_c2h_match_op,
   output [31:0]  io_out_extern_config_c2h_match_arg1,
   output [31:0]  io_out_extern_config_c2h_match_arg2,
-  output [31:0]  io_out_extern_config_c2h_match_arg3
+  output [31:0]  io_out_extern_config_c2h_match_arg3,
+  output [127:0] io_out_extern_config_aes_key,
+  output [3:0]   io_out_extern_config_round_time
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [607:0] _RAND_0;
-  reg [127:0] _RAND_1;
+  reg [255:0] _RAND_1;
   reg [31:0] _RAND_2;
   reg [31:0] _RAND_3;
   reg [31:0] _RAND_4;
@@ -2900,9 +2935,10 @@ module RxRSSHashFilter(
   wire  in_reg_tvalid = in_reg_r[1]; // @[RxPipelineHandler.scala 14:128]
   wire [511:0] in_reg_tdata = in_reg_r[513:2]; // @[RxPipelineHandler.scala 14:128]
   wire [5:0] in_reg_rx_info_qid = in_reg_r[584:579]; // @[RxPipelineHandler.scala 14:128]
-  wire [127:0] _extern_config_reg_T = {io_in_extern_config_c2h_match_op,io_in_extern_config_c2h_match_arg1,
-    io_in_extern_config_c2h_match_arg2,io_in_extern_config_c2h_match_arg3}; // @[RxPipelineHandler.scala 15:57]
-  reg [127:0] extern_config_reg_r; // @[Reg.scala 28:20]
+  wire [235:0] _extern_config_reg_T = {io_in_extern_config_c2h_match_op,io_in_extern_config_c2h_match_arg1,
+    io_in_extern_config_c2h_match_arg2,io_in_extern_config_c2h_match_arg3,io_in_extern_config_aes_key,
+    io_in_extern_config_round_time}; // @[RxPipelineHandler.scala 15:57]
+  reg [235:0] extern_config_reg_r; // @[Reg.scala 28:20]
   reg  first_beat_reg; // @[Reg.scala 28:20]
   wire  _GEN_2 = in_shake_hand ? in_reg_tlast : first_beat_reg; // @[Reg.scala 29:18 28:20 29:22]
   reg  in_reg_used_reg; // @[RxPipelineHandler.scala 18:32]
@@ -3085,14 +3121,16 @@ module RxRSSHashFilter(
   assign io_out_tlast = in_reg_r[0]; // @[RxPipelineHandler.scala 14:128]
   assign io_out_tuser = in_reg_r[514]; // @[RxPipelineHandler.scala 14:128]
   assign io_out_rx_info_tlen = in_reg_r[600:585]; // @[RxPipelineHandler.scala 14:128]
-  assign io_out_rx_info_qid = io_in_extern_config_c2h_match_op == 32'h1 ? {{4'd0}, _io_out_rx_info_qid_T} :
+  assign io_out_rx_info_qid = io_in_extern_config_c2h_match_op == 8'h1 ? {{4'd0}, _io_out_rx_info_qid_T} :
     in_reg_rx_info_qid; // @[RxPipelineHandler.scala 109:50 110:24 29:18]
   assign io_out_rx_info_ip_chksum = in_reg_r[578:547]; // @[RxPipelineHandler.scala 14:128]
   assign io_out_rx_info_tcp_chksum = in_reg_r[546:515]; // @[RxPipelineHandler.scala 14:128]
-  assign io_out_extern_config_c2h_match_op = extern_config_reg_r[127:96]; // @[RxPipelineHandler.scala 15:91]
-  assign io_out_extern_config_c2h_match_arg1 = extern_config_reg_r[95:64]; // @[RxPipelineHandler.scala 15:91]
-  assign io_out_extern_config_c2h_match_arg2 = extern_config_reg_r[63:32]; // @[RxPipelineHandler.scala 15:91]
-  assign io_out_extern_config_c2h_match_arg3 = extern_config_reg_r[31:0]; // @[RxPipelineHandler.scala 15:91]
+  assign io_out_extern_config_c2h_match_op = extern_config_reg_r[235:228]; // @[RxPipelineHandler.scala 15:91]
+  assign io_out_extern_config_c2h_match_arg1 = extern_config_reg_r[227:196]; // @[RxPipelineHandler.scala 15:91]
+  assign io_out_extern_config_c2h_match_arg2 = extern_config_reg_r[195:164]; // @[RxPipelineHandler.scala 15:91]
+  assign io_out_extern_config_c2h_match_arg3 = extern_config_reg_r[163:132]; // @[RxPipelineHandler.scala 15:91]
+  assign io_out_extern_config_aes_key = extern_config_reg_r[131:4]; // @[RxPipelineHandler.scala 15:91]
+  assign io_out_extern_config_round_time = extern_config_reg_r[3:0]; // @[RxPipelineHandler.scala 15:91]
   assign hash_xor_sync_clock = clock;
   assign hash_xor_sync_io_in_vec_0 = info[0] ? _cal_hash_key_vec_0_T_3 : 32'h0; // @[RxPipelineHandler.scala 95:36]
   assign hash_xor_sync_io_in_vec_1 = info[1] ? _cal_hash_key_vec_1_T_3 : 32'h0; // @[RxPipelineHandler.scala 95:36]
@@ -3197,7 +3235,7 @@ module RxRSSHashFilter(
       in_reg_r <= _in_reg_T_1; // @[Reg.scala 29:22]
     end
     if (reset) begin // @[Reg.scala 28:20]
-      extern_config_reg_r <= 128'h0; // @[Reg.scala 28:20]
+      extern_config_reg_r <= 236'h0; // @[Reg.scala 28:20]
     end else if (in_shake_hand) begin // @[Reg.scala 29:18]
       extern_config_reg_r <= _extern_config_reg_T; // @[Reg.scala 29:22]
     end
@@ -3251,8 +3289,8 @@ initial begin
 `ifdef RANDOMIZE_REG_INIT
   _RAND_0 = {19{`RANDOM}};
   in_reg_r = _RAND_0[600:0];
-  _RAND_1 = {4{`RANDOM}};
-  extern_config_reg_r = _RAND_1[127:0];
+  _RAND_1 = {8{`RANDOM}};
+  extern_config_reg_r = _RAND_1[235:0];
   _RAND_2 = {1{`RANDOM}};
   first_beat_reg = _RAND_2[0:0];
   _RAND_3 = {1{`RANDOM}};
@@ -3279,10 +3317,12 @@ module RxMatchFilter(
   input  [5:0]   io_in_rx_info_qid,
   input  [31:0]  io_in_rx_info_ip_chksum,
   input  [31:0]  io_in_rx_info_tcp_chksum,
-  input  [31:0]  io_in_extern_config_c2h_match_op,
+  input  [7:0]   io_in_extern_config_c2h_match_op,
   input  [31:0]  io_in_extern_config_c2h_match_arg1,
   input  [31:0]  io_in_extern_config_c2h_match_arg2,
   input  [31:0]  io_in_extern_config_c2h_match_arg3,
+  input  [127:0] io_in_extern_config_aes_key,
+  input  [3:0]   io_in_extern_config_round_time,
   output [511:0] io_out_tdata,
   output         io_out_tvalid,
   input          io_out_tready,
@@ -3292,13 +3332,13 @@ module RxMatchFilter(
   output [5:0]   io_out_rx_info_qid,
   output [31:0]  io_out_rx_info_ip_chksum,
   output [31:0]  io_out_rx_info_tcp_chksum,
-  output [31:0]  io_out_extern_config_c2h_match_op,
+  output [7:0]   io_out_extern_config_c2h_match_op,
   output [31:0]  io_out_extern_config_c2h_match_arg1,
   output [31:0]  io_out_extern_config_c2h_match_arg2
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [607:0] _RAND_0;
-  reg [127:0] _RAND_1;
+  reg [255:0] _RAND_1;
   reg [31:0] _RAND_2;
   reg [31:0] _RAND_3;
   reg [31:0] _RAND_4;
@@ -3315,13 +3355,14 @@ module RxMatchFilter(
   wire  in_reg_tvalid = in_reg_r[1]; // @[RxPipelineHandler.scala 14:128]
   wire [511:0] in_reg_tdata = in_reg_r[513:2]; // @[RxPipelineHandler.scala 14:128]
   wire [5:0] in_reg_rx_info_qid = in_reg_r[584:579]; // @[RxPipelineHandler.scala 14:128]
-  wire [127:0] _extern_config_reg_T = {io_in_extern_config_c2h_match_op,io_in_extern_config_c2h_match_arg1,
-    io_in_extern_config_c2h_match_arg2,io_in_extern_config_c2h_match_arg3}; // @[RxPipelineHandler.scala 15:57]
-  reg [127:0] extern_config_reg_r; // @[Reg.scala 28:20]
-  wire [31:0] extern_config_reg_c2h_match_arg3 = extern_config_reg_r[31:0]; // @[RxPipelineHandler.scala 15:91]
-  wire [31:0] extern_config_reg_c2h_match_arg2 = extern_config_reg_r[63:32]; // @[RxPipelineHandler.scala 15:91]
-  wire [31:0] extern_config_reg_c2h_match_arg1 = extern_config_reg_r[95:64]; // @[RxPipelineHandler.scala 15:91]
-  wire [31:0] extern_config_reg_c2h_match_op = extern_config_reg_r[127:96]; // @[RxPipelineHandler.scala 15:91]
+  wire [235:0] _extern_config_reg_T = {io_in_extern_config_c2h_match_op,io_in_extern_config_c2h_match_arg1,
+    io_in_extern_config_c2h_match_arg2,io_in_extern_config_c2h_match_arg3,io_in_extern_config_aes_key,
+    io_in_extern_config_round_time}; // @[RxPipelineHandler.scala 15:57]
+  reg [235:0] extern_config_reg_r; // @[Reg.scala 28:20]
+  wire [31:0] extern_config_reg_c2h_match_arg3 = extern_config_reg_r[163:132]; // @[RxPipelineHandler.scala 15:91]
+  wire [31:0] extern_config_reg_c2h_match_arg2 = extern_config_reg_r[195:164]; // @[RxPipelineHandler.scala 15:91]
+  wire [31:0] extern_config_reg_c2h_match_arg1 = extern_config_reg_r[227:196]; // @[RxPipelineHandler.scala 15:91]
+  wire [7:0] extern_config_reg_c2h_match_op = extern_config_reg_r[235:228]; // @[RxPipelineHandler.scala 15:91]
   reg  first_beat_reg; // @[Reg.scala 28:20]
   wire  _GEN_2 = in_shake_hand ? in_reg_tlast : first_beat_reg; // @[Reg.scala 29:18 28:20 29:22]
   reg  in_reg_used_reg; // @[RxPipelineHandler.scala 18:32]
@@ -3329,79 +3370,81 @@ module RxMatchFilter(
   wire  _GEN_4 = in_shake_hand | _GEN_3; // @[RxPipelineHandler.scala 19:23 20:21]
   reg  match_found_reg; // @[RxPipelineHandler.scala 133:32]
   reg  match_continue_reg; // @[RxPipelineHandler.scala 134:35]
-  reg [23:0] previous_tdata_reg; // @[RxPipelineHandler.scala 136:35]
-  wire [9:0] _cur_place_reg_T_4 = io_in_rx_info_tlen[15:6] + 10'h1; // @[RxPipelineHandler.scala 138:116]
-  wire [15:0] _cur_place_reg_T_5 = {_cur_place_reg_T_4,6'h0}; // @[Cat.scala 31:58]
+  reg [31:0] previous_tdata_reg; // @[RxPipelineHandler.scala 136:35]
+  wire [9:0] _cur_place_T_4 = io_in_rx_info_tlen[15:6] + 10'h1; // @[RxPipelineHandler.scala 138:102]
+  wire [15:0] _cur_place_T_5 = {_cur_place_T_4,6'h0}; // @[Cat.scala 31:58]
   reg [15:0] cur_place_reg; // @[Reg.scala 28:20]
-  wire [15:0] _in_beat_place_T_1 = cur_place_reg - 16'h40; // @[RxPipelineHandler.scala 141:52]
-  wire [31:0] _GEN_19 = {{16'd0}, _in_beat_place_T_1}; // @[RxPipelineHandler.scala 141:35]
-  wire [31:0] in_beat_place = extern_config_reg_c2h_match_arg3 - _GEN_19; // @[RxPipelineHandler.scala 141:35]
-  wire [34:0] _in_beat_content_T = {in_beat_place, 3'h0}; // @[RxPipelineHandler.scala 142:57]
-  wire [511:0] _in_beat_content_T_1 = in_reg_tdata >> _in_beat_content_T; // @[RxPipelineHandler.scala 142:39]
-  wire [31:0] in_beat_content = _in_beat_content_T_1[31:0]; // @[RxPipelineHandler.scala 142:65]
-  wire [31:0] match_continue_len = in_beat_place + 32'h4; // @[RxPipelineHandler.scala 149:46]
-  wire  _match_continue_val_T = match_continue_len == 32'h1; // @[RxPipelineHandler.scala 150:60]
-  wire [31:0] _match_continue_val_T_2 = _match_continue_val_T ? 32'hffffffff : 32'h0; // @[Bitwise.scala 74:12]
-  wire [31:0] _match_continue_val_T_5 = {in_reg_tdata[7:0],previous_tdata_reg}; // @[Cat.scala 31:58]
-  wire [31:0] _match_continue_val_T_6 = _match_continue_val_T_2 & _match_continue_val_T_5; // @[RxPipelineHandler.scala 150:69]
-  wire  _match_continue_val_T_7 = match_continue_len == 32'h2; // @[RxPipelineHandler.scala 151:60]
-  wire [31:0] _match_continue_val_T_9 = _match_continue_val_T_7 ? 32'hffffffff : 32'h0; // @[Bitwise.scala 74:12]
-  wire [31:0] _match_continue_val_T_12 = {in_reg_tdata[15:0],previous_tdata_reg[23:8]}; // @[Cat.scala 31:58]
-  wire [31:0] _match_continue_val_T_13 = _match_continue_val_T_9 & _match_continue_val_T_12; // @[RxPipelineHandler.scala 151:69]
-  wire [31:0] _match_continue_val_T_14 = _match_continue_val_T_6 | _match_continue_val_T_13; // @[RxPipelineHandler.scala 150:122]
-  wire  _match_continue_val_T_15 = match_continue_len == 32'h3; // @[RxPipelineHandler.scala 152:60]
-  wire [31:0] _match_continue_val_T_17 = _match_continue_val_T_15 ? 32'hffffffff : 32'h0; // @[Bitwise.scala 74:12]
-  wire [31:0] _match_continue_val_T_20 = {in_reg_tdata[23:0],previous_tdata_reg[23:16]}; // @[Cat.scala 31:58]
-  wire [31:0] _match_continue_val_T_21 = _match_continue_val_T_17 & _match_continue_val_T_20; // @[RxPipelineHandler.scala 152:69]
-  wire [31:0] match_continue_val = _match_continue_val_T_14 | _match_continue_val_T_21; // @[RxPipelineHandler.scala 151:122]
-  wire [31:0] _match_found_T_4 = {match_continue_val[7:0],match_continue_val[15:8],match_continue_val[23:16],
-    match_continue_val[31:24]}; // @[Cat.scala 31:58]
-  wire  _match_found_a_T = extern_config_reg_c2h_match_op == 32'h5; // @[RxPipelineHandler.scala 122:21]
-  wire  _match_found_a_T_1 = extern_config_reg_c2h_match_op == 32'h7; // @[RxPipelineHandler.scala 122:37]
-  wire  _match_found_a_T_2 = extern_config_reg_c2h_match_op == 32'h5 | extern_config_reg_c2h_match_op == 32'h7; // @[RxPipelineHandler.scala 122:30]
+  wire [15:0] _in_beat_place_T_1 = cur_place_reg - 16'h40; // @[RxPipelineHandler.scala 142:52]
+  wire [31:0] _GEN_23 = {{16'd0}, _in_beat_place_T_1}; // @[RxPipelineHandler.scala 142:35]
+  wire [31:0] in_beat_place = extern_config_reg_c2h_match_arg3 - _GEN_23; // @[RxPipelineHandler.scala 142:35]
+  wire [34:0] _in_beat_content_T = {in_beat_place, 3'h0}; // @[RxPipelineHandler.scala 143:57]
+  wire [511:0] _in_beat_content_T_1 = in_reg_tdata >> _in_beat_content_T; // @[RxPipelineHandler.scala 143:39]
+  wire [31:0] in_beat_content = _in_beat_content_T_1[31:0]; // @[RxPipelineHandler.scala 143:65]
+  wire [31:0] _match_found_T_4 = {previous_tdata_reg[7:0],previous_tdata_reg[15:8],previous_tdata_reg[23:16],
+    previous_tdata_reg[31:24]}; // @[Cat.scala 31:58]
+  wire  _match_found_a_T = extern_config_reg_c2h_match_op == 8'h5; // @[RxPipelineHandler.scala 122:21]
+  wire  _match_found_a_T_1 = extern_config_reg_c2h_match_op == 8'h7; // @[RxPipelineHandler.scala 122:37]
+  wire  _match_found_a_T_2 = extern_config_reg_c2h_match_op == 8'h5 | extern_config_reg_c2h_match_op == 8'h7; // @[RxPipelineHandler.scala 122:30]
   wire [31:0] _match_found_a_T_3 = extern_config_reg_c2h_match_arg1 & extern_config_reg_c2h_match_arg2; // @[RxPipelineHandler.scala 122:51]
   wire [31:0] _match_found_a_T_4 = _match_found_T_4 & extern_config_reg_c2h_match_arg2; // @[RxPipelineHandler.scala 122:63]
-  wire [31:0] match_found_a = extern_config_reg_c2h_match_op == 32'h5 | extern_config_reg_c2h_match_op == 32'h7 ?
+  wire [31:0] match_found_a = extern_config_reg_c2h_match_op == 8'h5 | extern_config_reg_c2h_match_op == 8'h7 ?
     _match_found_a_T_3 : _match_found_a_T_4; // @[RxPipelineHandler.scala 122:16]
   wire [31:0] match_found_b = _match_found_a_T_2 ? _match_found_a_T_4 : _match_found_a_T_3; // @[RxPipelineHandler.scala 123:16]
-  wire  _match_found_T_23 = extern_config_reg_c2h_match_op == 32'h2 & match_found_a == match_found_b |
-    extern_config_reg_c2h_match_op == 32'h3 & match_found_a != match_found_b | (extern_config_reg_c2h_match_op == 32'h4
-     | _match_found_a_T) & match_found_a > match_found_b | (extern_config_reg_c2h_match_op == 32'h6 | _match_found_a_T_1
-    ) & match_found_a >= match_found_b; // @[RxPipelineHandler.scala 124:99]
-  wire [15:0] _T_4 = cur_place_reg - 16'h4; // @[RxPipelineHandler.scala 158:44]
-  wire [31:0] _GEN_21 = {{16'd0}, _T_4}; // @[RxPipelineHandler.scala 158:27]
+  wire  _match_found_T_23 = extern_config_reg_c2h_match_op == 8'h2 & match_found_a == match_found_b |
+    extern_config_reg_c2h_match_op == 8'h3 & match_found_a != match_found_b | (extern_config_reg_c2h_match_op == 8'h4 |
+    _match_found_a_T) & match_found_a > match_found_b | (extern_config_reg_c2h_match_op == 8'h6 | _match_found_a_T_1) &
+    match_found_a >= match_found_b; // @[RxPipelineHandler.scala 124:99]
+  wire [15:0] _T_4 = cur_place_reg - 16'h4; // @[RxPipelineHandler.scala 153:44]
+  wire [31:0] _GEN_25 = {{16'd0}, _T_4}; // @[RxPipelineHandler.scala 153:27]
   wire [31:0] _match_found_T_28 = {in_beat_content[7:0],in_beat_content[15:8],in_beat_content[23:16],in_beat_content[31:
     24]}; // @[Cat.scala 31:58]
   wire [31:0] _match_found_a_T_9 = _match_found_T_28 & extern_config_reg_c2h_match_arg2; // @[RxPipelineHandler.scala 122:63]
-  wire [31:0] match_found_a_1 = extern_config_reg_c2h_match_op == 32'h5 | extern_config_reg_c2h_match_op == 32'h7 ?
+  wire [31:0] match_found_a_1 = extern_config_reg_c2h_match_op == 8'h5 | extern_config_reg_c2h_match_op == 8'h7 ?
     _match_found_a_T_3 : _match_found_a_T_9; // @[RxPipelineHandler.scala 122:16]
   wire [31:0] match_found_b_1 = _match_found_a_T_2 ? _match_found_a_T_9 : _match_found_a_T_3; // @[RxPipelineHandler.scala 123:16]
-  wire  _match_found_T_47 = extern_config_reg_c2h_match_op == 32'h2 & match_found_a_1 == match_found_b_1 |
-    extern_config_reg_c2h_match_op == 32'h3 & match_found_a_1 != match_found_b_1 | (extern_config_reg_c2h_match_op == 32'h4
-     | _match_found_a_T) & match_found_a_1 > match_found_b_1 | (extern_config_reg_c2h_match_op == 32'h6 |
+  wire  _match_found_T_47 = extern_config_reg_c2h_match_op == 8'h2 & match_found_a_1 == match_found_b_1 |
+    extern_config_reg_c2h_match_op == 8'h3 & match_found_a_1 != match_found_b_1 | (extern_config_reg_c2h_match_op == 8'h4
+     | _match_found_a_T) & match_found_a_1 > match_found_b_1 | (extern_config_reg_c2h_match_op == 8'h6 |
     _match_found_a_T_1) & match_found_a_1 >= match_found_b_1; // @[RxPipelineHandler.scala 124:99]
-  wire [31:0] _GEN_22 = {{16'd0}, cur_place_reg}; // @[RxPipelineHandler.scala 162:33]
-  wire  _GEN_6 = extern_config_reg_c2h_match_arg3 < _GEN_22 & ~in_reg_tlast | match_continue_reg; // @[RxPipelineHandler.scala 162:67 164:30 134:35]
-  wire  _GEN_7 = extern_config_reg_c2h_match_arg3 <= _GEN_21 & _match_found_T_47; // @[RxPipelineHandler.scala 158:51 160:23]
-  wire  _GEN_8 = extern_config_reg_c2h_match_arg3 <= _GEN_21 ? match_continue_reg : _GEN_6; // @[RxPipelineHandler.scala 134:35 158:51]
-  wire  _GEN_9 = extern_config_reg_c2h_match_arg3 >= _GEN_19 & _GEN_7; // @[RxPipelineHandler.scala 156:54]
-  wire  _GEN_12 = match_continue_reg ? _match_found_T_23 : _GEN_9; // @[RxPipelineHandler.scala 146:31 154:19]
-  wire  match_found = in_shake_hand & _GEN_12; // @[RxPipelineHandler.scala 144:24]
-  wire  _match_found_reg_T = match_found_reg | match_found; // @[RxPipelineHandler.scala 171:42]
-  wire [5:0] _io_out_rx_info_qid_T_1 = _match_found_reg_T ? 6'h1 : in_reg_rx_info_qid; // @[RxPipelineHandler.scala 175:30]
+  wire [31:0] _GEN_26 = {{16'd0}, cur_place_reg}; // @[RxPipelineHandler.scala 157:33]
+  wire  _previous_tdata_reg_T_3 = ~in_beat_place[1] & in_beat_place[0]; // @[RxPipelineHandler.scala 160:60]
+  wire [31:0] _previous_tdata_reg_T_5 = _previous_tdata_reg_T_3 ? 32'hffffffff : 32'h0; // @[Bitwise.scala 74:12]
+  wire [31:0] _previous_tdata_reg_T_8 = {io_in_tdata[7:0],in_reg_tdata[511:488]}; // @[Cat.scala 31:58]
+  wire [31:0] _previous_tdata_reg_T_9 = _previous_tdata_reg_T_5 & _previous_tdata_reg_T_8; // @[RxPipelineHandler.scala 160:81]
+  wire  _previous_tdata_reg_T_13 = in_beat_place[1] & ~in_beat_place[0]; // @[RxPipelineHandler.scala 161:60]
+  wire [31:0] _previous_tdata_reg_T_15 = _previous_tdata_reg_T_13 ? 32'hffffffff : 32'h0; // @[Bitwise.scala 74:12]
+  wire [31:0] _previous_tdata_reg_T_18 = {io_in_tdata[15:0],in_reg_tdata[511:496]}; // @[Cat.scala 31:58]
+  wire [31:0] _previous_tdata_reg_T_19 = _previous_tdata_reg_T_15 & _previous_tdata_reg_T_18; // @[RxPipelineHandler.scala 161:81]
+  wire [31:0] _previous_tdata_reg_T_20 = _previous_tdata_reg_T_9 | _previous_tdata_reg_T_19; // @[RxPipelineHandler.scala 160:130]
+  wire  _previous_tdata_reg_T_23 = in_beat_place[1] & in_beat_place[0]; // @[RxPipelineHandler.scala 162:60]
+  wire [31:0] _previous_tdata_reg_T_25 = _previous_tdata_reg_T_23 ? 32'hffffffff : 32'h0; // @[Bitwise.scala 74:12]
+  wire [31:0] _previous_tdata_reg_T_28 = {io_in_tdata[23:0],in_reg_tdata[511:504]}; // @[Cat.scala 31:58]
+  wire [31:0] _previous_tdata_reg_T_29 = _previous_tdata_reg_T_25 & _previous_tdata_reg_T_28; // @[RxPipelineHandler.scala 162:81]
+  wire [31:0] _previous_tdata_reg_T_30 = _previous_tdata_reg_T_20 | _previous_tdata_reg_T_29; // @[RxPipelineHandler.scala 161:130]
+  wire  _GEN_6 = extern_config_reg_c2h_match_arg3 < _GEN_26 & ~in_reg_tlast | match_continue_reg; // @[RxPipelineHandler.scala 157:67 159:30 134:35]
+  wire [31:0] _GEN_7 = extern_config_reg_c2h_match_arg3 < _GEN_26 & ~in_reg_tlast ? _previous_tdata_reg_T_30 :
+    previous_tdata_reg; // @[RxPipelineHandler.scala 157:67 160:30 136:35]
+  wire  _GEN_8 = extern_config_reg_c2h_match_arg3 <= _GEN_25 & _match_found_T_47; // @[RxPipelineHandler.scala 153:51 155:23]
+  wire  _GEN_9 = extern_config_reg_c2h_match_arg3 <= _GEN_25 ? match_continue_reg : _GEN_6; // @[RxPipelineHandler.scala 134:35 153:51]
+  wire [31:0] _GEN_10 = extern_config_reg_c2h_match_arg3 <= _GEN_25 ? previous_tdata_reg : _GEN_7; // @[RxPipelineHandler.scala 136:35 153:51]
+  wire  _GEN_11 = extern_config_reg_c2h_match_arg3 >= _GEN_23 & _GEN_8; // @[RxPipelineHandler.scala 151:54]
+  wire  _GEN_15 = match_continue_reg ? _match_found_T_23 : _GEN_11; // @[RxPipelineHandler.scala 146:31 149:19]
+  wire  match_found = in_shake_hand & _GEN_15; // @[RxPipelineHandler.scala 145:24]
+  wire  _match_found_reg_T = match_found_reg | match_found; // @[RxPipelineHandler.scala 169:42]
+  wire [5:0] _io_out_rx_info_qid_T_1 = _match_found_reg_T ? 6'h1 : in_reg_rx_info_qid; // @[RxPipelineHandler.scala 173:30]
   assign io_in_tready = io_out_tready | ~in_reg_used_reg; // @[RxPipelineHandler.scala 30:47]
   assign io_out_tdata = in_reg_r[513:2]; // @[RxPipelineHandler.scala 14:128]
   assign io_out_tvalid = in_reg_tvalid & in_reg_used_reg; // @[RxPipelineHandler.scala 27:47]
   assign io_out_tlast = in_reg_r[0]; // @[RxPipelineHandler.scala 14:128]
   assign io_out_tuser = in_reg_r[514]; // @[RxPipelineHandler.scala 14:128]
   assign io_out_rx_info_tlen = in_reg_r[600:585]; // @[RxPipelineHandler.scala 14:128]
-  assign io_out_rx_info_qid = io_in_extern_config_c2h_match_op >= 32'h2 & io_in_extern_config_c2h_match_op <= 32'h7 ?
-    _io_out_rx_info_qid_T_1 : in_reg_rx_info_qid; // @[RxPipelineHandler.scala 174:93 175:24 29:18]
+  assign io_out_rx_info_qid = io_in_extern_config_c2h_match_op >= 8'h2 & io_in_extern_config_c2h_match_op <= 8'h7 ?
+    _io_out_rx_info_qid_T_1 : in_reg_rx_info_qid; // @[RxPipelineHandler.scala 172:93 173:24 29:18]
   assign io_out_rx_info_ip_chksum = in_reg_r[578:547]; // @[RxPipelineHandler.scala 14:128]
   assign io_out_rx_info_tcp_chksum = in_reg_r[546:515]; // @[RxPipelineHandler.scala 14:128]
-  assign io_out_extern_config_c2h_match_op = extern_config_reg_r[127:96]; // @[RxPipelineHandler.scala 15:91]
-  assign io_out_extern_config_c2h_match_arg1 = extern_config_reg_r[95:64]; // @[RxPipelineHandler.scala 15:91]
-  assign io_out_extern_config_c2h_match_arg2 = extern_config_reg_r[63:32]; // @[RxPipelineHandler.scala 15:91]
+  assign io_out_extern_config_c2h_match_op = extern_config_reg_r[235:228]; // @[RxPipelineHandler.scala 15:91]
+  assign io_out_extern_config_c2h_match_arg1 = extern_config_reg_r[227:196]; // @[RxPipelineHandler.scala 15:91]
+  assign io_out_extern_config_c2h_match_arg2 = extern_config_reg_r[195:164]; // @[RxPipelineHandler.scala 15:91]
   always @(posedge clock) begin
     if (reset) begin // @[Reg.scala 28:20]
       in_reg_r <= 601'h1; // @[Reg.scala 28:20]
@@ -3409,7 +3452,7 @@ module RxMatchFilter(
       in_reg_r <= _in_reg_T_1; // @[Reg.scala 29:22]
     end
     if (reset) begin // @[Reg.scala 28:20]
-      extern_config_reg_r <= 128'h0; // @[Reg.scala 28:20]
+      extern_config_reg_r <= 236'h0; // @[Reg.scala 28:20]
     end else if (in_shake_hand) begin // @[Reg.scala 29:18]
       extern_config_reg_r <= _extern_config_reg_T; // @[Reg.scala 29:22]
     end
@@ -3421,34 +3464,38 @@ module RxMatchFilter(
     end
     if (reset) begin // @[RxPipelineHandler.scala 133:32]
       match_found_reg <= 1'h0; // @[RxPipelineHandler.scala 133:32]
-    end else if (in_shake_hand) begin // @[RxPipelineHandler.scala 144:24]
-      if (first_beat_reg) begin // @[RxPipelineHandler.scala 168:27]
-        match_found_reg <= match_found; // @[RxPipelineHandler.scala 169:23]
+    end else if (in_shake_hand) begin // @[RxPipelineHandler.scala 145:24]
+      if (first_beat_reg) begin // @[RxPipelineHandler.scala 166:27]
+        match_found_reg <= match_found; // @[RxPipelineHandler.scala 167:23]
       end else begin
-        match_found_reg <= match_found_reg | match_found; // @[RxPipelineHandler.scala 171:23]
+        match_found_reg <= match_found_reg | match_found; // @[RxPipelineHandler.scala 169:23]
       end
     end
     if (reset) begin // @[RxPipelineHandler.scala 134:35]
       match_continue_reg <= 1'h0; // @[RxPipelineHandler.scala 134:35]
-    end else if (in_shake_hand) begin // @[RxPipelineHandler.scala 144:24]
+    end else if (in_shake_hand) begin // @[RxPipelineHandler.scala 145:24]
       if (match_continue_reg) begin // @[RxPipelineHandler.scala 146:31]
         match_continue_reg <= 1'h0; // @[RxPipelineHandler.scala 148:26]
-      end else if (extern_config_reg_c2h_match_arg3 >= _GEN_19) begin // @[RxPipelineHandler.scala 156:54]
-        match_continue_reg <= _GEN_8;
+      end else if (extern_config_reg_c2h_match_arg3 >= _GEN_23) begin // @[RxPipelineHandler.scala 151:54]
+        match_continue_reg <= _GEN_9;
       end
     end
     if (reset) begin // @[RxPipelineHandler.scala 136:35]
-      previous_tdata_reg <= 24'h0; // @[RxPipelineHandler.scala 136:35]
-    end else if (in_shake_hand) begin // @[RxPipelineHandler.scala 144:24]
-      previous_tdata_reg <= in_reg_tdata[511:488]; // @[RxPipelineHandler.scala 145:24]
+      previous_tdata_reg <= 32'h0; // @[RxPipelineHandler.scala 136:35]
+    end else if (in_shake_hand) begin // @[RxPipelineHandler.scala 145:24]
+      if (!(match_continue_reg)) begin // @[RxPipelineHandler.scala 146:31]
+        if (extern_config_reg_c2h_match_arg3 >= _GEN_23) begin // @[RxPipelineHandler.scala 151:54]
+          previous_tdata_reg <= _GEN_10;
+        end
+      end
     end
     if (reset) begin // @[Reg.scala 28:20]
       cur_place_reg <= 16'h0; // @[Reg.scala 28:20]
     end else if (in_shake_hand) begin // @[Reg.scala 29:18]
-      if (io_in_rx_info_tlen[5:0] == 6'h0) begin // @[RxPipelineHandler.scala 138:36]
+      if (io_in_rx_info_tlen[5:0] == 6'h0) begin // @[RxPipelineHandler.scala 138:22]
         cur_place_reg <= io_in_rx_info_tlen;
       end else begin
-        cur_place_reg <= _cur_place_reg_T_5;
+        cur_place_reg <= _cur_place_T_5;
       end
     end
   end
@@ -3490,8 +3537,8 @@ initial begin
 `ifdef RANDOMIZE_REG_INIT
   _RAND_0 = {19{`RANDOM}};
   in_reg_r = _RAND_0[600:0];
-  _RAND_1 = {4{`RANDOM}};
-  extern_config_reg_r = _RAND_1[127:0];
+  _RAND_1 = {8{`RANDOM}};
+  extern_config_reg_r = _RAND_1[235:0];
   _RAND_2 = {1{`RANDOM}};
   first_beat_reg = _RAND_2[0:0];
   _RAND_3 = {1{`RANDOM}};
@@ -3501,7 +3548,7 @@ initial begin
   _RAND_5 = {1{`RANDOM}};
   match_continue_reg = _RAND_5[0:0];
   _RAND_6 = {1{`RANDOM}};
-  previous_tdata_reg = _RAND_6[23:0];
+  previous_tdata_reg = _RAND_6[31:0];
   _RAND_7 = {1{`RANDOM}};
   cur_place_reg = _RAND_7[15:0];
 `endif // RANDOMIZE_REG_INIT
@@ -3590,33 +3637,33 @@ module ReduceOrSync(
   reg [31:0] _RAND_6;
   reg [31:0] _RAND_7;
 `endif // RANDOMIZE_REG_INIT
-  reg  cal_reg_0; // @[Misc.scala 33:20]
-  reg  cal_reg_1; // @[Misc.scala 33:20]
-  reg  cal_reg_2; // @[Misc.scala 33:20]
-  reg  cal_reg_3; // @[Misc.scala 33:20]
-  reg  cal_reg_4; // @[Misc.scala 33:20]
-  reg  cal_reg_5; // @[Misc.scala 33:20]
-  reg  cal_reg_6; // @[Misc.scala 33:20]
-  reg  cal_reg_7; // @[Misc.scala 33:20]
+  reg  cal_reg_0; // @[Misc.scala 173:20]
+  reg  cal_reg_1; // @[Misc.scala 173:20]
+  reg  cal_reg_2; // @[Misc.scala 173:20]
+  reg  cal_reg_3; // @[Misc.scala 173:20]
+  reg  cal_reg_4; // @[Misc.scala 173:20]
+  reg  cal_reg_5; // @[Misc.scala 173:20]
+  reg  cal_reg_6; // @[Misc.scala 173:20]
+  reg  cal_reg_7; // @[Misc.scala 173:20]
   assign io_out_sum = cal_reg_0 | cal_reg_1 | (cal_reg_2 | cal_reg_3) | (cal_reg_4 | cal_reg_5 | (cal_reg_6 | cal_reg_7)
-    ); // @[Misc.scala 57:37]
+    ); // @[Misc.scala 197:37]
   always @(posedge clock) begin
     cal_reg_0 <= io_in_vec_0 | io_in_vec_1 | (io_in_vec_2 | io_in_vec_3) | (io_in_vec_4 | io_in_vec_5 | (io_in_vec_6 |
-      io_in_vec_7)); // @[Misc.scala 55:42]
+      io_in_vec_7)); // @[Misc.scala 195:42]
     cal_reg_1 <= io_in_vec_8 | io_in_vec_9 | (io_in_vec_10 | io_in_vec_11) | (io_in_vec_12 | io_in_vec_13 | (
-      io_in_vec_14 | io_in_vec_15)); // @[Misc.scala 55:42]
+      io_in_vec_14 | io_in_vec_15)); // @[Misc.scala 195:42]
     cal_reg_2 <= io_in_vec_16 | io_in_vec_17 | (io_in_vec_18 | io_in_vec_19) | (io_in_vec_20 | io_in_vec_21 | (
-      io_in_vec_22 | io_in_vec_23)); // @[Misc.scala 55:42]
+      io_in_vec_22 | io_in_vec_23)); // @[Misc.scala 195:42]
     cal_reg_3 <= io_in_vec_24 | io_in_vec_25 | (io_in_vec_26 | io_in_vec_27) | (io_in_vec_28 | io_in_vec_29 | (
-      io_in_vec_30 | io_in_vec_31)); // @[Misc.scala 55:42]
+      io_in_vec_30 | io_in_vec_31)); // @[Misc.scala 195:42]
     cal_reg_4 <= io_in_vec_32 | io_in_vec_33 | (io_in_vec_34 | io_in_vec_35) | (io_in_vec_36 | io_in_vec_37 | (
-      io_in_vec_38 | io_in_vec_39)); // @[Misc.scala 55:42]
+      io_in_vec_38 | io_in_vec_39)); // @[Misc.scala 195:42]
     cal_reg_5 <= io_in_vec_40 | io_in_vec_41 | (io_in_vec_42 | io_in_vec_43) | (io_in_vec_44 | io_in_vec_45 | (
-      io_in_vec_46 | io_in_vec_47)); // @[Misc.scala 55:42]
+      io_in_vec_46 | io_in_vec_47)); // @[Misc.scala 195:42]
     cal_reg_6 <= io_in_vec_48 | io_in_vec_49 | (io_in_vec_50 | io_in_vec_51) | (io_in_vec_52 | io_in_vec_53 | (
-      io_in_vec_54 | io_in_vec_55)); // @[Misc.scala 55:42]
+      io_in_vec_54 | io_in_vec_55)); // @[Misc.scala 195:42]
     cal_reg_7 <= io_in_vec_56 | io_in_vec_57 | (io_in_vec_58 | io_in_vec_59) | (io_in_vec_60 | io_in_vec_61 | (
-      io_in_vec_62 | io_in_vec_63)); // @[Misc.scala 55:42]
+      io_in_vec_62 | io_in_vec_63)); // @[Misc.scala 195:42]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -3690,7 +3737,7 @@ module RxRESearcher(
   input  [5:0]   io_in_rx_info_qid,
   input  [31:0]  io_in_rx_info_ip_chksum,
   input  [31:0]  io_in_rx_info_tcp_chksum,
-  input  [31:0]  io_in_extern_config_c2h_match_op,
+  input  [7:0]   io_in_extern_config_c2h_match_op,
   input  [31:0]  io_in_extern_config_c2h_match_arg1,
   input  [31:0]  io_in_extern_config_c2h_match_arg2,
   output [511:0] io_out_tdata,
@@ -3710,72 +3757,72 @@ module RxRESearcher(
   reg [31:0] _RAND_3;
   reg [31:0] _RAND_4;
 `endif // RANDOMIZE_REG_INIT
-  wire  search_or_sync_clock; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_0; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_1; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_2; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_3; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_4; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_5; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_6; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_7; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_8; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_9; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_10; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_11; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_12; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_13; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_14; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_15; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_16; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_17; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_18; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_19; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_20; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_21; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_22; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_23; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_24; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_25; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_26; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_27; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_28; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_29; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_30; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_31; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_32; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_33; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_34; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_35; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_36; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_37; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_38; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_39; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_40; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_41; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_42; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_43; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_44; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_45; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_46; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_47; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_48; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_49; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_50; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_51; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_52; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_53; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_54; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_55; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_56; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_57; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_58; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_59; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_60; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_61; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_62; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_in_vec_63; // @[RxPipelineHandler.scala 205:30]
-  wire  search_or_sync_io_out_sum; // @[RxPipelineHandler.scala 205:30]
+  wire  search_or_sync_clock; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_0; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_1; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_2; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_3; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_4; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_5; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_6; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_7; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_8; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_9; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_10; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_11; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_12; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_13; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_14; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_15; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_16; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_17; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_18; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_19; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_20; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_21; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_22; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_23; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_24; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_25; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_26; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_27; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_28; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_29; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_30; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_31; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_32; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_33; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_34; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_35; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_36; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_37; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_38; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_39; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_40; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_41; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_42; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_43; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_44; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_45; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_46; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_47; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_48; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_49; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_50; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_51; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_52; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_53; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_54; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_55; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_56; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_57; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_58; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_59; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_60; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_61; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_62; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_in_vec_63; // @[RxPipelineHandler.scala 203:30]
+  wire  search_or_sync_io_out_sum; // @[RxPipelineHandler.scala 203:30]
   wire  in_shake_hand = io_in_tready & io_in_tvalid; // @[RxPipelineHandler.scala 12:38]
   wire  out_shake_hand = io_out_tready & io_out_tvalid; // @[RxPipelineHandler.scala 13:38]
   wire [600:0] _in_reg_T_1 = {io_in_rx_info_tlen,io_in_rx_info_qid,io_in_rx_info_ip_chksum,io_in_rx_info_tcp_chksum,
@@ -3790,157 +3837,157 @@ module RxRESearcher(
   reg  in_reg_used_reg; // @[RxPipelineHandler.scala 18:32]
   wire  _GEN_3 = out_shake_hand ? 1'h0 : in_reg_used_reg; // @[RxPipelineHandler.scala 21:29 22:21 18:32]
   wire  _GEN_4 = in_shake_hand | _GEN_3; // @[RxPipelineHandler.scala 19:23 20:21]
-  wire [31:0] search_value = io_in_extern_config_c2h_match_arg1 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 188:37]
-  reg [23:0] previous_tdata_reg; // @[RxPipelineHandler.scala 194:35]
-  wire [511:0] cal_tdata = in_shake_hand ? io_in_tdata : in_reg_tdata; // @[RxPipelineHandler.scala 195:22]
+  wire [31:0] search_value = io_in_extern_config_c2h_match_arg1 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 186:37]
+  reg [23:0] previous_tdata_reg; // @[RxPipelineHandler.scala 192:35]
+  wire [511:0] cal_tdata = in_shake_hand ? io_in_tdata : in_reg_tdata; // @[RxPipelineHandler.scala 193:22]
   wire [31:0] _search_vec_0_T_5 = {cal_tdata[7:0],cal_tdata[15:8],cal_tdata[23:16],cal_tdata[31:24]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_0_T_6 = _search_vec_0_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_0_T_6 = _search_vec_0_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_1_T_5 = {cal_tdata[15:8],cal_tdata[23:16],cal_tdata[31:24],cal_tdata[39:32]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_1_T_6 = _search_vec_1_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_1_T_6 = _search_vec_1_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_2_T_5 = {cal_tdata[23:16],cal_tdata[31:24],cal_tdata[39:32],cal_tdata[47:40]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_2_T_6 = _search_vec_2_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_2_T_6 = _search_vec_2_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_3_T_5 = {cal_tdata[31:24],cal_tdata[39:32],cal_tdata[47:40],cal_tdata[55:48]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_3_T_6 = _search_vec_3_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_3_T_6 = _search_vec_3_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_4_T_5 = {cal_tdata[39:32],cal_tdata[47:40],cal_tdata[55:48],cal_tdata[63:56]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_4_T_6 = _search_vec_4_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_4_T_6 = _search_vec_4_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_5_T_5 = {cal_tdata[47:40],cal_tdata[55:48],cal_tdata[63:56],cal_tdata[71:64]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_5_T_6 = _search_vec_5_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_5_T_6 = _search_vec_5_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_6_T_5 = {cal_tdata[55:48],cal_tdata[63:56],cal_tdata[71:64],cal_tdata[79:72]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_6_T_6 = _search_vec_6_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_6_T_6 = _search_vec_6_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_7_T_5 = {cal_tdata[63:56],cal_tdata[71:64],cal_tdata[79:72],cal_tdata[87:80]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_7_T_6 = _search_vec_7_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_7_T_6 = _search_vec_7_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_8_T_5 = {cal_tdata[71:64],cal_tdata[79:72],cal_tdata[87:80],cal_tdata[95:88]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_8_T_6 = _search_vec_8_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_8_T_6 = _search_vec_8_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_9_T_5 = {cal_tdata[79:72],cal_tdata[87:80],cal_tdata[95:88],cal_tdata[103:96]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_9_T_6 = _search_vec_9_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_9_T_6 = _search_vec_9_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_10_T_5 = {cal_tdata[87:80],cal_tdata[95:88],cal_tdata[103:96],cal_tdata[111:104]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_10_T_6 = _search_vec_10_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_10_T_6 = _search_vec_10_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_11_T_5 = {cal_tdata[95:88],cal_tdata[103:96],cal_tdata[111:104],cal_tdata[119:112]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_11_T_6 = _search_vec_11_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_11_T_6 = _search_vec_11_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_12_T_5 = {cal_tdata[103:96],cal_tdata[111:104],cal_tdata[119:112],cal_tdata[127:120]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_12_T_6 = _search_vec_12_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_12_T_6 = _search_vec_12_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_13_T_5 = {cal_tdata[111:104],cal_tdata[119:112],cal_tdata[127:120],cal_tdata[135:128]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_13_T_6 = _search_vec_13_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_13_T_6 = _search_vec_13_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_14_T_5 = {cal_tdata[119:112],cal_tdata[127:120],cal_tdata[135:128],cal_tdata[143:136]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_14_T_6 = _search_vec_14_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_14_T_6 = _search_vec_14_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_15_T_5 = {cal_tdata[127:120],cal_tdata[135:128],cal_tdata[143:136],cal_tdata[151:144]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_15_T_6 = _search_vec_15_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_15_T_6 = _search_vec_15_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_16_T_5 = {cal_tdata[135:128],cal_tdata[143:136],cal_tdata[151:144],cal_tdata[159:152]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_16_T_6 = _search_vec_16_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_16_T_6 = _search_vec_16_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_17_T_5 = {cal_tdata[143:136],cal_tdata[151:144],cal_tdata[159:152],cal_tdata[167:160]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_17_T_6 = _search_vec_17_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_17_T_6 = _search_vec_17_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_18_T_5 = {cal_tdata[151:144],cal_tdata[159:152],cal_tdata[167:160],cal_tdata[175:168]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_18_T_6 = _search_vec_18_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_18_T_6 = _search_vec_18_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_19_T_5 = {cal_tdata[159:152],cal_tdata[167:160],cal_tdata[175:168],cal_tdata[183:176]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_19_T_6 = _search_vec_19_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_19_T_6 = _search_vec_19_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_20_T_5 = {cal_tdata[167:160],cal_tdata[175:168],cal_tdata[183:176],cal_tdata[191:184]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_20_T_6 = _search_vec_20_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_20_T_6 = _search_vec_20_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_21_T_5 = {cal_tdata[175:168],cal_tdata[183:176],cal_tdata[191:184],cal_tdata[199:192]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_21_T_6 = _search_vec_21_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_21_T_6 = _search_vec_21_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_22_T_5 = {cal_tdata[183:176],cal_tdata[191:184],cal_tdata[199:192],cal_tdata[207:200]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_22_T_6 = _search_vec_22_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_22_T_6 = _search_vec_22_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_23_T_5 = {cal_tdata[191:184],cal_tdata[199:192],cal_tdata[207:200],cal_tdata[215:208]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_23_T_6 = _search_vec_23_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_23_T_6 = _search_vec_23_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_24_T_5 = {cal_tdata[199:192],cal_tdata[207:200],cal_tdata[215:208],cal_tdata[223:216]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_24_T_6 = _search_vec_24_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_24_T_6 = _search_vec_24_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_25_T_5 = {cal_tdata[207:200],cal_tdata[215:208],cal_tdata[223:216],cal_tdata[231:224]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_25_T_6 = _search_vec_25_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_25_T_6 = _search_vec_25_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_26_T_5 = {cal_tdata[215:208],cal_tdata[223:216],cal_tdata[231:224],cal_tdata[239:232]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_26_T_6 = _search_vec_26_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_26_T_6 = _search_vec_26_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_27_T_5 = {cal_tdata[223:216],cal_tdata[231:224],cal_tdata[239:232],cal_tdata[247:240]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_27_T_6 = _search_vec_27_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_27_T_6 = _search_vec_27_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_28_T_5 = {cal_tdata[231:224],cal_tdata[239:232],cal_tdata[247:240],cal_tdata[255:248]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_28_T_6 = _search_vec_28_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_28_T_6 = _search_vec_28_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_29_T_5 = {cal_tdata[239:232],cal_tdata[247:240],cal_tdata[255:248],cal_tdata[263:256]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_29_T_6 = _search_vec_29_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_29_T_6 = _search_vec_29_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_30_T_5 = {cal_tdata[247:240],cal_tdata[255:248],cal_tdata[263:256],cal_tdata[271:264]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_30_T_6 = _search_vec_30_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_30_T_6 = _search_vec_30_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_31_T_5 = {cal_tdata[255:248],cal_tdata[263:256],cal_tdata[271:264],cal_tdata[279:272]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_31_T_6 = _search_vec_31_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_31_T_6 = _search_vec_31_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_32_T_5 = {cal_tdata[263:256],cal_tdata[271:264],cal_tdata[279:272],cal_tdata[287:280]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_32_T_6 = _search_vec_32_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_32_T_6 = _search_vec_32_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_33_T_5 = {cal_tdata[271:264],cal_tdata[279:272],cal_tdata[287:280],cal_tdata[295:288]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_33_T_6 = _search_vec_33_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_33_T_6 = _search_vec_33_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_34_T_5 = {cal_tdata[279:272],cal_tdata[287:280],cal_tdata[295:288],cal_tdata[303:296]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_34_T_6 = _search_vec_34_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_34_T_6 = _search_vec_34_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_35_T_5 = {cal_tdata[287:280],cal_tdata[295:288],cal_tdata[303:296],cal_tdata[311:304]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_35_T_6 = _search_vec_35_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_35_T_6 = _search_vec_35_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_36_T_5 = {cal_tdata[295:288],cal_tdata[303:296],cal_tdata[311:304],cal_tdata[319:312]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_36_T_6 = _search_vec_36_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_36_T_6 = _search_vec_36_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_37_T_5 = {cal_tdata[303:296],cal_tdata[311:304],cal_tdata[319:312],cal_tdata[327:320]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_37_T_6 = _search_vec_37_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_37_T_6 = _search_vec_37_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_38_T_5 = {cal_tdata[311:304],cal_tdata[319:312],cal_tdata[327:320],cal_tdata[335:328]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_38_T_6 = _search_vec_38_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_38_T_6 = _search_vec_38_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_39_T_5 = {cal_tdata[319:312],cal_tdata[327:320],cal_tdata[335:328],cal_tdata[343:336]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_39_T_6 = _search_vec_39_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_39_T_6 = _search_vec_39_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_40_T_5 = {cal_tdata[327:320],cal_tdata[335:328],cal_tdata[343:336],cal_tdata[351:344]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_40_T_6 = _search_vec_40_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_40_T_6 = _search_vec_40_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_41_T_5 = {cal_tdata[335:328],cal_tdata[343:336],cal_tdata[351:344],cal_tdata[359:352]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_41_T_6 = _search_vec_41_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_41_T_6 = _search_vec_41_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_42_T_5 = {cal_tdata[343:336],cal_tdata[351:344],cal_tdata[359:352],cal_tdata[367:360]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_42_T_6 = _search_vec_42_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_42_T_6 = _search_vec_42_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_43_T_5 = {cal_tdata[351:344],cal_tdata[359:352],cal_tdata[367:360],cal_tdata[375:368]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_43_T_6 = _search_vec_43_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_43_T_6 = _search_vec_43_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_44_T_5 = {cal_tdata[359:352],cal_tdata[367:360],cal_tdata[375:368],cal_tdata[383:376]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_44_T_6 = _search_vec_44_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_44_T_6 = _search_vec_44_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_45_T_5 = {cal_tdata[367:360],cal_tdata[375:368],cal_tdata[383:376],cal_tdata[391:384]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_45_T_6 = _search_vec_45_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_45_T_6 = _search_vec_45_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_46_T_5 = {cal_tdata[375:368],cal_tdata[383:376],cal_tdata[391:384],cal_tdata[399:392]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_46_T_6 = _search_vec_46_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_46_T_6 = _search_vec_46_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_47_T_5 = {cal_tdata[383:376],cal_tdata[391:384],cal_tdata[399:392],cal_tdata[407:400]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_47_T_6 = _search_vec_47_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_47_T_6 = _search_vec_47_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_48_T_5 = {cal_tdata[391:384],cal_tdata[399:392],cal_tdata[407:400],cal_tdata[415:408]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_48_T_6 = _search_vec_48_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_48_T_6 = _search_vec_48_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_49_T_5 = {cal_tdata[399:392],cal_tdata[407:400],cal_tdata[415:408],cal_tdata[423:416]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_49_T_6 = _search_vec_49_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_49_T_6 = _search_vec_49_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_50_T_5 = {cal_tdata[407:400],cal_tdata[415:408],cal_tdata[423:416],cal_tdata[431:424]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_50_T_6 = _search_vec_50_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_50_T_6 = _search_vec_50_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_51_T_5 = {cal_tdata[415:408],cal_tdata[423:416],cal_tdata[431:424],cal_tdata[439:432]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_51_T_6 = _search_vec_51_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_51_T_6 = _search_vec_51_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_52_T_5 = {cal_tdata[423:416],cal_tdata[431:424],cal_tdata[439:432],cal_tdata[447:440]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_52_T_6 = _search_vec_52_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_52_T_6 = _search_vec_52_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_53_T_5 = {cal_tdata[431:424],cal_tdata[439:432],cal_tdata[447:440],cal_tdata[455:448]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_53_T_6 = _search_vec_53_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_53_T_6 = _search_vec_53_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_54_T_5 = {cal_tdata[439:432],cal_tdata[447:440],cal_tdata[455:448],cal_tdata[463:456]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_54_T_6 = _search_vec_54_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_54_T_6 = _search_vec_54_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_55_T_5 = {cal_tdata[447:440],cal_tdata[455:448],cal_tdata[463:456],cal_tdata[471:464]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_55_T_6 = _search_vec_55_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_55_T_6 = _search_vec_55_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_56_T_5 = {cal_tdata[455:448],cal_tdata[463:456],cal_tdata[471:464],cal_tdata[479:472]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_56_T_6 = _search_vec_56_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_56_T_6 = _search_vec_56_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_57_T_5 = {cal_tdata[463:456],cal_tdata[471:464],cal_tdata[479:472],cal_tdata[487:480]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_57_T_6 = _search_vec_57_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_57_T_6 = _search_vec_57_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_58_T_5 = {cal_tdata[471:464],cal_tdata[479:472],cal_tdata[487:480],cal_tdata[495:488]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_58_T_6 = _search_vec_58_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_58_T_6 = _search_vec_58_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_59_T_5 = {cal_tdata[479:472],cal_tdata[487:480],cal_tdata[495:488],cal_tdata[503:496]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_59_T_6 = _search_vec_59_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_59_T_6 = _search_vec_59_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_60_T_5 = {cal_tdata[487:480],cal_tdata[495:488],cal_tdata[503:496],cal_tdata[511:504]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_60_T_6 = _search_vec_60_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
+  wire [31:0] _search_vec_60_T_6 = _search_vec_60_T_5 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
   wire [31:0] _search_vec_61_T_3 = {io_in_tdata[7:0],in_reg_tdata[511:488]}; // @[Cat.scala 31:58]
   wire [31:0] _search_vec_61_T_6 = {in_reg_tdata[7:0],previous_tdata_reg}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_61_T_7 = in_shake_hand ? _search_vec_61_T_3 : _search_vec_61_T_6; // @[RxPipelineHandler.scala 201:86]
+  wire [31:0] _search_vec_61_T_7 = in_shake_hand ? _search_vec_61_T_3 : _search_vec_61_T_6; // @[RxPipelineHandler.scala 199:86]
   wire [31:0] _search_vec_61_T_12 = {_search_vec_61_T_7[7:0],_search_vec_61_T_7[15:8],_search_vec_61_T_7[23:16],
     _search_vec_61_T_7[31:24]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_61_T_13 = _search_vec_61_T_12 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
-  wire  _search_vec_61_T_14 = _search_vec_61_T_13 == search_value; // @[RxPipelineHandler.scala 191:42]
+  wire [31:0] _search_vec_61_T_13 = _search_vec_61_T_12 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
+  wire  _search_vec_61_T_14 = _search_vec_61_T_13 == search_value; // @[RxPipelineHandler.scala 189:42]
   wire [31:0] _search_vec_62_T_3 = {io_in_tdata[15:0],in_reg_tdata[511:496]}; // @[Cat.scala 31:58]
   wire [31:0] _search_vec_62_T_6 = {in_reg_tdata[15:0],previous_tdata_reg[23:8]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_62_T_7 = in_shake_hand ? _search_vec_62_T_3 : _search_vec_62_T_6; // @[RxPipelineHandler.scala 202:86]
+  wire [31:0] _search_vec_62_T_7 = in_shake_hand ? _search_vec_62_T_3 : _search_vec_62_T_6; // @[RxPipelineHandler.scala 200:86]
   wire [31:0] _search_vec_62_T_12 = {_search_vec_62_T_7[7:0],_search_vec_62_T_7[15:8],_search_vec_62_T_7[23:16],
     _search_vec_62_T_7[31:24]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_62_T_13 = _search_vec_62_T_12 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
-  wire  _search_vec_62_T_14 = _search_vec_62_T_13 == search_value; // @[RxPipelineHandler.scala 191:42]
+  wire [31:0] _search_vec_62_T_13 = _search_vec_62_T_12 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
+  wire  _search_vec_62_T_14 = _search_vec_62_T_13 == search_value; // @[RxPipelineHandler.scala 189:42]
   wire [31:0] _search_vec_63_T_3 = {io_in_tdata[23:0],in_reg_tdata[511:504]}; // @[Cat.scala 31:58]
   wire [31:0] _search_vec_63_T_6 = {in_reg_tdata[23:0],previous_tdata_reg[23:16]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_63_T_7 = in_shake_hand ? _search_vec_63_T_3 : _search_vec_63_T_6; // @[RxPipelineHandler.scala 203:86]
+  wire [31:0] _search_vec_63_T_7 = in_shake_hand ? _search_vec_63_T_3 : _search_vec_63_T_6; // @[RxPipelineHandler.scala 201:86]
   wire [31:0] _search_vec_63_T_12 = {_search_vec_63_T_7[7:0],_search_vec_63_T_7[15:8],_search_vec_63_T_7[23:16],
     _search_vec_63_T_7[31:24]}; // @[Cat.scala 31:58]
-  wire [31:0] _search_vec_63_T_13 = _search_vec_63_T_12 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 191:27]
-  wire  _search_vec_63_T_14 = _search_vec_63_T_13 == search_value; // @[RxPipelineHandler.scala 191:42]
-  reg  search_found_reg; // @[RxPipelineHandler.scala 212:33]
-  wire  search_or_result = search_or_sync_io_out_sum; // @[RxPipelineHandler.scala 206:30 210:20]
-  wire  _search_found_reg_T = search_found_reg | search_or_result; // @[RxPipelineHandler.scala 218:44]
-  wire [5:0] _io_out_rx_info_qid_T_1 = _search_found_reg_T ? 6'h1 : in_reg_rx_info_qid; // @[RxPipelineHandler.scala 223:30]
-  ReduceOrSync search_or_sync ( // @[RxPipelineHandler.scala 205:30]
+  wire [31:0] _search_vec_63_T_13 = _search_vec_63_T_12 & io_in_extern_config_c2h_match_arg2; // @[RxPipelineHandler.scala 189:27]
+  wire  _search_vec_63_T_14 = _search_vec_63_T_13 == search_value; // @[RxPipelineHandler.scala 189:42]
+  reg  search_found_reg; // @[RxPipelineHandler.scala 210:33]
+  wire  search_or_result = search_or_sync_io_out_sum; // @[RxPipelineHandler.scala 204:30 208:20]
+  wire  _search_found_reg_T = search_found_reg | search_or_result; // @[RxPipelineHandler.scala 216:44]
+  wire [5:0] _io_out_rx_info_qid_T_1 = _search_found_reg_T ? 6'h1 : in_reg_rx_info_qid; // @[RxPipelineHandler.scala 221:30]
+  ReduceOrSync search_or_sync ( // @[RxPipelineHandler.scala 203:30]
     .clock(search_or_sync_clock),
     .io_in_vec_0(search_or_sync_io_in_vec_0),
     .io_in_vec_1(search_or_sync_io_in_vec_1),
@@ -4014,74 +4061,74 @@ module RxRESearcher(
   assign io_out_tlast = in_reg_r[0]; // @[RxPipelineHandler.scala 14:128]
   assign io_out_tuser = in_reg_r[514]; // @[RxPipelineHandler.scala 14:128]
   assign io_out_rx_info_tlen = in_reg_r[600:585]; // @[RxPipelineHandler.scala 14:128]
-  assign io_out_rx_info_qid = io_in_extern_config_c2h_match_op == 32'h8 ? _io_out_rx_info_qid_T_1 : in_reg_rx_info_qid; // @[RxPipelineHandler.scala 222:51 223:24 29:18]
+  assign io_out_rx_info_qid = io_in_extern_config_c2h_match_op == 8'h8 ? _io_out_rx_info_qid_T_1 : in_reg_rx_info_qid; // @[RxPipelineHandler.scala 220:51 221:24 29:18]
   assign io_out_rx_info_ip_chksum = in_reg_r[578:547]; // @[RxPipelineHandler.scala 14:128]
   assign io_out_rx_info_tcp_chksum = in_reg_r[546:515]; // @[RxPipelineHandler.scala 14:128]
   assign search_or_sync_clock = clock;
-  assign search_or_sync_io_in_vec_0 = _search_vec_0_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_1 = _search_vec_1_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_2 = _search_vec_2_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_3 = _search_vec_3_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_4 = _search_vec_4_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_5 = _search_vec_5_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_6 = _search_vec_6_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_7 = _search_vec_7_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_8 = _search_vec_8_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_9 = _search_vec_9_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_10 = _search_vec_10_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_11 = _search_vec_11_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_12 = _search_vec_12_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_13 = _search_vec_13_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_14 = _search_vec_14_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_15 = _search_vec_15_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_16 = _search_vec_16_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_17 = _search_vec_17_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_18 = _search_vec_18_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_19 = _search_vec_19_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_20 = _search_vec_20_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_21 = _search_vec_21_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_22 = _search_vec_22_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_23 = _search_vec_23_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_24 = _search_vec_24_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_25 = _search_vec_25_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_26 = _search_vec_26_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_27 = _search_vec_27_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_28 = _search_vec_28_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_29 = _search_vec_29_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_30 = _search_vec_30_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_31 = _search_vec_31_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_32 = _search_vec_32_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_33 = _search_vec_33_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_34 = _search_vec_34_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_35 = _search_vec_35_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_36 = _search_vec_36_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_37 = _search_vec_37_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_38 = _search_vec_38_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_39 = _search_vec_39_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_40 = _search_vec_40_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_41 = _search_vec_41_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_42 = _search_vec_42_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_43 = _search_vec_43_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_44 = _search_vec_44_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_45 = _search_vec_45_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_46 = _search_vec_46_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_47 = _search_vec_47_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_48 = _search_vec_48_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_49 = _search_vec_49_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_50 = _search_vec_50_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_51 = _search_vec_51_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_52 = _search_vec_52_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_53 = _search_vec_53_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_54 = _search_vec_54_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_55 = _search_vec_55_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_56 = _search_vec_56_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_57 = _search_vec_57_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_58 = _search_vec_58_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_59 = _search_vec_59_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_60 = _search_vec_60_T_6 == search_value; // @[RxPipelineHandler.scala 191:42]
-  assign search_or_sync_io_in_vec_61 = _GEN_2 ? 1'h0 : _search_vec_61_T_14; // @[RxPipelineHandler.scala 201:24]
-  assign search_or_sync_io_in_vec_62 = _GEN_2 ? 1'h0 : _search_vec_62_T_14; // @[RxPipelineHandler.scala 202:24]
-  assign search_or_sync_io_in_vec_63 = _GEN_2 ? 1'h0 : _search_vec_63_T_14; // @[RxPipelineHandler.scala 203:24]
+  assign search_or_sync_io_in_vec_0 = _search_vec_0_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_1 = _search_vec_1_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_2 = _search_vec_2_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_3 = _search_vec_3_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_4 = _search_vec_4_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_5 = _search_vec_5_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_6 = _search_vec_6_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_7 = _search_vec_7_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_8 = _search_vec_8_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_9 = _search_vec_9_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_10 = _search_vec_10_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_11 = _search_vec_11_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_12 = _search_vec_12_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_13 = _search_vec_13_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_14 = _search_vec_14_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_15 = _search_vec_15_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_16 = _search_vec_16_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_17 = _search_vec_17_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_18 = _search_vec_18_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_19 = _search_vec_19_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_20 = _search_vec_20_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_21 = _search_vec_21_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_22 = _search_vec_22_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_23 = _search_vec_23_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_24 = _search_vec_24_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_25 = _search_vec_25_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_26 = _search_vec_26_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_27 = _search_vec_27_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_28 = _search_vec_28_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_29 = _search_vec_29_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_30 = _search_vec_30_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_31 = _search_vec_31_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_32 = _search_vec_32_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_33 = _search_vec_33_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_34 = _search_vec_34_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_35 = _search_vec_35_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_36 = _search_vec_36_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_37 = _search_vec_37_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_38 = _search_vec_38_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_39 = _search_vec_39_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_40 = _search_vec_40_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_41 = _search_vec_41_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_42 = _search_vec_42_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_43 = _search_vec_43_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_44 = _search_vec_44_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_45 = _search_vec_45_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_46 = _search_vec_46_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_47 = _search_vec_47_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_48 = _search_vec_48_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_49 = _search_vec_49_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_50 = _search_vec_50_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_51 = _search_vec_51_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_52 = _search_vec_52_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_53 = _search_vec_53_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_54 = _search_vec_54_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_55 = _search_vec_55_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_56 = _search_vec_56_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_57 = _search_vec_57_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_58 = _search_vec_58_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_59 = _search_vec_59_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_60 = _search_vec_60_T_6 == search_value; // @[RxPipelineHandler.scala 189:42]
+  assign search_or_sync_io_in_vec_61 = _GEN_2 ? 1'h0 : _search_vec_61_T_14; // @[RxPipelineHandler.scala 199:24]
+  assign search_or_sync_io_in_vec_62 = _GEN_2 ? 1'h0 : _search_vec_62_T_14; // @[RxPipelineHandler.scala 200:24]
+  assign search_or_sync_io_in_vec_63 = _GEN_2 ? 1'h0 : _search_vec_63_T_14; // @[RxPipelineHandler.scala 201:24]
   always @(posedge clock) begin
     if (reset) begin // @[Reg.scala 28:20]
       in_reg_r <= 601'h1; // @[Reg.scala 28:20]
@@ -4094,18 +4141,18 @@ module RxRESearcher(
     end else begin
       in_reg_used_reg <= _GEN_4;
     end
-    if (reset) begin // @[RxPipelineHandler.scala 194:35]
-      previous_tdata_reg <= 24'h0; // @[RxPipelineHandler.scala 194:35]
-    end else if (in_shake_hand) begin // @[RxPipelineHandler.scala 213:24]
-      previous_tdata_reg <= in_reg_tdata[511:488]; // @[RxPipelineHandler.scala 214:24]
+    if (reset) begin // @[RxPipelineHandler.scala 192:35]
+      previous_tdata_reg <= 24'h0; // @[RxPipelineHandler.scala 192:35]
+    end else if (in_shake_hand) begin // @[RxPipelineHandler.scala 211:24]
+      previous_tdata_reg <= in_reg_tdata[511:488]; // @[RxPipelineHandler.scala 212:24]
     end
-    if (reset) begin // @[RxPipelineHandler.scala 212:33]
-      search_found_reg <= 1'h0; // @[RxPipelineHandler.scala 212:33]
-    end else if (in_shake_hand) begin // @[RxPipelineHandler.scala 213:24]
-      if (first_beat_reg) begin // @[RxPipelineHandler.scala 215:27]
-        search_found_reg <= search_or_result; // @[RxPipelineHandler.scala 216:24]
+    if (reset) begin // @[RxPipelineHandler.scala 210:33]
+      search_found_reg <= 1'h0; // @[RxPipelineHandler.scala 210:33]
+    end else if (in_shake_hand) begin // @[RxPipelineHandler.scala 211:24]
+      if (first_beat_reg) begin // @[RxPipelineHandler.scala 213:27]
+        search_found_reg <= search_or_result; // @[RxPipelineHandler.scala 214:24]
       end else begin
-        search_found_reg <= search_found_reg | search_or_result; // @[RxPipelineHandler.scala 218:24]
+        search_found_reg <= search_found_reg | search_or_result; // @[RxPipelineHandler.scala 216:24]
       end
     end
   end
@@ -4172,10 +4219,12 @@ module RxPipeline(
   input          io_in_tlast,
   input          io_in_tuser,
   input  [15:0]  io_in_rx_info_tlen,
-  input  [31:0]  io_in_extern_config_c2h_match_op,
+  input  [7:0]   io_in_extern_config_c2h_match_op,
   input  [31:0]  io_in_extern_config_c2h_match_arg1,
   input  [31:0]  io_in_extern_config_c2h_match_arg2,
   input  [31:0]  io_in_extern_config_c2h_match_arg3,
+  input  [127:0] io_in_extern_config_aes_key,
+  input  [3:0]   io_in_extern_config_round_time,
   output [511:0] io_out_tdata,
   output         io_out_tvalid,
   input          io_out_tready,
@@ -4186,110 +4235,120 @@ module RxPipeline(
   output [31:0]  io_out_rx_info_ip_chksum,
   output [31:0]  io_out_rx_info_tcp_chksum
 );
-  wire  rx_chksum_verifier_clock; // @[RxPipeline.scala 40:34]
-  wire  rx_chksum_verifier_reset; // @[RxPipeline.scala 40:34]
-  wire [511:0] rx_chksum_verifier_io_in_tdata; // @[RxPipeline.scala 40:34]
-  wire  rx_chksum_verifier_io_in_tvalid; // @[RxPipeline.scala 40:34]
-  wire  rx_chksum_verifier_io_in_tready; // @[RxPipeline.scala 40:34]
-  wire  rx_chksum_verifier_io_in_tlast; // @[RxPipeline.scala 40:34]
-  wire  rx_chksum_verifier_io_in_tuser; // @[RxPipeline.scala 40:34]
-  wire [15:0] rx_chksum_verifier_io_in_rx_info_tlen; // @[RxPipeline.scala 40:34]
-  wire [31:0] rx_chksum_verifier_io_in_extern_config_c2h_match_op; // @[RxPipeline.scala 40:34]
-  wire [31:0] rx_chksum_verifier_io_in_extern_config_c2h_match_arg1; // @[RxPipeline.scala 40:34]
-  wire [31:0] rx_chksum_verifier_io_in_extern_config_c2h_match_arg2; // @[RxPipeline.scala 40:34]
-  wire [31:0] rx_chksum_verifier_io_in_extern_config_c2h_match_arg3; // @[RxPipeline.scala 40:34]
-  wire [511:0] rx_chksum_verifier_io_out_tdata; // @[RxPipeline.scala 40:34]
-  wire  rx_chksum_verifier_io_out_tvalid; // @[RxPipeline.scala 40:34]
-  wire  rx_chksum_verifier_io_out_tready; // @[RxPipeline.scala 40:34]
-  wire  rx_chksum_verifier_io_out_tlast; // @[RxPipeline.scala 40:34]
-  wire  rx_chksum_verifier_io_out_tuser; // @[RxPipeline.scala 40:34]
-  wire [15:0] rx_chksum_verifier_io_out_rx_info_tlen; // @[RxPipeline.scala 40:34]
-  wire [5:0] rx_chksum_verifier_io_out_rx_info_qid; // @[RxPipeline.scala 40:34]
-  wire [31:0] rx_chksum_verifier_io_out_rx_info_ip_chksum; // @[RxPipeline.scala 40:34]
-  wire [31:0] rx_chksum_verifier_io_out_rx_info_tcp_chksum; // @[RxPipeline.scala 40:34]
-  wire [31:0] rx_chksum_verifier_io_out_extern_config_c2h_match_op; // @[RxPipeline.scala 40:34]
-  wire [31:0] rx_chksum_verifier_io_out_extern_config_c2h_match_arg1; // @[RxPipeline.scala 40:34]
-  wire [31:0] rx_chksum_verifier_io_out_extern_config_c2h_match_arg2; // @[RxPipeline.scala 40:34]
-  wire [31:0] rx_chksum_verifier_io_out_extern_config_c2h_match_arg3; // @[RxPipeline.scala 40:34]
-  wire  rx_rss_hash_filter_clock; // @[RxPipeline.scala 41:34]
-  wire  rx_rss_hash_filter_reset; // @[RxPipeline.scala 41:34]
-  wire [511:0] rx_rss_hash_filter_io_in_tdata; // @[RxPipeline.scala 41:34]
-  wire  rx_rss_hash_filter_io_in_tvalid; // @[RxPipeline.scala 41:34]
-  wire  rx_rss_hash_filter_io_in_tready; // @[RxPipeline.scala 41:34]
-  wire  rx_rss_hash_filter_io_in_tlast; // @[RxPipeline.scala 41:34]
-  wire  rx_rss_hash_filter_io_in_tuser; // @[RxPipeline.scala 41:34]
-  wire [15:0] rx_rss_hash_filter_io_in_rx_info_tlen; // @[RxPipeline.scala 41:34]
-  wire [5:0] rx_rss_hash_filter_io_in_rx_info_qid; // @[RxPipeline.scala 41:34]
-  wire [31:0] rx_rss_hash_filter_io_in_rx_info_ip_chksum; // @[RxPipeline.scala 41:34]
-  wire [31:0] rx_rss_hash_filter_io_in_rx_info_tcp_chksum; // @[RxPipeline.scala 41:34]
-  wire [31:0] rx_rss_hash_filter_io_in_extern_config_c2h_match_op; // @[RxPipeline.scala 41:34]
-  wire [31:0] rx_rss_hash_filter_io_in_extern_config_c2h_match_arg1; // @[RxPipeline.scala 41:34]
-  wire [31:0] rx_rss_hash_filter_io_in_extern_config_c2h_match_arg2; // @[RxPipeline.scala 41:34]
-  wire [31:0] rx_rss_hash_filter_io_in_extern_config_c2h_match_arg3; // @[RxPipeline.scala 41:34]
-  wire [511:0] rx_rss_hash_filter_io_out_tdata; // @[RxPipeline.scala 41:34]
-  wire  rx_rss_hash_filter_io_out_tvalid; // @[RxPipeline.scala 41:34]
-  wire  rx_rss_hash_filter_io_out_tready; // @[RxPipeline.scala 41:34]
-  wire  rx_rss_hash_filter_io_out_tlast; // @[RxPipeline.scala 41:34]
-  wire  rx_rss_hash_filter_io_out_tuser; // @[RxPipeline.scala 41:34]
-  wire [15:0] rx_rss_hash_filter_io_out_rx_info_tlen; // @[RxPipeline.scala 41:34]
-  wire [5:0] rx_rss_hash_filter_io_out_rx_info_qid; // @[RxPipeline.scala 41:34]
-  wire [31:0] rx_rss_hash_filter_io_out_rx_info_ip_chksum; // @[RxPipeline.scala 41:34]
-  wire [31:0] rx_rss_hash_filter_io_out_rx_info_tcp_chksum; // @[RxPipeline.scala 41:34]
-  wire [31:0] rx_rss_hash_filter_io_out_extern_config_c2h_match_op; // @[RxPipeline.scala 41:34]
-  wire [31:0] rx_rss_hash_filter_io_out_extern_config_c2h_match_arg1; // @[RxPipeline.scala 41:34]
-  wire [31:0] rx_rss_hash_filter_io_out_extern_config_c2h_match_arg2; // @[RxPipeline.scala 41:34]
-  wire [31:0] rx_rss_hash_filter_io_out_extern_config_c2h_match_arg3; // @[RxPipeline.scala 41:34]
-  wire  rx_match_filter_clock; // @[RxPipeline.scala 42:34]
-  wire  rx_match_filter_reset; // @[RxPipeline.scala 42:34]
-  wire [511:0] rx_match_filter_io_in_tdata; // @[RxPipeline.scala 42:34]
-  wire  rx_match_filter_io_in_tvalid; // @[RxPipeline.scala 42:34]
-  wire  rx_match_filter_io_in_tready; // @[RxPipeline.scala 42:34]
-  wire  rx_match_filter_io_in_tlast; // @[RxPipeline.scala 42:34]
-  wire  rx_match_filter_io_in_tuser; // @[RxPipeline.scala 42:34]
-  wire [15:0] rx_match_filter_io_in_rx_info_tlen; // @[RxPipeline.scala 42:34]
-  wire [5:0] rx_match_filter_io_in_rx_info_qid; // @[RxPipeline.scala 42:34]
-  wire [31:0] rx_match_filter_io_in_rx_info_ip_chksum; // @[RxPipeline.scala 42:34]
-  wire [31:0] rx_match_filter_io_in_rx_info_tcp_chksum; // @[RxPipeline.scala 42:34]
-  wire [31:0] rx_match_filter_io_in_extern_config_c2h_match_op; // @[RxPipeline.scala 42:34]
-  wire [31:0] rx_match_filter_io_in_extern_config_c2h_match_arg1; // @[RxPipeline.scala 42:34]
-  wire [31:0] rx_match_filter_io_in_extern_config_c2h_match_arg2; // @[RxPipeline.scala 42:34]
-  wire [31:0] rx_match_filter_io_in_extern_config_c2h_match_arg3; // @[RxPipeline.scala 42:34]
-  wire [511:0] rx_match_filter_io_out_tdata; // @[RxPipeline.scala 42:34]
-  wire  rx_match_filter_io_out_tvalid; // @[RxPipeline.scala 42:34]
-  wire  rx_match_filter_io_out_tready; // @[RxPipeline.scala 42:34]
-  wire  rx_match_filter_io_out_tlast; // @[RxPipeline.scala 42:34]
-  wire  rx_match_filter_io_out_tuser; // @[RxPipeline.scala 42:34]
-  wire [15:0] rx_match_filter_io_out_rx_info_tlen; // @[RxPipeline.scala 42:34]
-  wire [5:0] rx_match_filter_io_out_rx_info_qid; // @[RxPipeline.scala 42:34]
-  wire [31:0] rx_match_filter_io_out_rx_info_ip_chksum; // @[RxPipeline.scala 42:34]
-  wire [31:0] rx_match_filter_io_out_rx_info_tcp_chksum; // @[RxPipeline.scala 42:34]
-  wire [31:0] rx_match_filter_io_out_extern_config_c2h_match_op; // @[RxPipeline.scala 42:34]
-  wire [31:0] rx_match_filter_io_out_extern_config_c2h_match_arg1; // @[RxPipeline.scala 42:34]
-  wire [31:0] rx_match_filter_io_out_extern_config_c2h_match_arg2; // @[RxPipeline.scala 42:34]
-  wire  rx_REsearcher_clock; // @[RxPipeline.scala 43:34]
-  wire  rx_REsearcher_reset; // @[RxPipeline.scala 43:34]
-  wire [511:0] rx_REsearcher_io_in_tdata; // @[RxPipeline.scala 43:34]
-  wire  rx_REsearcher_io_in_tvalid; // @[RxPipeline.scala 43:34]
-  wire  rx_REsearcher_io_in_tready; // @[RxPipeline.scala 43:34]
-  wire  rx_REsearcher_io_in_tlast; // @[RxPipeline.scala 43:34]
-  wire  rx_REsearcher_io_in_tuser; // @[RxPipeline.scala 43:34]
-  wire [15:0] rx_REsearcher_io_in_rx_info_tlen; // @[RxPipeline.scala 43:34]
-  wire [5:0] rx_REsearcher_io_in_rx_info_qid; // @[RxPipeline.scala 43:34]
-  wire [31:0] rx_REsearcher_io_in_rx_info_ip_chksum; // @[RxPipeline.scala 43:34]
-  wire [31:0] rx_REsearcher_io_in_rx_info_tcp_chksum; // @[RxPipeline.scala 43:34]
-  wire [31:0] rx_REsearcher_io_in_extern_config_c2h_match_op; // @[RxPipeline.scala 43:34]
-  wire [31:0] rx_REsearcher_io_in_extern_config_c2h_match_arg1; // @[RxPipeline.scala 43:34]
-  wire [31:0] rx_REsearcher_io_in_extern_config_c2h_match_arg2; // @[RxPipeline.scala 43:34]
-  wire [511:0] rx_REsearcher_io_out_tdata; // @[RxPipeline.scala 43:34]
-  wire  rx_REsearcher_io_out_tvalid; // @[RxPipeline.scala 43:34]
-  wire  rx_REsearcher_io_out_tready; // @[RxPipeline.scala 43:34]
-  wire  rx_REsearcher_io_out_tlast; // @[RxPipeline.scala 43:34]
-  wire  rx_REsearcher_io_out_tuser; // @[RxPipeline.scala 43:34]
-  wire [15:0] rx_REsearcher_io_out_rx_info_tlen; // @[RxPipeline.scala 43:34]
-  wire [5:0] rx_REsearcher_io_out_rx_info_qid; // @[RxPipeline.scala 43:34]
-  wire [31:0] rx_REsearcher_io_out_rx_info_ip_chksum; // @[RxPipeline.scala 43:34]
-  wire [31:0] rx_REsearcher_io_out_rx_info_tcp_chksum; // @[RxPipeline.scala 43:34]
-  RxChksumVerifier rx_chksum_verifier ( // @[RxPipeline.scala 40:34]
+  wire  rx_chksum_verifier_clock; // @[RxPipeline.scala 41:34]
+  wire  rx_chksum_verifier_reset; // @[RxPipeline.scala 41:34]
+  wire [511:0] rx_chksum_verifier_io_in_tdata; // @[RxPipeline.scala 41:34]
+  wire  rx_chksum_verifier_io_in_tvalid; // @[RxPipeline.scala 41:34]
+  wire  rx_chksum_verifier_io_in_tready; // @[RxPipeline.scala 41:34]
+  wire  rx_chksum_verifier_io_in_tlast; // @[RxPipeline.scala 41:34]
+  wire  rx_chksum_verifier_io_in_tuser; // @[RxPipeline.scala 41:34]
+  wire [15:0] rx_chksum_verifier_io_in_rx_info_tlen; // @[RxPipeline.scala 41:34]
+  wire [7:0] rx_chksum_verifier_io_in_extern_config_c2h_match_op; // @[RxPipeline.scala 41:34]
+  wire [31:0] rx_chksum_verifier_io_in_extern_config_c2h_match_arg1; // @[RxPipeline.scala 41:34]
+  wire [31:0] rx_chksum_verifier_io_in_extern_config_c2h_match_arg2; // @[RxPipeline.scala 41:34]
+  wire [31:0] rx_chksum_verifier_io_in_extern_config_c2h_match_arg3; // @[RxPipeline.scala 41:34]
+  wire [127:0] rx_chksum_verifier_io_in_extern_config_aes_key; // @[RxPipeline.scala 41:34]
+  wire [3:0] rx_chksum_verifier_io_in_extern_config_round_time; // @[RxPipeline.scala 41:34]
+  wire [511:0] rx_chksum_verifier_io_out_tdata; // @[RxPipeline.scala 41:34]
+  wire  rx_chksum_verifier_io_out_tvalid; // @[RxPipeline.scala 41:34]
+  wire  rx_chksum_verifier_io_out_tready; // @[RxPipeline.scala 41:34]
+  wire  rx_chksum_verifier_io_out_tlast; // @[RxPipeline.scala 41:34]
+  wire  rx_chksum_verifier_io_out_tuser; // @[RxPipeline.scala 41:34]
+  wire [15:0] rx_chksum_verifier_io_out_rx_info_tlen; // @[RxPipeline.scala 41:34]
+  wire [5:0] rx_chksum_verifier_io_out_rx_info_qid; // @[RxPipeline.scala 41:34]
+  wire [31:0] rx_chksum_verifier_io_out_rx_info_ip_chksum; // @[RxPipeline.scala 41:34]
+  wire [31:0] rx_chksum_verifier_io_out_rx_info_tcp_chksum; // @[RxPipeline.scala 41:34]
+  wire [7:0] rx_chksum_verifier_io_out_extern_config_c2h_match_op; // @[RxPipeline.scala 41:34]
+  wire [31:0] rx_chksum_verifier_io_out_extern_config_c2h_match_arg1; // @[RxPipeline.scala 41:34]
+  wire [31:0] rx_chksum_verifier_io_out_extern_config_c2h_match_arg2; // @[RxPipeline.scala 41:34]
+  wire [31:0] rx_chksum_verifier_io_out_extern_config_c2h_match_arg3; // @[RxPipeline.scala 41:34]
+  wire [127:0] rx_chksum_verifier_io_out_extern_config_aes_key; // @[RxPipeline.scala 41:34]
+  wire [3:0] rx_chksum_verifier_io_out_extern_config_round_time; // @[RxPipeline.scala 41:34]
+  wire  rx_rss_hash_filter_clock; // @[RxPipeline.scala 42:34]
+  wire  rx_rss_hash_filter_reset; // @[RxPipeline.scala 42:34]
+  wire [511:0] rx_rss_hash_filter_io_in_tdata; // @[RxPipeline.scala 42:34]
+  wire  rx_rss_hash_filter_io_in_tvalid; // @[RxPipeline.scala 42:34]
+  wire  rx_rss_hash_filter_io_in_tready; // @[RxPipeline.scala 42:34]
+  wire  rx_rss_hash_filter_io_in_tlast; // @[RxPipeline.scala 42:34]
+  wire  rx_rss_hash_filter_io_in_tuser; // @[RxPipeline.scala 42:34]
+  wire [15:0] rx_rss_hash_filter_io_in_rx_info_tlen; // @[RxPipeline.scala 42:34]
+  wire [5:0] rx_rss_hash_filter_io_in_rx_info_qid; // @[RxPipeline.scala 42:34]
+  wire [31:0] rx_rss_hash_filter_io_in_rx_info_ip_chksum; // @[RxPipeline.scala 42:34]
+  wire [31:0] rx_rss_hash_filter_io_in_rx_info_tcp_chksum; // @[RxPipeline.scala 42:34]
+  wire [7:0] rx_rss_hash_filter_io_in_extern_config_c2h_match_op; // @[RxPipeline.scala 42:34]
+  wire [31:0] rx_rss_hash_filter_io_in_extern_config_c2h_match_arg1; // @[RxPipeline.scala 42:34]
+  wire [31:0] rx_rss_hash_filter_io_in_extern_config_c2h_match_arg2; // @[RxPipeline.scala 42:34]
+  wire [31:0] rx_rss_hash_filter_io_in_extern_config_c2h_match_arg3; // @[RxPipeline.scala 42:34]
+  wire [127:0] rx_rss_hash_filter_io_in_extern_config_aes_key; // @[RxPipeline.scala 42:34]
+  wire [3:0] rx_rss_hash_filter_io_in_extern_config_round_time; // @[RxPipeline.scala 42:34]
+  wire [511:0] rx_rss_hash_filter_io_out_tdata; // @[RxPipeline.scala 42:34]
+  wire  rx_rss_hash_filter_io_out_tvalid; // @[RxPipeline.scala 42:34]
+  wire  rx_rss_hash_filter_io_out_tready; // @[RxPipeline.scala 42:34]
+  wire  rx_rss_hash_filter_io_out_tlast; // @[RxPipeline.scala 42:34]
+  wire  rx_rss_hash_filter_io_out_tuser; // @[RxPipeline.scala 42:34]
+  wire [15:0] rx_rss_hash_filter_io_out_rx_info_tlen; // @[RxPipeline.scala 42:34]
+  wire [5:0] rx_rss_hash_filter_io_out_rx_info_qid; // @[RxPipeline.scala 42:34]
+  wire [31:0] rx_rss_hash_filter_io_out_rx_info_ip_chksum; // @[RxPipeline.scala 42:34]
+  wire [31:0] rx_rss_hash_filter_io_out_rx_info_tcp_chksum; // @[RxPipeline.scala 42:34]
+  wire [7:0] rx_rss_hash_filter_io_out_extern_config_c2h_match_op; // @[RxPipeline.scala 42:34]
+  wire [31:0] rx_rss_hash_filter_io_out_extern_config_c2h_match_arg1; // @[RxPipeline.scala 42:34]
+  wire [31:0] rx_rss_hash_filter_io_out_extern_config_c2h_match_arg2; // @[RxPipeline.scala 42:34]
+  wire [31:0] rx_rss_hash_filter_io_out_extern_config_c2h_match_arg3; // @[RxPipeline.scala 42:34]
+  wire [127:0] rx_rss_hash_filter_io_out_extern_config_aes_key; // @[RxPipeline.scala 42:34]
+  wire [3:0] rx_rss_hash_filter_io_out_extern_config_round_time; // @[RxPipeline.scala 42:34]
+  wire  rx_match_filter_clock; // @[RxPipeline.scala 43:34]
+  wire  rx_match_filter_reset; // @[RxPipeline.scala 43:34]
+  wire [511:0] rx_match_filter_io_in_tdata; // @[RxPipeline.scala 43:34]
+  wire  rx_match_filter_io_in_tvalid; // @[RxPipeline.scala 43:34]
+  wire  rx_match_filter_io_in_tready; // @[RxPipeline.scala 43:34]
+  wire  rx_match_filter_io_in_tlast; // @[RxPipeline.scala 43:34]
+  wire  rx_match_filter_io_in_tuser; // @[RxPipeline.scala 43:34]
+  wire [15:0] rx_match_filter_io_in_rx_info_tlen; // @[RxPipeline.scala 43:34]
+  wire [5:0] rx_match_filter_io_in_rx_info_qid; // @[RxPipeline.scala 43:34]
+  wire [31:0] rx_match_filter_io_in_rx_info_ip_chksum; // @[RxPipeline.scala 43:34]
+  wire [31:0] rx_match_filter_io_in_rx_info_tcp_chksum; // @[RxPipeline.scala 43:34]
+  wire [7:0] rx_match_filter_io_in_extern_config_c2h_match_op; // @[RxPipeline.scala 43:34]
+  wire [31:0] rx_match_filter_io_in_extern_config_c2h_match_arg1; // @[RxPipeline.scala 43:34]
+  wire [31:0] rx_match_filter_io_in_extern_config_c2h_match_arg2; // @[RxPipeline.scala 43:34]
+  wire [31:0] rx_match_filter_io_in_extern_config_c2h_match_arg3; // @[RxPipeline.scala 43:34]
+  wire [127:0] rx_match_filter_io_in_extern_config_aes_key; // @[RxPipeline.scala 43:34]
+  wire [3:0] rx_match_filter_io_in_extern_config_round_time; // @[RxPipeline.scala 43:34]
+  wire [511:0] rx_match_filter_io_out_tdata; // @[RxPipeline.scala 43:34]
+  wire  rx_match_filter_io_out_tvalid; // @[RxPipeline.scala 43:34]
+  wire  rx_match_filter_io_out_tready; // @[RxPipeline.scala 43:34]
+  wire  rx_match_filter_io_out_tlast; // @[RxPipeline.scala 43:34]
+  wire  rx_match_filter_io_out_tuser; // @[RxPipeline.scala 43:34]
+  wire [15:0] rx_match_filter_io_out_rx_info_tlen; // @[RxPipeline.scala 43:34]
+  wire [5:0] rx_match_filter_io_out_rx_info_qid; // @[RxPipeline.scala 43:34]
+  wire [31:0] rx_match_filter_io_out_rx_info_ip_chksum; // @[RxPipeline.scala 43:34]
+  wire [31:0] rx_match_filter_io_out_rx_info_tcp_chksum; // @[RxPipeline.scala 43:34]
+  wire [7:0] rx_match_filter_io_out_extern_config_c2h_match_op; // @[RxPipeline.scala 43:34]
+  wire [31:0] rx_match_filter_io_out_extern_config_c2h_match_arg1; // @[RxPipeline.scala 43:34]
+  wire [31:0] rx_match_filter_io_out_extern_config_c2h_match_arg2; // @[RxPipeline.scala 43:34]
+  wire  rx_REsearcher_clock; // @[RxPipeline.scala 44:34]
+  wire  rx_REsearcher_reset; // @[RxPipeline.scala 44:34]
+  wire [511:0] rx_REsearcher_io_in_tdata; // @[RxPipeline.scala 44:34]
+  wire  rx_REsearcher_io_in_tvalid; // @[RxPipeline.scala 44:34]
+  wire  rx_REsearcher_io_in_tready; // @[RxPipeline.scala 44:34]
+  wire  rx_REsearcher_io_in_tlast; // @[RxPipeline.scala 44:34]
+  wire  rx_REsearcher_io_in_tuser; // @[RxPipeline.scala 44:34]
+  wire [15:0] rx_REsearcher_io_in_rx_info_tlen; // @[RxPipeline.scala 44:34]
+  wire [5:0] rx_REsearcher_io_in_rx_info_qid; // @[RxPipeline.scala 44:34]
+  wire [31:0] rx_REsearcher_io_in_rx_info_ip_chksum; // @[RxPipeline.scala 44:34]
+  wire [31:0] rx_REsearcher_io_in_rx_info_tcp_chksum; // @[RxPipeline.scala 44:34]
+  wire [7:0] rx_REsearcher_io_in_extern_config_c2h_match_op; // @[RxPipeline.scala 44:34]
+  wire [31:0] rx_REsearcher_io_in_extern_config_c2h_match_arg1; // @[RxPipeline.scala 44:34]
+  wire [31:0] rx_REsearcher_io_in_extern_config_c2h_match_arg2; // @[RxPipeline.scala 44:34]
+  wire [511:0] rx_REsearcher_io_out_tdata; // @[RxPipeline.scala 44:34]
+  wire  rx_REsearcher_io_out_tvalid; // @[RxPipeline.scala 44:34]
+  wire  rx_REsearcher_io_out_tready; // @[RxPipeline.scala 44:34]
+  wire  rx_REsearcher_io_out_tlast; // @[RxPipeline.scala 44:34]
+  wire  rx_REsearcher_io_out_tuser; // @[RxPipeline.scala 44:34]
+  wire [15:0] rx_REsearcher_io_out_rx_info_tlen; // @[RxPipeline.scala 44:34]
+  wire [5:0] rx_REsearcher_io_out_rx_info_qid; // @[RxPipeline.scala 44:34]
+  wire [31:0] rx_REsearcher_io_out_rx_info_ip_chksum; // @[RxPipeline.scala 44:34]
+  wire [31:0] rx_REsearcher_io_out_rx_info_tcp_chksum; // @[RxPipeline.scala 44:34]
+  RxChksumVerifier rx_chksum_verifier ( // @[RxPipeline.scala 41:34]
     .clock(rx_chksum_verifier_clock),
     .reset(rx_chksum_verifier_reset),
     .io_in_tdata(rx_chksum_verifier_io_in_tdata),
@@ -4302,6 +4361,8 @@ module RxPipeline(
     .io_in_extern_config_c2h_match_arg1(rx_chksum_verifier_io_in_extern_config_c2h_match_arg1),
     .io_in_extern_config_c2h_match_arg2(rx_chksum_verifier_io_in_extern_config_c2h_match_arg2),
     .io_in_extern_config_c2h_match_arg3(rx_chksum_verifier_io_in_extern_config_c2h_match_arg3),
+    .io_in_extern_config_aes_key(rx_chksum_verifier_io_in_extern_config_aes_key),
+    .io_in_extern_config_round_time(rx_chksum_verifier_io_in_extern_config_round_time),
     .io_out_tdata(rx_chksum_verifier_io_out_tdata),
     .io_out_tvalid(rx_chksum_verifier_io_out_tvalid),
     .io_out_tready(rx_chksum_verifier_io_out_tready),
@@ -4314,9 +4375,11 @@ module RxPipeline(
     .io_out_extern_config_c2h_match_op(rx_chksum_verifier_io_out_extern_config_c2h_match_op),
     .io_out_extern_config_c2h_match_arg1(rx_chksum_verifier_io_out_extern_config_c2h_match_arg1),
     .io_out_extern_config_c2h_match_arg2(rx_chksum_verifier_io_out_extern_config_c2h_match_arg2),
-    .io_out_extern_config_c2h_match_arg3(rx_chksum_verifier_io_out_extern_config_c2h_match_arg3)
+    .io_out_extern_config_c2h_match_arg3(rx_chksum_verifier_io_out_extern_config_c2h_match_arg3),
+    .io_out_extern_config_aes_key(rx_chksum_verifier_io_out_extern_config_aes_key),
+    .io_out_extern_config_round_time(rx_chksum_verifier_io_out_extern_config_round_time)
   );
-  RxRSSHashFilter rx_rss_hash_filter ( // @[RxPipeline.scala 41:34]
+  RxRSSHashFilter rx_rss_hash_filter ( // @[RxPipeline.scala 42:34]
     .clock(rx_rss_hash_filter_clock),
     .reset(rx_rss_hash_filter_reset),
     .io_in_tdata(rx_rss_hash_filter_io_in_tdata),
@@ -4332,6 +4395,8 @@ module RxPipeline(
     .io_in_extern_config_c2h_match_arg1(rx_rss_hash_filter_io_in_extern_config_c2h_match_arg1),
     .io_in_extern_config_c2h_match_arg2(rx_rss_hash_filter_io_in_extern_config_c2h_match_arg2),
     .io_in_extern_config_c2h_match_arg3(rx_rss_hash_filter_io_in_extern_config_c2h_match_arg3),
+    .io_in_extern_config_aes_key(rx_rss_hash_filter_io_in_extern_config_aes_key),
+    .io_in_extern_config_round_time(rx_rss_hash_filter_io_in_extern_config_round_time),
     .io_out_tdata(rx_rss_hash_filter_io_out_tdata),
     .io_out_tvalid(rx_rss_hash_filter_io_out_tvalid),
     .io_out_tready(rx_rss_hash_filter_io_out_tready),
@@ -4344,9 +4409,11 @@ module RxPipeline(
     .io_out_extern_config_c2h_match_op(rx_rss_hash_filter_io_out_extern_config_c2h_match_op),
     .io_out_extern_config_c2h_match_arg1(rx_rss_hash_filter_io_out_extern_config_c2h_match_arg1),
     .io_out_extern_config_c2h_match_arg2(rx_rss_hash_filter_io_out_extern_config_c2h_match_arg2),
-    .io_out_extern_config_c2h_match_arg3(rx_rss_hash_filter_io_out_extern_config_c2h_match_arg3)
+    .io_out_extern_config_c2h_match_arg3(rx_rss_hash_filter_io_out_extern_config_c2h_match_arg3),
+    .io_out_extern_config_aes_key(rx_rss_hash_filter_io_out_extern_config_aes_key),
+    .io_out_extern_config_round_time(rx_rss_hash_filter_io_out_extern_config_round_time)
   );
-  RxMatchFilter rx_match_filter ( // @[RxPipeline.scala 42:34]
+  RxMatchFilter rx_match_filter ( // @[RxPipeline.scala 43:34]
     .clock(rx_match_filter_clock),
     .reset(rx_match_filter_reset),
     .io_in_tdata(rx_match_filter_io_in_tdata),
@@ -4362,6 +4429,8 @@ module RxPipeline(
     .io_in_extern_config_c2h_match_arg1(rx_match_filter_io_in_extern_config_c2h_match_arg1),
     .io_in_extern_config_c2h_match_arg2(rx_match_filter_io_in_extern_config_c2h_match_arg2),
     .io_in_extern_config_c2h_match_arg3(rx_match_filter_io_in_extern_config_c2h_match_arg3),
+    .io_in_extern_config_aes_key(rx_match_filter_io_in_extern_config_aes_key),
+    .io_in_extern_config_round_time(rx_match_filter_io_in_extern_config_round_time),
     .io_out_tdata(rx_match_filter_io_out_tdata),
     .io_out_tvalid(rx_match_filter_io_out_tvalid),
     .io_out_tready(rx_match_filter_io_out_tready),
@@ -4375,7 +4444,7 @@ module RxPipeline(
     .io_out_extern_config_c2h_match_arg1(rx_match_filter_io_out_extern_config_c2h_match_arg1),
     .io_out_extern_config_c2h_match_arg2(rx_match_filter_io_out_extern_config_c2h_match_arg2)
   );
-  RxRESearcher rx_REsearcher ( // @[RxPipeline.scala 43:34]
+  RxRESearcher rx_REsearcher ( // @[RxPipeline.scala 44:34]
     .clock(rx_REsearcher_clock),
     .reset(rx_REsearcher_reset),
     .io_in_tdata(rx_REsearcher_io_in_tdata),
@@ -4400,71 +4469,77 @@ module RxPipeline(
     .io_out_rx_info_ip_chksum(rx_REsearcher_io_out_rx_info_ip_chksum),
     .io_out_rx_info_tcp_chksum(rx_REsearcher_io_out_rx_info_tcp_chksum)
   );
-  assign io_in_tready = rx_chksum_verifier_io_in_tready; // @[RxPipeline.scala 44:29]
-  assign io_out_tdata = rx_REsearcher_io_out_tdata; // @[RxPipeline.scala 48:29]
-  assign io_out_tvalid = rx_REsearcher_io_out_tvalid; // @[RxPipeline.scala 48:29]
-  assign io_out_tlast = rx_REsearcher_io_out_tlast; // @[RxPipeline.scala 48:29]
-  assign io_out_tuser = rx_REsearcher_io_out_tuser; // @[RxPipeline.scala 48:29]
-  assign io_out_rx_info_tlen = rx_REsearcher_io_out_rx_info_tlen; // @[RxPipeline.scala 48:29]
-  assign io_out_rx_info_qid = rx_REsearcher_io_out_rx_info_qid; // @[RxPipeline.scala 48:29]
-  assign io_out_rx_info_ip_chksum = rx_REsearcher_io_out_rx_info_ip_chksum; // @[RxPipeline.scala 48:29]
-  assign io_out_rx_info_tcp_chksum = rx_REsearcher_io_out_rx_info_tcp_chksum; // @[RxPipeline.scala 48:29]
+  assign io_in_tready = rx_chksum_verifier_io_in_tready; // @[RxPipeline.scala 45:29]
+  assign io_out_tdata = rx_REsearcher_io_out_tdata; // @[RxPipeline.scala 51:29]
+  assign io_out_tvalid = rx_REsearcher_io_out_tvalid; // @[RxPipeline.scala 51:29]
+  assign io_out_tlast = rx_REsearcher_io_out_tlast; // @[RxPipeline.scala 51:29]
+  assign io_out_tuser = rx_REsearcher_io_out_tuser; // @[RxPipeline.scala 51:29]
+  assign io_out_rx_info_tlen = rx_REsearcher_io_out_rx_info_tlen; // @[RxPipeline.scala 51:29]
+  assign io_out_rx_info_qid = rx_REsearcher_io_out_rx_info_qid; // @[RxPipeline.scala 51:29]
+  assign io_out_rx_info_ip_chksum = rx_REsearcher_io_out_rx_info_ip_chksum; // @[RxPipeline.scala 51:29]
+  assign io_out_rx_info_tcp_chksum = rx_REsearcher_io_out_rx_info_tcp_chksum; // @[RxPipeline.scala 51:29]
   assign rx_chksum_verifier_clock = clock;
   assign rx_chksum_verifier_reset = reset;
-  assign rx_chksum_verifier_io_in_tdata = io_in_tdata; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_tvalid = io_in_tvalid; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_tlast = io_in_tlast; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_tuser = io_in_tuser; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_rx_info_tlen = io_in_rx_info_tlen; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_extern_config_c2h_match_op = io_in_extern_config_c2h_match_op; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg1 = io_in_extern_config_c2h_match_arg1; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg2 = io_in_extern_config_c2h_match_arg2; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg3 = io_in_extern_config_c2h_match_arg3; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_out_tready = rx_rss_hash_filter_io_in_tready; // @[RxPipeline.scala 45:29]
+  assign rx_chksum_verifier_io_in_tdata = io_in_tdata; // @[RxPipeline.scala 45:29]
+  assign rx_chksum_verifier_io_in_tvalid = io_in_tvalid; // @[RxPipeline.scala 45:29]
+  assign rx_chksum_verifier_io_in_tlast = io_in_tlast; // @[RxPipeline.scala 45:29]
+  assign rx_chksum_verifier_io_in_tuser = io_in_tuser; // @[RxPipeline.scala 45:29]
+  assign rx_chksum_verifier_io_in_rx_info_tlen = io_in_rx_info_tlen; // @[RxPipeline.scala 45:29]
+  assign rx_chksum_verifier_io_in_extern_config_c2h_match_op = io_in_extern_config_c2h_match_op; // @[RxPipeline.scala 45:29]
+  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg1 = io_in_extern_config_c2h_match_arg1; // @[RxPipeline.scala 45:29]
+  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg2 = io_in_extern_config_c2h_match_arg2; // @[RxPipeline.scala 45:29]
+  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg3 = io_in_extern_config_c2h_match_arg3; // @[RxPipeline.scala 45:29]
+  assign rx_chksum_verifier_io_in_extern_config_aes_key = io_in_extern_config_aes_key; // @[RxPipeline.scala 45:29]
+  assign rx_chksum_verifier_io_in_extern_config_round_time = io_in_extern_config_round_time; // @[RxPipeline.scala 45:29]
+  assign rx_chksum_verifier_io_out_tready = rx_rss_hash_filter_io_in_tready; // @[RxPipeline.scala 48:29]
   assign rx_rss_hash_filter_clock = clock;
   assign rx_rss_hash_filter_reset = reset;
-  assign rx_rss_hash_filter_io_in_tdata = rx_chksum_verifier_io_out_tdata; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hash_filter_io_in_tvalid = rx_chksum_verifier_io_out_tvalid; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hash_filter_io_in_tlast = rx_chksum_verifier_io_out_tlast; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hash_filter_io_in_tuser = rx_chksum_verifier_io_out_tuser; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hash_filter_io_in_rx_info_tlen = rx_chksum_verifier_io_out_rx_info_tlen; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hash_filter_io_in_rx_info_qid = rx_chksum_verifier_io_out_rx_info_qid; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hash_filter_io_in_rx_info_ip_chksum = rx_chksum_verifier_io_out_rx_info_ip_chksum; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hash_filter_io_in_rx_info_tcp_chksum = rx_chksum_verifier_io_out_rx_info_tcp_chksum; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hash_filter_io_in_extern_config_c2h_match_op = rx_chksum_verifier_io_out_extern_config_c2h_match_op; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hash_filter_io_in_extern_config_c2h_match_arg1 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg1; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hash_filter_io_in_extern_config_c2h_match_arg2 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg2; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hash_filter_io_in_extern_config_c2h_match_arg3 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg3; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hash_filter_io_out_tready = rx_match_filter_io_in_tready; // @[RxPipeline.scala 46:29]
+  assign rx_rss_hash_filter_io_in_tdata = rx_chksum_verifier_io_out_tdata; // @[RxPipeline.scala 48:29]
+  assign rx_rss_hash_filter_io_in_tvalid = rx_chksum_verifier_io_out_tvalid; // @[RxPipeline.scala 48:29]
+  assign rx_rss_hash_filter_io_in_tlast = rx_chksum_verifier_io_out_tlast; // @[RxPipeline.scala 48:29]
+  assign rx_rss_hash_filter_io_in_tuser = rx_chksum_verifier_io_out_tuser; // @[RxPipeline.scala 48:29]
+  assign rx_rss_hash_filter_io_in_rx_info_tlen = rx_chksum_verifier_io_out_rx_info_tlen; // @[RxPipeline.scala 48:29]
+  assign rx_rss_hash_filter_io_in_rx_info_qid = rx_chksum_verifier_io_out_rx_info_qid; // @[RxPipeline.scala 48:29]
+  assign rx_rss_hash_filter_io_in_rx_info_ip_chksum = rx_chksum_verifier_io_out_rx_info_ip_chksum; // @[RxPipeline.scala 48:29]
+  assign rx_rss_hash_filter_io_in_rx_info_tcp_chksum = rx_chksum_verifier_io_out_rx_info_tcp_chksum; // @[RxPipeline.scala 48:29]
+  assign rx_rss_hash_filter_io_in_extern_config_c2h_match_op = rx_chksum_verifier_io_out_extern_config_c2h_match_op; // @[RxPipeline.scala 48:29]
+  assign rx_rss_hash_filter_io_in_extern_config_c2h_match_arg1 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg1; // @[RxPipeline.scala 48:29]
+  assign rx_rss_hash_filter_io_in_extern_config_c2h_match_arg2 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg2; // @[RxPipeline.scala 48:29]
+  assign rx_rss_hash_filter_io_in_extern_config_c2h_match_arg3 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg3; // @[RxPipeline.scala 48:29]
+  assign rx_rss_hash_filter_io_in_extern_config_aes_key = rx_chksum_verifier_io_out_extern_config_aes_key; // @[RxPipeline.scala 48:29]
+  assign rx_rss_hash_filter_io_in_extern_config_round_time = rx_chksum_verifier_io_out_extern_config_round_time; // @[RxPipeline.scala 48:29]
+  assign rx_rss_hash_filter_io_out_tready = rx_match_filter_io_in_tready; // @[RxPipeline.scala 49:29]
   assign rx_match_filter_clock = clock;
   assign rx_match_filter_reset = reset;
-  assign rx_match_filter_io_in_tdata = rx_rss_hash_filter_io_out_tdata; // @[RxPipeline.scala 46:29]
-  assign rx_match_filter_io_in_tvalid = rx_rss_hash_filter_io_out_tvalid; // @[RxPipeline.scala 46:29]
-  assign rx_match_filter_io_in_tlast = rx_rss_hash_filter_io_out_tlast; // @[RxPipeline.scala 46:29]
-  assign rx_match_filter_io_in_tuser = rx_rss_hash_filter_io_out_tuser; // @[RxPipeline.scala 46:29]
-  assign rx_match_filter_io_in_rx_info_tlen = rx_rss_hash_filter_io_out_rx_info_tlen; // @[RxPipeline.scala 46:29]
-  assign rx_match_filter_io_in_rx_info_qid = rx_rss_hash_filter_io_out_rx_info_qid; // @[RxPipeline.scala 46:29]
-  assign rx_match_filter_io_in_rx_info_ip_chksum = rx_rss_hash_filter_io_out_rx_info_ip_chksum; // @[RxPipeline.scala 46:29]
-  assign rx_match_filter_io_in_rx_info_tcp_chksum = rx_rss_hash_filter_io_out_rx_info_tcp_chksum; // @[RxPipeline.scala 46:29]
-  assign rx_match_filter_io_in_extern_config_c2h_match_op = rx_rss_hash_filter_io_out_extern_config_c2h_match_op; // @[RxPipeline.scala 46:29]
-  assign rx_match_filter_io_in_extern_config_c2h_match_arg1 = rx_rss_hash_filter_io_out_extern_config_c2h_match_arg1; // @[RxPipeline.scala 46:29]
-  assign rx_match_filter_io_in_extern_config_c2h_match_arg2 = rx_rss_hash_filter_io_out_extern_config_c2h_match_arg2; // @[RxPipeline.scala 46:29]
-  assign rx_match_filter_io_in_extern_config_c2h_match_arg3 = rx_rss_hash_filter_io_out_extern_config_c2h_match_arg3; // @[RxPipeline.scala 46:29]
-  assign rx_match_filter_io_out_tready = rx_REsearcher_io_in_tready; // @[RxPipeline.scala 47:29]
+  assign rx_match_filter_io_in_tdata = rx_rss_hash_filter_io_out_tdata; // @[RxPipeline.scala 49:29]
+  assign rx_match_filter_io_in_tvalid = rx_rss_hash_filter_io_out_tvalid; // @[RxPipeline.scala 49:29]
+  assign rx_match_filter_io_in_tlast = rx_rss_hash_filter_io_out_tlast; // @[RxPipeline.scala 49:29]
+  assign rx_match_filter_io_in_tuser = rx_rss_hash_filter_io_out_tuser; // @[RxPipeline.scala 49:29]
+  assign rx_match_filter_io_in_rx_info_tlen = rx_rss_hash_filter_io_out_rx_info_tlen; // @[RxPipeline.scala 49:29]
+  assign rx_match_filter_io_in_rx_info_qid = rx_rss_hash_filter_io_out_rx_info_qid; // @[RxPipeline.scala 49:29]
+  assign rx_match_filter_io_in_rx_info_ip_chksum = rx_rss_hash_filter_io_out_rx_info_ip_chksum; // @[RxPipeline.scala 49:29]
+  assign rx_match_filter_io_in_rx_info_tcp_chksum = rx_rss_hash_filter_io_out_rx_info_tcp_chksum; // @[RxPipeline.scala 49:29]
+  assign rx_match_filter_io_in_extern_config_c2h_match_op = rx_rss_hash_filter_io_out_extern_config_c2h_match_op; // @[RxPipeline.scala 49:29]
+  assign rx_match_filter_io_in_extern_config_c2h_match_arg1 = rx_rss_hash_filter_io_out_extern_config_c2h_match_arg1; // @[RxPipeline.scala 49:29]
+  assign rx_match_filter_io_in_extern_config_c2h_match_arg2 = rx_rss_hash_filter_io_out_extern_config_c2h_match_arg2; // @[RxPipeline.scala 49:29]
+  assign rx_match_filter_io_in_extern_config_c2h_match_arg3 = rx_rss_hash_filter_io_out_extern_config_c2h_match_arg3; // @[RxPipeline.scala 49:29]
+  assign rx_match_filter_io_in_extern_config_aes_key = rx_rss_hash_filter_io_out_extern_config_aes_key; // @[RxPipeline.scala 49:29]
+  assign rx_match_filter_io_in_extern_config_round_time = rx_rss_hash_filter_io_out_extern_config_round_time; // @[RxPipeline.scala 49:29]
+  assign rx_match_filter_io_out_tready = rx_REsearcher_io_in_tready; // @[RxPipeline.scala 50:29]
   assign rx_REsearcher_clock = clock;
   assign rx_REsearcher_reset = reset;
-  assign rx_REsearcher_io_in_tdata = rx_match_filter_io_out_tdata; // @[RxPipeline.scala 47:29]
-  assign rx_REsearcher_io_in_tvalid = rx_match_filter_io_out_tvalid; // @[RxPipeline.scala 47:29]
-  assign rx_REsearcher_io_in_tlast = rx_match_filter_io_out_tlast; // @[RxPipeline.scala 47:29]
-  assign rx_REsearcher_io_in_tuser = rx_match_filter_io_out_tuser; // @[RxPipeline.scala 47:29]
-  assign rx_REsearcher_io_in_rx_info_tlen = rx_match_filter_io_out_rx_info_tlen; // @[RxPipeline.scala 47:29]
-  assign rx_REsearcher_io_in_rx_info_qid = rx_match_filter_io_out_rx_info_qid; // @[RxPipeline.scala 47:29]
-  assign rx_REsearcher_io_in_rx_info_ip_chksum = rx_match_filter_io_out_rx_info_ip_chksum; // @[RxPipeline.scala 47:29]
-  assign rx_REsearcher_io_in_rx_info_tcp_chksum = rx_match_filter_io_out_rx_info_tcp_chksum; // @[RxPipeline.scala 47:29]
-  assign rx_REsearcher_io_in_extern_config_c2h_match_op = rx_match_filter_io_out_extern_config_c2h_match_op; // @[RxPipeline.scala 47:29]
-  assign rx_REsearcher_io_in_extern_config_c2h_match_arg1 = rx_match_filter_io_out_extern_config_c2h_match_arg1; // @[RxPipeline.scala 47:29]
-  assign rx_REsearcher_io_in_extern_config_c2h_match_arg2 = rx_match_filter_io_out_extern_config_c2h_match_arg2; // @[RxPipeline.scala 47:29]
-  assign rx_REsearcher_io_out_tready = io_out_tready; // @[RxPipeline.scala 48:29]
+  assign rx_REsearcher_io_in_tdata = rx_match_filter_io_out_tdata; // @[RxPipeline.scala 50:29]
+  assign rx_REsearcher_io_in_tvalid = rx_match_filter_io_out_tvalid; // @[RxPipeline.scala 50:29]
+  assign rx_REsearcher_io_in_tlast = rx_match_filter_io_out_tlast; // @[RxPipeline.scala 50:29]
+  assign rx_REsearcher_io_in_tuser = rx_match_filter_io_out_tuser; // @[RxPipeline.scala 50:29]
+  assign rx_REsearcher_io_in_rx_info_tlen = rx_match_filter_io_out_rx_info_tlen; // @[RxPipeline.scala 50:29]
+  assign rx_REsearcher_io_in_rx_info_qid = rx_match_filter_io_out_rx_info_qid; // @[RxPipeline.scala 50:29]
+  assign rx_REsearcher_io_in_rx_info_ip_chksum = rx_match_filter_io_out_rx_info_ip_chksum; // @[RxPipeline.scala 50:29]
+  assign rx_REsearcher_io_in_rx_info_tcp_chksum = rx_match_filter_io_out_rx_info_tcp_chksum; // @[RxPipeline.scala 50:29]
+  assign rx_REsearcher_io_in_extern_config_c2h_match_op = rx_match_filter_io_out_extern_config_c2h_match_op; // @[RxPipeline.scala 50:29]
+  assign rx_REsearcher_io_in_extern_config_c2h_match_arg1 = rx_match_filter_io_out_extern_config_c2h_match_arg1; // @[RxPipeline.scala 50:29]
+  assign rx_REsearcher_io_in_extern_config_c2h_match_arg2 = rx_match_filter_io_out_extern_config_c2h_match_arg2; // @[RxPipeline.scala 50:29]
+  assign rx_REsearcher_io_out_tready = io_out_tready; // @[RxPipeline.scala 51:29]
 endmodule
 module RxBufferFifo(
   input          clock,
@@ -5095,10 +5170,12 @@ module RxHandler(
   input          io_reset_counter,
   output [31:0]  io_c2h_pack_counter,
   output [31:0]  io_c2h_err_counter,
-  input  [31:0]  io_extern_config_c2h_match_op,
+  input  [7:0]   io_extern_config_c2h_match_op,
   input  [31:0]  io_extern_config_c2h_match_arg1,
   input  [31:0]  io_extern_config_c2h_match_arg2,
-  input  [31:0]  io_extern_config_c2h_match_arg3
+  input  [31:0]  io_extern_config_c2h_match_arg3,
+  input  [127:0] io_extern_config_aes_key,
+  input  [3:0]   io_extern_config_round_time
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
@@ -5117,14 +5194,18 @@ module RxHandler(
   wire  rx_converter_io_out_tlast; // @[RxHandler.scala 42:28]
   wire  rx_converter_io_out_tuser; // @[RxHandler.scala 42:28]
   wire [15:0] rx_converter_io_out_rx_info_tlen; // @[RxHandler.scala 42:28]
-  wire [31:0] rx_converter_io_out_extern_config_c2h_match_op; // @[RxHandler.scala 42:28]
+  wire [7:0] rx_converter_io_out_extern_config_c2h_match_op; // @[RxHandler.scala 42:28]
   wire [31:0] rx_converter_io_out_extern_config_c2h_match_arg1; // @[RxHandler.scala 42:28]
   wire [31:0] rx_converter_io_out_extern_config_c2h_match_arg2; // @[RxHandler.scala 42:28]
   wire [31:0] rx_converter_io_out_extern_config_c2h_match_arg3; // @[RxHandler.scala 42:28]
-  wire [31:0] rx_converter_io_extern_config_c2h_match_op; // @[RxHandler.scala 42:28]
+  wire [127:0] rx_converter_io_out_extern_config_aes_key; // @[RxHandler.scala 42:28]
+  wire [3:0] rx_converter_io_out_extern_config_round_time; // @[RxHandler.scala 42:28]
+  wire [7:0] rx_converter_io_extern_config_c2h_match_op; // @[RxHandler.scala 42:28]
   wire [31:0] rx_converter_io_extern_config_c2h_match_arg1; // @[RxHandler.scala 42:28]
   wire [31:0] rx_converter_io_extern_config_c2h_match_arg2; // @[RxHandler.scala 42:28]
   wire [31:0] rx_converter_io_extern_config_c2h_match_arg3; // @[RxHandler.scala 42:28]
+  wire [127:0] rx_converter_io_extern_config_aes_key; // @[RxHandler.scala 42:28]
+  wire [3:0] rx_converter_io_extern_config_round_time; // @[RxHandler.scala 42:28]
   wire  rx_pipeline_clock; // @[RxHandler.scala 46:27]
   wire  rx_pipeline_reset; // @[RxHandler.scala 46:27]
   wire [511:0] rx_pipeline_io_in_tdata; // @[RxHandler.scala 46:27]
@@ -5133,10 +5214,12 @@ module RxHandler(
   wire  rx_pipeline_io_in_tlast; // @[RxHandler.scala 46:27]
   wire  rx_pipeline_io_in_tuser; // @[RxHandler.scala 46:27]
   wire [15:0] rx_pipeline_io_in_rx_info_tlen; // @[RxHandler.scala 46:27]
-  wire [31:0] rx_pipeline_io_in_extern_config_c2h_match_op; // @[RxHandler.scala 46:27]
+  wire [7:0] rx_pipeline_io_in_extern_config_c2h_match_op; // @[RxHandler.scala 46:27]
   wire [31:0] rx_pipeline_io_in_extern_config_c2h_match_arg1; // @[RxHandler.scala 46:27]
   wire [31:0] rx_pipeline_io_in_extern_config_c2h_match_arg2; // @[RxHandler.scala 46:27]
   wire [31:0] rx_pipeline_io_in_extern_config_c2h_match_arg3; // @[RxHandler.scala 46:27]
+  wire [127:0] rx_pipeline_io_in_extern_config_aes_key; // @[RxHandler.scala 46:27]
+  wire [3:0] rx_pipeline_io_in_extern_config_round_time; // @[RxHandler.scala 46:27]
   wire [511:0] rx_pipeline_io_out_tdata; // @[RxHandler.scala 46:27]
   wire  rx_pipeline_io_out_tvalid; // @[RxHandler.scala 46:27]
   wire  rx_pipeline_io_out_tready; // @[RxHandler.scala 46:27]
@@ -5195,10 +5278,14 @@ module RxHandler(
     .io_out_extern_config_c2h_match_arg1(rx_converter_io_out_extern_config_c2h_match_arg1),
     .io_out_extern_config_c2h_match_arg2(rx_converter_io_out_extern_config_c2h_match_arg2),
     .io_out_extern_config_c2h_match_arg3(rx_converter_io_out_extern_config_c2h_match_arg3),
+    .io_out_extern_config_aes_key(rx_converter_io_out_extern_config_aes_key),
+    .io_out_extern_config_round_time(rx_converter_io_out_extern_config_round_time),
     .io_extern_config_c2h_match_op(rx_converter_io_extern_config_c2h_match_op),
     .io_extern_config_c2h_match_arg1(rx_converter_io_extern_config_c2h_match_arg1),
     .io_extern_config_c2h_match_arg2(rx_converter_io_extern_config_c2h_match_arg2),
-    .io_extern_config_c2h_match_arg3(rx_converter_io_extern_config_c2h_match_arg3)
+    .io_extern_config_c2h_match_arg3(rx_converter_io_extern_config_c2h_match_arg3),
+    .io_extern_config_aes_key(rx_converter_io_extern_config_aes_key),
+    .io_extern_config_round_time(rx_converter_io_extern_config_round_time)
   );
   RxPipeline rx_pipeline ( // @[RxHandler.scala 46:27]
     .clock(rx_pipeline_clock),
@@ -5213,6 +5300,8 @@ module RxHandler(
     .io_in_extern_config_c2h_match_arg1(rx_pipeline_io_in_extern_config_c2h_match_arg1),
     .io_in_extern_config_c2h_match_arg2(rx_pipeline_io_in_extern_config_c2h_match_arg2),
     .io_in_extern_config_c2h_match_arg3(rx_pipeline_io_in_extern_config_c2h_match_arg3),
+    .io_in_extern_config_aes_key(rx_pipeline_io_in_extern_config_aes_key),
+    .io_in_extern_config_round_time(rx_pipeline_io_in_extern_config_round_time),
     .io_out_tdata(rx_pipeline_io_out_tdata),
     .io_out_tvalid(rx_pipeline_io_out_tvalid),
     .io_out_tready(rx_pipeline_io_out_tready),
@@ -5265,6 +5354,8 @@ module RxHandler(
   assign rx_converter_io_extern_config_c2h_match_arg1 = io_extern_config_c2h_match_arg1; // @[RxHandler.scala 44:33]
   assign rx_converter_io_extern_config_c2h_match_arg2 = io_extern_config_c2h_match_arg2; // @[RxHandler.scala 44:33]
   assign rx_converter_io_extern_config_c2h_match_arg3 = io_extern_config_c2h_match_arg3; // @[RxHandler.scala 44:33]
+  assign rx_converter_io_extern_config_aes_key = io_extern_config_aes_key; // @[RxHandler.scala 44:33]
+  assign rx_converter_io_extern_config_round_time = io_extern_config_round_time; // @[RxHandler.scala 44:33]
   assign rx_pipeline_clock = clock;
   assign rx_pipeline_reset = reset;
   assign rx_pipeline_io_in_tdata = rx_converter_io_out_tdata; // @[RxHandler.scala 47:23]
@@ -5276,6 +5367,8 @@ module RxHandler(
   assign rx_pipeline_io_in_extern_config_c2h_match_arg1 = rx_converter_io_out_extern_config_c2h_match_arg1; // @[RxHandler.scala 47:23]
   assign rx_pipeline_io_in_extern_config_c2h_match_arg2 = rx_converter_io_out_extern_config_c2h_match_arg2; // @[RxHandler.scala 47:23]
   assign rx_pipeline_io_in_extern_config_c2h_match_arg3 = rx_converter_io_out_extern_config_c2h_match_arg3; // @[RxHandler.scala 47:23]
+  assign rx_pipeline_io_in_extern_config_aes_key = rx_converter_io_out_extern_config_aes_key; // @[RxHandler.scala 47:23]
+  assign rx_pipeline_io_in_extern_config_round_time = rx_converter_io_out_extern_config_round_time; // @[RxHandler.scala 47:23]
   assign rx_pipeline_io_out_tready = rx_buffer_fifo_io_in_tready; // @[RxHandler.scala 50:22]
   assign rx_buffer_fifo_clock = clock;
   assign rx_buffer_fifo_reset = reset;
@@ -5364,10 +5457,12 @@ module PackageHandler(
   output         io_QDMA_c2h_stub_in_tlast,
   output         io_QDMA_c2h_stub_in_tuser,
   input          io_reset_counter,
-  input  [31:0]  io_extern_config_c2h_match_op,
+  input  [7:0]   io_extern_config_c2h_match_op,
   input  [31:0]  io_extern_config_c2h_match_arg1,
   input  [31:0]  io_extern_config_c2h_match_arg2,
   input  [31:0]  io_extern_config_c2h_match_arg3,
+  input  [127:0] io_extern_config_aes_key,
+  input  [3:0]   io_extern_config_round_time,
   output [31:0]  io_c2h_pack_counter,
   output [31:0]  io_c2h_err_counter,
   output [31:0]  io_h2c_pack_counter,
@@ -5403,10 +5498,12 @@ module PackageHandler(
   wire  rx_handler_io_reset_counter; // @[PackageHandler.scala 38:26]
   wire [31:0] rx_handler_io_c2h_pack_counter; // @[PackageHandler.scala 38:26]
   wire [31:0] rx_handler_io_c2h_err_counter; // @[PackageHandler.scala 38:26]
-  wire [31:0] rx_handler_io_extern_config_c2h_match_op; // @[PackageHandler.scala 38:26]
+  wire [7:0] rx_handler_io_extern_config_c2h_match_op; // @[PackageHandler.scala 38:26]
   wire [31:0] rx_handler_io_extern_config_c2h_match_arg1; // @[PackageHandler.scala 38:26]
   wire [31:0] rx_handler_io_extern_config_c2h_match_arg2; // @[PackageHandler.scala 38:26]
   wire [31:0] rx_handler_io_extern_config_c2h_match_arg3; // @[PackageHandler.scala 38:26]
+  wire [127:0] rx_handler_io_extern_config_aes_key; // @[PackageHandler.scala 38:26]
+  wire [3:0] rx_handler_io_extern_config_round_time; // @[PackageHandler.scala 38:26]
   TxHandler tx_handler ( // @[PackageHandler.scala 30:26]
     .clock(tx_handler_clock),
     .reset(tx_handler_reset),
@@ -5443,7 +5540,9 @@ module PackageHandler(
     .io_extern_config_c2h_match_op(rx_handler_io_extern_config_c2h_match_op),
     .io_extern_config_c2h_match_arg1(rx_handler_io_extern_config_c2h_match_arg1),
     .io_extern_config_c2h_match_arg2(rx_handler_io_extern_config_c2h_match_arg2),
-    .io_extern_config_c2h_match_arg3(rx_handler_io_extern_config_c2h_match_arg3)
+    .io_extern_config_c2h_match_arg3(rx_handler_io_extern_config_c2h_match_arg3),
+    .io_extern_config_aes_key(rx_handler_io_extern_config_aes_key),
+    .io_extern_config_round_time(rx_handler_io_extern_config_round_time)
   );
   assign io_QDMA_h2c_stub_out_tready = tx_handler_io_QDMA_h2c_stub_out_tready; // @[PackageHandler.scala 31:24]
   assign io_CMAC_in_tdata = tx_handler_io_CMAC_in_tdata; // @[PackageHandler.scala 32:24]
@@ -5481,4 +5580,6 @@ module PackageHandler(
   assign rx_handler_io_extern_config_c2h_match_arg1 = io_extern_config_c2h_match_arg1; // @[PackageHandler.scala 42:33]
   assign rx_handler_io_extern_config_c2h_match_arg2 = io_extern_config_c2h_match_arg2; // @[PackageHandler.scala 42:33]
   assign rx_handler_io_extern_config_c2h_match_arg3 = io_extern_config_c2h_match_arg3; // @[PackageHandler.scala 42:33]
+  assign rx_handler_io_extern_config_aes_key = io_extern_config_aes_key; // @[PackageHandler.scala 42:33]
+  assign rx_handler_io_extern_config_round_time = io_extern_config_round_time; // @[PackageHandler.scala 42:33]
 endmodule

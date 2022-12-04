@@ -133,25 +133,20 @@ class RxMatchFilter extends RxPipelineHandler {
   val match_found_reg = RegInit(false.B)
   val match_continue_reg = RegInit(false.B)
 
-  val previous_tdata_reg = RegInit(0.U(24.W))
+  val previous_tdata_reg = RegInit(0.U(32.W))
 
-  val cur_place_reg = RegEnable(Mux(io.in.rx_info.tlen(5,0) === 0.U,io.in.rx_info.tlen,Cat(io.in.rx_info.tlen(15,6)+1.U,0.U(6.W))),0.U,in_shake_hand)
-
+  val cur_place = Mux(io.in.rx_info.tlen(5,0) === 0.U,io.in.rx_info.tlen,Cat(io.in.rx_info.tlen(15,6)+1.U,0.U(6.W)))
+  val cur_place_reg = RegEnable(cur_place,0.U,in_shake_hand)
   //ceil align 64; we assume that the padding 0 in the tlast beat won't interfere matching process
+
   val in_beat_place = match_place - (cur_place_reg - 64.U)
   val in_beat_content = (in_reg.tdata >> (in_beat_place << 3.U))(31,0)
 
   when (in_shake_hand) {
-    previous_tdata_reg := in_reg.tdata(511,488)
     when (match_continue_reg) {
       // partly matched before
       match_continue_reg := false.B
-      val match_continue_len = in_beat_place + 4.U // remain len; 1,2,3
-      val match_continue_val = (Fill(32,match_continue_len === 1.U) & Cat(in_reg.tdata(7,0), previous_tdata_reg(23,0)))  |
-                               (Fill(32,match_continue_len === 2.U) & Cat(in_reg.tdata(15,0),previous_tdata_reg(23,8)))  |
-                               (Fill(32,match_continue_len === 3.U) & Cat(in_reg.tdata(23,0),previous_tdata_reg(23,16)))
-
-      match_found := compare(match_op,match_mask,change_order_32(match_continue_val),match_content)
+      match_found := compare(match_op,match_mask,change_order_32(previous_tdata_reg),match_content)
 
     }.elsewhen (match_place >= cur_place_reg - 64.U) {
         // start in current beat
@@ -162,6 +157,9 @@ class RxMatchFilter extends RxPipelineHandler {
         }.elsewhen (match_place < cur_place_reg && !in_reg.tlast) {
           // between current beat and next beat
           match_continue_reg := true.B
+          previous_tdata_reg := (Fill(32,!in_beat_place(1) &  in_beat_place(0)) & Cat(io.in.tdata(7,0), in_reg.tdata(511,488)))  | // 61
+                                (Fill(32, in_beat_place(1) & !in_beat_place(0)) & Cat(io.in.tdata(15,0),in_reg.tdata(511,496)))  | // 62
+                                (Fill(32, in_beat_place(1) &  in_beat_place(0)) & Cat(io.in.tdata(23,0),in_reg.tdata(511,504)))    // 63
         }
       }
 
@@ -223,6 +221,11 @@ class RxRESearcher extends RxPipelineHandler {
     io.out.rx_info.qid := Mux(search_found_reg | search_or_result,1.U,in_reg.rx_info.qid)
   }
 }
+
+//class RxRC4Decrypter extends RxPipelineHandler {
+//
+//}
+
 // notice:
 // if we want to cal qid not only by the first beat but also by the whole packet,
 // we need to add fifo in this pipeline, and use qid calculated in tlast beat

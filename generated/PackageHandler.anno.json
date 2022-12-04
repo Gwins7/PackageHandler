@@ -2,19 +2,19 @@
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~PackageHandler|ReduceAddSync",
-    "duplicate":"~PackageHandler|PackageHandler/tx_handler:TxHandler/tx_pipeline:TxPipeline/chksum_generator:TxChksumGenerator/ip_chksum_cal:ReduceAddSync",
+    "duplicate":"~PackageHandler|PackageHandler/tx_handler:TxHandler/tx_pipeline:TxPipeline/tx_chksum_generator:TxChksumGenerator/ip_chksum_cal:ReduceAddSync",
     "index":0.0
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~PackageHandler|ReduceAddSync_1",
-    "duplicate":"~PackageHandler|PackageHandler/tx_handler:TxHandler/tx_pipeline:TxPipeline/chksum_generator:TxChksumGenerator/tcp_pld_chksum_cal:ReduceAddSync_1",
+    "duplicate":"~PackageHandler|PackageHandler/tx_handler:TxHandler/tx_pipeline:TxPipeline/tx_chksum_generator:TxChksumGenerator/tcp_pld_chksum_cal:ReduceAddSync_1",
     "index":0.047619047619047616
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~PackageHandler|ReduceAddSync_2",
-    "duplicate":"~PackageHandler|PackageHandler/tx_handler:TxHandler/tx_pipeline:TxPipeline/chksum_generator:TxChksumGenerator/tcp_hdr_chksum_cal:ReduceAddSync_1",
+    "duplicate":"~PackageHandler|PackageHandler/tx_handler:TxHandler/tx_pipeline:TxPipeline/tx_chksum_generator:TxChksumGenerator/tcp_hdr_chksum_cal:ReduceAddSync_1",
     "index":0.09523809523809523
   },
   {

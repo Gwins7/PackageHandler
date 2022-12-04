@@ -37,11 +37,14 @@ class RxPipeline extends Module{
   // which is associated with previous tuser state.
 
   // add pipeline handler here
+//  val rx_aes_decrypter =   Module (new RxAESDecrypter())
   val rx_chksum_verifier = Module(new RxChksumVerifier())
   val rx_rss_hash_filter = Module(new RxRSSHashFilter())
   val rx_match_filter    = Module(new RxMatchFilter())
   val rx_REsearcher      = Module(new RxRESearcher())
   io.in                     <> rx_chksum_verifier.io.in
+//  io.in                     <> rx_aes_decrypter.io.in
+//  rx_aes_decrypter.io.out   <> rx_chksum_verifier.io.in
   rx_chksum_verifier.io.out <> rx_rss_hash_filter.io.in
   rx_rss_hash_filter.io.out <> rx_match_filter.io.in
   rx_match_filter.io.out    <> rx_REsearcher.io.in
