@@ -14,14 +14,14 @@
 //  val key_encoder = Array.fill(11)(Module(new TxKeyEncoder))
 //  val byte_changer = Array.fill(10)(Module(new TxByteChanger))
 //  val bit_mover    = Array.fill(10)(Module(new TxBitMover))
-//  val martix_multiplier = Array.fill(9)(Module(new TxMatrixMultiplier))
+//  val matrix_multiplier = Array.fill(9)(Module(new TxMatrixMultiplier))
 //
 //  io.in <> key_encoder(10).io.in
 //  key_encoder(10).io.out <> byte_changer(0).io.in
 //  for (i <- 0 until 9){
 //    byte_changer(i).io.out <> bit_mover(i).io.in
-//    bit_mover(i).io.out <> martix_multiplier(i).io.in
-//    martix_multiplier(i).io.out <> key_encoder(i).io.in
+//    bit_mover(i).io.out <> matrix_multiplier(i).io.in
+//    matrix_multiplier(i).io.out <> key_encoder(i).io.in
 //    key_encoder(i).io.out <> byte_changer(i+1).io.in
 //  }
 //  byte_changer(9).io.out <> bit_mover(9).io.in

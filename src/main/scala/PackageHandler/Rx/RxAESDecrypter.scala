@@ -13,15 +13,15 @@
 //    val rev_key_encoder = Array.fill(11)(Module(new RxKeyEncoder))
 //    val rev_byte_changer = Array.fill(10)(Module(new RxByteChanger))
 //    val rev_bit_mover    = Array.fill(10)(Module(new RxBitMover))
-//    val rev_martix_multiplier = Array.fill(9)(Module(new RxMatrixMultiplier))
+//    val rev_matrix_multiplier = Array.fill(9)(Module(new RxMatrixMultiplier))
 //
 //    io.in <> rev_key_encoder(10).io.in
 //    rev_key_encoder(10).io.out <> rev_bit_mover(0).io.in
 //    for (i <- 0 until 9){
 //        rev_bit_mover(i).io.out <> rev_byte_changer(i).io.in
 //        rev_byte_changer(i).io.out <> rev_key_encoder(i).io.in
-//        rev_key_encoder(i).io.out <> rev_martix_multiplier(i).io.in
-//        rev_martix_multiplier(i).io.out <> rev_bit_mover(i+1).io.in
+//        rev_key_encoder(i).io.out <> rev_matrix_multiplier(i).io.in
+//        rev_matrix_multiplier(i).io.out <> rev_bit_mover(i+1).io.in
 //    }
 //    rev_bit_mover(9).io.out <> rev_byte_changer(9).io.in
 //    rev_byte_changer(9).io.out <> rev_key_encoder(9).io.in
