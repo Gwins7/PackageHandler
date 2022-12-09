@@ -13,8 +13,10 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   class BufferInfo extends Bundle {
     val used = Bool()  // this is high when we start writing
     val valid = Bool() // this is high when we finish writing (ready to read)
-    val len = UInt(16.W) // actual length of current packet; used to generate c2h header
+    val chksum_offload = Bool()
+    val pkt_type = UInt(2.W) // 0:ipv4 1:tcp
     val qid = UInt(6.W)
+    val len = UInt(16.W) // actual length of current packet; used to generate c2h header
     val ip_chksum = UInt(32.W)
     val tcp_chksum = UInt(32.W)
     val burst = UInt(unsignedBitLength(burst_size).W)
@@ -99,6 +101,9 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
         // normal transmission process
         when (!info_buf_reg(wr_index_reg).used) { //ready to receive this package; first burst
           info_buf_reg(wr_index_reg).used := true.B
+          info_buf_reg(wr_index_reg).pkt_type := Cat((change_order_16(io.in.tdata(111,96)) === "h_0800".U) & (io.in.tdata(191,184) === 6.U),
+                                                      change_order_16(io.in.tdata(111,96)) === "h_0800".U)
+          info_buf_reg(wr_index_reg).chksum_offload := io.in.extern_config.c2h_match_op(6)
         }
         data_buf_reg(wr_pos_reg) := io.in.tdata
         info_buf_reg(wr_index_reg).burst := info_buf_reg(wr_index_reg).burst + 1.U
@@ -136,12 +141,22 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   val end_tcp_chksum = Wire(UInt(16.W))
   end_tcp_chksum := ~chksum_cal(mid_tcp_chksum)
 
+  def chksum_pass: Bool = {
+      !info_buf_reg(rd_index_reg).chksum_offload ||
+    ((!info_buf_reg(rd_index_reg).pkt_type(0) || end_ip_chksum  === 0.U) &&
+     (!info_buf_reg(rd_index_reg).pkt_type(1) || end_tcp_chksum === 0.U))
+  }
+
   io.out_qid    := info_buf_reg(rd_index_reg).qid
   io.out_tlen   := info_buf_reg(rd_index_reg).len
   io.out.tuser  := 0.U // unused
-  io.out.tvalid := info_buf_reg(rd_index_reg).valid && (end_ip_chksum === 0.U) && (end_tcp_chksum === 0.U)
+  io.out.tvalid := info_buf_reg(rd_index_reg).valid && chksum_pass
+
   io.out.tlast  := info_buf_reg(rd_index_reg).valid & (info_buf_reg(rd_index_reg).burst === 1.U)
-  wrong_chksum_counter := wrong_chksum_counter + (io.out.tlast && !((end_ip_chksum === 0.U) && (end_tcp_chksum === 0.U)))
+
+  wrong_chksum_counter := wrong_chksum_counter + ((io.out.tready & io.out.tlast) && !chksum_pass
+  )
+
   // if we shake hand in current beat, then in next beat we would read next data;
   // otherwise in next beat we read current data
   io.out.tdata  := data_buf_reg(Mux(out_shake_hand, rd_pos_next, rd_pos_reg))

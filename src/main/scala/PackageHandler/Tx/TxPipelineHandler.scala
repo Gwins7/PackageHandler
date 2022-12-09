@@ -71,7 +71,3 @@ class TxChksumGenerator extends TxPipelineHandler {
   io.out.tx_info.ip_chksum := Mux(first_beat_reg,ip_chksum_result,cal_ip_chksum_reg)
   io.out.tx_info.tcp_chksum := Mux(first_beat_reg,tcp_hdr_chksum_result,cal_tcp_chksum_reg + tcp_pld_chksum_result)
 }
-
-//class TxRC4Encrypter extends TxPipelineHandler {
-//
-//}

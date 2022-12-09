@@ -13,6 +13,8 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   class BufferInfo extends Bundle {
     val used = Bool()  // this is high when we start writing
     val valid = Bool() // this is high when we finish writing (ready to read)
+    val chksum_offload = Bool()
+    val pkt_type = UInt(2.W) // 0:ipv4 1:tcp
     val ip_chksum = UInt(32.W)
     val tcp_chksum = UInt(32.W)
     val burst = UInt(unsignedBitLength(burst_size).W)
@@ -72,6 +74,7 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
 
         when (!io.in.tlast) {
           is_overflowed := true.B
+
           // if overflow in tlast beat, then we shouldn't set this register,
           // otherwise the next burst will be lost;
           // the overflow counter will +1 to save this information correctly.
@@ -88,7 +91,10 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
         when (!is_overflowed){
           // normal transmission process
           when (!info_buf_reg(wr_index_reg).used) { //ready to receive this package; first burst
+            info_buf_reg(wr_index_reg).pkt_type := Cat((change_order_16(io.in.tdata(111,96)) === "h_0800".U) & (io.in.tdata(191,184) === 6.U),
+                                                        change_order_16(io.in.tdata(111,96)) === "h_0800".U)
             info_buf_reg(wr_index_reg).used := true.B
+            info_buf_reg(wr_index_reg).chksum_offload := io.in.extern_config.c2h_match_op(6)
           }
           data_buf_reg(wr_pos_reg) := io.in.tdata
           info_buf_reg(wr_index_reg).burst := info_buf_reg(wr_index_reg).burst + 1.U
@@ -134,8 +140,12 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   val rev_ip_chksum = change_order_16(end_ip_chksum(15,0))
   val rev_tcp_chksum = change_order_16(end_tcp_chksum(15,0))
 
-  io.out.tdata := Mux(rd_pos_reg === (rd_index_reg << log2Ceil(burst_size).U).asUInt,
-                      Cat(rd_data(511,416), rev_tcp_chksum, rd_data(399,208), rev_ip_chksum, rd_data(191,0)), rd_data)
+  io.out.tdata := Mux(rd_pos_reg === (rd_index_reg << log2Ceil(burst_size).U).asUInt && info_buf_reg(rd_index_reg).chksum_offload,
+                      Cat(rd_data(511,416),
+                          Mux(info_buf_reg(rd_index_reg).pkt_type(1),rev_tcp_chksum,rd_data(415,400)),
+                          rd_data(399,208),
+                          Mux(info_buf_reg(rd_index_reg).pkt_type(0),rev_ip_chksum ,rd_data(207,192)),
+                          rd_data(191,0)), rd_data)
 
   when (out_shake_hand){
     // data_buf_reg(rd_pos_reg) := 0.U
