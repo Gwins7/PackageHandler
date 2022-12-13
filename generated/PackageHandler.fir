@@ -4874,9 +4874,7 @@ circuit PackageHandler :
     hash_xor_sync.io.in_vec[94] <= cal_hash_key_vec[94] @[RxPipelineHandler.scala 107:32]
     hash_xor_sync.io.in_vec[95] <= cal_hash_key_vec[95] @[RxPipelineHandler.scala 107:32]
     hash_xor_result <= hash_xor_sync.io.out_sum @[RxPipelineHandler.scala 109:19]
-    node _cal_qid_T = bits(hash_xor_result, 1, 0) @[RxPipelineHandler.scala 112:34]
-    node _cal_qid_T_1 = bits(io.in.extern_config.c2h_match_arg2, 1, 0) @[RxPipelineHandler.scala 112:76]
-    node cal_qid = and(_cal_qid_T, _cal_qid_T_1) @[RxPipelineHandler.scala 112:40]
+    node cal_qid = and(hash_xor_result, io.in.extern_config.c2h_match_arg2) @[RxPipelineHandler.scala 112:35]
     node _cur_packet_qid_reg_T = and(in_shake_hand, first_beat_reg) @[RxPipelineHandler.scala 113:66]
     reg cur_packet_qid_reg : UInt, clock with :
       reset => (reset, UInt<1>("h0")) @[Reg.scala 28:20]
@@ -6413,6 +6411,9 @@ circuit PackageHandler :
         else :
           node _T_4 = and(io.in.tlast, io.in.tuser) @[RxBufferFifo.scala 94:29]
           when _T_4 : @[RxBufferFifo.scala 94:45]
+            node _err_counter_T_2 = add(err_counter, UInt<1>("h1")) @[RxBufferFifo.scala 95:34]
+            node _err_counter_T_3 = tail(_err_counter_T_2, 1) @[RxBufferFifo.scala 95:34]
+            err_counter <= _err_counter_T_3 @[RxBufferFifo.scala 95:19]
             node _wr_pos_reg_T_1 = dshl(wr_index_reg, UInt<3>("h5")) @[RxBufferFifo.scala 96:34]
             wr_pos_reg <= _wr_pos_reg_T_1 @[RxBufferFifo.scala 96:18]
             node _T_5 = bits(wr_index_reg, 0, 0)

@@ -15,10 +15,8 @@ class TxHandler extends Module {
     val h2c_err_counter          = Output(UInt(32.W))
     val extern_config            = Input(new ExternConfig())
   })
-  /*
-  h2c direction
-  Directly connect the two interface; tkeep is {64{1'b1}}.
-  */
+
+  /* h2c direction */
 
   val tx_pipeline = Module(new TxPipeline())
   io.QDMA_h2c_stub_out         <> tx_pipeline.io.in

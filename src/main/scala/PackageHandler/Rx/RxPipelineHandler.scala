@@ -109,7 +109,7 @@ class RxHashFilter extends RxPipelineHandler {
   hash_xor_result := hash_xor_sync.io.out_sum
 
   //  save the qid calculated in first beat and use it for whole packet
-    val cal_qid = hash_xor_result(1,0) & io.in.extern_config.c2h_match_arg2(1,0)
+    val cal_qid = hash_xor_result & io.in.extern_config.c2h_match_arg2
     val cur_packet_qid_reg = RegEnable(cal_qid,0.U,in_shake_hand & first_beat_reg)
   when (extern_config_reg.c2h_match_op(5)){
     io.out.rx_info.qid := Mux(first_beat_reg,cal_qid,cur_packet_qid_reg)

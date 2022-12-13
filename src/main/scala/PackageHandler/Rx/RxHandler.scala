@@ -33,11 +33,7 @@ class RxHandler extends Module{
     val c2h_err_counter          = Output(UInt(32.W))
     val extern_config            = Input(new ExternConfig())
   })
-  /*
-     c2h direction
-     Set a buffer on c2h direction in order to receive the whole package,
-     generate a new c2h header,and then send to QDMA in the first burst.
-    */
+  /* c2h direction */
 
   val rx_converter = Module(new RxConverter())
   io.CMAC_out <> rx_converter.io.in
@@ -46,12 +42,14 @@ class RxHandler extends Module{
   val rx_pipeline = Module(new RxPipeline())
   rx_converter.io.out <> rx_pipeline.io.in
 
-  val rx_buffer_fifo = Module(new RxBufferFifo()) // a packet's max burst is 24 (1536 bytes)
+  val rx_buffer_fifo = Module(new RxBufferFifo()) // a packet's max burst is 32 (2048 bytes)
   rx_pipeline.io.out <> rx_buffer_fifo.io.in
   rx_buffer_fifo.io.reset_counter := io.reset_counter
   io.c2h_pack_counter := rx_buffer_fifo.io.c2h_pack_counter
   io.c2h_err_counter := rx_buffer_fifo.io.c2h_err_counter
 
+  // Set a buffer on c2h direction in order to receive the whole package,
+  // generate a new c2h header,and then send to QDMA in the first burst.
 
   //QDMA's tuser is used to find out whether the packet is a header or not.
   val QDMA_c2h_stub_in_tuser_reg = RegInit(true.B)
@@ -60,13 +58,6 @@ class RxHandler extends Module{
   }
   // we give tuser only when tvalid is high
   io.QDMA_c2h_stub_in.tuser := QDMA_c2h_stub_in_tuser_reg & io.QDMA_c2h_stub_in.tvalid
-
-  // maybe we need to use sequential logic in package_filter to avoid timing violation
-
-//  val rx_pipeline = Module(new RxPipeline())
-//
-//  rx_pipeline.io.out <> rx_buffer_fifo.io.in
-//  rx_pipeline.io.extern_config := io.extern_config
 
   io.QDMA_c2h_stub_in.tvalid := rx_buffer_fifo.io.out.tvalid
   // when we send the header, the buffer should be blocked and the tlast should be low
