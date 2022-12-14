@@ -170,7 +170,7 @@ class RxMatchFilter extends RxPipelineHandler {
       match_found_reg := match_found_reg | match_found
     }
   }
-  when (match_op(4)) {
+  when (match_op(3)) {
     io.out.rx_info.qid := Mux(match_found_reg | match_found,1.U,in_reg.rx_info.qid)
   }
 }
@@ -217,7 +217,7 @@ class RxRESearcher extends RxPipelineHandler {
     }
   }
 
-  when (search_op(3)) {
+  when (search_op(4)) {
     io.out.rx_info.qid := Mux(search_found_reg | search_or_result,1.U,in_reg.rx_info.qid)
   }
 }
