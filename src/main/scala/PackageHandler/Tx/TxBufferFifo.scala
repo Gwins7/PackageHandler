@@ -15,8 +15,8 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
     val valid = Bool() // this is high when we finish writing (ready to read)
     val chksum_offload = Bool()
     val pkt_type = UInt(2.W) // 0:ipv4 1:tcp
-    val ip_chksum = UInt(32.W)
-    val tcp_chksum = UInt(32.W)
+    val ip_chksum = UInt(16.W)
+    val tcp_chksum = UInt(16.W)
     val burst = UInt(unsignedBitLength(burst_size).W)
   }
 
@@ -61,6 +61,17 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   // the overflow handling function here is used only when the tx sends over-sized packets deliberately.
   val is_overflowed = RegInit(false.B)
 
+  // checksum generation part
+  val mid_ip_chksum = Wire(UInt(32.W))
+  mid_ip_chksum := chksum_cal(io.in.tx_info.ip_chksum)
+  val mid_tcp_chksum = Wire(UInt(32.W))
+  mid_tcp_chksum := chksum_cal(io.in.tx_info.tcp_chksum)
+
+  val end_ip_chksum  = Wire(UInt(16.W))
+  end_ip_chksum := ~chksum_cal(mid_ip_chksum)
+  val end_tcp_chksum = Wire(UInt(16.W))
+  end_tcp_chksum := ~chksum_cal(mid_tcp_chksum)
+
   // write part of ring buffer
   when (io.reset_counter){ // if the counter need to be reset, then reset the register
     pack_counter := 0.U
@@ -100,8 +111,8 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
           info_buf_reg(wr_index_reg).burst := info_buf_reg(wr_index_reg).burst + 1.U
           when (io.in.tlast) {
             info_buf_reg(wr_index_reg).valid := true.B
-            info_buf_reg(wr_index_reg).ip_chksum := io.in.tx_info.ip_chksum
-            info_buf_reg(wr_index_reg).tcp_chksum := io.in.tx_info.tcp_chksum
+            info_buf_reg(wr_index_reg).ip_chksum := end_ip_chksum
+            info_buf_reg(wr_index_reg).tcp_chksum := end_tcp_chksum
             wr_index_reg := index_inc(wr_index_reg)
             wr_pos_reg := index_inc(wr_index_reg) << log2Ceil(burst_size).U
           }.otherwise{
@@ -127,18 +138,10 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   val rd_data = data_buf_reg(Mux(out_shake_hand, rd_pos_next, rd_pos_reg))
 
   //calculate and insert chksum into first beat of data
-  val mid_ip_chksum = Wire(UInt(32.W))
-  mid_ip_chksum := chksum_cal(info_buf_reg(rd_index_reg).ip_chksum)
-  val mid_tcp_chksum = Wire(UInt(32.W))
-  mid_tcp_chksum := chksum_cal(info_buf_reg(rd_index_reg).tcp_chksum)
 
-  val end_ip_chksum  = Wire(UInt(16.W))
-  end_ip_chksum := ~chksum_cal(mid_ip_chksum)
-  val end_tcp_chksum = Wire(UInt(16.W))
-  end_tcp_chksum := ~chksum_cal(mid_tcp_chksum)
 
-  val rev_ip_chksum = change_order_16(end_ip_chksum(15,0))
-  val rev_tcp_chksum = change_order_16(end_tcp_chksum(15,0))
+  val rev_ip_chksum = change_order_16(info_buf_reg(rd_index_reg).ip_chksum)
+  val rev_tcp_chksum = change_order_16(info_buf_reg(rd_index_reg).tcp_chksum)
 
   io.out.tdata := Mux(rd_pos_reg === (rd_index_reg << log2Ceil(burst_size).U).asUInt && info_buf_reg(rd_index_reg).chksum_offload,
                       Cat(rd_data(511,416),

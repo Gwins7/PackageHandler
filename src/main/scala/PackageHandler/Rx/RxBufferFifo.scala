@@ -17,8 +17,8 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
     val pkt_type = UInt(2.W) // 0:ipv4 1:tcp
     val qid = UInt(6.W)
     val len = UInt(16.W) // actual length of current packet; used to generate c2h header
-    val ip_chksum = UInt(32.W)
-    val tcp_chksum = UInt(32.W)
+    val ip_chksum = UInt(16.W)
+    val tcp_chksum = UInt(16.W)
     val burst = UInt(unsignedBitLength(burst_size).W)
   }
 
@@ -67,6 +67,16 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   // ATTENTION: because we drop packet on CMAC's out fifo if tx is so fast,
   // the overflow handling function here is used only when the tx sends over-sized packets deliberately.
 
+  // verify the checksum
+  val mid_ip_chksum = Wire(UInt(32.W))
+  mid_ip_chksum := chksum_cal(io.in.rx_info.ip_chksum)
+  val mid_tcp_chksum = Wire(UInt(32.W))
+  mid_tcp_chksum := chksum_cal(io.in.rx_info.tcp_chksum)
+
+  val end_ip_chksum  = Wire(UInt(16.W))
+  end_ip_chksum := ~chksum_cal(mid_ip_chksum)
+  val end_tcp_chksum = Wire(UInt(16.W))
+  end_tcp_chksum := ~chksum_cal(mid_tcp_chksum)
   // write part of ring buffer
   when (io.reset_counter){ // if the counter need to be reset, then reset the register
     pack_counter := 0.U
@@ -110,8 +120,8 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
         when (io.in.tlast) {
           info_buf_reg(wr_index_reg).valid := true.B
           // we use the information given by tlast beat as packet's final information
-          info_buf_reg(wr_index_reg).ip_chksum := io.in.rx_info.ip_chksum
-          info_buf_reg(wr_index_reg).tcp_chksum := io.in.rx_info.tcp_chksum
+          info_buf_reg(wr_index_reg).ip_chksum := end_ip_chksum
+          info_buf_reg(wr_index_reg).tcp_chksum := end_tcp_chksum
           info_buf_reg(wr_index_reg).len := io.in.rx_info.tlen
           info_buf_reg(wr_index_reg).qid := io.in.rx_info.qid
           wr_index_reg := index_inc(wr_index_reg)
@@ -130,32 +140,20 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   // read part of ring buffer
   val out_shake_hand = io.out.tready & info_buf_reg(rd_index_reg).valid // we finished shake hand in current beat
 
-  // verify the checksum, throw the packets which have invalid checksum(tcp/ip) and count
-  val mid_ip_chksum = Wire(UInt(32.W))
-  mid_ip_chksum := chksum_cal(info_buf_reg(rd_index_reg).ip_chksum)
-  val mid_tcp_chksum = Wire(UInt(32.W))
-  mid_tcp_chksum := chksum_cal(info_buf_reg(rd_index_reg).tcp_chksum)
-
-  val end_ip_chksum  = Wire(UInt(16.W))
-  end_ip_chksum := ~chksum_cal(mid_ip_chksum)
-  val end_tcp_chksum = Wire(UInt(16.W))
-  end_tcp_chksum := ~chksum_cal(mid_tcp_chksum)
-
   def chksum_pass: Bool = {
       !info_buf_reg(rd_index_reg).chksum_offload ||
-    ((!info_buf_reg(rd_index_reg).pkt_type(0) || end_ip_chksum  === 0.U) &&
-     (!info_buf_reg(rd_index_reg).pkt_type(1) || end_tcp_chksum === 0.U))
+    ((!info_buf_reg(rd_index_reg).pkt_type(0) || info_buf_reg(rd_index_reg).ip_chksum  === 0.U) &&
+     (!info_buf_reg(rd_index_reg).pkt_type(1) || info_buf_reg(rd_index_reg).tcp_chksum === 0.U))
   }
 
   io.out_qid    := info_buf_reg(rd_index_reg).qid
   io.out_tlen   := info_buf_reg(rd_index_reg).len
   io.out.tuser  := 0.U // unused
-  io.out.tvalid := info_buf_reg(rd_index_reg).valid && chksum_pass
-
   io.out.tlast  := info_buf_reg(rd_index_reg).valid & (info_buf_reg(rd_index_reg).burst === 1.U)
 
-  wrong_chksum_counter := wrong_chksum_counter + ((io.out.tready & io.out.tlast) && !chksum_pass
-  )
+  // (throw the packets which have invalid checksum(tcp/ip) and count)
+  io.out.tvalid := info_buf_reg(rd_index_reg).valid & chksum_pass
+  wrong_chksum_counter := wrong_chksum_counter + (io.out.tready & io.out.tlast & !chksum_pass)
 
   // if we shake hand in current beat, then in next beat we would read next data;
   // otherwise in next beat we read current data
