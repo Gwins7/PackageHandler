@@ -37,16 +37,19 @@ class RxPipeline extends Module{
   // which is associated with previous tuser state.
 
   // add pipeline handler here
+  io.in <> io.out
+//  val rx_chksum_verifier = Module(new RxChksumVerifier())
+//  val rx_rss_hasher = Module(new RxRSSHasher())
+//  val rx_string_matcher    = Module(new RxStrMatcher())
+//  val rx_string_searcher      = Module(new RxStrSearcher())
+//  io.in                     <> rx_chksum_verifier.io.in
+//  rx_chksum_verifier.io.out <> rx_rss_hasher.io.in
+//  rx_rss_hasher.io.out <> rx_string_matcher.io.in
+//  rx_string_matcher.io.out    <> rx_string_searcher.io.in
+//  rx_string_searcher.io.out      <> io.out
+}
+
+
 //  val rx_aes_decrypter =   Module (new RxAESDecrypter())
-  val rx_chksum_verifier = Module(new RxChksumVerifier())
-  val rx_rss_hash_filter = Module(new RxHashFilter())
-  val rx_match_filter    = Module(new RxMatchFilter())
-  val rx_REsearcher      = Module(new RxRESearcher())
-  io.in                     <> rx_chksum_verifier.io.in
 //  io.in                     <> rx_aes_decrypter.io.in
 //  rx_aes_decrypter.io.out   <> rx_chksum_verifier.io.in
-  rx_chksum_verifier.io.out <> rx_rss_hash_filter.io.in
-  rx_rss_hash_filter.io.out <> rx_match_filter.io.in
-  rx_match_filter.io.out    <> rx_REsearcher.io.in
-  rx_REsearcher.io.out      <> io.out
-}

@@ -77,14 +77,14 @@ val cal_tdata = Mux(in_shake_hand,io.in.tdata,in_reg.tdata)
 }
 // 8 bit op:
 // op = 00000000: do nothing
-// op(3) : RxMatchFilter -> op(2,0): function(<(4),>(2),=(1),!=(0))
-// op(4) : RxRESearcher
-// op(5) : RxHashFilter
+// op(3) : RxStrMatcher -> op(2,0): function(<(4),>(2),=(1),!=(0))
+// op(4) : RxStrSearcher
+// op(5) : RxRSSHasher
 // op(6) : ChksumGenerator / ChksumVerifier (control in Tx/RxBufferFifo)
 // op(7) : wait to be used
 
-class RxHashFilter extends RxPipelineHandler {
-// arg1 = hash_seed; arg2 = hash_mask
+class RxRSSHasher extends RxPipelineHandler {
+// arg1: hash_seed; arg2: hash_mask
   val hash_key = io.in.extern_config.c2h_match_arg1 // symmetric: fill(20,"h_6d5a".U), we just set 6d5a6d5a
 
   val cal_tdata = Mux(in_shake_hand,io.in.tdata,in_reg.tdata)
@@ -117,8 +117,8 @@ class RxHashFilter extends RxPipelineHandler {
 }
 
 // match function
-class RxMatchFilter extends RxPipelineHandler {
-  // arg1:content; arg2:mask; arg3:place
+class RxStrMatcher extends RxPipelineHandler {
+  // arg1: content; arg2: mask; arg3: place
   def compare(op:UInt,mask:UInt,src1:UInt,src2:UInt):UInt = {
     val a = src1 & mask
     val b = src2 & mask
@@ -176,8 +176,8 @@ class RxMatchFilter extends RxPipelineHandler {
 }
 
 // search function
-class RxRESearcher extends RxPipelineHandler {
-  // arg1:content; arg2:mask
+class RxStrSearcher extends RxPipelineHandler {
+  // arg1: content; arg2: mask
 
   val search_op      = Mux(in_shake_hand,io.in.extern_config.c2h_match_op,extern_config_reg.c2h_match_op)
   val search_content = Mux(in_shake_hand,io.in.extern_config.c2h_match_arg1,extern_config_reg.c2h_match_arg1)
@@ -222,6 +222,10 @@ class RxRESearcher extends RxPipelineHandler {
   }
 }
 
+class RxRESearcher extends RxPipelineHandler {
+  // TODO: we can combine many StrSearcher into a RESearcher?
+
+}
 // notice:
 // if we want to cal qid not only by the first beat but also by the whole packet,
 // we need to add fifo in this pipeline, and use qid calculated in tlast beat

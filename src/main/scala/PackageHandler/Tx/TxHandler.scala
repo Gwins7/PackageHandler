@@ -17,10 +17,12 @@ class TxHandler extends Module {
   })
 
   /* h2c direction */
+  val tx_converter = Module(new TxConverter())
+  io.QDMA_h2c_stub_out         <> tx_converter.io.in
+  tx_converter.io.extern_config := io.extern_config
 
   val tx_pipeline = Module(new TxPipeline())
-  io.QDMA_h2c_stub_out         <> tx_pipeline.io.in
-  tx_pipeline.io.extern_config := io.extern_config
+  tx_converter.io.out <> tx_pipeline.io.in
 
   val tx_buffer_fifo = Module(new TxBufferFifo())
   tx_pipeline.io.out              <> tx_buffer_fifo.io.in
