@@ -81,11 +81,11 @@ val cal_tdata = Mux(in_shake_hand,io.in.tdata,in_reg.tdata)
 // op(4) : RxStrSearcher
 // op(5) : RxRSSHasher
 // op(6) : ChksumGenerator / ChksumVerifier (control in Tx/RxBufferFifo)
-// op(7) : wait to be used
+// op(7) : RxRESearcher
 
 class RxRSSHasher extends RxPipelineHandler {
-// arg1: hash_seed; arg2: hash_mask
-  val hash_key = io.in.extern_config.c2h_match_arg1 // symmetric: fill(20,"h_6d5a".U), we just set 6d5a6d5a
+// arg(0): hash_seed; arg(1): hash_mask
+  val hash_key = io.in.extern_config.c2h_match_arg(0) // symmetric: fill(20,"h_6d5a".U), we just set 6d5a6d5a
 
   val cal_tdata = Mux(in_shake_hand,io.in.tdata,in_reg.tdata)
   val src_ip   = change_order_32(cal_tdata(239,208))
@@ -109,7 +109,7 @@ class RxRSSHasher extends RxPipelineHandler {
   hash_xor_result := hash_xor_sync.io.out_sum
 
   //  save the qid calculated in first beat and use it for whole packet
-    val cal_qid = hash_xor_result & io.in.extern_config.c2h_match_arg2
+    val cal_qid = hash_xor_result & io.in.extern_config.c2h_match_arg(1)
     val cur_packet_qid_reg = RegEnable(cal_qid,0.U,in_shake_hand & first_beat_reg)
   when (extern_config_reg.c2h_match_op(5)){
     io.out.rx_info.qid := Mux(first_beat_reg,cal_qid,cur_packet_qid_reg)
@@ -118,7 +118,7 @@ class RxRSSHasher extends RxPipelineHandler {
 
 // match function
 class RxStrMatcher extends RxPipelineHandler {
-  // arg1: content; arg2: mask; arg3: place
+  // arg(0): content; arg(1): mask; arg(2): place
   def compare(op:UInt,mask:UInt,src1:UInt,src2:UInt):UInt = {
     val a = src1 & mask
     val b = src2 & mask
@@ -126,9 +126,9 @@ class RxStrMatcher extends RxPipelineHandler {
   }
 
   val match_op      = extern_config_reg.c2h_match_op
-  val match_content = extern_config_reg.c2h_match_arg1
-  val match_mask    = extern_config_reg.c2h_match_arg2
-  val match_place   = extern_config_reg.c2h_match_arg3 // start from 0
+  val match_content = extern_config_reg.c2h_match_arg(0)
+  val match_mask    = extern_config_reg.c2h_match_arg(1)
+  val match_place   = extern_config_reg.c2h_match_arg(2) // start from 0
 
   val match_found = WireDefault(false.B)
   val match_found_reg = RegInit(false.B)
@@ -177,11 +177,11 @@ class RxStrMatcher extends RxPipelineHandler {
 
 // search function
 class RxStrSearcher extends RxPipelineHandler {
-  // arg1: content; arg2: mask
+  // arg(0): content; arg(1): mask
 
   val search_op      = Mux(in_shake_hand,io.in.extern_config.c2h_match_op,extern_config_reg.c2h_match_op)
-  val search_content = Mux(in_shake_hand,io.in.extern_config.c2h_match_arg1,extern_config_reg.c2h_match_arg1)
-  val search_mask    = Mux(in_shake_hand,io.in.extern_config.c2h_match_arg2,extern_config_reg.c2h_match_arg2)
+  val search_content = Mux(in_shake_hand,io.in.extern_config.c2h_match_arg(0),extern_config_reg.c2h_match_arg(0))
+  val search_mask    = Mux(in_shake_hand,io.in.extern_config.c2h_match_arg(1),extern_config_reg.c2h_match_arg(1))
 
   val search_value = search_content & search_mask
 
@@ -222,10 +222,6 @@ class RxStrSearcher extends RxPipelineHandler {
   }
 }
 
-class RxRESearcher extends RxPipelineHandler {
-  // TODO: we can combine many StrSearcher into a RESearcher?
-
-}
 // notice:
 // if we want to cal qid not only by the first beat but also by the whole packet,
 // we need to add fifo in this pipeline, and use qid calculated in tlast beat

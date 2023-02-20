@@ -16,6 +16,7 @@ class TxPipelineHandlerReg extends Bundle {
 }
 
 class RxInfo extends Bundle {
+  val state  = UInt(4.W)
   val tlen   = UInt(16.W)
   val qid    = UInt(6.W)
   val ip_chksum = UInt(32.W)
@@ -40,9 +41,7 @@ class RxPipelineHandlerReg extends Bundle {
 
 class ExternConfig extends Bundle {
   val c2h_match_op   = UInt(8.W)
-  val c2h_match_arg1 = UInt(32.W)
-  val c2h_match_arg2 = UInt(32.W)
-  val c2h_match_arg3 = UInt(32.W)
+  val c2h_match_arg =  Vec(8,UInt(32.W))
 
 //  val aes_key = UInt(128.W)
 //  val round_time = UInt(4.W)

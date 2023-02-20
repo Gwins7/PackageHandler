@@ -4,7 +4,9 @@
 //import chisel3._
 //import chisel3.util._
 //
-//// https://blog.csdn.net/qq_28205153/article/details/55798628
+// ATTENTION: STILL HAVE BUG!
+//
+// https://blog.csdn.net/qq_28205153/article/details/55798628
 //
 //class TxAESEncrypter extends Module {
 //  val io = IO(new Bundle {

@@ -21,7 +21,6 @@ import chisel3.util._
 //val tvalid = Input(Bool())
 //val tlast  = Input(Bool())
 //val tlen  = Input(UInt(16.W))
-//val first_beat = Input(Bool())
 
 class RxPipeline extends Module{
 
@@ -30,14 +29,12 @@ class RxPipeline extends Module{
     val out = Flipped(new RxPipelineAxisIO())
   })
 
-// place to add filter logic; we need a pipeline
-
-  // this reg is to find out whether current beat is the first beat of a packet.
-  // attention: this is different from tuser_reg in PackageHandler,
-  // which is associated with previous tuser state.
-
   // add pipeline handler here
-  io.in <> io.out
+  val rx_re_searcher = Module(new RxRESearcher)
+  io.in <> rx_re_searcher.io.in
+  rx_re_searcher.io.out <> io.out
+//  io.in <> io.out
+
 //  val rx_chksum_verifier = Module(new RxChksumVerifier())
 //  val rx_rss_hasher = Module(new RxRSSHasher())
 //  val rx_string_matcher    = Module(new RxStrMatcher())
