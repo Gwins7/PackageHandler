@@ -15,11 +15,11 @@ class RxPipelineHandler extends Module with NetFunc{
   val extern_config_reg = RegEnable(io.in.extern_config.asUInt,0.U,in_shake_hand).asTypeOf(new ExternConfig)
 
   val first_beat_reg = RegEnable(in_reg.tlast,true.B,in_shake_hand)
-  val in_reg_used_reg = RegInit(false.B)
+  val in_reg_used_reg = RegInit(false.B) // used when pipeline is stuck
   when (in_shake_hand){
     in_reg_used_reg := true.B
   }.elsewhen(out_shake_hand){
-    in_reg_used_reg := false.B
+    in_reg_used_reg := false.B //!
   }
 
   io.out.tuser   := WireDefault(in_reg.tuser)

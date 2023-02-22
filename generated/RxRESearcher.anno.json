@@ -587,7 +587,8 @@
     "class":"firrtl.transforms.CombinationalPath",
     "sink":"~RxRESearcher|RxRESearcher>io_in_tready",
     "sources":[
-      "~RxRESearcher|RxRESearcher>io_out_tready"
+      "~RxRESearcher|RxRESearcher>io_out_tready",
+      "~RxRESearcher|RxRESearcher>io_out_tvalid"
     ]
   }
 ]
