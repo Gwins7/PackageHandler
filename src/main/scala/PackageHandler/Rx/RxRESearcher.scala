@@ -22,7 +22,8 @@ class REHandlerUnit extends Module {
     }
   }
   // 0 is Q_start, F is Q_Accept
-  io.out_state := Mux(io.in_state === 15.U,15.U,result.reduceTree(_|_))
+  io.out_state := result.reduceTree(_|_)
+//  io.out_state := Mux(io.in_state === 15.U,15.U,result.reduceTree(_|_))
 }
 
 class REHandler(val step: Int = 2) extends Module {
@@ -50,49 +51,59 @@ class REHandler(val step: Int = 2) extends Module {
 
 class RxRESearcher(val step: Int = 2) extends RxPipelineHandler with NetFunc {
   // there is no speed restriction, the first goal is 2*32
+  // TODO: test function and debug
   assume(step%2==0 && step<=64)
   val handler_num = 64/step
 
   val beat_counter_reg = RegInit(0.U(8.W))
-  val match_found_reg = RegInit(false.B)
+  val done_reg = RegInit(false.B)
   val cur_state_reg = RegInit(0.U(4.W))
 
   val input_rule = extern_config_reg.c2h_match_arg.asTypeOf(Vec(16,UInt(16.W)))
   val re_handler_queue = Seq.fill(handler_num)(Module(new REHandler(step)))
-  val state_accept_vec = Wire(Vec(handler_num,Bool()))
+  val state_vec = Wire(Vec(handler_num,UInt(4.W)))
 
-  when (in_shake_hand){
-    when (in_reg.tlast){
-      cur_state_reg := 0.U
-    }.otherwise{
-      cur_state_reg := re_handler_queue(handler_num-1).io.out_state
-    }
-    beat_counter_reg := 0.U
-  }.elsewhen (beat_counter_reg < handler_num.U & !match_found_reg){
-    beat_counter_reg := beat_counter_reg + 1.U
-  }
-
+  val match_found_reg = RegInit(false.B)
   for (i <- 0 until handler_num){
-    state_accept_vec(i) := (re_handler_queue(i).io.out_state === 15.U)
+    state_vec(i) := re_handler_queue(i).io.out_state
     re_handler_queue(i).io.in_rule := input_rule
     re_handler_queue(i).io.in_char := in_reg.tdata((8*step)*i+(8*step-1),(8*step)*i)
     if (i == 0) re_handler_queue(i).io.in_state := cur_state_reg
     else re_handler_queue(i).io.in_state := re_handler_queue(i-1).io.out_state
   }
 
-  val match_found = state_accept_vec(beat_counter_reg)
-  // TODO: test function and debug
-
-  when (first_beat_reg) {
-    match_found_reg := match_found
-  }.otherwise{
-    match_found_reg := match_found_reg | match_found
+  when (in_shake_hand) {
+    when (in_reg.tlast) {
+      cur_state_reg := 0.U
+    }.elsewhen(cur_state_reg =/= 15.U){
+      cur_state_reg := state_vec(beat_counter_reg)
+    }
   }
+
+  when (in_shake_hand) {
+    beat_counter_reg := 0.U
+    done_reg := false.B
+  }.elsewhen (beat_counter_reg < handler_num.U){
+      when (beat_counter_reg === (handler_num-1).U){
+        done_reg := true.B
+      }.otherwise{
+        beat_counter_reg := beat_counter_reg + 1.U
+      }
+  }
+
+  when (in_shake_hand){
+    when (in_reg.tlast){
+      match_found_reg := 0.U
+    }
+  }.elsewhen (!match_found_reg){
+    match_found_reg := (state_vec(beat_counter_reg) === 15.U)
+  }
+
   when (extern_config_reg.c2h_match_op(7)){
-    io.out.rx_info.qid := Mux(match_found_reg | match_found,1.U,in_reg.rx_info.qid)
+    io.out.rx_info.qid := Mux(match_found_reg,1.U,in_reg.rx_info.qid)
   }
 
   io.in.tready := out_shake_hand | !in_reg_used_reg
-  io.out.tvalid := in_reg.tvalid & in_reg_used_reg & (beat_counter_reg === handler_num.U | match_found_reg)
+  io.out.tvalid := in_reg.tvalid & in_reg_used_reg & (done_reg | match_found_reg)
 
 }
