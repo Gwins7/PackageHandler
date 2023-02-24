@@ -16,7 +16,6 @@ class TxPipelineHandlerReg extends Bundle {
 }
 
 class RxInfo extends Bundle {
-  val state  = UInt(4.W)
   val tlen   = UInt(16.W)
   val qid    = UInt(6.W)
   val ip_chksum = UInt(32.W)

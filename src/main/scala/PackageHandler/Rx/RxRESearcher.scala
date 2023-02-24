@@ -22,8 +22,7 @@ class REHandlerUnit extends Module {
     }
   }
   // 0 is Q_start, F is Q_Accept
-  io.out_state := result.reduceTree(_|_)
-//  io.out_state := Mux(io.in_state === 15.U,15.U,result.reduceTree(_|_))
+  io.out_state := Mux(io.in_state === 15.U,15.U,result.reduceTree(_|_))
 }
 
 class REHandler(val step: Int = 2) extends Module {
@@ -32,6 +31,7 @@ class REHandler(val step: Int = 2) extends Module {
     val in_char = Input(UInt((8*step).W))
     val in_state = Input(UInt(4.W))
     val in_rule = Input(Vec(16,UInt(16.W)))
+    val in_en = Input(Bool())
     // rule: 16 (nxt_state(4),cur_state(4),char(8)) * 16
     val out_state = Output(UInt(4.W))
   })
@@ -45,65 +45,84 @@ class REHandler(val step: Int = 2) extends Module {
     else re_handler_unit_queue(i).io.in_state := re_handler_unit_queue(i-1).io.out_state
   }
   // temp save, sync
-  part_result_reg := re_handler_unit_queue(step-1).io.out_state
+  when (io.in_en) {
+    part_result_reg := re_handler_unit_queue(step-1).io.out_state
+  }
   io.out_state := part_result_reg
 }
 
 class RxRESearcher(val step: Int = 2) extends RxPipelineHandler with NetFunc {
   // there is no speed restriction, the first goal is 2*32
-  // TODO: test function and debug
-  assume(step%2==0 && step<=64)
+
+  assume(64%step==0)
   val handler_num = 64/step
 
-  val beat_counter_reg = RegInit(0.U(8.W))
-  val done_reg = RegInit(false.B)
-  val cur_state_reg = RegInit(0.U(4.W))
+  val beat_counter_reg = RegInit(0.U(8.W)) // we have arrived which beat in current process
+  val match_wait_reg = RegInit(false.B) // all the reg must wait 1 beat to start function (because we only process in_reg)
 
+  val cur_beat_done = (beat_counter_reg === (handler_num-1).U)
   val input_rule = extern_config_reg.c2h_match_arg.asTypeOf(Vec(16,UInt(16.W)))
-  val re_handler_queue = Seq.fill(handler_num)(Module(new REHandler(step)))
-  val state_vec = Wire(Vec(handler_num,UInt(4.W)))
 
-  val match_found_reg = RegInit(false.B)
-  for (i <- 0 until handler_num){
-    state_vec(i) := re_handler_queue(i).io.out_state
-    re_handler_queue(i).io.in_rule := input_rule
-    re_handler_queue(i).io.in_char := in_reg.tdata((8*step)*i+(8*step-1),(8*step)*i)
-    if (i == 0) re_handler_queue(i).io.in_state := cur_state_reg
-    else re_handler_queue(i).io.in_state := re_handler_queue(i-1).io.out_state
+  val data_vec = Wire(Vec(handler_num,UInt((step*8).W)))
+  for (i <- 0 until handler_num) {
+    data_vec(i) := in_reg.tdata((8*step)*i+(8*step-1),(8*step)*i)
   }
+  val input_data = Mux(beat_counter_reg === (handler_num-1).U || !match_wait_reg, data_vec(beat_counter_reg),data_vec(beat_counter_reg+1.U))
 
-  when (in_shake_hand) {
-    when (in_reg.tlast) {
-      cur_state_reg := 0.U
-    }.elsewhen(cur_state_reg =/= 15.U){
-      cur_state_reg := state_vec(beat_counter_reg)
-    }
-  }
+  val re_handler = Module(new REHandler(step))
 
-  when (in_shake_hand) {
+  val match_found = (re_handler.io.out_state === 15.U)
+  val cur_state = Mux((first_beat_reg & !match_wait_reg) | (in_shake_hand & in_reg.tlast),0.U,re_handler.io.out_state)
+  // (first_beat_reg & !match_wait_reg) because pkt1's tail and pkt2's head shouldn't mix together
+  // in_shake_hand & tlast because we want to clear out_state reg
+
+  re_handler.io.in_rule := input_rule
+  re_handler.io.in_char := input_data
+  re_handler.io.in_state := cur_state
+  re_handler.io.in_en := !cur_beat_done | (in_shake_hand & in_reg.tlast) //not last byte in beat, or last beat
+
+  when(in_shake_hand) {
     beat_counter_reg := 0.U
-    done_reg := false.B
-  }.elsewhen (beat_counter_reg < handler_num.U){
-      when (beat_counter_reg === (handler_num-1).U){
-        done_reg := true.B
-      }.otherwise{
-        beat_counter_reg := beat_counter_reg + 1.U
-      }
-  }
-
-  when (in_shake_hand){
-    when (in_reg.tlast){
-      match_found_reg := 0.U
+    when(in_reg.tlast) {
+      match_wait_reg := false.B
+    }.otherwise{
+      match_wait_reg := match_found // if we have already found, then we don't need to wait anymore
     }
-  }.elsewhen (!match_found_reg){
-    match_found_reg := (state_vec(beat_counter_reg) === 15.U)
+  }.elsewhen(!match_wait_reg) {
+    match_wait_reg := true.B
+  }.elsewhen(beat_counter_reg < (handler_num - 1).U) {
+    beat_counter_reg := beat_counter_reg + 1.U
   }
 
   when (extern_config_reg.c2h_match_op(7)){
-    io.out.rx_info.qid := Mux(match_found_reg,1.U,in_reg.rx_info.qid)
+    io.out.rx_info.qid := Mux(match_found,1.U,in_reg.rx_info.qid)
+    io.in.tready := out_shake_hand | !in_reg_used_reg
+    io.out.tvalid := in_reg.tvalid & in_reg_used_reg & (cur_beat_done | match_found)
   }
-
-  io.in.tready := out_shake_hand | !in_reg_used_reg
-  io.out.tvalid := in_reg.tvalid & in_reg_used_reg & (done_reg | match_found_reg)
-
 }
+
+/* deprecated code fragments
+
+//  val done_reg = RegInit(false.B) // search 64 byte and not found
+//  val match_found_reg = RegInit(false.B)
+//  val state_vec = Wire(Vec(handler_num,UInt(4.W)))
+//  val re_handler_queue = Seq.fill(handler_num)(Module(new REHandler(step)))
+
+//  for (i <- 0 until handler_num){
+//    state_vec(i) := re_handler_queue(i).io.out_state
+//    re_handler_queue(i).io.in_rule := input_rule
+//    re_handler_queue(i).io.in_char := in_reg.tdata((8*step)*i+(8*step-1),(8*step)*i)
+//    if (i == 0) re_handler_queue(i).io.in_state := cur_state_reg
+//    else re_handler_queue(i).io.in_state := re_handler_queue(i-1).io.out_state
+//  }
+
+//  when (in_shake_hand){
+//    when (in_reg.tlast){
+//      match_found_reg := 0.U
+//    }
+//  }.elsewhen (match_wait_reg & !match_found_reg){
+////    match_found_reg := (state_vec(beat_counter_reg) === 15.U)
+//    match_found_reg := (re_handler.io.out_state === 15.U)
+//  }
+
+ */
