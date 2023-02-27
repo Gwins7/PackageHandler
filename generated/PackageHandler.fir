@@ -820,29 +820,6 @@ circuit PackageHandler :
     input reset : Reset
     output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tx_info : { ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tx_info : { ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}}
 
-    io.out.extern_config.c2h_match_arg[0] <= io.in.extern_config.c2h_match_arg[0] @[TxPipeline.scala 14:9]
-    io.out.extern_config.c2h_match_arg[1] <= io.in.extern_config.c2h_match_arg[1] @[TxPipeline.scala 14:9]
-    io.out.extern_config.c2h_match_arg[2] <= io.in.extern_config.c2h_match_arg[2] @[TxPipeline.scala 14:9]
-    io.out.extern_config.c2h_match_arg[3] <= io.in.extern_config.c2h_match_arg[3] @[TxPipeline.scala 14:9]
-    io.out.extern_config.c2h_match_arg[4] <= io.in.extern_config.c2h_match_arg[4] @[TxPipeline.scala 14:9]
-    io.out.extern_config.c2h_match_arg[5] <= io.in.extern_config.c2h_match_arg[5] @[TxPipeline.scala 14:9]
-    io.out.extern_config.c2h_match_arg[6] <= io.in.extern_config.c2h_match_arg[6] @[TxPipeline.scala 14:9]
-    io.out.extern_config.c2h_match_arg[7] <= io.in.extern_config.c2h_match_arg[7] @[TxPipeline.scala 14:9]
-    io.out.extern_config.c2h_match_arg[8] <= io.in.extern_config.c2h_match_arg[8] @[TxPipeline.scala 14:9]
-    io.out.extern_config.c2h_match_arg[9] <= io.in.extern_config.c2h_match_arg[9] @[TxPipeline.scala 14:9]
-    io.out.extern_config.c2h_match_arg[10] <= io.in.extern_config.c2h_match_arg[10] @[TxPipeline.scala 14:9]
-    io.out.extern_config.c2h_match_arg[11] <= io.in.extern_config.c2h_match_arg[11] @[TxPipeline.scala 14:9]
-    io.out.extern_config.c2h_match_arg[12] <= io.in.extern_config.c2h_match_arg[12] @[TxPipeline.scala 14:9]
-    io.out.extern_config.c2h_match_arg[13] <= io.in.extern_config.c2h_match_arg[13] @[TxPipeline.scala 14:9]
-    io.out.extern_config.c2h_match_arg[14] <= io.in.extern_config.c2h_match_arg[14] @[TxPipeline.scala 14:9]
-    io.out.extern_config.c2h_match_arg[15] <= io.in.extern_config.c2h_match_arg[15] @[TxPipeline.scala 14:9]
-    io.out.extern_config.c2h_match_op <= io.in.extern_config.c2h_match_op @[TxPipeline.scala 14:9]
-    io.out.tx_info.tcp_chksum <= io.in.tx_info.tcp_chksum @[TxPipeline.scala 14:9]
-    io.out.tx_info.ip_chksum <= io.in.tx_info.ip_chksum @[TxPipeline.scala 14:9]
-    io.out.tlast <= io.in.tlast @[TxPipeline.scala 14:9]
-    io.in.tready <= io.out.tready @[TxPipeline.scala 14:9]
-    io.out.tvalid <= io.in.tvalid @[TxPipeline.scala 14:9]
-    io.out.tdata <= io.in.tdata @[TxPipeline.scala 14:9]
     inst tx_chksum_generator of TxChksumGenerator @[TxPipeline.scala 15:35]
     tx_chksum_generator.clock <= clock
     tx_chksum_generator.reset <= reset

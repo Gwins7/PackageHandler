@@ -11,7 +11,7 @@ class TxPipeline extends Module{
     val out = Flipped(new TxPipelineAxisIO())
   })
   // add pipeline handler here
-  io.in <> io.out
+//  io.in <> io.out
   val tx_chksum_generator = Module(new TxChksumGenerator())
   io.in <> tx_chksum_generator.io.in
   tx_chksum_generator.io.out <> io.out
