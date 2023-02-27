@@ -22,8 +22,7 @@ class RxConverter extends Module{
   }.elsewhen(out_shake_hand){
     in_reg_used_reg := false.B
   }
-  val extern_config_reg = RegInit(0.U.asTypeOf(new ExternConfig()))
-  extern_config_reg := io.extern_config
+  val extern_config_reg = RegEnable(io.extern_config.asUInt,0.U,io.out.tready & io.out.tvalid).asTypeOf(new ExternConfig)
 
   val cal_tkeep = Mux(in_shake_hand,io.in.tkeep,in_reg.tkeep)
   val burst_size_cal = Module(new ReduceAddSync(64,8))

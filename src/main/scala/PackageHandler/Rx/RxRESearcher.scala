@@ -32,7 +32,7 @@ class REHandlerUnit extends Module {
   io.out_state := Mux(io.in_state === 15.U,15.U,result.reduceTree(_|_))
 }
 
-class REHandler(val step: Int = 2) extends Module {
+class REHandler(val step: Int = 1) extends Module {
   // check *length* byte(s) jump
   val io = IO(new Bundle {
     val in_char = Input(UInt((8*step).W))
@@ -58,7 +58,7 @@ class REHandler(val step: Int = 2) extends Module {
   io.out_state := part_result_reg
 }
 
-class RxRESearcher(val step: Int = 2) extends RxPipelineHandler with NetFunc {
+class RxRESearcher(val step: Int = 1) extends RxPipelineHandler with NetFunc {
   // there is no speed restriction, the first goal is 2*32
 
   assume(64%step==0)
@@ -68,7 +68,7 @@ class RxRESearcher(val step: Int = 2) extends RxPipelineHandler with NetFunc {
   val match_wait_reg = RegInit(false.B) // all the reg must wait 1 beat to start function (because we only process in_reg)
 
   val cur_beat_done = (beat_counter_reg === (handler_num-1).U)
-  val input_rule = extern_config_reg.c2h_match_arg
+  val input_rule = io.in.extern_config.c2h_match_arg
 
   val data_vec = Wire(Vec(handler_num,UInt((step*8).W)))
   for (i <- 0 until handler_num) {
@@ -102,7 +102,7 @@ class RxRESearcher(val step: Int = 2) extends RxPipelineHandler with NetFunc {
     beat_counter_reg := beat_counter_reg + 1.U
   }
 
-  when (extern_config_reg.c2h_match_op(7)){
+  when (io.in.extern_config.c2h_match_op(7)){
     io.out.rx_info.qid := Mux(match_found,1.U,in_reg.rx_info.qid)
     io.in.tready := out_shake_hand | !in_reg_used_reg
     io.out.tvalid := in_reg.tvalid & in_reg_used_reg & (cur_beat_done | match_found)

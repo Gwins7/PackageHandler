@@ -30,20 +30,22 @@ class RxPipeline extends Module{
   })
 
   // add pipeline handler here
-  val rx_re_searcher = Module(new RxRESearcher(2))
-  io.in <> rx_re_searcher.io.in
-  rx_re_searcher.io.out <> io.out
+  val rx_re_searcher = Module(new RxRESearcher(1))
+//  io.in <> rx_re_searcher.io.in
+//  rx_re_searcher.io.out <> io.out
 //  io.in <> io.out
 
-//  val rx_chksum_verifier = Module(new RxChksumVerifier())
-//  val rx_rss_hasher = Module(new RxRSSHasher())
-//  val rx_string_matcher    = Module(new RxStrMatcher())
-//  val rx_string_searcher      = Module(new RxStrSearcher())
-//  io.in                     <> rx_chksum_verifier.io.in
-//  rx_chksum_verifier.io.out <> rx_rss_hasher.io.in
-//  rx_rss_hasher.io.out <> rx_string_matcher.io.in
-//  rx_string_matcher.io.out    <> rx_string_searcher.io.in
-//  rx_string_searcher.io.out      <> io.out
+  val rx_chksum_verifier = Module(new RxChksumVerifier())
+  val rx_rss_hasher = Module(new RxRSSHasher())
+  val rx_string_matcher    = Module(new RxStrMatcher())
+  val rx_string_searcher      = Module(new RxStrSearcher())
+
+  io.in                     <> rx_chksum_verifier.io.in
+  rx_chksum_verifier.io.out <> rx_rss_hasher.io.in
+  rx_rss_hasher.io.out <> rx_string_matcher.io.in
+  rx_string_matcher.io.out    <> rx_string_searcher.io.in
+  rx_string_searcher.io.out      <> rx_re_searcher.io.in
+  rx_re_searcher.io.out <> io.out
 }
 
 

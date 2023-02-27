@@ -1,15 +1,39 @@
 [
   {
     "class":"firrtl.transforms.DedupedResult",
-    "original":"~PackageHandler|REHandlerUnit",
-    "duplicate":"~PackageHandler|PackageHandler/rx_handler:RxHandler/rx_pipeline:RxPipeline/rx_re_searcher:RxRESearcher/re_handler:REHandler/re_handler_unit_queue_0:REHandlerUnit",
-    "index":0.46153846153846156
+    "original":"~PackageHandler|ReduceAddSync",
+    "duplicate":"~PackageHandler|PackageHandler/tx_handler:TxHandler/tx_pipeline:TxPipeline/tx_chksum_generator:TxChksumGenerator/ip_chksum_cal:ReduceAddSync",
+    "index":0.04
   },
   {
     "class":"firrtl.transforms.DedupedResult",
-    "original":"~PackageHandler|REHandlerUnit_1",
-    "duplicate":"~PackageHandler|PackageHandler/rx_handler:RxHandler/rx_pipeline:RxPipeline/rx_re_searcher:RxRESearcher/re_handler:REHandler/re_handler_unit_queue_1:REHandlerUnit",
-    "index":0.5384615384615384
+    "original":"~PackageHandler|ReduceAddSync_1",
+    "duplicate":"~PackageHandler|PackageHandler/tx_handler:TxHandler/tx_pipeline:TxPipeline/tx_chksum_generator:TxChksumGenerator/tcp_pld_chksum_cal:ReduceAddSync_1",
+    "index":0.08
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~PackageHandler|ReduceAddSync_2",
+    "duplicate":"~PackageHandler|PackageHandler/tx_handler:TxHandler/tx_pipeline:TxPipeline/tx_chksum_generator:TxChksumGenerator/tcp_hdr_chksum_cal:ReduceAddSync_1",
+    "index":0.12
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~PackageHandler|ReduceAddSync_4",
+    "duplicate":"~PackageHandler|PackageHandler/rx_handler:RxHandler/rx_pipeline:RxPipeline/rx_chksum_verifier:RxChksumVerifier/ip_chksum_cal:ReduceAddSync",
+    "index":0.52
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~PackageHandler|ReduceAddSync_5",
+    "duplicate":"~PackageHandler|PackageHandler/rx_handler:RxHandler/rx_pipeline:RxPipeline/rx_chksum_verifier:RxChksumVerifier/tcp_pld_chksum_cal:ReduceAddSync_1",
+    "index":0.56
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~PackageHandler|ReduceAddSync_6",
+    "duplicate":"~PackageHandler|PackageHandler/rx_handler:RxHandler/rx_pipeline:RxPipeline/rx_chksum_verifier:RxChksumVerifier/tcp_hdr_chksum_cal:ReduceAddSync_1",
+    "index":0.6
   },
   {
     "class":"firrtl.EmitCircuitAnnotation",

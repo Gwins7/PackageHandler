@@ -12,7 +12,7 @@ class RxPipelineHandler extends Module with NetFunc{
   val in_shake_hand  = io.in.tready  & io.in.tvalid
   val out_shake_hand = io.out.tready & io.out.tvalid
   val in_reg = RegEnable(Cat(io.in.rx_info.asUInt,io.in.tuser,io.in.tdata,io.in.tvalid,io.in.tlast),1.U,in_shake_hand).asTypeOf(new RxPipelineHandlerReg)
-  val extern_config_reg = RegEnable(io.in.extern_config.asUInt,0.U,in_shake_hand).asTypeOf(new ExternConfig)
+//  val extern_config_reg = RegEnable(io.in.extern_config.asUInt,0.U,in_shake_hand).asTypeOf(new ExternConfig)
 
   val first_beat_reg = RegEnable(in_reg.tlast,true.B,in_shake_hand)
   val in_reg_used_reg = RegInit(false.B) // used when pipeline is stuck
@@ -28,7 +28,7 @@ class RxPipelineHandler extends Module with NetFunc{
   io.out.tlast   := WireDefault(in_reg.tlast)
   io.out.rx_info := WireDefault(in_reg.rx_info)
   io.in.tready   := WireDefault(io.out.tready | !in_reg_used_reg)
-  io.out.extern_config := WireDefault(extern_config_reg)
+  io.out.extern_config := WireDefault(io.in.extern_config)
 }
 
 class RxChksumVerifier extends RxPipelineHandler {
@@ -111,7 +111,7 @@ class RxRSSHasher extends RxPipelineHandler {
   //  save the qid calculated in first beat and use it for whole packet
     val cal_qid = hash_xor_result & io.in.extern_config.c2h_match_arg(1)
     val cur_packet_qid_reg = RegEnable(cal_qid,0.U,in_shake_hand & first_beat_reg)
-  when (extern_config_reg.c2h_match_op(5)){
+  when (io.in.extern_config.c2h_match_op(5)){
     io.out.rx_info.qid := Mux(first_beat_reg,cal_qid,cur_packet_qid_reg)
   }
 }
@@ -125,10 +125,10 @@ class RxStrMatcher extends RxPipelineHandler {
     (op(0) & (a === b)) | (op(1) & (a > b)) | (op(2) & (a < b)) | (!op(0) & !op(1) & !op(2) & (a =/= b))
   }
 
-  val match_op      = extern_config_reg.c2h_match_op
-  val match_content = extern_config_reg.c2h_match_arg(0)
-  val match_mask    = extern_config_reg.c2h_match_arg(1)
-  val match_place   = extern_config_reg.c2h_match_arg(2) // start from 0
+  val match_op      = io.in.extern_config.c2h_match_op
+  val match_content = io.in.extern_config.c2h_match_arg(0)
+  val match_mask    = io.in.extern_config.c2h_match_arg(1)
+  val match_place   = io.in.extern_config.c2h_match_arg(2) // start from 0
 
   val match_found = WireDefault(false.B)
   val match_found_reg = RegInit(false.B)
@@ -183,9 +183,9 @@ class RxStrMatcher extends RxPipelineHandler {
 class RxStrSearcher extends RxPipelineHandler {
   // arg(0): content; arg(1): mask
 
-  val search_op      = Mux(in_shake_hand,io.in.extern_config.c2h_match_op,extern_config_reg.c2h_match_op)
-  val search_content = Mux(in_shake_hand,io.in.extern_config.c2h_match_arg(0),extern_config_reg.c2h_match_arg(0))
-  val search_mask    = Mux(in_shake_hand,io.in.extern_config.c2h_match_arg(1),extern_config_reg.c2h_match_arg(1))
+  val search_op      = Mux(in_shake_hand,io.in.extern_config.c2h_match_op,io.in.extern_config.c2h_match_op)
+  val search_content = Mux(in_shake_hand,io.in.extern_config.c2h_match_arg(0),io.in.extern_config.c2h_match_arg(0))
+  val search_mask    = Mux(in_shake_hand,io.in.extern_config.c2h_match_arg(1),io.in.extern_config.c2h_match_arg(1))
 
   val search_value = search_content & search_mask
 
