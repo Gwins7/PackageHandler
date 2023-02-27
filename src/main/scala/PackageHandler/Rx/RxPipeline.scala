@@ -30,7 +30,7 @@ class RxPipeline extends Module{
   })
 
   // add pipeline handler here
-  val rx_re_searcher = Module(new RxRESearcher(4))
+  val rx_re_searcher = Module(new RxRESearcher(2))
   io.in <> rx_re_searcher.io.in
   rx_re_searcher.io.out <> io.out
 //  io.in <> io.out

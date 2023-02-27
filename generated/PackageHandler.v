@@ -1020,6 +1020,14 @@ module RxConverter(
   output [31:0]  io_out_extern_config_c2h_match_arg_5,
   output [31:0]  io_out_extern_config_c2h_match_arg_6,
   output [31:0]  io_out_extern_config_c2h_match_arg_7,
+  output [31:0]  io_out_extern_config_c2h_match_arg_8,
+  output [31:0]  io_out_extern_config_c2h_match_arg_9,
+  output [31:0]  io_out_extern_config_c2h_match_arg_10,
+  output [31:0]  io_out_extern_config_c2h_match_arg_11,
+  output [31:0]  io_out_extern_config_c2h_match_arg_12,
+  output [31:0]  io_out_extern_config_c2h_match_arg_13,
+  output [31:0]  io_out_extern_config_c2h_match_arg_14,
+  output [31:0]  io_out_extern_config_c2h_match_arg_15,
   input  [7:0]   io_extern_config_c2h_match_op,
   input  [31:0]  io_extern_config_c2h_match_arg_0,
   input  [31:0]  io_extern_config_c2h_match_arg_1,
@@ -1028,7 +1036,15 @@ module RxConverter(
   input  [31:0]  io_extern_config_c2h_match_arg_4,
   input  [31:0]  io_extern_config_c2h_match_arg_5,
   input  [31:0]  io_extern_config_c2h_match_arg_6,
-  input  [31:0]  io_extern_config_c2h_match_arg_7
+  input  [31:0]  io_extern_config_c2h_match_arg_7,
+  input  [31:0]  io_extern_config_c2h_match_arg_8,
+  input  [31:0]  io_extern_config_c2h_match_arg_9,
+  input  [31:0]  io_extern_config_c2h_match_arg_10,
+  input  [31:0]  io_extern_config_c2h_match_arg_11,
+  input  [31:0]  io_extern_config_c2h_match_arg_12,
+  input  [31:0]  io_extern_config_c2h_match_arg_13,
+  input  [31:0]  io_extern_config_c2h_match_arg_14,
+  input  [31:0]  io_extern_config_c2h_match_arg_15
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [607:0] _RAND_0;
@@ -1044,6 +1060,14 @@ module RxConverter(
   reg [31:0] _RAND_10;
   reg [31:0] _RAND_11;
   reg [31:0] _RAND_12;
+  reg [31:0] _RAND_13;
+  reg [31:0] _RAND_14;
+  reg [31:0] _RAND_15;
+  reg [31:0] _RAND_16;
+  reg [31:0] _RAND_17;
+  reg [31:0] _RAND_18;
+  reg [31:0] _RAND_19;
+  reg [31:0] _RAND_20;
 `endif // RANDOMIZE_REG_INIT
   wire  burst_size_cal_clock; // @[RxConverter.scala 29:30]
   wire [7:0] burst_size_cal_io_in_vec_0; // @[RxConverter.scala 29:30]
@@ -1133,6 +1157,14 @@ module RxConverter(
   reg [31:0] extern_config_reg_c2h_match_arg_5; // @[RxConverter.scala 25:34]
   reg [31:0] extern_config_reg_c2h_match_arg_6; // @[RxConverter.scala 25:34]
   reg [31:0] extern_config_reg_c2h_match_arg_7; // @[RxConverter.scala 25:34]
+  reg [31:0] extern_config_reg_c2h_match_arg_8; // @[RxConverter.scala 25:34]
+  reg [31:0] extern_config_reg_c2h_match_arg_9; // @[RxConverter.scala 25:34]
+  reg [31:0] extern_config_reg_c2h_match_arg_10; // @[RxConverter.scala 25:34]
+  reg [31:0] extern_config_reg_c2h_match_arg_11; // @[RxConverter.scala 25:34]
+  reg [31:0] extern_config_reg_c2h_match_arg_12; // @[RxConverter.scala 25:34]
+  reg [31:0] extern_config_reg_c2h_match_arg_13; // @[RxConverter.scala 25:34]
+  reg [31:0] extern_config_reg_c2h_match_arg_14; // @[RxConverter.scala 25:34]
+  reg [31:0] extern_config_reg_c2h_match_arg_15; // @[RxConverter.scala 25:34]
   wire [63:0] cal_tkeep = in_shake_hand ? io_in_tkeep : in_reg_tkeep; // @[RxConverter.scala 28:22]
   reg [15:0] tlen_reg; // @[RxConverter.scala 34:25]
   wire [15:0] _GEN_6 = {{8'd0}, burst_size_cal_io_out_sum}; // @[RxConverter.scala 39:28]
@@ -1418,6 +1450,14 @@ module RxConverter(
   assign io_out_extern_config_c2h_match_arg_5 = extern_config_reg_c2h_match_arg_5; // @[RxConverter.scala 60:24]
   assign io_out_extern_config_c2h_match_arg_6 = extern_config_reg_c2h_match_arg_6; // @[RxConverter.scala 60:24]
   assign io_out_extern_config_c2h_match_arg_7 = extern_config_reg_c2h_match_arg_7; // @[RxConverter.scala 60:24]
+  assign io_out_extern_config_c2h_match_arg_8 = extern_config_reg_c2h_match_arg_8; // @[RxConverter.scala 60:24]
+  assign io_out_extern_config_c2h_match_arg_9 = extern_config_reg_c2h_match_arg_9; // @[RxConverter.scala 60:24]
+  assign io_out_extern_config_c2h_match_arg_10 = extern_config_reg_c2h_match_arg_10; // @[RxConverter.scala 60:24]
+  assign io_out_extern_config_c2h_match_arg_11 = extern_config_reg_c2h_match_arg_11; // @[RxConverter.scala 60:24]
+  assign io_out_extern_config_c2h_match_arg_12 = extern_config_reg_c2h_match_arg_12; // @[RxConverter.scala 60:24]
+  assign io_out_extern_config_c2h_match_arg_13 = extern_config_reg_c2h_match_arg_13; // @[RxConverter.scala 60:24]
+  assign io_out_extern_config_c2h_match_arg_14 = extern_config_reg_c2h_match_arg_14; // @[RxConverter.scala 60:24]
+  assign io_out_extern_config_c2h_match_arg_15 = extern_config_reg_c2h_match_arg_15; // @[RxConverter.scala 60:24]
   assign burst_size_cal_clock = clock;
   assign burst_size_cal_io_in_vec_0 = {{7'd0}, cal_tkeep[0]}; // @[RxConverter.scala 30:53]
   assign burst_size_cal_io_in_vec_1 = {{7'd0}, cal_tkeep[1]}; // @[RxConverter.scala 30:53]
@@ -1540,6 +1580,46 @@ module RxConverter(
     end else begin
       extern_config_reg_c2h_match_arg_7 <= io_extern_config_c2h_match_arg_7; // @[RxConverter.scala 26:21]
     end
+    if (reset) begin // @[RxConverter.scala 25:34]
+      extern_config_reg_c2h_match_arg_8 <= 32'h0; // @[RxConverter.scala 25:34]
+    end else begin
+      extern_config_reg_c2h_match_arg_8 <= io_extern_config_c2h_match_arg_8; // @[RxConverter.scala 26:21]
+    end
+    if (reset) begin // @[RxConverter.scala 25:34]
+      extern_config_reg_c2h_match_arg_9 <= 32'h0; // @[RxConverter.scala 25:34]
+    end else begin
+      extern_config_reg_c2h_match_arg_9 <= io_extern_config_c2h_match_arg_9; // @[RxConverter.scala 26:21]
+    end
+    if (reset) begin // @[RxConverter.scala 25:34]
+      extern_config_reg_c2h_match_arg_10 <= 32'h0; // @[RxConverter.scala 25:34]
+    end else begin
+      extern_config_reg_c2h_match_arg_10 <= io_extern_config_c2h_match_arg_10; // @[RxConverter.scala 26:21]
+    end
+    if (reset) begin // @[RxConverter.scala 25:34]
+      extern_config_reg_c2h_match_arg_11 <= 32'h0; // @[RxConverter.scala 25:34]
+    end else begin
+      extern_config_reg_c2h_match_arg_11 <= io_extern_config_c2h_match_arg_11; // @[RxConverter.scala 26:21]
+    end
+    if (reset) begin // @[RxConverter.scala 25:34]
+      extern_config_reg_c2h_match_arg_12 <= 32'h0; // @[RxConverter.scala 25:34]
+    end else begin
+      extern_config_reg_c2h_match_arg_12 <= io_extern_config_c2h_match_arg_12; // @[RxConverter.scala 26:21]
+    end
+    if (reset) begin // @[RxConverter.scala 25:34]
+      extern_config_reg_c2h_match_arg_13 <= 32'h0; // @[RxConverter.scala 25:34]
+    end else begin
+      extern_config_reg_c2h_match_arg_13 <= io_extern_config_c2h_match_arg_13; // @[RxConverter.scala 26:21]
+    end
+    if (reset) begin // @[RxConverter.scala 25:34]
+      extern_config_reg_c2h_match_arg_14 <= 32'h0; // @[RxConverter.scala 25:34]
+    end else begin
+      extern_config_reg_c2h_match_arg_14 <= io_extern_config_c2h_match_arg_14; // @[RxConverter.scala 26:21]
+    end
+    if (reset) begin // @[RxConverter.scala 25:34]
+      extern_config_reg_c2h_match_arg_15 <= 32'h0; // @[RxConverter.scala 25:34]
+    end else begin
+      extern_config_reg_c2h_match_arg_15 <= io_extern_config_c2h_match_arg_15; // @[RxConverter.scala 26:21]
+    end
     if (reset) begin // @[RxConverter.scala 34:25]
       tlen_reg <= 16'h0; // @[RxConverter.scala 34:25]
     end else if (in_shake_hand) begin // @[RxConverter.scala 35:24]
@@ -1611,7 +1691,23 @@ initial begin
   _RAND_11 = {1{`RANDOM}};
   extern_config_reg_c2h_match_arg_7 = _RAND_11[31:0];
   _RAND_12 = {1{`RANDOM}};
-  tlen_reg = _RAND_12[15:0];
+  extern_config_reg_c2h_match_arg_8 = _RAND_12[31:0];
+  _RAND_13 = {1{`RANDOM}};
+  extern_config_reg_c2h_match_arg_9 = _RAND_13[31:0];
+  _RAND_14 = {1{`RANDOM}};
+  extern_config_reg_c2h_match_arg_10 = _RAND_14[31:0];
+  _RAND_15 = {1{`RANDOM}};
+  extern_config_reg_c2h_match_arg_11 = _RAND_15[31:0];
+  _RAND_16 = {1{`RANDOM}};
+  extern_config_reg_c2h_match_arg_12 = _RAND_16[31:0];
+  _RAND_17 = {1{`RANDOM}};
+  extern_config_reg_c2h_match_arg_13 = _RAND_17[31:0];
+  _RAND_18 = {1{`RANDOM}};
+  extern_config_reg_c2h_match_arg_14 = _RAND_18[31:0];
+  _RAND_19 = {1{`RANDOM}};
+  extern_config_reg_c2h_match_arg_15 = _RAND_19[31:0];
+  _RAND_20 = {1{`RANDOM}};
+  tlen_reg = _RAND_20[15:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -1623,178 +1719,188 @@ endmodule
 module REHandlerUnit(
   input  [7:0]  io_in_char,
   input  [3:0]  io_in_state,
-  input  [15:0] io_in_rule_0,
-  input  [15:0] io_in_rule_1,
-  input  [15:0] io_in_rule_2,
-  input  [15:0] io_in_rule_3,
-  input  [15:0] io_in_rule_4,
-  input  [15:0] io_in_rule_5,
-  input  [15:0] io_in_rule_6,
-  input  [15:0] io_in_rule_7,
-  input  [15:0] io_in_rule_8,
-  input  [15:0] io_in_rule_9,
-  input  [15:0] io_in_rule_10,
-  input  [15:0] io_in_rule_11,
-  input  [15:0] io_in_rule_12,
-  input  [15:0] io_in_rule_13,
-  input  [15:0] io_in_rule_14,
-  input  [15:0] io_in_rule_15,
+  input  [31:0] io_in_rule_0,
+  input  [31:0] io_in_rule_1,
+  input  [31:0] io_in_rule_2,
+  input  [31:0] io_in_rule_3,
+  input  [31:0] io_in_rule_4,
+  input  [31:0] io_in_rule_5,
+  input  [31:0] io_in_rule_6,
+  input  [31:0] io_in_rule_7,
+  input  [31:0] io_in_rule_8,
+  input  [31:0] io_in_rule_9,
+  input  [31:0] io_in_rule_10,
+  input  [31:0] io_in_rule_11,
+  input  [31:0] io_in_rule_12,
+  input  [31:0] io_in_rule_13,
+  input  [31:0] io_in_rule_14,
+  input  [31:0] io_in_rule_15,
   output [3:0]  io_out_state
 );
-  wire [3:0] result_0 = io_in_char == io_in_rule_0[7:0] & io_in_state == io_in_rule_0[11:8] ? io_in_rule_0[15:12] : 4'h0
-    ; // @[RxRESearcher.scala 20:84 21:17]
-  wire [3:0] result_1 = io_in_char == io_in_rule_1[7:0] & io_in_state == io_in_rule_1[11:8] ? io_in_rule_1[15:12] : 4'h0
-    ; // @[RxRESearcher.scala 20:84 21:17]
-  wire [3:0] result_2 = io_in_char == io_in_rule_2[7:0] & io_in_state == io_in_rule_2[11:8] ? io_in_rule_2[15:12] : 4'h0
-    ; // @[RxRESearcher.scala 20:84 21:17]
-  wire [3:0] result_3 = io_in_char == io_in_rule_3[7:0] & io_in_state == io_in_rule_3[11:8] ? io_in_rule_3[15:12] : 4'h0
-    ; // @[RxRESearcher.scala 20:84 21:17]
-  wire [3:0] result_4 = io_in_char == io_in_rule_4[7:0] & io_in_state == io_in_rule_4[11:8] ? io_in_rule_4[15:12] : 4'h0
-    ; // @[RxRESearcher.scala 20:84 21:17]
-  wire [3:0] result_5 = io_in_char == io_in_rule_5[7:0] & io_in_state == io_in_rule_5[11:8] ? io_in_rule_5[15:12] : 4'h0
-    ; // @[RxRESearcher.scala 20:84 21:17]
-  wire [3:0] result_6 = io_in_char == io_in_rule_6[7:0] & io_in_state == io_in_rule_6[11:8] ? io_in_rule_6[15:12] : 4'h0
-    ; // @[RxRESearcher.scala 20:84 21:17]
-  wire [3:0] result_7 = io_in_char == io_in_rule_7[7:0] & io_in_state == io_in_rule_7[11:8] ? io_in_rule_7[15:12] : 4'h0
-    ; // @[RxRESearcher.scala 20:84 21:17]
-  wire [3:0] result_8 = io_in_char == io_in_rule_8[7:0] & io_in_state == io_in_rule_8[11:8] ? io_in_rule_8[15:12] : 4'h0
-    ; // @[RxRESearcher.scala 20:84 21:17]
-  wire [3:0] result_9 = io_in_char == io_in_rule_9[7:0] & io_in_state == io_in_rule_9[11:8] ? io_in_rule_9[15:12] : 4'h0
-    ; // @[RxRESearcher.scala 20:84 21:17]
-  wire [3:0] result_10 = io_in_char == io_in_rule_10[7:0] & io_in_state == io_in_rule_10[11:8] ? io_in_rule_10[15:12] : 4'h0
-    ; // @[RxRESearcher.scala 20:84 21:17]
-  wire [3:0] result_11 = io_in_char == io_in_rule_11[7:0] & io_in_state == io_in_rule_11[11:8] ? io_in_rule_11[15:12] : 4'h0
-    ; // @[RxRESearcher.scala 20:84 21:17]
-  wire [3:0] result_12 = io_in_char == io_in_rule_12[7:0] & io_in_state == io_in_rule_12[11:8] ? io_in_rule_12[15:12] : 4'h0
-    ; // @[RxRESearcher.scala 20:84 21:17]
-  wire [3:0] result_13 = io_in_char == io_in_rule_13[7:0] & io_in_state == io_in_rule_13[11:8] ? io_in_rule_13[15:12] : 4'h0
-    ; // @[RxRESearcher.scala 20:84 21:17]
-  wire [3:0] result_14 = io_in_char == io_in_rule_14[7:0] & io_in_state == io_in_rule_14[11:8] ? io_in_rule_14[15:12] : 4'h0
-    ; // @[RxRESearcher.scala 20:84 21:17]
-  wire [3:0] result_15 = io_in_char == io_in_rule_15[7:0] & io_in_state == io_in_rule_15[11:8] ? io_in_rule_15[15:12] : 4'h0
-    ; // @[RxRESearcher.scala 20:84 21:17]
-  wire [3:0] _io_out_state_T_1 = result_0 | result_1; // @[RxRESearcher.scala 25:68]
-  wire [3:0] _io_out_state_T_2 = result_2 | result_3; // @[RxRESearcher.scala 25:68]
-  wire [3:0] _io_out_state_T_3 = result_4 | result_5; // @[RxRESearcher.scala 25:68]
-  wire [3:0] _io_out_state_T_4 = result_6 | result_7; // @[RxRESearcher.scala 25:68]
-  wire [3:0] _io_out_state_T_5 = result_8 | result_9; // @[RxRESearcher.scala 25:68]
-  wire [3:0] _io_out_state_T_6 = result_10 | result_11; // @[RxRESearcher.scala 25:68]
-  wire [3:0] _io_out_state_T_7 = result_12 | result_13; // @[RxRESearcher.scala 25:68]
-  wire [3:0] _io_out_state_T_8 = result_14 | result_15; // @[RxRESearcher.scala 25:68]
-  wire [3:0] _io_out_state_T_9 = _io_out_state_T_1 | _io_out_state_T_2; // @[RxRESearcher.scala 25:68]
-  wire [3:0] _io_out_state_T_10 = _io_out_state_T_3 | _io_out_state_T_4; // @[RxRESearcher.scala 25:68]
-  wire [3:0] _io_out_state_T_11 = _io_out_state_T_5 | _io_out_state_T_6; // @[RxRESearcher.scala 25:68]
-  wire [3:0] _io_out_state_T_12 = _io_out_state_T_7 | _io_out_state_T_8; // @[RxRESearcher.scala 25:68]
-  wire [3:0] _io_out_state_T_13 = _io_out_state_T_9 | _io_out_state_T_10; // @[RxRESearcher.scala 25:68]
-  wire [3:0] _io_out_state_T_14 = _io_out_state_T_11 | _io_out_state_T_12; // @[RxRESearcher.scala 25:68]
-  wire [3:0] _io_out_state_T_15 = _io_out_state_T_13 | _io_out_state_T_14; // @[RxRESearcher.scala 25:68]
-  assign io_out_state = io_in_state == 4'hf ? 4'hf : _io_out_state_T_15; // @[RxRESearcher.scala 25:22]
+  wire  char_1_or_2_cmp = io_in_char == io_in_rule_0[7:0] | io_in_char == io_in_rule_0[15:8]; // @[RxRESearcher.scala 22:63]
+  wire  char_1_to_2_cmp = io_in_char >= io_in_rule_0[7:0] & io_in_char <= io_in_rule_0[15:8]; // @[RxRESearcher.scala 23:62]
+  wire  cmp_result = io_in_rule_0[17] ? char_1_to_2_cmp : char_1_or_2_cmp; // @[RxRESearcher.scala 24:25]
+  wire  match_ok = io_in_rule_0[16] ? ~cmp_result : cmp_result; // @[RxRESearcher.scala 25:25]
+  wire [3:0] result_0 = io_in_state == io_in_rule_0[27:24] & match_ok ? io_in_rule_0[31:28] : 4'h0; // @[RxRESearcher.scala 27:61 28:19]
+  wire  char_1_or_2_cmp_1 = io_in_char == io_in_rule_1[7:0] | io_in_char == io_in_rule_1[15:8]; // @[RxRESearcher.scala 22:63]
+  wire  char_1_to_2_cmp_1 = io_in_char >= io_in_rule_1[7:0] & io_in_char <= io_in_rule_1[15:8]; // @[RxRESearcher.scala 23:62]
+  wire  cmp_result_1 = io_in_rule_1[17] ? char_1_to_2_cmp_1 : char_1_or_2_cmp_1; // @[RxRESearcher.scala 24:25]
+  wire  match_ok_1 = io_in_rule_1[16] ? ~cmp_result_1 : cmp_result_1; // @[RxRESearcher.scala 25:25]
+  wire [3:0] result_1 = io_in_state == io_in_rule_1[27:24] & match_ok_1 ? io_in_rule_1[31:28] : 4'h0; // @[RxRESearcher.scala 27:61 28:19]
+  wire  char_1_or_2_cmp_2 = io_in_char == io_in_rule_2[7:0] | io_in_char == io_in_rule_2[15:8]; // @[RxRESearcher.scala 22:63]
+  wire  char_1_to_2_cmp_2 = io_in_char >= io_in_rule_2[7:0] & io_in_char <= io_in_rule_2[15:8]; // @[RxRESearcher.scala 23:62]
+  wire  cmp_result_2 = io_in_rule_2[17] ? char_1_to_2_cmp_2 : char_1_or_2_cmp_2; // @[RxRESearcher.scala 24:25]
+  wire  match_ok_2 = io_in_rule_2[16] ? ~cmp_result_2 : cmp_result_2; // @[RxRESearcher.scala 25:25]
+  wire [3:0] result_2 = io_in_state == io_in_rule_2[27:24] & match_ok_2 ? io_in_rule_2[31:28] : 4'h0; // @[RxRESearcher.scala 27:61 28:19]
+  wire  char_1_or_2_cmp_3 = io_in_char == io_in_rule_3[7:0] | io_in_char == io_in_rule_3[15:8]; // @[RxRESearcher.scala 22:63]
+  wire  char_1_to_2_cmp_3 = io_in_char >= io_in_rule_3[7:0] & io_in_char <= io_in_rule_3[15:8]; // @[RxRESearcher.scala 23:62]
+  wire  cmp_result_3 = io_in_rule_3[17] ? char_1_to_2_cmp_3 : char_1_or_2_cmp_3; // @[RxRESearcher.scala 24:25]
+  wire  match_ok_3 = io_in_rule_3[16] ? ~cmp_result_3 : cmp_result_3; // @[RxRESearcher.scala 25:25]
+  wire [3:0] result_3 = io_in_state == io_in_rule_3[27:24] & match_ok_3 ? io_in_rule_3[31:28] : 4'h0; // @[RxRESearcher.scala 27:61 28:19]
+  wire  char_1_or_2_cmp_4 = io_in_char == io_in_rule_4[7:0] | io_in_char == io_in_rule_4[15:8]; // @[RxRESearcher.scala 22:63]
+  wire  char_1_to_2_cmp_4 = io_in_char >= io_in_rule_4[7:0] & io_in_char <= io_in_rule_4[15:8]; // @[RxRESearcher.scala 23:62]
+  wire  cmp_result_4 = io_in_rule_4[17] ? char_1_to_2_cmp_4 : char_1_or_2_cmp_4; // @[RxRESearcher.scala 24:25]
+  wire  match_ok_4 = io_in_rule_4[16] ? ~cmp_result_4 : cmp_result_4; // @[RxRESearcher.scala 25:25]
+  wire [3:0] result_4 = io_in_state == io_in_rule_4[27:24] & match_ok_4 ? io_in_rule_4[31:28] : 4'h0; // @[RxRESearcher.scala 27:61 28:19]
+  wire  char_1_or_2_cmp_5 = io_in_char == io_in_rule_5[7:0] | io_in_char == io_in_rule_5[15:8]; // @[RxRESearcher.scala 22:63]
+  wire  char_1_to_2_cmp_5 = io_in_char >= io_in_rule_5[7:0] & io_in_char <= io_in_rule_5[15:8]; // @[RxRESearcher.scala 23:62]
+  wire  cmp_result_5 = io_in_rule_5[17] ? char_1_to_2_cmp_5 : char_1_or_2_cmp_5; // @[RxRESearcher.scala 24:25]
+  wire  match_ok_5 = io_in_rule_5[16] ? ~cmp_result_5 : cmp_result_5; // @[RxRESearcher.scala 25:25]
+  wire [3:0] result_5 = io_in_state == io_in_rule_5[27:24] & match_ok_5 ? io_in_rule_5[31:28] : 4'h0; // @[RxRESearcher.scala 27:61 28:19]
+  wire  char_1_or_2_cmp_6 = io_in_char == io_in_rule_6[7:0] | io_in_char == io_in_rule_6[15:8]; // @[RxRESearcher.scala 22:63]
+  wire  char_1_to_2_cmp_6 = io_in_char >= io_in_rule_6[7:0] & io_in_char <= io_in_rule_6[15:8]; // @[RxRESearcher.scala 23:62]
+  wire  cmp_result_6 = io_in_rule_6[17] ? char_1_to_2_cmp_6 : char_1_or_2_cmp_6; // @[RxRESearcher.scala 24:25]
+  wire  match_ok_6 = io_in_rule_6[16] ? ~cmp_result_6 : cmp_result_6; // @[RxRESearcher.scala 25:25]
+  wire [3:0] result_6 = io_in_state == io_in_rule_6[27:24] & match_ok_6 ? io_in_rule_6[31:28] : 4'h0; // @[RxRESearcher.scala 27:61 28:19]
+  wire  char_1_or_2_cmp_7 = io_in_char == io_in_rule_7[7:0] | io_in_char == io_in_rule_7[15:8]; // @[RxRESearcher.scala 22:63]
+  wire  char_1_to_2_cmp_7 = io_in_char >= io_in_rule_7[7:0] & io_in_char <= io_in_rule_7[15:8]; // @[RxRESearcher.scala 23:62]
+  wire  cmp_result_7 = io_in_rule_7[17] ? char_1_to_2_cmp_7 : char_1_or_2_cmp_7; // @[RxRESearcher.scala 24:25]
+  wire  match_ok_7 = io_in_rule_7[16] ? ~cmp_result_7 : cmp_result_7; // @[RxRESearcher.scala 25:25]
+  wire [3:0] result_7 = io_in_state == io_in_rule_7[27:24] & match_ok_7 ? io_in_rule_7[31:28] : 4'h0; // @[RxRESearcher.scala 27:61 28:19]
+  wire  char_1_or_2_cmp_8 = io_in_char == io_in_rule_8[7:0] | io_in_char == io_in_rule_8[15:8]; // @[RxRESearcher.scala 22:63]
+  wire  char_1_to_2_cmp_8 = io_in_char >= io_in_rule_8[7:0] & io_in_char <= io_in_rule_8[15:8]; // @[RxRESearcher.scala 23:62]
+  wire  cmp_result_8 = io_in_rule_8[17] ? char_1_to_2_cmp_8 : char_1_or_2_cmp_8; // @[RxRESearcher.scala 24:25]
+  wire  match_ok_8 = io_in_rule_8[16] ? ~cmp_result_8 : cmp_result_8; // @[RxRESearcher.scala 25:25]
+  wire [3:0] result_8 = io_in_state == io_in_rule_8[27:24] & match_ok_8 ? io_in_rule_8[31:28] : 4'h0; // @[RxRESearcher.scala 27:61 28:19]
+  wire  char_1_or_2_cmp_9 = io_in_char == io_in_rule_9[7:0] | io_in_char == io_in_rule_9[15:8]; // @[RxRESearcher.scala 22:63]
+  wire  char_1_to_2_cmp_9 = io_in_char >= io_in_rule_9[7:0] & io_in_char <= io_in_rule_9[15:8]; // @[RxRESearcher.scala 23:62]
+  wire  cmp_result_9 = io_in_rule_9[17] ? char_1_to_2_cmp_9 : char_1_or_2_cmp_9; // @[RxRESearcher.scala 24:25]
+  wire  match_ok_9 = io_in_rule_9[16] ? ~cmp_result_9 : cmp_result_9; // @[RxRESearcher.scala 25:25]
+  wire [3:0] result_9 = io_in_state == io_in_rule_9[27:24] & match_ok_9 ? io_in_rule_9[31:28] : 4'h0; // @[RxRESearcher.scala 27:61 28:19]
+  wire  char_1_or_2_cmp_10 = io_in_char == io_in_rule_10[7:0] | io_in_char == io_in_rule_10[15:8]; // @[RxRESearcher.scala 22:63]
+  wire  char_1_to_2_cmp_10 = io_in_char >= io_in_rule_10[7:0] & io_in_char <= io_in_rule_10[15:8]; // @[RxRESearcher.scala 23:62]
+  wire  cmp_result_10 = io_in_rule_10[17] ? char_1_to_2_cmp_10 : char_1_or_2_cmp_10; // @[RxRESearcher.scala 24:25]
+  wire  match_ok_10 = io_in_rule_10[16] ? ~cmp_result_10 : cmp_result_10; // @[RxRESearcher.scala 25:25]
+  wire [3:0] result_10 = io_in_state == io_in_rule_10[27:24] & match_ok_10 ? io_in_rule_10[31:28] : 4'h0; // @[RxRESearcher.scala 27:61 28:19]
+  wire  char_1_or_2_cmp_11 = io_in_char == io_in_rule_11[7:0] | io_in_char == io_in_rule_11[15:8]; // @[RxRESearcher.scala 22:63]
+  wire  char_1_to_2_cmp_11 = io_in_char >= io_in_rule_11[7:0] & io_in_char <= io_in_rule_11[15:8]; // @[RxRESearcher.scala 23:62]
+  wire  cmp_result_11 = io_in_rule_11[17] ? char_1_to_2_cmp_11 : char_1_or_2_cmp_11; // @[RxRESearcher.scala 24:25]
+  wire  match_ok_11 = io_in_rule_11[16] ? ~cmp_result_11 : cmp_result_11; // @[RxRESearcher.scala 25:25]
+  wire [3:0] result_11 = io_in_state == io_in_rule_11[27:24] & match_ok_11 ? io_in_rule_11[31:28] : 4'h0; // @[RxRESearcher.scala 27:61 28:19]
+  wire  char_1_or_2_cmp_12 = io_in_char == io_in_rule_12[7:0] | io_in_char == io_in_rule_12[15:8]; // @[RxRESearcher.scala 22:63]
+  wire  char_1_to_2_cmp_12 = io_in_char >= io_in_rule_12[7:0] & io_in_char <= io_in_rule_12[15:8]; // @[RxRESearcher.scala 23:62]
+  wire  cmp_result_12 = io_in_rule_12[17] ? char_1_to_2_cmp_12 : char_1_or_2_cmp_12; // @[RxRESearcher.scala 24:25]
+  wire  match_ok_12 = io_in_rule_12[16] ? ~cmp_result_12 : cmp_result_12; // @[RxRESearcher.scala 25:25]
+  wire [3:0] result_12 = io_in_state == io_in_rule_12[27:24] & match_ok_12 ? io_in_rule_12[31:28] : 4'h0; // @[RxRESearcher.scala 27:61 28:19]
+  wire  char_1_or_2_cmp_13 = io_in_char == io_in_rule_13[7:0] | io_in_char == io_in_rule_13[15:8]; // @[RxRESearcher.scala 22:63]
+  wire  char_1_to_2_cmp_13 = io_in_char >= io_in_rule_13[7:0] & io_in_char <= io_in_rule_13[15:8]; // @[RxRESearcher.scala 23:62]
+  wire  cmp_result_13 = io_in_rule_13[17] ? char_1_to_2_cmp_13 : char_1_or_2_cmp_13; // @[RxRESearcher.scala 24:25]
+  wire  match_ok_13 = io_in_rule_13[16] ? ~cmp_result_13 : cmp_result_13; // @[RxRESearcher.scala 25:25]
+  wire [3:0] result_13 = io_in_state == io_in_rule_13[27:24] & match_ok_13 ? io_in_rule_13[31:28] : 4'h0; // @[RxRESearcher.scala 27:61 28:19]
+  wire  char_1_or_2_cmp_14 = io_in_char == io_in_rule_14[7:0] | io_in_char == io_in_rule_14[15:8]; // @[RxRESearcher.scala 22:63]
+  wire  char_1_to_2_cmp_14 = io_in_char >= io_in_rule_14[7:0] & io_in_char <= io_in_rule_14[15:8]; // @[RxRESearcher.scala 23:62]
+  wire  cmp_result_14 = io_in_rule_14[17] ? char_1_to_2_cmp_14 : char_1_or_2_cmp_14; // @[RxRESearcher.scala 24:25]
+  wire  match_ok_14 = io_in_rule_14[16] ? ~cmp_result_14 : cmp_result_14; // @[RxRESearcher.scala 25:25]
+  wire [3:0] result_14 = io_in_state == io_in_rule_14[27:24] & match_ok_14 ? io_in_rule_14[31:28] : 4'h0; // @[RxRESearcher.scala 27:61 28:19]
+  wire  char_1_or_2_cmp_15 = io_in_char == io_in_rule_15[7:0] | io_in_char == io_in_rule_15[15:8]; // @[RxRESearcher.scala 22:63]
+  wire  char_1_to_2_cmp_15 = io_in_char >= io_in_rule_15[7:0] & io_in_char <= io_in_rule_15[15:8]; // @[RxRESearcher.scala 23:62]
+  wire  cmp_result_15 = io_in_rule_15[17] ? char_1_to_2_cmp_15 : char_1_or_2_cmp_15; // @[RxRESearcher.scala 24:25]
+  wire  match_ok_15 = io_in_rule_15[16] ? ~cmp_result_15 : cmp_result_15; // @[RxRESearcher.scala 25:25]
+  wire [3:0] result_15 = io_in_state == io_in_rule_15[27:24] & match_ok_15 ? io_in_rule_15[31:28] : 4'h0; // @[RxRESearcher.scala 27:61 28:19]
+  wire [3:0] _io_out_state_T_1 = result_0 | result_1; // @[RxRESearcher.scala 32:68]
+  wire [3:0] _io_out_state_T_2 = result_2 | result_3; // @[RxRESearcher.scala 32:68]
+  wire [3:0] _io_out_state_T_3 = result_4 | result_5; // @[RxRESearcher.scala 32:68]
+  wire [3:0] _io_out_state_T_4 = result_6 | result_7; // @[RxRESearcher.scala 32:68]
+  wire [3:0] _io_out_state_T_5 = result_8 | result_9; // @[RxRESearcher.scala 32:68]
+  wire [3:0] _io_out_state_T_6 = result_10 | result_11; // @[RxRESearcher.scala 32:68]
+  wire [3:0] _io_out_state_T_7 = result_12 | result_13; // @[RxRESearcher.scala 32:68]
+  wire [3:0] _io_out_state_T_8 = result_14 | result_15; // @[RxRESearcher.scala 32:68]
+  wire [3:0] _io_out_state_T_9 = _io_out_state_T_1 | _io_out_state_T_2; // @[RxRESearcher.scala 32:68]
+  wire [3:0] _io_out_state_T_10 = _io_out_state_T_3 | _io_out_state_T_4; // @[RxRESearcher.scala 32:68]
+  wire [3:0] _io_out_state_T_11 = _io_out_state_T_5 | _io_out_state_T_6; // @[RxRESearcher.scala 32:68]
+  wire [3:0] _io_out_state_T_12 = _io_out_state_T_7 | _io_out_state_T_8; // @[RxRESearcher.scala 32:68]
+  wire [3:0] _io_out_state_T_13 = _io_out_state_T_9 | _io_out_state_T_10; // @[RxRESearcher.scala 32:68]
+  wire [3:0] _io_out_state_T_14 = _io_out_state_T_11 | _io_out_state_T_12; // @[RxRESearcher.scala 32:68]
+  wire [3:0] _io_out_state_T_15 = _io_out_state_T_13 | _io_out_state_T_14; // @[RxRESearcher.scala 32:68]
+  assign io_out_state = io_in_state == 4'hf ? 4'hf : _io_out_state_T_15; // @[RxRESearcher.scala 32:22]
 endmodule
 module REHandler(
   input         clock,
   input         reset,
-  input  [31:0] io_in_char,
+  input  [15:0] io_in_char,
   input  [3:0]  io_in_state,
-  input  [15:0] io_in_rule_0,
-  input  [15:0] io_in_rule_1,
-  input  [15:0] io_in_rule_2,
-  input  [15:0] io_in_rule_3,
-  input  [15:0] io_in_rule_4,
-  input  [15:0] io_in_rule_5,
-  input  [15:0] io_in_rule_6,
-  input  [15:0] io_in_rule_7,
-  input  [15:0] io_in_rule_8,
-  input  [15:0] io_in_rule_9,
-  input  [15:0] io_in_rule_10,
-  input  [15:0] io_in_rule_11,
-  input  [15:0] io_in_rule_12,
-  input  [15:0] io_in_rule_13,
-  input  [15:0] io_in_rule_14,
-  input  [15:0] io_in_rule_15,
+  input  [31:0] io_in_rule_0,
+  input  [31:0] io_in_rule_1,
+  input  [31:0] io_in_rule_2,
+  input  [31:0] io_in_rule_3,
+  input  [31:0] io_in_rule_4,
+  input  [31:0] io_in_rule_5,
+  input  [31:0] io_in_rule_6,
+  input  [31:0] io_in_rule_7,
+  input  [31:0] io_in_rule_8,
+  input  [31:0] io_in_rule_9,
+  input  [31:0] io_in_rule_10,
+  input  [31:0] io_in_rule_11,
+  input  [31:0] io_in_rule_12,
+  input  [31:0] io_in_rule_13,
+  input  [31:0] io_in_rule_14,
+  input  [31:0] io_in_rule_15,
   input         io_in_en,
   output [3:0]  io_out_state
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
 `endif // RANDOMIZE_REG_INIT
-  wire [7:0] re_handler_unit_queue_0_io_in_char; // @[RxRESearcher.scala 38:52]
-  wire [3:0] re_handler_unit_queue_0_io_in_state; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_0_io_in_rule_0; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_0_io_in_rule_1; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_0_io_in_rule_2; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_0_io_in_rule_3; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_0_io_in_rule_4; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_0_io_in_rule_5; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_0_io_in_rule_6; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_0_io_in_rule_7; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_0_io_in_rule_8; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_0_io_in_rule_9; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_0_io_in_rule_10; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_0_io_in_rule_11; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_0_io_in_rule_12; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_0_io_in_rule_13; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_0_io_in_rule_14; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_0_io_in_rule_15; // @[RxRESearcher.scala 38:52]
-  wire [3:0] re_handler_unit_queue_0_io_out_state; // @[RxRESearcher.scala 38:52]
-  wire [7:0] re_handler_unit_queue_1_io_in_char; // @[RxRESearcher.scala 38:52]
-  wire [3:0] re_handler_unit_queue_1_io_in_state; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_1_io_in_rule_0; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_1_io_in_rule_1; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_1_io_in_rule_2; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_1_io_in_rule_3; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_1_io_in_rule_4; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_1_io_in_rule_5; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_1_io_in_rule_6; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_1_io_in_rule_7; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_1_io_in_rule_8; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_1_io_in_rule_9; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_1_io_in_rule_10; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_1_io_in_rule_11; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_1_io_in_rule_12; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_1_io_in_rule_13; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_1_io_in_rule_14; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_1_io_in_rule_15; // @[RxRESearcher.scala 38:52]
-  wire [3:0] re_handler_unit_queue_1_io_out_state; // @[RxRESearcher.scala 38:52]
-  wire [7:0] re_handler_unit_queue_2_io_in_char; // @[RxRESearcher.scala 38:52]
-  wire [3:0] re_handler_unit_queue_2_io_in_state; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_2_io_in_rule_0; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_2_io_in_rule_1; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_2_io_in_rule_2; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_2_io_in_rule_3; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_2_io_in_rule_4; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_2_io_in_rule_5; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_2_io_in_rule_6; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_2_io_in_rule_7; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_2_io_in_rule_8; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_2_io_in_rule_9; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_2_io_in_rule_10; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_2_io_in_rule_11; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_2_io_in_rule_12; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_2_io_in_rule_13; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_2_io_in_rule_14; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_2_io_in_rule_15; // @[RxRESearcher.scala 38:52]
-  wire [3:0] re_handler_unit_queue_2_io_out_state; // @[RxRESearcher.scala 38:52]
-  wire [7:0] re_handler_unit_queue_3_io_in_char; // @[RxRESearcher.scala 38:52]
-  wire [3:0] re_handler_unit_queue_3_io_in_state; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_3_io_in_rule_0; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_3_io_in_rule_1; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_3_io_in_rule_2; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_3_io_in_rule_3; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_3_io_in_rule_4; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_3_io_in_rule_5; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_3_io_in_rule_6; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_3_io_in_rule_7; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_3_io_in_rule_8; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_3_io_in_rule_9; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_3_io_in_rule_10; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_3_io_in_rule_11; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_3_io_in_rule_12; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_3_io_in_rule_13; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_3_io_in_rule_14; // @[RxRESearcher.scala 38:52]
-  wire [15:0] re_handler_unit_queue_3_io_in_rule_15; // @[RxRESearcher.scala 38:52]
-  wire [3:0] re_handler_unit_queue_3_io_out_state; // @[RxRESearcher.scala 38:52]
-  reg [3:0] part_result_reg; // @[RxRESearcher.scala 39:32]
-  REHandlerUnit re_handler_unit_queue_0 ( // @[RxRESearcher.scala 38:52]
+  wire [7:0] re_handler_unit_queue_0_io_in_char; // @[RxRESearcher.scala 45:52]
+  wire [3:0] re_handler_unit_queue_0_io_in_state; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_0_io_in_rule_0; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_0_io_in_rule_1; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_0_io_in_rule_2; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_0_io_in_rule_3; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_0_io_in_rule_4; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_0_io_in_rule_5; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_0_io_in_rule_6; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_0_io_in_rule_7; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_0_io_in_rule_8; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_0_io_in_rule_9; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_0_io_in_rule_10; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_0_io_in_rule_11; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_0_io_in_rule_12; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_0_io_in_rule_13; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_0_io_in_rule_14; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_0_io_in_rule_15; // @[RxRESearcher.scala 45:52]
+  wire [3:0] re_handler_unit_queue_0_io_out_state; // @[RxRESearcher.scala 45:52]
+  wire [7:0] re_handler_unit_queue_1_io_in_char; // @[RxRESearcher.scala 45:52]
+  wire [3:0] re_handler_unit_queue_1_io_in_state; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_1_io_in_rule_0; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_1_io_in_rule_1; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_1_io_in_rule_2; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_1_io_in_rule_3; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_1_io_in_rule_4; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_1_io_in_rule_5; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_1_io_in_rule_6; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_1_io_in_rule_7; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_1_io_in_rule_8; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_1_io_in_rule_9; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_1_io_in_rule_10; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_1_io_in_rule_11; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_1_io_in_rule_12; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_1_io_in_rule_13; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_1_io_in_rule_14; // @[RxRESearcher.scala 45:52]
+  wire [31:0] re_handler_unit_queue_1_io_in_rule_15; // @[RxRESearcher.scala 45:52]
+  wire [3:0] re_handler_unit_queue_1_io_out_state; // @[RxRESearcher.scala 45:52]
+  reg [3:0] part_result_reg; // @[RxRESearcher.scala 46:32]
+  REHandlerUnit re_handler_unit_queue_0 ( // @[RxRESearcher.scala 45:52]
     .io_in_char(re_handler_unit_queue_0_io_in_char),
     .io_in_state(re_handler_unit_queue_0_io_in_state),
     .io_in_rule_0(re_handler_unit_queue_0_io_in_rule_0),
@@ -1815,7 +1921,7 @@ module REHandler(
     .io_in_rule_15(re_handler_unit_queue_0_io_in_rule_15),
     .io_out_state(re_handler_unit_queue_0_io_out_state)
   );
-  REHandlerUnit re_handler_unit_queue_1 ( // @[RxRESearcher.scala 38:52]
+  REHandlerUnit re_handler_unit_queue_1 ( // @[RxRESearcher.scala 45:52]
     .io_in_char(re_handler_unit_queue_1_io_in_char),
     .io_in_state(re_handler_unit_queue_1_io_in_state),
     .io_in_rule_0(re_handler_unit_queue_1_io_in_rule_0),
@@ -1836,126 +1942,48 @@ module REHandler(
     .io_in_rule_15(re_handler_unit_queue_1_io_in_rule_15),
     .io_out_state(re_handler_unit_queue_1_io_out_state)
   );
-  REHandlerUnit re_handler_unit_queue_2 ( // @[RxRESearcher.scala 38:52]
-    .io_in_char(re_handler_unit_queue_2_io_in_char),
-    .io_in_state(re_handler_unit_queue_2_io_in_state),
-    .io_in_rule_0(re_handler_unit_queue_2_io_in_rule_0),
-    .io_in_rule_1(re_handler_unit_queue_2_io_in_rule_1),
-    .io_in_rule_2(re_handler_unit_queue_2_io_in_rule_2),
-    .io_in_rule_3(re_handler_unit_queue_2_io_in_rule_3),
-    .io_in_rule_4(re_handler_unit_queue_2_io_in_rule_4),
-    .io_in_rule_5(re_handler_unit_queue_2_io_in_rule_5),
-    .io_in_rule_6(re_handler_unit_queue_2_io_in_rule_6),
-    .io_in_rule_7(re_handler_unit_queue_2_io_in_rule_7),
-    .io_in_rule_8(re_handler_unit_queue_2_io_in_rule_8),
-    .io_in_rule_9(re_handler_unit_queue_2_io_in_rule_9),
-    .io_in_rule_10(re_handler_unit_queue_2_io_in_rule_10),
-    .io_in_rule_11(re_handler_unit_queue_2_io_in_rule_11),
-    .io_in_rule_12(re_handler_unit_queue_2_io_in_rule_12),
-    .io_in_rule_13(re_handler_unit_queue_2_io_in_rule_13),
-    .io_in_rule_14(re_handler_unit_queue_2_io_in_rule_14),
-    .io_in_rule_15(re_handler_unit_queue_2_io_in_rule_15),
-    .io_out_state(re_handler_unit_queue_2_io_out_state)
-  );
-  REHandlerUnit re_handler_unit_queue_3 ( // @[RxRESearcher.scala 38:52]
-    .io_in_char(re_handler_unit_queue_3_io_in_char),
-    .io_in_state(re_handler_unit_queue_3_io_in_state),
-    .io_in_rule_0(re_handler_unit_queue_3_io_in_rule_0),
-    .io_in_rule_1(re_handler_unit_queue_3_io_in_rule_1),
-    .io_in_rule_2(re_handler_unit_queue_3_io_in_rule_2),
-    .io_in_rule_3(re_handler_unit_queue_3_io_in_rule_3),
-    .io_in_rule_4(re_handler_unit_queue_3_io_in_rule_4),
-    .io_in_rule_5(re_handler_unit_queue_3_io_in_rule_5),
-    .io_in_rule_6(re_handler_unit_queue_3_io_in_rule_6),
-    .io_in_rule_7(re_handler_unit_queue_3_io_in_rule_7),
-    .io_in_rule_8(re_handler_unit_queue_3_io_in_rule_8),
-    .io_in_rule_9(re_handler_unit_queue_3_io_in_rule_9),
-    .io_in_rule_10(re_handler_unit_queue_3_io_in_rule_10),
-    .io_in_rule_11(re_handler_unit_queue_3_io_in_rule_11),
-    .io_in_rule_12(re_handler_unit_queue_3_io_in_rule_12),
-    .io_in_rule_13(re_handler_unit_queue_3_io_in_rule_13),
-    .io_in_rule_14(re_handler_unit_queue_3_io_in_rule_14),
-    .io_in_rule_15(re_handler_unit_queue_3_io_in_rule_15),
-    .io_out_state(re_handler_unit_queue_3_io_out_state)
-  );
-  assign io_out_state = part_result_reg; // @[RxRESearcher.scala 51:16]
-  assign re_handler_unit_queue_0_io_in_char = io_in_char[7:0]; // @[RxRESearcher.scala 42:54]
-  assign re_handler_unit_queue_0_io_in_state = io_in_state; // @[RxRESearcher.scala 44:54]
-  assign re_handler_unit_queue_0_io_in_rule_0 = io_in_rule_0; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_0_io_in_rule_1 = io_in_rule_1; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_0_io_in_rule_2 = io_in_rule_2; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_0_io_in_rule_3 = io_in_rule_3; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_0_io_in_rule_4 = io_in_rule_4; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_0_io_in_rule_5 = io_in_rule_5; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_0_io_in_rule_6 = io_in_rule_6; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_0_io_in_rule_7 = io_in_rule_7; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_0_io_in_rule_8 = io_in_rule_8; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_0_io_in_rule_9 = io_in_rule_9; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_0_io_in_rule_10 = io_in_rule_10; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_0_io_in_rule_11 = io_in_rule_11; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_0_io_in_rule_12 = io_in_rule_12; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_0_io_in_rule_13 = io_in_rule_13; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_0_io_in_rule_14 = io_in_rule_14; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_0_io_in_rule_15 = io_in_rule_15; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_1_io_in_char = io_in_char[15:8]; // @[RxRESearcher.scala 42:54]
-  assign re_handler_unit_queue_1_io_in_state = re_handler_unit_queue_0_io_out_state; // @[RxRESearcher.scala 45:47]
-  assign re_handler_unit_queue_1_io_in_rule_0 = io_in_rule_0; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_1_io_in_rule_1 = io_in_rule_1; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_1_io_in_rule_2 = io_in_rule_2; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_1_io_in_rule_3 = io_in_rule_3; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_1_io_in_rule_4 = io_in_rule_4; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_1_io_in_rule_5 = io_in_rule_5; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_1_io_in_rule_6 = io_in_rule_6; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_1_io_in_rule_7 = io_in_rule_7; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_1_io_in_rule_8 = io_in_rule_8; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_1_io_in_rule_9 = io_in_rule_9; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_1_io_in_rule_10 = io_in_rule_10; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_1_io_in_rule_11 = io_in_rule_11; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_1_io_in_rule_12 = io_in_rule_12; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_1_io_in_rule_13 = io_in_rule_13; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_1_io_in_rule_14 = io_in_rule_14; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_1_io_in_rule_15 = io_in_rule_15; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_2_io_in_char = io_in_char[23:16]; // @[RxRESearcher.scala 42:54]
-  assign re_handler_unit_queue_2_io_in_state = re_handler_unit_queue_1_io_out_state; // @[RxRESearcher.scala 45:47]
-  assign re_handler_unit_queue_2_io_in_rule_0 = io_in_rule_0; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_2_io_in_rule_1 = io_in_rule_1; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_2_io_in_rule_2 = io_in_rule_2; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_2_io_in_rule_3 = io_in_rule_3; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_2_io_in_rule_4 = io_in_rule_4; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_2_io_in_rule_5 = io_in_rule_5; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_2_io_in_rule_6 = io_in_rule_6; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_2_io_in_rule_7 = io_in_rule_7; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_2_io_in_rule_8 = io_in_rule_8; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_2_io_in_rule_9 = io_in_rule_9; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_2_io_in_rule_10 = io_in_rule_10; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_2_io_in_rule_11 = io_in_rule_11; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_2_io_in_rule_12 = io_in_rule_12; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_2_io_in_rule_13 = io_in_rule_13; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_2_io_in_rule_14 = io_in_rule_14; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_2_io_in_rule_15 = io_in_rule_15; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_3_io_in_char = io_in_char[31:24]; // @[RxRESearcher.scala 42:54]
-  assign re_handler_unit_queue_3_io_in_state = re_handler_unit_queue_2_io_out_state; // @[RxRESearcher.scala 45:47]
-  assign re_handler_unit_queue_3_io_in_rule_0 = io_in_rule_0; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_3_io_in_rule_1 = io_in_rule_1; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_3_io_in_rule_2 = io_in_rule_2; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_3_io_in_rule_3 = io_in_rule_3; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_3_io_in_rule_4 = io_in_rule_4; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_3_io_in_rule_5 = io_in_rule_5; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_3_io_in_rule_6 = io_in_rule_6; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_3_io_in_rule_7 = io_in_rule_7; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_3_io_in_rule_8 = io_in_rule_8; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_3_io_in_rule_9 = io_in_rule_9; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_3_io_in_rule_10 = io_in_rule_10; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_3_io_in_rule_11 = io_in_rule_11; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_3_io_in_rule_12 = io_in_rule_12; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_3_io_in_rule_13 = io_in_rule_13; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_3_io_in_rule_14 = io_in_rule_14; // @[RxRESearcher.scala 43:41]
-  assign re_handler_unit_queue_3_io_in_rule_15 = io_in_rule_15; // @[RxRESearcher.scala 43:41]
+  assign io_out_state = part_result_reg; // @[RxRESearcher.scala 58:16]
+  assign re_handler_unit_queue_0_io_in_char = io_in_char[7:0]; // @[RxRESearcher.scala 49:54]
+  assign re_handler_unit_queue_0_io_in_state = io_in_state; // @[RxRESearcher.scala 51:54]
+  assign re_handler_unit_queue_0_io_in_rule_0 = io_in_rule_0; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_0_io_in_rule_1 = io_in_rule_1; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_0_io_in_rule_2 = io_in_rule_2; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_0_io_in_rule_3 = io_in_rule_3; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_0_io_in_rule_4 = io_in_rule_4; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_0_io_in_rule_5 = io_in_rule_5; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_0_io_in_rule_6 = io_in_rule_6; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_0_io_in_rule_7 = io_in_rule_7; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_0_io_in_rule_8 = io_in_rule_8; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_0_io_in_rule_9 = io_in_rule_9; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_0_io_in_rule_10 = io_in_rule_10; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_0_io_in_rule_11 = io_in_rule_11; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_0_io_in_rule_12 = io_in_rule_12; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_0_io_in_rule_13 = io_in_rule_13; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_0_io_in_rule_14 = io_in_rule_14; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_0_io_in_rule_15 = io_in_rule_15; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_1_io_in_char = io_in_char[15:8]; // @[RxRESearcher.scala 49:54]
+  assign re_handler_unit_queue_1_io_in_state = re_handler_unit_queue_0_io_out_state; // @[RxRESearcher.scala 52:47]
+  assign re_handler_unit_queue_1_io_in_rule_0 = io_in_rule_0; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_1_io_in_rule_1 = io_in_rule_1; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_1_io_in_rule_2 = io_in_rule_2; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_1_io_in_rule_3 = io_in_rule_3; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_1_io_in_rule_4 = io_in_rule_4; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_1_io_in_rule_5 = io_in_rule_5; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_1_io_in_rule_6 = io_in_rule_6; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_1_io_in_rule_7 = io_in_rule_7; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_1_io_in_rule_8 = io_in_rule_8; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_1_io_in_rule_9 = io_in_rule_9; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_1_io_in_rule_10 = io_in_rule_10; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_1_io_in_rule_11 = io_in_rule_11; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_1_io_in_rule_12 = io_in_rule_12; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_1_io_in_rule_13 = io_in_rule_13; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_1_io_in_rule_14 = io_in_rule_14; // @[RxRESearcher.scala 50:41]
+  assign re_handler_unit_queue_1_io_in_rule_15 = io_in_rule_15; // @[RxRESearcher.scala 50:41]
   always @(posedge clock) begin
-    if (reset) begin // @[RxRESearcher.scala 39:32]
-      part_result_reg <= 4'h0; // @[RxRESearcher.scala 39:32]
-    end else if (io_in_en) begin // @[RxRESearcher.scala 48:19]
-      part_result_reg <= re_handler_unit_queue_3_io_out_state; // @[RxRESearcher.scala 49:21]
+    if (reset) begin // @[RxRESearcher.scala 46:32]
+      part_result_reg <= 4'h0; // @[RxRESearcher.scala 46:32]
+    end else if (io_in_en) begin // @[RxRESearcher.scala 55:19]
+      part_result_reg <= re_handler_unit_queue_1_io_out_state; // @[RxRESearcher.scala 56:21]
     end
   end
 // Register and memory initialization
@@ -2022,6 +2050,14 @@ module RxRESearcher(
   input  [31:0]  io_in_extern_config_c2h_match_arg_5,
   input  [31:0]  io_in_extern_config_c2h_match_arg_6,
   input  [31:0]  io_in_extern_config_c2h_match_arg_7,
+  input  [31:0]  io_in_extern_config_c2h_match_arg_8,
+  input  [31:0]  io_in_extern_config_c2h_match_arg_9,
+  input  [31:0]  io_in_extern_config_c2h_match_arg_10,
+  input  [31:0]  io_in_extern_config_c2h_match_arg_11,
+  input  [31:0]  io_in_extern_config_c2h_match_arg_12,
+  input  [31:0]  io_in_extern_config_c2h_match_arg_13,
+  input  [31:0]  io_in_extern_config_c2h_match_arg_14,
+  input  [31:0]  io_in_extern_config_c2h_match_arg_15,
   output [511:0] io_out_tdata,
   output         io_out_tvalid,
   input          io_out_tready,
@@ -2035,34 +2071,34 @@ module RxRESearcher(
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [607:0] _RAND_0;
-  reg [287:0] _RAND_1;
+  reg [543:0] _RAND_1;
   reg [31:0] _RAND_2;
   reg [31:0] _RAND_3;
   reg [31:0] _RAND_4;
   reg [31:0] _RAND_5;
 `endif // RANDOMIZE_REG_INIT
-  wire  re_handler_clock; // @[RxRESearcher.scala 72:26]
-  wire  re_handler_reset; // @[RxRESearcher.scala 72:26]
-  wire [31:0] re_handler_io_in_char; // @[RxRESearcher.scala 72:26]
-  wire [3:0] re_handler_io_in_state; // @[RxRESearcher.scala 72:26]
-  wire [15:0] re_handler_io_in_rule_0; // @[RxRESearcher.scala 72:26]
-  wire [15:0] re_handler_io_in_rule_1; // @[RxRESearcher.scala 72:26]
-  wire [15:0] re_handler_io_in_rule_2; // @[RxRESearcher.scala 72:26]
-  wire [15:0] re_handler_io_in_rule_3; // @[RxRESearcher.scala 72:26]
-  wire [15:0] re_handler_io_in_rule_4; // @[RxRESearcher.scala 72:26]
-  wire [15:0] re_handler_io_in_rule_5; // @[RxRESearcher.scala 72:26]
-  wire [15:0] re_handler_io_in_rule_6; // @[RxRESearcher.scala 72:26]
-  wire [15:0] re_handler_io_in_rule_7; // @[RxRESearcher.scala 72:26]
-  wire [15:0] re_handler_io_in_rule_8; // @[RxRESearcher.scala 72:26]
-  wire [15:0] re_handler_io_in_rule_9; // @[RxRESearcher.scala 72:26]
-  wire [15:0] re_handler_io_in_rule_10; // @[RxRESearcher.scala 72:26]
-  wire [15:0] re_handler_io_in_rule_11; // @[RxRESearcher.scala 72:26]
-  wire [15:0] re_handler_io_in_rule_12; // @[RxRESearcher.scala 72:26]
-  wire [15:0] re_handler_io_in_rule_13; // @[RxRESearcher.scala 72:26]
-  wire [15:0] re_handler_io_in_rule_14; // @[RxRESearcher.scala 72:26]
-  wire [15:0] re_handler_io_in_rule_15; // @[RxRESearcher.scala 72:26]
-  wire  re_handler_io_in_en; // @[RxRESearcher.scala 72:26]
-  wire [3:0] re_handler_io_out_state; // @[RxRESearcher.scala 72:26]
+  wire  re_handler_clock; // @[RxRESearcher.scala 79:26]
+  wire  re_handler_reset; // @[RxRESearcher.scala 79:26]
+  wire [15:0] re_handler_io_in_char; // @[RxRESearcher.scala 79:26]
+  wire [3:0] re_handler_io_in_state; // @[RxRESearcher.scala 79:26]
+  wire [31:0] re_handler_io_in_rule_0; // @[RxRESearcher.scala 79:26]
+  wire [31:0] re_handler_io_in_rule_1; // @[RxRESearcher.scala 79:26]
+  wire [31:0] re_handler_io_in_rule_2; // @[RxRESearcher.scala 79:26]
+  wire [31:0] re_handler_io_in_rule_3; // @[RxRESearcher.scala 79:26]
+  wire [31:0] re_handler_io_in_rule_4; // @[RxRESearcher.scala 79:26]
+  wire [31:0] re_handler_io_in_rule_5; // @[RxRESearcher.scala 79:26]
+  wire [31:0] re_handler_io_in_rule_6; // @[RxRESearcher.scala 79:26]
+  wire [31:0] re_handler_io_in_rule_7; // @[RxRESearcher.scala 79:26]
+  wire [31:0] re_handler_io_in_rule_8; // @[RxRESearcher.scala 79:26]
+  wire [31:0] re_handler_io_in_rule_9; // @[RxRESearcher.scala 79:26]
+  wire [31:0] re_handler_io_in_rule_10; // @[RxRESearcher.scala 79:26]
+  wire [31:0] re_handler_io_in_rule_11; // @[RxRESearcher.scala 79:26]
+  wire [31:0] re_handler_io_in_rule_12; // @[RxRESearcher.scala 79:26]
+  wire [31:0] re_handler_io_in_rule_13; // @[RxRESearcher.scala 79:26]
+  wire [31:0] re_handler_io_in_rule_14; // @[RxRESearcher.scala 79:26]
+  wire [31:0] re_handler_io_in_rule_15; // @[RxRESearcher.scala 79:26]
+  wire  re_handler_io_in_en; // @[RxRESearcher.scala 79:26]
+  wire [3:0] re_handler_io_out_state; // @[RxRESearcher.scala 79:26]
   wire  in_shake_hand = io_in_tready & io_in_tvalid; // @[RxPipelineHandler.scala 12:38]
   wire  out_shake_hand = io_out_tready & io_out_tvalid; // @[RxPipelineHandler.scala 13:38]
   wire [600:0] _in_reg_T_1 = {io_in_rx_info_tlen,6'h0,64'h0,io_in_tuser,io_in_tdata,io_in_tvalid,io_in_tlast}; // @[Cat.scala 31:58]
@@ -2071,20 +2107,15 @@ module RxRESearcher(
   wire  in_reg_tvalid = in_reg_r[1]; // @[RxPipelineHandler.scala 14:128]
   wire [511:0] in_reg_tdata = in_reg_r[513:2]; // @[RxPipelineHandler.scala 14:128]
   wire [5:0] in_reg_rx_info_qid = in_reg_r[584:579]; // @[RxPipelineHandler.scala 14:128]
-  wire [263:0] _extern_config_reg_T = {io_in_extern_config_c2h_match_op,io_in_extern_config_c2h_match_arg_7,
-    io_in_extern_config_c2h_match_arg_6,io_in_extern_config_c2h_match_arg_5,io_in_extern_config_c2h_match_arg_4,
-    io_in_extern_config_c2h_match_arg_3,io_in_extern_config_c2h_match_arg_2,io_in_extern_config_c2h_match_arg_1,
-    io_in_extern_config_c2h_match_arg_0}; // @[RxPipelineHandler.scala 15:57]
-  reg [263:0] extern_config_reg_r; // @[Reg.scala 28:20]
-  wire [31:0] extern_config_reg_c2h_match_arg_0 = extern_config_reg_r[31:0]; // @[RxPipelineHandler.scala 15:91]
-  wire [31:0] extern_config_reg_c2h_match_arg_1 = extern_config_reg_r[63:32]; // @[RxPipelineHandler.scala 15:91]
-  wire [31:0] extern_config_reg_c2h_match_arg_2 = extern_config_reg_r[95:64]; // @[RxPipelineHandler.scala 15:91]
-  wire [31:0] extern_config_reg_c2h_match_arg_3 = extern_config_reg_r[127:96]; // @[RxPipelineHandler.scala 15:91]
-  wire [31:0] extern_config_reg_c2h_match_arg_4 = extern_config_reg_r[159:128]; // @[RxPipelineHandler.scala 15:91]
-  wire [31:0] extern_config_reg_c2h_match_arg_5 = extern_config_reg_r[191:160]; // @[RxPipelineHandler.scala 15:91]
-  wire [31:0] extern_config_reg_c2h_match_arg_6 = extern_config_reg_r[223:192]; // @[RxPipelineHandler.scala 15:91]
-  wire [31:0] extern_config_reg_c2h_match_arg_7 = extern_config_reg_r[255:224]; // @[RxPipelineHandler.scala 15:91]
-  wire [7:0] extern_config_reg_c2h_match_op = extern_config_reg_r[263:256]; // @[RxPipelineHandler.scala 15:91]
+  wire [255:0] extern_config_reg_lo = {io_in_extern_config_c2h_match_arg_7,io_in_extern_config_c2h_match_arg_6,
+    io_in_extern_config_c2h_match_arg_5,io_in_extern_config_c2h_match_arg_4,io_in_extern_config_c2h_match_arg_3,
+    io_in_extern_config_c2h_match_arg_2,io_in_extern_config_c2h_match_arg_1,io_in_extern_config_c2h_match_arg_0}; // @[RxPipelineHandler.scala 15:57]
+  wire [519:0] _extern_config_reg_T = {io_in_extern_config_c2h_match_op,io_in_extern_config_c2h_match_arg_15,
+    io_in_extern_config_c2h_match_arg_14,io_in_extern_config_c2h_match_arg_13,io_in_extern_config_c2h_match_arg_12,
+    io_in_extern_config_c2h_match_arg_11,io_in_extern_config_c2h_match_arg_10,io_in_extern_config_c2h_match_arg_9,
+    io_in_extern_config_c2h_match_arg_8,extern_config_reg_lo}; // @[RxPipelineHandler.scala 15:57]
+  reg [519:0] extern_config_reg_r; // @[Reg.scala 28:20]
+  wire [7:0] extern_config_reg_c2h_match_op = extern_config_reg_r[519:512]; // @[RxPipelineHandler.scala 15:91]
   reg  first_beat_reg; // @[Reg.scala 28:20]
   wire  _GEN_2 = in_shake_hand ? in_reg_tlast : first_beat_reg; // @[Reg.scala 29:18 28:20 29:22]
   reg  in_reg_used_reg; // @[RxPipelineHandler.scala 18:32]
@@ -2092,65 +2123,110 @@ module RxRESearcher(
   wire  _GEN_4 = in_shake_hand | _GEN_3; // @[RxPipelineHandler.scala 19:23 20:21]
   wire  _io_out_tvalid_T = in_reg_tvalid & in_reg_used_reg; // @[RxPipelineHandler.scala 27:47]
   wire  _io_in_tready_T = ~in_reg_used_reg; // @[RxPipelineHandler.scala 30:49]
-  reg [7:0] beat_counter_reg; // @[RxRESearcher.scala 60:33]
-  reg  match_wait_reg; // @[RxRESearcher.scala 61:31]
-  wire  cur_beat_done = beat_counter_reg == 8'hf; // @[RxRESearcher.scala 63:41]
-  wire [255:0] _input_rule_T = {extern_config_reg_c2h_match_arg_7,extern_config_reg_c2h_match_arg_6,
-    extern_config_reg_c2h_match_arg_5,extern_config_reg_c2h_match_arg_4,extern_config_reg_c2h_match_arg_3,
-    extern_config_reg_c2h_match_arg_2,extern_config_reg_c2h_match_arg_1,extern_config_reg_c2h_match_arg_0}; // @[RxRESearcher.scala 64:60]
-  wire [31:0] data_vec_0 = in_reg_tdata[31:0]; // @[RxRESearcher.scala 68:32]
-  wire [31:0] data_vec_1 = in_reg_tdata[63:32]; // @[RxRESearcher.scala 68:32]
-  wire [31:0] data_vec_2 = in_reg_tdata[95:64]; // @[RxRESearcher.scala 68:32]
-  wire [31:0] data_vec_3 = in_reg_tdata[127:96]; // @[RxRESearcher.scala 68:32]
-  wire [31:0] data_vec_4 = in_reg_tdata[159:128]; // @[RxRESearcher.scala 68:32]
-  wire [31:0] data_vec_5 = in_reg_tdata[191:160]; // @[RxRESearcher.scala 68:32]
-  wire [31:0] data_vec_6 = in_reg_tdata[223:192]; // @[RxRESearcher.scala 68:32]
-  wire [31:0] data_vec_7 = in_reg_tdata[255:224]; // @[RxRESearcher.scala 68:32]
-  wire [31:0] data_vec_8 = in_reg_tdata[287:256]; // @[RxRESearcher.scala 68:32]
-  wire [31:0] data_vec_9 = in_reg_tdata[319:288]; // @[RxRESearcher.scala 68:32]
-  wire [31:0] data_vec_10 = in_reg_tdata[351:320]; // @[RxRESearcher.scala 68:32]
-  wire [31:0] data_vec_11 = in_reg_tdata[383:352]; // @[RxRESearcher.scala 68:32]
-  wire [31:0] data_vec_12 = in_reg_tdata[415:384]; // @[RxRESearcher.scala 68:32]
-  wire [31:0] data_vec_13 = in_reg_tdata[447:416]; // @[RxRESearcher.scala 68:32]
-  wire [31:0] data_vec_14 = in_reg_tdata[479:448]; // @[RxRESearcher.scala 68:32]
-  wire [31:0] data_vec_15 = in_reg_tdata[511:480]; // @[RxRESearcher.scala 68:32]
-  wire  _input_data_T_1 = ~match_wait_reg; // @[RxRESearcher.scala 70:66]
-  wire [7:0] _input_data_T_5 = beat_counter_reg + 8'h1; // @[RxRESearcher.scala 70:135]
-  wire [31:0] _GEN_6 = 4'h1 == beat_counter_reg[3:0] ? data_vec_1 : data_vec_0; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_7 = 4'h2 == beat_counter_reg[3:0] ? data_vec_2 : _GEN_6; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_8 = 4'h3 == beat_counter_reg[3:0] ? data_vec_3 : _GEN_7; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_9 = 4'h4 == beat_counter_reg[3:0] ? data_vec_4 : _GEN_8; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_10 = 4'h5 == beat_counter_reg[3:0] ? data_vec_5 : _GEN_9; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_11 = 4'h6 == beat_counter_reg[3:0] ? data_vec_6 : _GEN_10; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_12 = 4'h7 == beat_counter_reg[3:0] ? data_vec_7 : _GEN_11; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_13 = 4'h8 == beat_counter_reg[3:0] ? data_vec_8 : _GEN_12; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_14 = 4'h9 == beat_counter_reg[3:0] ? data_vec_9 : _GEN_13; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_15 = 4'ha == beat_counter_reg[3:0] ? data_vec_10 : _GEN_14; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_16 = 4'hb == beat_counter_reg[3:0] ? data_vec_11 : _GEN_15; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_17 = 4'hc == beat_counter_reg[3:0] ? data_vec_12 : _GEN_16; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_18 = 4'hd == beat_counter_reg[3:0] ? data_vec_13 : _GEN_17; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_19 = 4'he == beat_counter_reg[3:0] ? data_vec_14 : _GEN_18; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_20 = 4'hf == beat_counter_reg[3:0] ? data_vec_15 : _GEN_19; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_22 = 4'h1 == _input_data_T_5[3:0] ? data_vec_1 : data_vec_0; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_23 = 4'h2 == _input_data_T_5[3:0] ? data_vec_2 : _GEN_22; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_24 = 4'h3 == _input_data_T_5[3:0] ? data_vec_3 : _GEN_23; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_25 = 4'h4 == _input_data_T_5[3:0] ? data_vec_4 : _GEN_24; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_26 = 4'h5 == _input_data_T_5[3:0] ? data_vec_5 : _GEN_25; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_27 = 4'h6 == _input_data_T_5[3:0] ? data_vec_6 : _GEN_26; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_28 = 4'h7 == _input_data_T_5[3:0] ? data_vec_7 : _GEN_27; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_29 = 4'h8 == _input_data_T_5[3:0] ? data_vec_8 : _GEN_28; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_30 = 4'h9 == _input_data_T_5[3:0] ? data_vec_9 : _GEN_29; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_31 = 4'ha == _input_data_T_5[3:0] ? data_vec_10 : _GEN_30; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_32 = 4'hb == _input_data_T_5[3:0] ? data_vec_11 : _GEN_31; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_33 = 4'hc == _input_data_T_5[3:0] ? data_vec_12 : _GEN_32; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_34 = 4'hd == _input_data_T_5[3:0] ? data_vec_13 : _GEN_33; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_35 = 4'he == _input_data_T_5[3:0] ? data_vec_14 : _GEN_34; // @[RxRESearcher.scala 70:{23,23}]
-  wire [31:0] _GEN_36 = 4'hf == _input_data_T_5[3:0] ? data_vec_15 : _GEN_35; // @[RxRESearcher.scala 70:{23,23}]
-  wire  match_found = re_handler_io_out_state == 4'hf; // @[RxRESearcher.scala 74:46]
-  wire  _cur_state_T_2 = in_shake_hand & in_reg_tlast; // @[RxRESearcher.scala 75:75]
-  wire  _GEN_39 = _input_data_T_1 | match_wait_reg; // @[RxRESearcher.scala 91:31 92:20 61:31]
-  wire [5:0] _io_out_rx_info_qid_T = match_found ? 6'h1 : in_reg_rx_info_qid; // @[RxRESearcher.scala 98:30]
-  REHandler re_handler ( // @[RxRESearcher.scala 72:26]
+  reg [7:0] beat_counter_reg; // @[RxRESearcher.scala 67:33]
+  reg  match_wait_reg; // @[RxRESearcher.scala 68:31]
+  wire  cur_beat_done = beat_counter_reg == 8'h1f; // @[RxRESearcher.scala 70:41]
+  wire [15:0] data_vec_0 = in_reg_tdata[15:0]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_1 = in_reg_tdata[31:16]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_2 = in_reg_tdata[47:32]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_3 = in_reg_tdata[63:48]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_4 = in_reg_tdata[79:64]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_5 = in_reg_tdata[95:80]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_6 = in_reg_tdata[111:96]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_7 = in_reg_tdata[127:112]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_8 = in_reg_tdata[143:128]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_9 = in_reg_tdata[159:144]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_10 = in_reg_tdata[175:160]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_11 = in_reg_tdata[191:176]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_12 = in_reg_tdata[207:192]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_13 = in_reg_tdata[223:208]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_14 = in_reg_tdata[239:224]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_15 = in_reg_tdata[255:240]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_16 = in_reg_tdata[271:256]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_17 = in_reg_tdata[287:272]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_18 = in_reg_tdata[303:288]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_19 = in_reg_tdata[319:304]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_20 = in_reg_tdata[335:320]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_21 = in_reg_tdata[351:336]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_22 = in_reg_tdata[367:352]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_23 = in_reg_tdata[383:368]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_24 = in_reg_tdata[399:384]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_25 = in_reg_tdata[415:400]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_26 = in_reg_tdata[431:416]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_27 = in_reg_tdata[447:432]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_28 = in_reg_tdata[463:448]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_29 = in_reg_tdata[479:464]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_30 = in_reg_tdata[495:480]; // @[RxRESearcher.scala 75:32]
+  wire [15:0] data_vec_31 = in_reg_tdata[511:496]; // @[RxRESearcher.scala 75:32]
+  wire  _input_data_T_1 = ~match_wait_reg; // @[RxRESearcher.scala 77:66]
+  wire [7:0] _input_data_T_5 = beat_counter_reg + 8'h1; // @[RxRESearcher.scala 77:135]
+  wire [15:0] _GEN_6 = 5'h1 == beat_counter_reg[4:0] ? data_vec_1 : data_vec_0; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_7 = 5'h2 == beat_counter_reg[4:0] ? data_vec_2 : _GEN_6; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_8 = 5'h3 == beat_counter_reg[4:0] ? data_vec_3 : _GEN_7; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_9 = 5'h4 == beat_counter_reg[4:0] ? data_vec_4 : _GEN_8; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_10 = 5'h5 == beat_counter_reg[4:0] ? data_vec_5 : _GEN_9; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_11 = 5'h6 == beat_counter_reg[4:0] ? data_vec_6 : _GEN_10; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_12 = 5'h7 == beat_counter_reg[4:0] ? data_vec_7 : _GEN_11; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_13 = 5'h8 == beat_counter_reg[4:0] ? data_vec_8 : _GEN_12; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_14 = 5'h9 == beat_counter_reg[4:0] ? data_vec_9 : _GEN_13; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_15 = 5'ha == beat_counter_reg[4:0] ? data_vec_10 : _GEN_14; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_16 = 5'hb == beat_counter_reg[4:0] ? data_vec_11 : _GEN_15; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_17 = 5'hc == beat_counter_reg[4:0] ? data_vec_12 : _GEN_16; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_18 = 5'hd == beat_counter_reg[4:0] ? data_vec_13 : _GEN_17; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_19 = 5'he == beat_counter_reg[4:0] ? data_vec_14 : _GEN_18; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_20 = 5'hf == beat_counter_reg[4:0] ? data_vec_15 : _GEN_19; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_21 = 5'h10 == beat_counter_reg[4:0] ? data_vec_16 : _GEN_20; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_22 = 5'h11 == beat_counter_reg[4:0] ? data_vec_17 : _GEN_21; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_23 = 5'h12 == beat_counter_reg[4:0] ? data_vec_18 : _GEN_22; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_24 = 5'h13 == beat_counter_reg[4:0] ? data_vec_19 : _GEN_23; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_25 = 5'h14 == beat_counter_reg[4:0] ? data_vec_20 : _GEN_24; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_26 = 5'h15 == beat_counter_reg[4:0] ? data_vec_21 : _GEN_25; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_27 = 5'h16 == beat_counter_reg[4:0] ? data_vec_22 : _GEN_26; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_28 = 5'h17 == beat_counter_reg[4:0] ? data_vec_23 : _GEN_27; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_29 = 5'h18 == beat_counter_reg[4:0] ? data_vec_24 : _GEN_28; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_30 = 5'h19 == beat_counter_reg[4:0] ? data_vec_25 : _GEN_29; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_31 = 5'h1a == beat_counter_reg[4:0] ? data_vec_26 : _GEN_30; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_32 = 5'h1b == beat_counter_reg[4:0] ? data_vec_27 : _GEN_31; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_33 = 5'h1c == beat_counter_reg[4:0] ? data_vec_28 : _GEN_32; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_34 = 5'h1d == beat_counter_reg[4:0] ? data_vec_29 : _GEN_33; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_35 = 5'h1e == beat_counter_reg[4:0] ? data_vec_30 : _GEN_34; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_36 = 5'h1f == beat_counter_reg[4:0] ? data_vec_31 : _GEN_35; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_38 = 5'h1 == _input_data_T_5[4:0] ? data_vec_1 : data_vec_0; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_39 = 5'h2 == _input_data_T_5[4:0] ? data_vec_2 : _GEN_38; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_40 = 5'h3 == _input_data_T_5[4:0] ? data_vec_3 : _GEN_39; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_41 = 5'h4 == _input_data_T_5[4:0] ? data_vec_4 : _GEN_40; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_42 = 5'h5 == _input_data_T_5[4:0] ? data_vec_5 : _GEN_41; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_43 = 5'h6 == _input_data_T_5[4:0] ? data_vec_6 : _GEN_42; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_44 = 5'h7 == _input_data_T_5[4:0] ? data_vec_7 : _GEN_43; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_45 = 5'h8 == _input_data_T_5[4:0] ? data_vec_8 : _GEN_44; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_46 = 5'h9 == _input_data_T_5[4:0] ? data_vec_9 : _GEN_45; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_47 = 5'ha == _input_data_T_5[4:0] ? data_vec_10 : _GEN_46; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_48 = 5'hb == _input_data_T_5[4:0] ? data_vec_11 : _GEN_47; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_49 = 5'hc == _input_data_T_5[4:0] ? data_vec_12 : _GEN_48; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_50 = 5'hd == _input_data_T_5[4:0] ? data_vec_13 : _GEN_49; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_51 = 5'he == _input_data_T_5[4:0] ? data_vec_14 : _GEN_50; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_52 = 5'hf == _input_data_T_5[4:0] ? data_vec_15 : _GEN_51; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_53 = 5'h10 == _input_data_T_5[4:0] ? data_vec_16 : _GEN_52; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_54 = 5'h11 == _input_data_T_5[4:0] ? data_vec_17 : _GEN_53; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_55 = 5'h12 == _input_data_T_5[4:0] ? data_vec_18 : _GEN_54; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_56 = 5'h13 == _input_data_T_5[4:0] ? data_vec_19 : _GEN_55; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_57 = 5'h14 == _input_data_T_5[4:0] ? data_vec_20 : _GEN_56; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_58 = 5'h15 == _input_data_T_5[4:0] ? data_vec_21 : _GEN_57; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_59 = 5'h16 == _input_data_T_5[4:0] ? data_vec_22 : _GEN_58; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_60 = 5'h17 == _input_data_T_5[4:0] ? data_vec_23 : _GEN_59; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_61 = 5'h18 == _input_data_T_5[4:0] ? data_vec_24 : _GEN_60; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_62 = 5'h19 == _input_data_T_5[4:0] ? data_vec_25 : _GEN_61; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_63 = 5'h1a == _input_data_T_5[4:0] ? data_vec_26 : _GEN_62; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_64 = 5'h1b == _input_data_T_5[4:0] ? data_vec_27 : _GEN_63; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_65 = 5'h1c == _input_data_T_5[4:0] ? data_vec_28 : _GEN_64; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_66 = 5'h1d == _input_data_T_5[4:0] ? data_vec_29 : _GEN_65; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_67 = 5'h1e == _input_data_T_5[4:0] ? data_vec_30 : _GEN_66; // @[RxRESearcher.scala 77:{23,23}]
+  wire [15:0] _GEN_68 = 5'h1f == _input_data_T_5[4:0] ? data_vec_31 : _GEN_67; // @[RxRESearcher.scala 77:{23,23}]
+  wire  match_found = re_handler_io_out_state == 4'hf; // @[RxRESearcher.scala 81:46]
+  wire  _cur_state_T_2 = in_shake_hand & in_reg_tlast; // @[RxRESearcher.scala 82:75]
+  wire  _GEN_71 = _input_data_T_1 | match_wait_reg; // @[RxRESearcher.scala 98:31 99:20 68:31]
+  wire [5:0] _io_out_rx_info_qid_T = match_found ? 6'h1 : in_reg_rx_info_qid; // @[RxRESearcher.scala 105:30]
+  REHandler re_handler ( // @[RxRESearcher.scala 79:26]
     .clock(re_handler_clock),
     .reset(re_handler_reset),
     .io_in_char(re_handler_io_in_char),
@@ -2175,39 +2251,39 @@ module RxRESearcher(
     .io_out_state(re_handler_io_out_state)
   );
   assign io_in_tready = extern_config_reg_c2h_match_op[7] ? out_shake_hand | _io_in_tready_T : io_out_tready | ~
-    in_reg_used_reg; // @[RxPipelineHandler.scala 30:18 RxRESearcher.scala 97:43 99:18]
+    in_reg_used_reg; // @[RxRESearcher.scala 104:43 106:18 RxPipelineHandler.scala 30:18]
   assign io_out_tdata = in_reg_r[513:2]; // @[RxPipelineHandler.scala 14:128]
   assign io_out_tvalid = extern_config_reg_c2h_match_op[7] ? _io_out_tvalid_T & (cur_beat_done | match_found) :
-    in_reg_tvalid & in_reg_used_reg; // @[RxRESearcher.scala 100:19 RxPipelineHandler.scala 27:18 RxRESearcher.scala 97:43]
+    in_reg_tvalid & in_reg_used_reg; // @[RxRESearcher.scala 104:43 107:19 RxPipelineHandler.scala 27:18]
   assign io_out_tlast = in_reg_r[0]; // @[RxPipelineHandler.scala 14:128]
   assign io_out_tuser = in_reg_r[514]; // @[RxPipelineHandler.scala 14:128]
   assign io_out_rx_info_tlen = in_reg_r[600:585]; // @[RxPipelineHandler.scala 14:128]
-  assign io_out_rx_info_qid = extern_config_reg_c2h_match_op[7] ? _io_out_rx_info_qid_T : in_reg_rx_info_qid; // @[RxPipelineHandler.scala 29:18 RxRESearcher.scala 97:43 98:24]
+  assign io_out_rx_info_qid = extern_config_reg_c2h_match_op[7] ? _io_out_rx_info_qid_T : in_reg_rx_info_qid; // @[RxRESearcher.scala 104:43 105:24 RxPipelineHandler.scala 29:18]
   assign io_out_rx_info_ip_chksum = in_reg_r[578:547]; // @[RxPipelineHandler.scala 14:128]
   assign io_out_rx_info_tcp_chksum = in_reg_r[546:515]; // @[RxPipelineHandler.scala 14:128]
-  assign io_out_extern_config_c2h_match_op = extern_config_reg_r[263:256]; // @[RxPipelineHandler.scala 15:91]
+  assign io_out_extern_config_c2h_match_op = extern_config_reg_r[519:512]; // @[RxPipelineHandler.scala 15:91]
   assign re_handler_clock = clock;
   assign re_handler_reset = reset;
-  assign re_handler_io_in_char = cur_beat_done | ~match_wait_reg ? _GEN_20 : _GEN_36; // @[RxRESearcher.scala 70:23]
+  assign re_handler_io_in_char = cur_beat_done | ~match_wait_reg ? _GEN_36 : _GEN_68; // @[RxRESearcher.scala 77:23]
   assign re_handler_io_in_state = first_beat_reg & _input_data_T_1 | in_shake_hand & in_reg_tlast ? 4'h0 :
-    re_handler_io_out_state; // @[RxRESearcher.scala 75:22]
-  assign re_handler_io_in_rule_0 = _input_rule_T[15:0]; // @[RxRESearcher.scala 64:60]
-  assign re_handler_io_in_rule_1 = _input_rule_T[31:16]; // @[RxRESearcher.scala 64:60]
-  assign re_handler_io_in_rule_2 = _input_rule_T[47:32]; // @[RxRESearcher.scala 64:60]
-  assign re_handler_io_in_rule_3 = _input_rule_T[63:48]; // @[RxRESearcher.scala 64:60]
-  assign re_handler_io_in_rule_4 = _input_rule_T[79:64]; // @[RxRESearcher.scala 64:60]
-  assign re_handler_io_in_rule_5 = _input_rule_T[95:80]; // @[RxRESearcher.scala 64:60]
-  assign re_handler_io_in_rule_6 = _input_rule_T[111:96]; // @[RxRESearcher.scala 64:60]
-  assign re_handler_io_in_rule_7 = _input_rule_T[127:112]; // @[RxRESearcher.scala 64:60]
-  assign re_handler_io_in_rule_8 = _input_rule_T[143:128]; // @[RxRESearcher.scala 64:60]
-  assign re_handler_io_in_rule_9 = _input_rule_T[159:144]; // @[RxRESearcher.scala 64:60]
-  assign re_handler_io_in_rule_10 = _input_rule_T[175:160]; // @[RxRESearcher.scala 64:60]
-  assign re_handler_io_in_rule_11 = _input_rule_T[191:176]; // @[RxRESearcher.scala 64:60]
-  assign re_handler_io_in_rule_12 = _input_rule_T[207:192]; // @[RxRESearcher.scala 64:60]
-  assign re_handler_io_in_rule_13 = _input_rule_T[223:208]; // @[RxRESearcher.scala 64:60]
-  assign re_handler_io_in_rule_14 = _input_rule_T[239:224]; // @[RxRESearcher.scala 64:60]
-  assign re_handler_io_in_rule_15 = _input_rule_T[255:240]; // @[RxRESearcher.scala 64:60]
-  assign re_handler_io_in_en = ~cur_beat_done | _cur_state_T_2; // @[RxRESearcher.scala 82:41]
+    re_handler_io_out_state; // @[RxRESearcher.scala 82:22]
+  assign re_handler_io_in_rule_0 = extern_config_reg_r[31:0]; // @[RxPipelineHandler.scala 15:91]
+  assign re_handler_io_in_rule_1 = extern_config_reg_r[63:32]; // @[RxPipelineHandler.scala 15:91]
+  assign re_handler_io_in_rule_2 = extern_config_reg_r[95:64]; // @[RxPipelineHandler.scala 15:91]
+  assign re_handler_io_in_rule_3 = extern_config_reg_r[127:96]; // @[RxPipelineHandler.scala 15:91]
+  assign re_handler_io_in_rule_4 = extern_config_reg_r[159:128]; // @[RxPipelineHandler.scala 15:91]
+  assign re_handler_io_in_rule_5 = extern_config_reg_r[191:160]; // @[RxPipelineHandler.scala 15:91]
+  assign re_handler_io_in_rule_6 = extern_config_reg_r[223:192]; // @[RxPipelineHandler.scala 15:91]
+  assign re_handler_io_in_rule_7 = extern_config_reg_r[255:224]; // @[RxPipelineHandler.scala 15:91]
+  assign re_handler_io_in_rule_8 = extern_config_reg_r[287:256]; // @[RxPipelineHandler.scala 15:91]
+  assign re_handler_io_in_rule_9 = extern_config_reg_r[319:288]; // @[RxPipelineHandler.scala 15:91]
+  assign re_handler_io_in_rule_10 = extern_config_reg_r[351:320]; // @[RxPipelineHandler.scala 15:91]
+  assign re_handler_io_in_rule_11 = extern_config_reg_r[383:352]; // @[RxPipelineHandler.scala 15:91]
+  assign re_handler_io_in_rule_12 = extern_config_reg_r[415:384]; // @[RxPipelineHandler.scala 15:91]
+  assign re_handler_io_in_rule_13 = extern_config_reg_r[447:416]; // @[RxPipelineHandler.scala 15:91]
+  assign re_handler_io_in_rule_14 = extern_config_reg_r[479:448]; // @[RxPipelineHandler.scala 15:91]
+  assign re_handler_io_in_rule_15 = extern_config_reg_r[511:480]; // @[RxPipelineHandler.scala 15:91]
+  assign re_handler_io_in_en = ~cur_beat_done | _cur_state_T_2; // @[RxRESearcher.scala 89:41]
   always @(posedge clock) begin
     if (reset) begin // @[Reg.scala 28:20]
       in_reg_r <= 601'h1; // @[Reg.scala 28:20]
@@ -2215,7 +2291,7 @@ module RxRESearcher(
       in_reg_r <= _in_reg_T_1; // @[Reg.scala 29:22]
     end
     if (reset) begin // @[Reg.scala 28:20]
-      extern_config_reg_r <= 264'h0; // @[Reg.scala 28:20]
+      extern_config_reg_r <= 520'h0; // @[Reg.scala 28:20]
     end else if (in_shake_hand) begin // @[Reg.scala 29:18]
       extern_config_reg_r <= _extern_config_reg_T; // @[Reg.scala 29:22]
     end
@@ -2225,25 +2301,25 @@ module RxRESearcher(
     end else begin
       in_reg_used_reg <= _GEN_4;
     end
-    if (reset) begin // @[RxRESearcher.scala 60:33]
-      beat_counter_reg <= 8'h0; // @[RxRESearcher.scala 60:33]
-    end else if (in_shake_hand) begin // @[RxRESearcher.scala 84:23]
-      beat_counter_reg <= 8'h0; // @[RxRESearcher.scala 85:22]
-    end else if (!(_input_data_T_1)) begin // @[RxRESearcher.scala 91:31]
-      if (beat_counter_reg < 8'hf) begin // @[RxRESearcher.scala 93:54]
-        beat_counter_reg <= _input_data_T_5; // @[RxRESearcher.scala 94:22]
+    if (reset) begin // @[RxRESearcher.scala 67:33]
+      beat_counter_reg <= 8'h0; // @[RxRESearcher.scala 67:33]
+    end else if (in_shake_hand) begin // @[RxRESearcher.scala 91:23]
+      beat_counter_reg <= 8'h0; // @[RxRESearcher.scala 92:22]
+    end else if (!(_input_data_T_1)) begin // @[RxRESearcher.scala 98:31]
+      if (beat_counter_reg < 8'h1f) begin // @[RxRESearcher.scala 100:54]
+        beat_counter_reg <= _input_data_T_5; // @[RxRESearcher.scala 101:22]
       end
     end
-    if (reset) begin // @[RxRESearcher.scala 61:31]
-      match_wait_reg <= 1'h0; // @[RxRESearcher.scala 61:31]
-    end else if (in_shake_hand) begin // @[RxRESearcher.scala 84:23]
-      if (in_reg_tlast) begin // @[RxRESearcher.scala 86:24]
-        match_wait_reg <= 1'h0; // @[RxRESearcher.scala 87:22]
+    if (reset) begin // @[RxRESearcher.scala 68:31]
+      match_wait_reg <= 1'h0; // @[RxRESearcher.scala 68:31]
+    end else if (in_shake_hand) begin // @[RxRESearcher.scala 91:23]
+      if (in_reg_tlast) begin // @[RxRESearcher.scala 93:24]
+        match_wait_reg <= 1'h0; // @[RxRESearcher.scala 94:22]
       end else begin
-        match_wait_reg <= match_found; // @[RxRESearcher.scala 89:22]
+        match_wait_reg <= match_found; // @[RxRESearcher.scala 96:22]
       end
     end else begin
-      match_wait_reg <= _GEN_39;
+      match_wait_reg <= _GEN_71;
     end
   end
 // Register and memory initialization
@@ -2284,8 +2360,8 @@ initial begin
 `ifdef RANDOMIZE_REG_INIT
   _RAND_0 = {19{`RANDOM}};
   in_reg_r = _RAND_0[600:0];
-  _RAND_1 = {9{`RANDOM}};
-  extern_config_reg_r = _RAND_1[263:0];
+  _RAND_1 = {17{`RANDOM}};
+  extern_config_reg_r = _RAND_1[519:0];
   _RAND_2 = {1{`RANDOM}};
   first_beat_reg = _RAND_2[0:0];
   _RAND_3 = {1{`RANDOM}};
@@ -2320,6 +2396,14 @@ module RxPipeline(
   input  [31:0]  io_in_extern_config_c2h_match_arg_5,
   input  [31:0]  io_in_extern_config_c2h_match_arg_6,
   input  [31:0]  io_in_extern_config_c2h_match_arg_7,
+  input  [31:0]  io_in_extern_config_c2h_match_arg_8,
+  input  [31:0]  io_in_extern_config_c2h_match_arg_9,
+  input  [31:0]  io_in_extern_config_c2h_match_arg_10,
+  input  [31:0]  io_in_extern_config_c2h_match_arg_11,
+  input  [31:0]  io_in_extern_config_c2h_match_arg_12,
+  input  [31:0]  io_in_extern_config_c2h_match_arg_13,
+  input  [31:0]  io_in_extern_config_c2h_match_arg_14,
+  input  [31:0]  io_in_extern_config_c2h_match_arg_15,
   output [511:0] io_out_tdata,
   output         io_out_tvalid,
   input          io_out_tready,
@@ -2348,6 +2432,14 @@ module RxPipeline(
   wire [31:0] rx_re_searcher_io_in_extern_config_c2h_match_arg_5; // @[RxPipeline.scala 33:30]
   wire [31:0] rx_re_searcher_io_in_extern_config_c2h_match_arg_6; // @[RxPipeline.scala 33:30]
   wire [31:0] rx_re_searcher_io_in_extern_config_c2h_match_arg_7; // @[RxPipeline.scala 33:30]
+  wire [31:0] rx_re_searcher_io_in_extern_config_c2h_match_arg_8; // @[RxPipeline.scala 33:30]
+  wire [31:0] rx_re_searcher_io_in_extern_config_c2h_match_arg_9; // @[RxPipeline.scala 33:30]
+  wire [31:0] rx_re_searcher_io_in_extern_config_c2h_match_arg_10; // @[RxPipeline.scala 33:30]
+  wire [31:0] rx_re_searcher_io_in_extern_config_c2h_match_arg_11; // @[RxPipeline.scala 33:30]
+  wire [31:0] rx_re_searcher_io_in_extern_config_c2h_match_arg_12; // @[RxPipeline.scala 33:30]
+  wire [31:0] rx_re_searcher_io_in_extern_config_c2h_match_arg_13; // @[RxPipeline.scala 33:30]
+  wire [31:0] rx_re_searcher_io_in_extern_config_c2h_match_arg_14; // @[RxPipeline.scala 33:30]
+  wire [31:0] rx_re_searcher_io_in_extern_config_c2h_match_arg_15; // @[RxPipeline.scala 33:30]
   wire [511:0] rx_re_searcher_io_out_tdata; // @[RxPipeline.scala 33:30]
   wire  rx_re_searcher_io_out_tvalid; // @[RxPipeline.scala 33:30]
   wire  rx_re_searcher_io_out_tready; // @[RxPipeline.scala 33:30]
@@ -2376,6 +2468,14 @@ module RxPipeline(
     .io_in_extern_config_c2h_match_arg_5(rx_re_searcher_io_in_extern_config_c2h_match_arg_5),
     .io_in_extern_config_c2h_match_arg_6(rx_re_searcher_io_in_extern_config_c2h_match_arg_6),
     .io_in_extern_config_c2h_match_arg_7(rx_re_searcher_io_in_extern_config_c2h_match_arg_7),
+    .io_in_extern_config_c2h_match_arg_8(rx_re_searcher_io_in_extern_config_c2h_match_arg_8),
+    .io_in_extern_config_c2h_match_arg_9(rx_re_searcher_io_in_extern_config_c2h_match_arg_9),
+    .io_in_extern_config_c2h_match_arg_10(rx_re_searcher_io_in_extern_config_c2h_match_arg_10),
+    .io_in_extern_config_c2h_match_arg_11(rx_re_searcher_io_in_extern_config_c2h_match_arg_11),
+    .io_in_extern_config_c2h_match_arg_12(rx_re_searcher_io_in_extern_config_c2h_match_arg_12),
+    .io_in_extern_config_c2h_match_arg_13(rx_re_searcher_io_in_extern_config_c2h_match_arg_13),
+    .io_in_extern_config_c2h_match_arg_14(rx_re_searcher_io_in_extern_config_c2h_match_arg_14),
+    .io_in_extern_config_c2h_match_arg_15(rx_re_searcher_io_in_extern_config_c2h_match_arg_15),
     .io_out_tdata(rx_re_searcher_io_out_tdata),
     .io_out_tvalid(rx_re_searcher_io_out_tvalid),
     .io_out_tready(rx_re_searcher_io_out_tready),
@@ -2413,6 +2513,14 @@ module RxPipeline(
   assign rx_re_searcher_io_in_extern_config_c2h_match_arg_5 = io_in_extern_config_c2h_match_arg_5; // @[RxPipeline.scala 34:9]
   assign rx_re_searcher_io_in_extern_config_c2h_match_arg_6 = io_in_extern_config_c2h_match_arg_6; // @[RxPipeline.scala 34:9]
   assign rx_re_searcher_io_in_extern_config_c2h_match_arg_7 = io_in_extern_config_c2h_match_arg_7; // @[RxPipeline.scala 34:9]
+  assign rx_re_searcher_io_in_extern_config_c2h_match_arg_8 = io_in_extern_config_c2h_match_arg_8; // @[RxPipeline.scala 34:9]
+  assign rx_re_searcher_io_in_extern_config_c2h_match_arg_9 = io_in_extern_config_c2h_match_arg_9; // @[RxPipeline.scala 34:9]
+  assign rx_re_searcher_io_in_extern_config_c2h_match_arg_10 = io_in_extern_config_c2h_match_arg_10; // @[RxPipeline.scala 34:9]
+  assign rx_re_searcher_io_in_extern_config_c2h_match_arg_11 = io_in_extern_config_c2h_match_arg_11; // @[RxPipeline.scala 34:9]
+  assign rx_re_searcher_io_in_extern_config_c2h_match_arg_12 = io_in_extern_config_c2h_match_arg_12; // @[RxPipeline.scala 34:9]
+  assign rx_re_searcher_io_in_extern_config_c2h_match_arg_13 = io_in_extern_config_c2h_match_arg_13; // @[RxPipeline.scala 34:9]
+  assign rx_re_searcher_io_in_extern_config_c2h_match_arg_14 = io_in_extern_config_c2h_match_arg_14; // @[RxPipeline.scala 34:9]
+  assign rx_re_searcher_io_in_extern_config_c2h_match_arg_15 = io_in_extern_config_c2h_match_arg_15; // @[RxPipeline.scala 34:9]
   assign rx_re_searcher_io_out_tready = io_out_tready; // @[RxPipeline.scala 35:25]
 endmodule
 module RxBufferFifo(
@@ -3228,7 +3336,15 @@ module RxHandler(
   input  [31:0]  io_extern_config_c2h_match_arg_4,
   input  [31:0]  io_extern_config_c2h_match_arg_5,
   input  [31:0]  io_extern_config_c2h_match_arg_6,
-  input  [31:0]  io_extern_config_c2h_match_arg_7
+  input  [31:0]  io_extern_config_c2h_match_arg_7,
+  input  [31:0]  io_extern_config_c2h_match_arg_8,
+  input  [31:0]  io_extern_config_c2h_match_arg_9,
+  input  [31:0]  io_extern_config_c2h_match_arg_10,
+  input  [31:0]  io_extern_config_c2h_match_arg_11,
+  input  [31:0]  io_extern_config_c2h_match_arg_12,
+  input  [31:0]  io_extern_config_c2h_match_arg_13,
+  input  [31:0]  io_extern_config_c2h_match_arg_14,
+  input  [31:0]  io_extern_config_c2h_match_arg_15
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
@@ -3256,6 +3372,14 @@ module RxHandler(
   wire [31:0] rx_converter_io_out_extern_config_c2h_match_arg_5; // @[RxHandler.scala 38:28]
   wire [31:0] rx_converter_io_out_extern_config_c2h_match_arg_6; // @[RxHandler.scala 38:28]
   wire [31:0] rx_converter_io_out_extern_config_c2h_match_arg_7; // @[RxHandler.scala 38:28]
+  wire [31:0] rx_converter_io_out_extern_config_c2h_match_arg_8; // @[RxHandler.scala 38:28]
+  wire [31:0] rx_converter_io_out_extern_config_c2h_match_arg_9; // @[RxHandler.scala 38:28]
+  wire [31:0] rx_converter_io_out_extern_config_c2h_match_arg_10; // @[RxHandler.scala 38:28]
+  wire [31:0] rx_converter_io_out_extern_config_c2h_match_arg_11; // @[RxHandler.scala 38:28]
+  wire [31:0] rx_converter_io_out_extern_config_c2h_match_arg_12; // @[RxHandler.scala 38:28]
+  wire [31:0] rx_converter_io_out_extern_config_c2h_match_arg_13; // @[RxHandler.scala 38:28]
+  wire [31:0] rx_converter_io_out_extern_config_c2h_match_arg_14; // @[RxHandler.scala 38:28]
+  wire [31:0] rx_converter_io_out_extern_config_c2h_match_arg_15; // @[RxHandler.scala 38:28]
   wire [7:0] rx_converter_io_extern_config_c2h_match_op; // @[RxHandler.scala 38:28]
   wire [31:0] rx_converter_io_extern_config_c2h_match_arg_0; // @[RxHandler.scala 38:28]
   wire [31:0] rx_converter_io_extern_config_c2h_match_arg_1; // @[RxHandler.scala 38:28]
@@ -3265,6 +3389,14 @@ module RxHandler(
   wire [31:0] rx_converter_io_extern_config_c2h_match_arg_5; // @[RxHandler.scala 38:28]
   wire [31:0] rx_converter_io_extern_config_c2h_match_arg_6; // @[RxHandler.scala 38:28]
   wire [31:0] rx_converter_io_extern_config_c2h_match_arg_7; // @[RxHandler.scala 38:28]
+  wire [31:0] rx_converter_io_extern_config_c2h_match_arg_8; // @[RxHandler.scala 38:28]
+  wire [31:0] rx_converter_io_extern_config_c2h_match_arg_9; // @[RxHandler.scala 38:28]
+  wire [31:0] rx_converter_io_extern_config_c2h_match_arg_10; // @[RxHandler.scala 38:28]
+  wire [31:0] rx_converter_io_extern_config_c2h_match_arg_11; // @[RxHandler.scala 38:28]
+  wire [31:0] rx_converter_io_extern_config_c2h_match_arg_12; // @[RxHandler.scala 38:28]
+  wire [31:0] rx_converter_io_extern_config_c2h_match_arg_13; // @[RxHandler.scala 38:28]
+  wire [31:0] rx_converter_io_extern_config_c2h_match_arg_14; // @[RxHandler.scala 38:28]
+  wire [31:0] rx_converter_io_extern_config_c2h_match_arg_15; // @[RxHandler.scala 38:28]
   wire  rx_pipeline_clock; // @[RxHandler.scala 42:27]
   wire  rx_pipeline_reset; // @[RxHandler.scala 42:27]
   wire [511:0] rx_pipeline_io_in_tdata; // @[RxHandler.scala 42:27]
@@ -3282,6 +3414,14 @@ module RxHandler(
   wire [31:0] rx_pipeline_io_in_extern_config_c2h_match_arg_5; // @[RxHandler.scala 42:27]
   wire [31:0] rx_pipeline_io_in_extern_config_c2h_match_arg_6; // @[RxHandler.scala 42:27]
   wire [31:0] rx_pipeline_io_in_extern_config_c2h_match_arg_7; // @[RxHandler.scala 42:27]
+  wire [31:0] rx_pipeline_io_in_extern_config_c2h_match_arg_8; // @[RxHandler.scala 42:27]
+  wire [31:0] rx_pipeline_io_in_extern_config_c2h_match_arg_9; // @[RxHandler.scala 42:27]
+  wire [31:0] rx_pipeline_io_in_extern_config_c2h_match_arg_10; // @[RxHandler.scala 42:27]
+  wire [31:0] rx_pipeline_io_in_extern_config_c2h_match_arg_11; // @[RxHandler.scala 42:27]
+  wire [31:0] rx_pipeline_io_in_extern_config_c2h_match_arg_12; // @[RxHandler.scala 42:27]
+  wire [31:0] rx_pipeline_io_in_extern_config_c2h_match_arg_13; // @[RxHandler.scala 42:27]
+  wire [31:0] rx_pipeline_io_in_extern_config_c2h_match_arg_14; // @[RxHandler.scala 42:27]
+  wire [31:0] rx_pipeline_io_in_extern_config_c2h_match_arg_15; // @[RxHandler.scala 42:27]
   wire [511:0] rx_pipeline_io_out_tdata; // @[RxHandler.scala 42:27]
   wire  rx_pipeline_io_out_tvalid; // @[RxHandler.scala 42:27]
   wire  rx_pipeline_io_out_tready; // @[RxHandler.scala 42:27]
@@ -3347,6 +3487,14 @@ module RxHandler(
     .io_out_extern_config_c2h_match_arg_5(rx_converter_io_out_extern_config_c2h_match_arg_5),
     .io_out_extern_config_c2h_match_arg_6(rx_converter_io_out_extern_config_c2h_match_arg_6),
     .io_out_extern_config_c2h_match_arg_7(rx_converter_io_out_extern_config_c2h_match_arg_7),
+    .io_out_extern_config_c2h_match_arg_8(rx_converter_io_out_extern_config_c2h_match_arg_8),
+    .io_out_extern_config_c2h_match_arg_9(rx_converter_io_out_extern_config_c2h_match_arg_9),
+    .io_out_extern_config_c2h_match_arg_10(rx_converter_io_out_extern_config_c2h_match_arg_10),
+    .io_out_extern_config_c2h_match_arg_11(rx_converter_io_out_extern_config_c2h_match_arg_11),
+    .io_out_extern_config_c2h_match_arg_12(rx_converter_io_out_extern_config_c2h_match_arg_12),
+    .io_out_extern_config_c2h_match_arg_13(rx_converter_io_out_extern_config_c2h_match_arg_13),
+    .io_out_extern_config_c2h_match_arg_14(rx_converter_io_out_extern_config_c2h_match_arg_14),
+    .io_out_extern_config_c2h_match_arg_15(rx_converter_io_out_extern_config_c2h_match_arg_15),
     .io_extern_config_c2h_match_op(rx_converter_io_extern_config_c2h_match_op),
     .io_extern_config_c2h_match_arg_0(rx_converter_io_extern_config_c2h_match_arg_0),
     .io_extern_config_c2h_match_arg_1(rx_converter_io_extern_config_c2h_match_arg_1),
@@ -3355,7 +3503,15 @@ module RxHandler(
     .io_extern_config_c2h_match_arg_4(rx_converter_io_extern_config_c2h_match_arg_4),
     .io_extern_config_c2h_match_arg_5(rx_converter_io_extern_config_c2h_match_arg_5),
     .io_extern_config_c2h_match_arg_6(rx_converter_io_extern_config_c2h_match_arg_6),
-    .io_extern_config_c2h_match_arg_7(rx_converter_io_extern_config_c2h_match_arg_7)
+    .io_extern_config_c2h_match_arg_7(rx_converter_io_extern_config_c2h_match_arg_7),
+    .io_extern_config_c2h_match_arg_8(rx_converter_io_extern_config_c2h_match_arg_8),
+    .io_extern_config_c2h_match_arg_9(rx_converter_io_extern_config_c2h_match_arg_9),
+    .io_extern_config_c2h_match_arg_10(rx_converter_io_extern_config_c2h_match_arg_10),
+    .io_extern_config_c2h_match_arg_11(rx_converter_io_extern_config_c2h_match_arg_11),
+    .io_extern_config_c2h_match_arg_12(rx_converter_io_extern_config_c2h_match_arg_12),
+    .io_extern_config_c2h_match_arg_13(rx_converter_io_extern_config_c2h_match_arg_13),
+    .io_extern_config_c2h_match_arg_14(rx_converter_io_extern_config_c2h_match_arg_14),
+    .io_extern_config_c2h_match_arg_15(rx_converter_io_extern_config_c2h_match_arg_15)
   );
   RxPipeline rx_pipeline ( // @[RxHandler.scala 42:27]
     .clock(rx_pipeline_clock),
@@ -3375,6 +3531,14 @@ module RxHandler(
     .io_in_extern_config_c2h_match_arg_5(rx_pipeline_io_in_extern_config_c2h_match_arg_5),
     .io_in_extern_config_c2h_match_arg_6(rx_pipeline_io_in_extern_config_c2h_match_arg_6),
     .io_in_extern_config_c2h_match_arg_7(rx_pipeline_io_in_extern_config_c2h_match_arg_7),
+    .io_in_extern_config_c2h_match_arg_8(rx_pipeline_io_in_extern_config_c2h_match_arg_8),
+    .io_in_extern_config_c2h_match_arg_9(rx_pipeline_io_in_extern_config_c2h_match_arg_9),
+    .io_in_extern_config_c2h_match_arg_10(rx_pipeline_io_in_extern_config_c2h_match_arg_10),
+    .io_in_extern_config_c2h_match_arg_11(rx_pipeline_io_in_extern_config_c2h_match_arg_11),
+    .io_in_extern_config_c2h_match_arg_12(rx_pipeline_io_in_extern_config_c2h_match_arg_12),
+    .io_in_extern_config_c2h_match_arg_13(rx_pipeline_io_in_extern_config_c2h_match_arg_13),
+    .io_in_extern_config_c2h_match_arg_14(rx_pipeline_io_in_extern_config_c2h_match_arg_14),
+    .io_in_extern_config_c2h_match_arg_15(rx_pipeline_io_in_extern_config_c2h_match_arg_15),
     .io_out_tdata(rx_pipeline_io_out_tdata),
     .io_out_tvalid(rx_pipeline_io_out_tvalid),
     .io_out_tready(rx_pipeline_io_out_tready),
@@ -3434,6 +3598,14 @@ module RxHandler(
   assign rx_converter_io_extern_config_c2h_match_arg_5 = io_extern_config_c2h_match_arg_5; // @[RxHandler.scala 40:33]
   assign rx_converter_io_extern_config_c2h_match_arg_6 = io_extern_config_c2h_match_arg_6; // @[RxHandler.scala 40:33]
   assign rx_converter_io_extern_config_c2h_match_arg_7 = io_extern_config_c2h_match_arg_7; // @[RxHandler.scala 40:33]
+  assign rx_converter_io_extern_config_c2h_match_arg_8 = io_extern_config_c2h_match_arg_8; // @[RxHandler.scala 40:33]
+  assign rx_converter_io_extern_config_c2h_match_arg_9 = io_extern_config_c2h_match_arg_9; // @[RxHandler.scala 40:33]
+  assign rx_converter_io_extern_config_c2h_match_arg_10 = io_extern_config_c2h_match_arg_10; // @[RxHandler.scala 40:33]
+  assign rx_converter_io_extern_config_c2h_match_arg_11 = io_extern_config_c2h_match_arg_11; // @[RxHandler.scala 40:33]
+  assign rx_converter_io_extern_config_c2h_match_arg_12 = io_extern_config_c2h_match_arg_12; // @[RxHandler.scala 40:33]
+  assign rx_converter_io_extern_config_c2h_match_arg_13 = io_extern_config_c2h_match_arg_13; // @[RxHandler.scala 40:33]
+  assign rx_converter_io_extern_config_c2h_match_arg_14 = io_extern_config_c2h_match_arg_14; // @[RxHandler.scala 40:33]
+  assign rx_converter_io_extern_config_c2h_match_arg_15 = io_extern_config_c2h_match_arg_15; // @[RxHandler.scala 40:33]
   assign rx_pipeline_clock = clock;
   assign rx_pipeline_reset = reset;
   assign rx_pipeline_io_in_tdata = rx_converter_io_out_tdata; // @[RxHandler.scala 43:23]
@@ -3450,6 +3622,14 @@ module RxHandler(
   assign rx_pipeline_io_in_extern_config_c2h_match_arg_5 = rx_converter_io_out_extern_config_c2h_match_arg_5; // @[RxHandler.scala 43:23]
   assign rx_pipeline_io_in_extern_config_c2h_match_arg_6 = rx_converter_io_out_extern_config_c2h_match_arg_6; // @[RxHandler.scala 43:23]
   assign rx_pipeline_io_in_extern_config_c2h_match_arg_7 = rx_converter_io_out_extern_config_c2h_match_arg_7; // @[RxHandler.scala 43:23]
+  assign rx_pipeline_io_in_extern_config_c2h_match_arg_8 = rx_converter_io_out_extern_config_c2h_match_arg_8; // @[RxHandler.scala 43:23]
+  assign rx_pipeline_io_in_extern_config_c2h_match_arg_9 = rx_converter_io_out_extern_config_c2h_match_arg_9; // @[RxHandler.scala 43:23]
+  assign rx_pipeline_io_in_extern_config_c2h_match_arg_10 = rx_converter_io_out_extern_config_c2h_match_arg_10; // @[RxHandler.scala 43:23]
+  assign rx_pipeline_io_in_extern_config_c2h_match_arg_11 = rx_converter_io_out_extern_config_c2h_match_arg_11; // @[RxHandler.scala 43:23]
+  assign rx_pipeline_io_in_extern_config_c2h_match_arg_12 = rx_converter_io_out_extern_config_c2h_match_arg_12; // @[RxHandler.scala 43:23]
+  assign rx_pipeline_io_in_extern_config_c2h_match_arg_13 = rx_converter_io_out_extern_config_c2h_match_arg_13; // @[RxHandler.scala 43:23]
+  assign rx_pipeline_io_in_extern_config_c2h_match_arg_14 = rx_converter_io_out_extern_config_c2h_match_arg_14; // @[RxHandler.scala 43:23]
+  assign rx_pipeline_io_in_extern_config_c2h_match_arg_15 = rx_converter_io_out_extern_config_c2h_match_arg_15; // @[RxHandler.scala 43:23]
   assign rx_pipeline_io_out_tready = rx_buffer_fifo_io_in_tready; // @[RxHandler.scala 46:22]
   assign rx_buffer_fifo_clock = clock;
   assign rx_buffer_fifo_reset = reset;
@@ -3548,6 +3728,14 @@ module PackageHandler(
   input  [31:0]  io_extern_config_c2h_match_arg_5,
   input  [31:0]  io_extern_config_c2h_match_arg_6,
   input  [31:0]  io_extern_config_c2h_match_arg_7,
+  input  [31:0]  io_extern_config_c2h_match_arg_8,
+  input  [31:0]  io_extern_config_c2h_match_arg_9,
+  input  [31:0]  io_extern_config_c2h_match_arg_10,
+  input  [31:0]  io_extern_config_c2h_match_arg_11,
+  input  [31:0]  io_extern_config_c2h_match_arg_12,
+  input  [31:0]  io_extern_config_c2h_match_arg_13,
+  input  [31:0]  io_extern_config_c2h_match_arg_14,
+  input  [31:0]  io_extern_config_c2h_match_arg_15,
   output [31:0]  io_c2h_pack_counter,
   output [31:0]  io_c2h_err_counter,
   output [31:0]  io_h2c_pack_counter,
@@ -3593,6 +3781,14 @@ module PackageHandler(
   wire [31:0] rx_handler_io_extern_config_c2h_match_arg_5; // @[PackageHandler.scala 38:26]
   wire [31:0] rx_handler_io_extern_config_c2h_match_arg_6; // @[PackageHandler.scala 38:26]
   wire [31:0] rx_handler_io_extern_config_c2h_match_arg_7; // @[PackageHandler.scala 38:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_8; // @[PackageHandler.scala 38:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_9; // @[PackageHandler.scala 38:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_10; // @[PackageHandler.scala 38:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_11; // @[PackageHandler.scala 38:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_12; // @[PackageHandler.scala 38:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_13; // @[PackageHandler.scala 38:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_14; // @[PackageHandler.scala 38:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_15; // @[PackageHandler.scala 38:26]
   TxHandler tx_handler ( // @[PackageHandler.scala 30:26]
     .clock(tx_handler_clock),
     .reset(tx_handler_reset),
@@ -3635,7 +3831,15 @@ module PackageHandler(
     .io_extern_config_c2h_match_arg_4(rx_handler_io_extern_config_c2h_match_arg_4),
     .io_extern_config_c2h_match_arg_5(rx_handler_io_extern_config_c2h_match_arg_5),
     .io_extern_config_c2h_match_arg_6(rx_handler_io_extern_config_c2h_match_arg_6),
-    .io_extern_config_c2h_match_arg_7(rx_handler_io_extern_config_c2h_match_arg_7)
+    .io_extern_config_c2h_match_arg_7(rx_handler_io_extern_config_c2h_match_arg_7),
+    .io_extern_config_c2h_match_arg_8(rx_handler_io_extern_config_c2h_match_arg_8),
+    .io_extern_config_c2h_match_arg_9(rx_handler_io_extern_config_c2h_match_arg_9),
+    .io_extern_config_c2h_match_arg_10(rx_handler_io_extern_config_c2h_match_arg_10),
+    .io_extern_config_c2h_match_arg_11(rx_handler_io_extern_config_c2h_match_arg_11),
+    .io_extern_config_c2h_match_arg_12(rx_handler_io_extern_config_c2h_match_arg_12),
+    .io_extern_config_c2h_match_arg_13(rx_handler_io_extern_config_c2h_match_arg_13),
+    .io_extern_config_c2h_match_arg_14(rx_handler_io_extern_config_c2h_match_arg_14),
+    .io_extern_config_c2h_match_arg_15(rx_handler_io_extern_config_c2h_match_arg_15)
   );
   assign io_QDMA_h2c_stub_out_tready = tx_handler_io_QDMA_h2c_stub_out_tready; // @[PackageHandler.scala 31:24]
   assign io_CMAC_in_tdata = tx_handler_io_CMAC_in_tdata; // @[PackageHandler.scala 32:24]
@@ -3679,4 +3883,12 @@ module PackageHandler(
   assign rx_handler_io_extern_config_c2h_match_arg_5 = io_extern_config_c2h_match_arg_5; // @[PackageHandler.scala 42:33]
   assign rx_handler_io_extern_config_c2h_match_arg_6 = io_extern_config_c2h_match_arg_6; // @[PackageHandler.scala 42:33]
   assign rx_handler_io_extern_config_c2h_match_arg_7 = io_extern_config_c2h_match_arg_7; // @[PackageHandler.scala 42:33]
+  assign rx_handler_io_extern_config_c2h_match_arg_8 = io_extern_config_c2h_match_arg_8; // @[PackageHandler.scala 42:33]
+  assign rx_handler_io_extern_config_c2h_match_arg_9 = io_extern_config_c2h_match_arg_9; // @[PackageHandler.scala 42:33]
+  assign rx_handler_io_extern_config_c2h_match_arg_10 = io_extern_config_c2h_match_arg_10; // @[PackageHandler.scala 42:33]
+  assign rx_handler_io_extern_config_c2h_match_arg_11 = io_extern_config_c2h_match_arg_11; // @[PackageHandler.scala 42:33]
+  assign rx_handler_io_extern_config_c2h_match_arg_12 = io_extern_config_c2h_match_arg_12; // @[PackageHandler.scala 42:33]
+  assign rx_handler_io_extern_config_c2h_match_arg_13 = io_extern_config_c2h_match_arg_13; // @[PackageHandler.scala 42:33]
+  assign rx_handler_io_extern_config_c2h_match_arg_14 = io_extern_config_c2h_match_arg_14; // @[PackageHandler.scala 42:33]
+  assign rx_handler_io_extern_config_c2h_match_arg_15 = io_extern_config_c2h_match_arg_15; // @[PackageHandler.scala 42:33]
 endmodule

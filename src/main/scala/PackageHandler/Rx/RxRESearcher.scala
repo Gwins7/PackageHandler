@@ -7,18 +7,25 @@ import chisel3.util._
 
 class REHandlerUnit extends Module {
   // check 1 byte jump
+
   val io = IO(new Bundle {
     val in_char = Input(UInt(8.W))
     val in_state = Input(UInt(4.W))
-    val in_rule = Input(Vec(16,UInt(16.W)))
+    val in_rule = Input(Vec(16,UInt(32.W)))
     // rule: 16 (nxt_state(4),cur_state(4),char(8)) * 16
     val out_state = Output(UInt(4.W))
   })
   val result = WireDefault(0.U.asTypeOf(Vec(16,UInt(4.W))))
   for (i <- 0 until 16){
     // only one rule per situation is OK
-    when (io.in_char === io.in_rule(i)(7,0) && io.in_state === io.in_rule(i)(11,8)){
-      result(i) := io.in_rule(i)(15,12)
+    // we don't need to and because we only get 1 input char
+    val char_1_or_2_cmp = (io.in_char === io.in_rule(i)(7,0)) | (io.in_char === io.in_rule(i)(15,8))
+    val char_1_to_2_cmp = (io.in_char >= io.in_rule(i)(7,0)) & (io.in_char <= io.in_rule(i)(15,8))
+    val cmp_result = Mux(io.in_rule(i)(17),char_1_to_2_cmp,char_1_or_2_cmp)
+    val match_ok   = Mux(io.in_rule(i)(16),!cmp_result,cmp_result)
+
+    when ((io.in_state === io.in_rule(i)(27,24)) & match_ok){
+        result(i) := io.in_rule(i)(31,28)
     }
   }
   // 0 is Q_start, F is Q_Accept
@@ -30,9 +37,9 @@ class REHandler(val step: Int = 2) extends Module {
   val io = IO(new Bundle {
     val in_char = Input(UInt((8*step).W))
     val in_state = Input(UInt(4.W))
-    val in_rule = Input(Vec(16,UInt(16.W)))
+    val in_rule = Input(Vec(16,UInt(32.W)))
     val in_en = Input(Bool())
-    // rule: 16 (nxt_state(4),cur_state(4),char(8)) * 16
+    // rule: 16 (nxt_state(4),cur_state(4),reserve(6),dep(1),not(1),char2(8),char1(8)) * 16
     val out_state = Output(UInt(4.W))
   })
   val re_handler_unit_queue = Seq.fill(step)(Module(new REHandlerUnit))
@@ -61,13 +68,13 @@ class RxRESearcher(val step: Int = 2) extends RxPipelineHandler with NetFunc {
   val match_wait_reg = RegInit(false.B) // all the reg must wait 1 beat to start function (because we only process in_reg)
 
   val cur_beat_done = (beat_counter_reg === (handler_num-1).U)
-  val input_rule = extern_config_reg.c2h_match_arg.asTypeOf(Vec(16,UInt(16.W)))
+  val input_rule = extern_config_reg.c2h_match_arg
 
   val data_vec = Wire(Vec(handler_num,UInt((step*8).W)))
   for (i <- 0 until handler_num) {
     data_vec(i) := in_reg.tdata((8*step)*i+(8*step-1),(8*step)*i)
   }
-  val input_data = Mux(beat_counter_reg === (handler_num-1).U || !match_wait_reg, data_vec(beat_counter_reg),data_vec(beat_counter_reg+1.U))
+  val input_data = Mux(cur_beat_done || !match_wait_reg, data_vec(beat_counter_reg),data_vec(beat_counter_reg+1.U))
 
   val re_handler = Module(new REHandler(step))
 

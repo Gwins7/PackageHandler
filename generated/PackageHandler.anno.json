@@ -3,25 +3,13 @@
     "class":"firrtl.transforms.DedupedResult",
     "original":"~PackageHandler|REHandlerUnit",
     "duplicate":"~PackageHandler|PackageHandler/rx_handler:RxHandler/rx_pipeline:RxPipeline/rx_re_searcher:RxRESearcher/re_handler:REHandler/re_handler_unit_queue_0:REHandlerUnit",
-    "index":0.4
+    "index":0.46153846153846156
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~PackageHandler|REHandlerUnit_1",
     "duplicate":"~PackageHandler|PackageHandler/rx_handler:RxHandler/rx_pipeline:RxPipeline/rx_re_searcher:RxRESearcher/re_handler:REHandler/re_handler_unit_queue_1:REHandlerUnit",
-    "index":0.4666666666666667
-  },
-  {
-    "class":"firrtl.transforms.DedupedResult",
-    "original":"~PackageHandler|REHandlerUnit_2",
-    "duplicate":"~PackageHandler|PackageHandler/rx_handler:RxHandler/rx_pipeline:RxPipeline/rx_re_searcher:RxRESearcher/re_handler:REHandler/re_handler_unit_queue_2:REHandlerUnit",
-    "index":0.5333333333333333
-  },
-  {
-    "class":"firrtl.transforms.DedupedResult",
-    "original":"~PackageHandler|REHandlerUnit_3",
-    "duplicate":"~PackageHandler|PackageHandler/rx_handler:RxHandler/rx_pipeline:RxPipeline/rx_re_searcher:RxRESearcher/re_handler:REHandler/re_handler_unit_queue_3:REHandlerUnit",
-    "index":0.6
+    "index":0.5384615384615384
   },
   {
     "class":"firrtl.EmitCircuitAnnotation",
