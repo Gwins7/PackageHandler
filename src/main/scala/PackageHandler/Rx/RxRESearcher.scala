@@ -74,11 +74,12 @@ class RxRESearcher(val step: Int = 2) extends RxPipelineHandler with NetFunc {
   for (i <- 0 until handler_num) {
     data_vec(i) := in_reg.tdata((8*step)*i+(8*step-1),(8*step)*i)
   }
-  val input_data = Mux(cur_beat_done || !match_wait_reg, data_vec(beat_counter_reg),data_vec(beat_counter_reg+1.U))
+  val input_data = Mux(cur_beat_done | !match_wait_reg, data_vec(beat_counter_reg),data_vec(beat_counter_reg+1.U))
 
   val re_handler = Module(new REHandler(step))
 
   val match_found = (re_handler.io.out_state === 15.U)
+
   val cur_state = Mux((first_beat_reg & !match_wait_reg) | (in_shake_hand & in_reg.tlast),0.U,re_handler.io.out_state)
   // (first_beat_reg & !match_wait_reg) because pkt1's tail and pkt2's head shouldn't mix together
   // in_shake_hand & tlast because we want to clear out_state reg

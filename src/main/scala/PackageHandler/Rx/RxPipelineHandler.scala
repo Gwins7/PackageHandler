@@ -163,12 +163,16 @@ class RxStrMatcher extends RxPipelineHandler {
                                 (Fill(32, in_beat_place(1) &  in_beat_place(0)) & Cat(io.in.tdata(23,0),in_reg.tdata(511,504)))    // 63
         }
       }
-
-    when (first_beat_reg) {
+    when(in_reg.tlast) {
+      match_found_reg := false.B
+    }.elsewhen(!match_found_reg) {
       match_found_reg := match_found
-    }.otherwise{
-      match_found_reg := match_found_reg | match_found
     }
+//    when (first_beat_reg) {
+//      match_found_reg := match_found
+//    }.otherwise{
+//      match_found_reg := match_found_reg | match_found
+//    }
   }
   when (match_op(3)) {
     io.out.rx_info.qid := Mux(match_found_reg | match_found,1.U,in_reg.rx_info.qid)
@@ -210,11 +214,16 @@ class RxStrSearcher extends RxPipelineHandler {
   val search_found_reg = RegInit(false.B)
   when (in_shake_hand) {
     previous_tdata_reg := in_reg.tdata(511,488)
-    when (first_beat_reg) {
+    when (in_reg.tlast) {
+      search_found_reg := false.B
+    }.elsewhen (!search_found_reg) {
       search_found_reg := search_or_result
-    }.otherwise{
-      search_found_reg := search_found_reg | search_or_result
     }
+//    when (first_beat_reg) {
+//      search_found_reg := search_or_result
+//    }.otherwise{
+//      search_found_reg := search_found_reg | search_or_result
+//    }
   }
 
   when (search_op(4)) {
