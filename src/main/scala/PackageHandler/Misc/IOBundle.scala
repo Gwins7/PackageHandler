@@ -27,3 +27,30 @@ class QDMAAxisIO extends AxisIO{
 class CMACAxisIO extends QDMAAxisIO{
   val tkeep = Input(UInt(64.W))
 }
+
+class FifoIPIO (width:Int) extends Bundle {
+  val tdata = Input(UInt(width.W))
+  val tlast = Input(Bool())
+  val tready = Output(Bool())
+  val tvalid = Input(Bool())
+}
+class BufferFifoIP_128 extends BlackBox {
+
+  val io = IO(new Bundle{
+    val s_axis_aclk = Input(Clock())
+    val s_axis_aresetn = Input(Bool())
+
+    val s_axis = new FifoIPIO(128)
+    val m_axis = Flipped(new FifoIPIO(128))
+  })
+}
+class BufferFifoIP_512 extends BlackBox {
+
+  val io = IO(new Bundle {
+    val s_axis_aclk = Input(Clock())
+    val s_axis_aresetn = Input(Bool())
+
+    val s_axis = new FifoIPIO(512)
+    val m_axis = Flipped(new FifoIPIO(512))
+  })
+}

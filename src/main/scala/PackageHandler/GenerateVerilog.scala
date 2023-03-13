@@ -2,6 +2,7 @@ package PackageHandler
 
 
 import PackageHandler.Rx._
+import PackageHandler.Tx._
 import chisel3.emitVerilog
 
 object GenerateAllVerilog extends App {
@@ -14,3 +15,7 @@ object GenerateREVerilog extends App {
   println("generate RE Verilog successfully!")
 }
 
+object GenerateTxBufferVerilog extends App {
+  emitVerilog(new TxBufferFifo(), Array("--target-dir", "generated"))
+  println("generate TxBuffer Verilog successfully!")
+}

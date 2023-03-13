@@ -13,6 +13,7 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   class BufferInfo extends Bundle {
     val used = Bool()  // this is high when we start writing
     val valid = Bool() // this is high when we finish writing (ready to read)
+    val pre_valid = Bool()
     val chksum_offload = Bool()
     val pkt_type = UInt(2.W) // 0:ipv4 1:tcp
     val ip_chksum = UInt(16.W)
@@ -110,7 +111,13 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
           data_buf_reg(wr_pos_reg) := io.in.tdata
           info_buf_reg(wr_index_reg).burst := info_buf_reg(wr_index_reg).burst + 1.U
           when (io.in.tlast) {
-            info_buf_reg(wr_index_reg).valid := true.B
+            when(info_buf_reg(wr_index_reg).burst === 0.U) {
+              info_buf_reg(wr_index_reg).pre_valid := true.B
+              // when only one beat, the sync-mem may cause problem because
+              // we read the value before write; so we need to wait for one beat and then read
+            }.otherwise {
+              info_buf_reg(wr_index_reg).valid := true.B
+            }
             info_buf_reg(wr_index_reg).ip_chksum := end_ip_chksum
             info_buf_reg(wr_index_reg).tcp_chksum := end_tcp_chksum
             wr_index_reg := index_inc(wr_index_reg)
@@ -166,4 +173,14 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   }.otherwise{
     rd_pos_next := rd_pos_reg + 1.U
   }
+
+  for (i <- 0 until depth) {
+    when (info_buf_reg(i).pre_valid){
+      info_buf_reg(i).pre_valid := false.B
+      info_buf_reg(i).valid := true.B
+    }
+  }
+
 }
+
+

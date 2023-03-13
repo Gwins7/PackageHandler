@@ -13,6 +13,7 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   class BufferInfo extends Bundle {
     val used = Bool()  // this is high when we start writing
     val valid = Bool() // this is high when we finish writing (ready to read)
+    val pre_valid = Bool()
     val chksum_offload = Bool()
     val pkt_type = UInt(2.W) // 0:ipv4 1:tcp
     val qid = UInt(6.W)
@@ -45,8 +46,13 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
   // if we want to use block RAM instead of registers, refer:
   // https://blog.csdn.net/qq_39507748/article/details/118080849
   val info_buf_reg = RegInit(VecInit.fill(depth)(0.U.asTypeOf(new BufferInfo)))
+  /*
+   * actually we can use unsignedBitLength(depth-1).W in wr/rd_index_reg to save register,
+   * but somehow when we use burst_unit_num, timing is better
+   */
   val wr_index_reg = RegInit(0.U(unsignedBitLength(burst_unit_num).W))
   val rd_index_reg = RegInit(0.U(unsignedBitLength(burst_unit_num).W))
+
   val wr_pos_reg   = RegInit(0.U(unsignedBitLength(burst_unit_num).W))
   val rd_pos_reg   = RegInit(0.U(unsignedBitLength(burst_unit_num).W))
   val rd_pos_next = WireDefault(0.U(unsignedBitLength(burst_unit_num).W)) // used for sync-mem
@@ -118,7 +124,11 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
         data_buf_reg(wr_pos_reg) := io.in.tdata
         info_buf_reg(wr_index_reg).burst := info_buf_reg(wr_index_reg).burst + 1.U
         when (io.in.tlast) {
-          info_buf_reg(wr_index_reg).valid := true.B
+          when (info_buf_reg(wr_index_reg).burst === 0.U) {
+            info_buf_reg(wr_index_reg).pre_valid := true.B
+          }.otherwise{
+            info_buf_reg(wr_index_reg).valid := true.B
+          }
           // we use the information given by tlast beat as packet's final information
           info_buf_reg(wr_index_reg).ip_chksum := end_ip_chksum
           info_buf_reg(wr_index_reg).tcp_chksum := end_tcp_chksum
@@ -153,7 +163,7 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
 
   // (throw the packets which have invalid checksum(tcp/ip) and count)
   io.out.tvalid := info_buf_reg(rd_index_reg).valid & chksum_pass
-  wrong_chksum_counter := wrong_chksum_counter + (io.out.tready & io.out.tlast & !chksum_pass)
+  wrong_chksum_counter := Mux(io.reset_counter,0.U,wrong_chksum_counter + (io.out.tready & io.out.tlast & !chksum_pass))
 
   // if we shake hand in current beat, then in next beat we would read next data;
   // otherwise in next beat we read current data
@@ -175,5 +185,12 @@ class RxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
     rd_pos_next := index_inc(rd_index_reg) << log2Ceil(burst_size).U
   }.otherwise{
     rd_pos_next := rd_pos_reg + 1.U
+  }
+
+  for (i <- 0 until depth) {
+    when(info_buf_reg(i).pre_valid) {
+      info_buf_reg(i).pre_valid := false.B
+      info_buf_reg(i).valid := true.B
+    }
   }
 }

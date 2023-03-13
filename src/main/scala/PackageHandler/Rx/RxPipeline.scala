@@ -42,9 +42,9 @@ class RxPipeline extends Module{
 
   io.in                     <> rx_chksum_verifier.io.in
   rx_chksum_verifier.io.out <> rx_rss_hasher.io.in
-  rx_rss_hasher.io.out <> rx_string_matcher.io.in
-  rx_string_matcher.io.out    <> rx_string_searcher.io.in
-  rx_string_searcher.io.out      <> rx_re_searcher.io.in
+  rx_rss_hasher.io.out      <> rx_string_matcher.io.in
+  rx_string_matcher.io.out  <> rx_string_searcher.io.in
+  rx_string_searcher.io.out <> rx_re_searcher.io.in
   rx_re_searcher.io.out <> io.out
 }
 

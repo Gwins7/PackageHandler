@@ -3,37 +3,61 @@
     "class":"firrtl.transforms.DedupedResult",
     "original":"~PackageHandler|ReduceAddSync",
     "duplicate":"~PackageHandler|PackageHandler/tx_handler:TxHandler/tx_pipeline:TxPipeline/tx_chksum_generator:TxChksumGenerator/ip_chksum_cal:ReduceAddSync",
-    "index":0.04
+    "index":0.034482758620689655
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~PackageHandler|ReduceAddSync_1",
     "duplicate":"~PackageHandler|PackageHandler/tx_handler:TxHandler/tx_pipeline:TxPipeline/tx_chksum_generator:TxChksumGenerator/tcp_pld_chksum_cal:ReduceAddSync_1",
-    "index":0.08
+    "index":0.06896551724137931
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~PackageHandler|ReduceAddSync_2",
     "duplicate":"~PackageHandler|PackageHandler/tx_handler:TxHandler/tx_pipeline:TxPipeline/tx_chksum_generator:TxChksumGenerator/tcp_hdr_chksum_cal:ReduceAddSync_1",
-    "index":0.12
+    "index":0.10344827586206896
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~PackageHandler|BufferFifoIP_128",
+    "duplicate":"~PackageHandler|PackageHandler/tx_handler:TxHandler/tx_buffer_fifo:TxBufferFifo2/tx_info_fifo:BufferFifoIP_128",
+    "index":0.20689655172413793
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~PackageHandler|BufferFifoIP_512",
+    "duplicate":"~PackageHandler|PackageHandler/tx_handler:TxHandler/tx_buffer_fifo:TxBufferFifo2/tx_data_fifo:BufferFifoIP_512",
+    "index":0.2413793103448276
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~PackageHandler|ReduceAddSync_4",
     "duplicate":"~PackageHandler|PackageHandler/rx_handler:RxHandler/rx_pipeline:RxPipeline/rx_chksum_verifier:RxChksumVerifier/ip_chksum_cal:ReduceAddSync",
-    "index":0.52
+    "index":0.5172413793103449
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~PackageHandler|ReduceAddSync_5",
     "duplicate":"~PackageHandler|PackageHandler/rx_handler:RxHandler/rx_pipeline:RxPipeline/rx_chksum_verifier:RxChksumVerifier/tcp_pld_chksum_cal:ReduceAddSync_1",
-    "index":0.56
+    "index":0.5517241379310345
   },
   {
     "class":"firrtl.transforms.DedupedResult",
     "original":"~PackageHandler|ReduceAddSync_6",
     "duplicate":"~PackageHandler|PackageHandler/rx_handler:RxHandler/rx_pipeline:RxPipeline/rx_chksum_verifier:RxChksumVerifier/tcp_hdr_chksum_cal:ReduceAddSync_1",
-    "index":0.6
+    "index":0.5862068965517241
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~PackageHandler|BufferFifoIP_128_1",
+    "duplicate":"~PackageHandler|PackageHandler/rx_handler:RxHandler/rx_buffer_fifo:RxBufferFifo2/rx_info_fifo:BufferFifoIP_128",
+    "index":0.8620689655172413
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~PackageHandler|BufferFifoIP_512_1",
+    "duplicate":"~PackageHandler|PackageHandler/rx_handler:RxHandler/rx_buffer_fifo:RxBufferFifo2/rx_data_fifo:BufferFifoIP_512",
+    "index":0.896551724137931
   },
   {
     "class":"firrtl.EmitCircuitAnnotation",
@@ -42,5 +66,19 @@
   {
     "class":"firrtl.transforms.BlackBoxTargetDirAnno",
     "targetDir":"generated"
+  },
+  {
+    "class":"firrtl.transforms.CombinationalPath",
+    "sink":"~PackageHandler|PackageHandler>io_QDMA_c2h_stub_in_tlast",
+    "sources":[
+      "~PackageHandler|PackageHandler>io_QDMA_c2h_stub_in_tready"
+    ]
+  },
+  {
+    "class":"firrtl.transforms.CombinationalPath",
+    "sink":"~PackageHandler|PackageHandler>io_CMAC_in_tlast",
+    "sources":[
+      "~PackageHandler|PackageHandler>io_CMAC_in_tready"
+    ]
   }
 ]
