@@ -1,65 +1,96 @@
-//package PackageHandler.Rx
-//
-//import PackageHandler.Misc._
-//import chisel3._
-//import chisel3.util._
-//
-// ATTENTION: STILL HAVE BUG!
-//
-//class RxAESDecrypter extends Module {
-//    val io = IO(new Bundle {
-//        val in = new RxPipelineAxisIO()
-//        val out = Flipped(new RxPipelineAxisIO())
-//    })
-//    val rev_key_encoder = Array.fill(11)(Module(new RxKeyEncoder))
-//    val rev_byte_changer = Array.fill(10)(Module(new RxByteChanger))
-//    val rev_bit_mover    = Array.fill(10)(Module(new RxBitMover))
-//    val rev_matrix_multiplier = Array.fill(9)(Module(new RxMatrixMultiplier))
-//
-//    io.in <> rev_key_encoder(10).io.in
-//    rev_key_encoder(10).io.out <> rev_bit_mover(0).io.in
-//    for (i <- 0 until 9){
-//        rev_bit_mover(i).io.out <> rev_byte_changer(i).io.in
-//        rev_byte_changer(i).io.out <> rev_key_encoder(i).io.in
-//        rev_key_encoder(i).io.out <> rev_matrix_multiplier(i).io.in
-//        rev_matrix_multiplier(i).io.out <> rev_bit_mover(i+1).io.in
-//    }
-//    rev_bit_mover(9).io.out <> rev_byte_changer(9).io.in
-//    rev_byte_changer(9).io.out <> rev_key_encoder(9).io.in
-//    rev_key_encoder(9).io.out <> io.out
-//}
-//
-//class RxDecryptHandler extends RxPipelineHandler with cal_gf256
-//
-//class RxByteChanger extends RxDecryptHandler {
-//    val trans_tdata = Wire(Vec(64,UInt(8.W)))
-//    for (i <- 0 until 64){
-//        trans_tdata(i) := rev_s_substitute(in_reg.tdata(i*8+7,i*8+4),in_reg.tdata(i*8+3,i*8))
-//    }
-//    io.out.tdata := trans_tdata.asUInt
-//}
-//
-//class RxBitMover extends RxDecryptHandler {
-//
-//    val trans_tdata = Wire(Vec(4,UInt(128.W)))
-//    for (i <- 0 until 4){
-//        trans_tdata(i) := rev_move_bit_128(in_reg.tdata(128*i+127,128*i))
-//    }
-//    io.out.tdata := trans_tdata.asUInt
-//}
-//
-//class RxMatrixMultiplier extends RxDecryptHandler {
-//    val trans_tdata = Wire(Vec(64,UInt(8.W)))
-//    for (i <- 0 until 4){
-//        for (j <- 0 until 16){
-//            trans_tdata(16*i+j) := rev_matrix_mul_result(in_reg.tdata(128*i+127,128*i),j % 4,j / 4)
-//        }
-//    }
-//    io.out.tdata := trans_tdata.asUInt
-//}
-//
-//class RxKeyEncoder extends RxDecryptHandler {
-//    io.out.tdata := in_reg.tdata ^ Fill(4,extern_config_reg.aes_key)
-//    io.out.extern_config.round_time := extern_config_reg.round_time + 1.U
-//    io.out.extern_config.aes_key := get_next_key(extern_config_reg.aes_key,extern_config_reg.round_time)
-//}
+package PackageHandler.Rx
+
+import PackageHandler.Misc._
+import chisel3._
+import chisel3.util._
+
+class RxAESDecrypter extends RxPipelineHandler with cal_gf256{
+
+    val aes_key_reg = Reg(Vec(11,UInt(128.W)))
+    def rev_key_encode (tdata:UInt, round_time:UInt): UInt = {
+        tdata ^ Fill(4,aes_key_reg(round_time))
+    }
+    def rev_byte_change (tdata:UInt): UInt = {
+        val trans_tdata = Wire(Vec(64, UInt(8.W)))
+        for (i <- 0 until 64) {
+            trans_tdata(i) := rev_s_substitute(tdata(i * 8 + 7, i * 8 + 4), tdata(i * 8 + 3, i * 8))
+        }
+        trans_tdata.asUInt
+    }
+
+    def rev_bit_move (tdata:UInt): UInt = {
+        val trans_tdata = Wire(Vec(4, UInt(128.W)))
+        for (i <- 0 until 4) {
+            trans_tdata(i) := rev_move_bit_128(tdata(128 * i + 127, 128 * i))
+        }
+        trans_tdata.asUInt
+    }
+
+    def rev_matrix_multiply (tdata:UInt): UInt = {
+        val trans_tdata = Wire(Vec(64, UInt(8.W)))
+        for (i <- 0 until 4) {
+            for (j <- 0 until 16) {
+                trans_tdata(16 * i + j) := rev_matrix_mul_result(tdata(128 * i + 127, 128 * i), j % 4, j / 4)
+            }
+        }
+        trans_tdata.asUInt
+    }
+
+    val cur_round_counter = RegInit(0.U(8.W))
+    val cur_round = Mux(cur_round_counter <= 11.U,0.U,(cur_round_counter - 10.U) >> 2.U).asUInt
+    val tmp_tdata_reg = Reg(UInt(512.W))
+
+
+    val aes_key_0 = Cat(change_order_32(io.in.extern_config.c2h_match_arg(12)),
+        change_order_32(io.in.extern_config.c2h_match_arg(13)),
+        change_order_32(io.in.extern_config.c2h_match_arg(14)),
+        change_order_32(io.in.extern_config.c2h_match_arg(15)))
+
+    // cur_round_counter:
+    // 0~9: aes_key_gen
+    // 12,     (12+4*1), ..., (12+4*9) : bit_move -> %4=0
+    // 13,     (13+4*1), ..., (13+4*9) : byte_change ->%4=1
+    // 11, 14, (14+4*1), ..., (14+4*9) : encode -> %4=2 || 11
+    // 15,     (15+4*1), ..., (15+4*8) : mul ->%4=3
+
+    val tmp_result = Wire(Vec(4,UInt(512.W)))
+    tmp_result(0) := rev_bit_move(tmp_tdata_reg)
+    tmp_result(1) := rev_byte_change(tmp_tdata_reg)
+    tmp_result(2) := rev_key_encode(tmp_tdata_reg,10.U-cur_round)
+    tmp_result(3) := rev_matrix_multiply(tmp_tdata_reg)
+
+    when(!io.in.extern_config.c2h_match_op(8)) {
+        cur_round_counter := 0.U
+    }.otherwise{
+
+        when(cur_round_counter < 11.U) {
+            when(cur_round_counter === 0.U) {
+                aes_key_reg(0) := aes_key_0
+            }.otherwise {
+                aes_key_reg(cur_round_counter) := get_next_key(aes_key_reg(cur_round_counter - 1.U), cur_round_counter)
+            }
+        }
+
+        when(in_shake_hand) {
+            cur_round_counter := Mux(aes_key_reg(0) === aes_key_0, 11.U, 0.U)
+            tmp_tdata_reg := io.in.tdata
+        }.elsewhen(cur_round_counter < 51.U) {
+            cur_round_counter := cur_round_counter + 1.U
+        }
+
+        when(cur_round_counter >= 11.U && in_reg_used_reg) {
+            when(cur_round_counter === 11.U) {
+                tmp_tdata_reg := tmp_result(2)
+            }.elsewhen(cur_round_counter < 51.U) {
+                tmp_tdata_reg := tmp_result(cur_round_counter(1, 0))
+            }
+        }
+
+        io.out.tdata := tmp_tdata_reg
+        io.in.tready   := (cur_round_counter >= 11.U) & (out_shake_hand | !in_reg_used_reg)
+        io.out.tvalid := (cur_round_counter === 51.U) & (in_reg.tvalid & in_reg_used_reg)
+    }
+    // if encode:0 byte_change:1 bit_move:2  mul:3, then:
+    // rx: in->0->2->1->0->3->2->1->0->3->...->2->1->0->out (2103 * 9)
+    // tx: in->0->1->2->3->0->1->2->3->0->...->1->2->0->out (1230 * 9)
+}
