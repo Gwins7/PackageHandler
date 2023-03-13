@@ -63,6 +63,9 @@ class TxAESEncrypter extends TxPipelineHandler with cal_gf256 {
   tmp_result(3) := key_encode(tmp_tdata_reg, cur_round)
 
 
+  when(in_shake_hand) {
+    tmp_tdata_reg := io.in.tdata
+  }
 
   when (!io.in.extern_config.c2h_match_op(8)) {
     cur_round_counter := 0.U
@@ -78,7 +81,6 @@ class TxAESEncrypter extends TxPipelineHandler with cal_gf256 {
 
     when(in_shake_hand) {
       cur_round_counter := Mux(aes_key_reg(0) === aes_key_0, 11.U, 0.U)
-      tmp_tdata_reg := io.in.tdata
     }.elsewhen(cur_round_counter < 51.U) {
       cur_round_counter := cur_round_counter + 1.U
     }
