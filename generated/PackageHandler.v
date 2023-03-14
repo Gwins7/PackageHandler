@@ -132,7 +132,7 @@ module TxAESEncrypter(
 `ifdef RANDOMIZE_REG_INIT
   reg [607:0] _RAND_0;
   reg [31:0] _RAND_1;
-  reg [127:0] _RAND_2;
+  reg [31:0] _RAND_2;
   reg [127:0] _RAND_3;
   reg [127:0] _RAND_4;
   reg [127:0] _RAND_5;
@@ -143,15 +143,19 @@ module TxAESEncrypter(
   reg [127:0] _RAND_10;
   reg [127:0] _RAND_11;
   reg [127:0] _RAND_12;
-  reg [31:0] _RAND_13;
-  reg [511:0] _RAND_14;
+  reg [127:0] _RAND_13;
+  reg [31:0] _RAND_14;
+  reg [511:0] _RAND_15;
 `endif // RANDOMIZE_REG_INIT
   wire  in_shake_hand = io_in_tvalid & io_in_tready; // @[TxPipelineHandler.scala 12:36]
   wire  out_shake_hand = io_out_tready & io_out_tvalid; // @[TxPipelineHandler.scala 13:38]
   wire [577:0] _in_reg_T_1 = {io_in_tx_info_ip_chksum,io_in_tx_info_tcp_chksum,io_in_tdata,io_in_tvalid,io_in_tlast}; // @[Cat.scala 31:58]
   reg [577:0] in_reg_r; // @[Reg.scala 28:20]
+  wire  in_reg_tlast = in_reg_r[0]; // @[TxPipelineHandler.scala 15:116]
   wire  in_reg_tvalid = in_reg_r[1]; // @[TxPipelineHandler.scala 15:116]
   wire [511:0] in_reg_tdata = in_reg_r[513:2]; // @[TxPipelineHandler.scala 15:116]
+  reg  first_beat_reg; // @[Reg.scala 28:20]
+  wire  _GEN_1 = in_shake_hand ? in_reg_tlast : first_beat_reg; // @[Reg.scala 29:18 28:20 29:22]
   reg  in_reg_used_reg; // @[TxPipelineHandler.scala 19:32]
   wire  _GEN_2 = out_shake_hand ? 1'h0 : in_reg_used_reg; // @[TxPipelineHandler.scala 22:29 23:21 19:32]
   wire  _GEN_3 = in_shake_hand | _GEN_2; // @[TxPipelineHandler.scala 20:23 21:21]
@@ -173,14 +177,14 @@ module TxAESEncrypter(
   wire [7:0] _cur_round_T_3 = {{2'd0}, _cur_round_T_2[7:2]}; // @[TxAESEncrypter.scala 44:82]
   wire [7:0] cur_round = cur_round_counter <= 8'hb ? 8'h0 : _cur_round_T_3; // @[TxAESEncrypter.scala 44:22]
   reg [511:0] tmp_tdata_reg; // @[TxAESEncrypter.scala 45:26]
-  wire [63:0] aes_key_0_lo_4 = {io_in_extern_config_c2h_match_arg_14[7:0],io_in_extern_config_c2h_match_arg_14[15:8],
-    io_in_extern_config_c2h_match_arg_14[23:16],io_in_extern_config_c2h_match_arg_14[31:24],
-    io_in_extern_config_c2h_match_arg_15[7:0],io_in_extern_config_c2h_match_arg_15[15:8],
-    io_in_extern_config_c2h_match_arg_15[23:16],io_in_extern_config_c2h_match_arg_15[31:24]}; // @[Cat.scala 31:58]
-  wire [127:0] aes_key_0 = {io_in_extern_config_c2h_match_arg_12[7:0],io_in_extern_config_c2h_match_arg_12[15:8],
-    io_in_extern_config_c2h_match_arg_12[23:16],io_in_extern_config_c2h_match_arg_12[31:24],
-    io_in_extern_config_c2h_match_arg_13[7:0],io_in_extern_config_c2h_match_arg_13[15:8],
-    io_in_extern_config_c2h_match_arg_13[23:16],io_in_extern_config_c2h_match_arg_13[31:24],aes_key_0_lo_4}; // @[Cat.scala 31:58]
+  wire [63:0] aes_key_0_lo_4 = {io_in_extern_config_c2h_match_arg_13[7:0],io_in_extern_config_c2h_match_arg_13[15:8],
+    io_in_extern_config_c2h_match_arg_13[23:16],io_in_extern_config_c2h_match_arg_13[31:24],
+    io_in_extern_config_c2h_match_arg_12[7:0],io_in_extern_config_c2h_match_arg_12[15:8],
+    io_in_extern_config_c2h_match_arg_12[23:16],io_in_extern_config_c2h_match_arg_12[31:24]}; // @[Cat.scala 31:58]
+  wire [127:0] aes_key_0 = {io_in_extern_config_c2h_match_arg_15[7:0],io_in_extern_config_c2h_match_arg_15[15:8],
+    io_in_extern_config_c2h_match_arg_15[23:16],io_in_extern_config_c2h_match_arg_15[31:24],
+    io_in_extern_config_c2h_match_arg_14[7:0],io_in_extern_config_c2h_match_arg_14[15:8],
+    io_in_extern_config_c2h_match_arg_14[23:16],io_in_extern_config_c2h_match_arg_14[31:24],aes_key_0_lo_4}; // @[Cat.scala 31:58]
   wire [6:0] _tmp_result_0_trans_tdata_0_T_2 = {tmp_tdata_reg[3:0], 3'h0}; // @[cal_gf256.scala 27:25]
   wire [127:0] _GEN_5 = 4'h1 == tmp_tdata_reg[7:4] ? 128'hc072a49cafa2d4adf04759fa7dc982ca : 128'h76abd7fe2b670130c56f6bf27b777c63
     ; // @[cal_gf256.scala 27:{17,17}]
@@ -1993,7 +1997,7 @@ module TxAESEncrypter(
   wire [511:0] _tmp_result_3_T_2 = {_GEN_1038,_GEN_1038,_GEN_1038,_GEN_1038}; // @[Cat.scala 31:58]
   wire [511:0] tmp_result_3 = tmp_tdata_reg ^ _tmp_result_3_T_2; // @[TxAESEncrypter.scala 14:11]
   wire [511:0] _GEN_1039 = in_shake_hand ? io_in_tdata : tmp_tdata_reg; // @[TxAESEncrypter.scala 66:23 67:19 45:26]
-  wire [7:0] _aes_key_reg_T_1 = cur_round_counter - 8'h1; // @[TxAESEncrypter.scala 78:86]
+  wire [7:0] _aes_key_reg_T_1 = cur_round_counter - 8'h1; // @[TxAESEncrypter.scala 80:86]
   wire [127:0] _GEN_1041 = 4'h1 == _aes_key_reg_T_1[3:0] ? aes_key_reg_1 : aes_key_reg_0; // @[cal_gf256.scala 134:{27,27}]
   wire [127:0] _GEN_1042 = 4'h2 == _aes_key_reg_T_1[3:0] ? aes_key_reg_2 : _GEN_1041; // @[cal_gf256.scala 134:{27,27}]
   wire [127:0] _GEN_1043 = 4'h3 == _aes_key_reg_T_1[3:0] ? aes_key_reg_3 : _GEN_1042; // @[cal_gf256.scala 134:{27,27}]
@@ -2083,24 +2087,39 @@ module TxAESEncrypter(
   wire [5:0] _aes_key_reg_next_key_0_T_28 = cur_round_counter == 8'h9 ? 6'h1b : 6'h36; // @[cal_gf256.scala 130:47]
   wire [255:0] _aes_key_reg_next_key_0_T_29 = cur_round_counter <= 8'h8 ? _aes_key_reg_next_key_0_T_26 : {{250'd0},
     _aes_key_reg_next_key_0_T_28}; // @[cal_gf256.scala 130:8]
-  wire [255:0] _GEN_1174 = {{224'd0}, _aes_key_reg_next_key_0_T_22}; // @[cal_gf256.scala 139:9]
-  wire [255:0] _aes_key_reg_next_key_0_T_30 = _GEN_1174 ^ _aes_key_reg_next_key_0_T_29; // @[cal_gf256.scala 139:9]
+  wire [255:0] _GEN_1190 = {{224'd0}, _aes_key_reg_next_key_0_T_22}; // @[cal_gf256.scala 139:9]
+  wire [255:0] _aes_key_reg_next_key_0_T_30 = _GEN_1190 ^ _aes_key_reg_next_key_0_T_29; // @[cal_gf256.scala 139:9]
   wire [31:0] aes_key_reg_next_key_0 = _aes_key_reg_next_key_0_T_30[31:0]; // @[cal_gf256.scala 133:24 134:17]
   wire [31:0] aes_key_reg_next_key_1 = _GEN_1050[63:32] ^ aes_key_reg_next_key_0; // @[cal_gf256.scala 140:35]
   wire [31:0] aes_key_reg_next_key_2 = _GEN_1050[95:64] ^ aes_key_reg_next_key_1; // @[cal_gf256.scala 141:35]
   wire [31:0] aes_key_reg_next_key_3 = _GEN_1050[127:96] ^ aes_key_reg_next_key_2; // @[cal_gf256.scala 142:36]
   wire [127:0] _aes_key_reg_T_3 = {aes_key_reg_next_key_3,aes_key_reg_next_key_2,aes_key_reg_next_key_1,
     aes_key_reg_next_key_0}; // @[cal_gf256.scala 143:14]
-  wire [3:0] _cur_round_counter_T_1 = aes_key_reg_0 == aes_key_0 ? 4'hb : 4'h0; // @[TxAESEncrypter.scala 83:31]
-  wire [7:0] _cur_round_counter_T_3 = cur_round_counter + 8'h1; // @[TxAESEncrypter.scala 85:46]
-  wire  _T_6 = cur_round_counter >= 8'hb; // @[TxAESEncrypter.scala 88:28]
-  wire [511:0] _GEN_1151 = 2'h1 == cur_round_counter[1:0] ? tmp_result_1 : tmp_result_0; // @[TxAESEncrypter.scala 90:{23,23}]
-  wire [511:0] _GEN_1152 = 2'h2 == cur_round_counter[1:0] ? tmp_result_2 : _GEN_1151; // @[TxAESEncrypter.scala 90:{23,23}]
-  assign io_in_tready = ~io_in_extern_config_c2h_match_op[8] ? io_out_tready | ~in_reg_used_reg : _T_6 & (out_shake_hand
-     | _io_in_tready_T); // @[TxAESEncrypter.scala 70:47 TxPipelineHandler.scala 26:17 TxAESEncrypter.scala 97:18]
-  assign io_out_tdata = ~io_in_extern_config_c2h_match_op[8] ? in_reg_tdata : tmp_tdata_reg; // @[TxAESEncrypter.scala 70:47 TxPipelineHandler.scala 27:17 TxAESEncrypter.scala 96:18]
-  assign io_out_tvalid = ~io_in_extern_config_c2h_match_op[8] ? in_reg_tvalid & in_reg_used_reg : cur_round_counter == 8'h33
-     & _io_out_tvalid_T; // @[TxAESEncrypter.scala 70:47 TxPipelineHandler.scala 28:17 TxAESEncrypter.scala 98:19]
+  wire [127:0] _GEN_1115 = 4'h0 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_0; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
+  wire [127:0] _GEN_1116 = 4'h1 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_1; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
+  wire [127:0] _GEN_1117 = 4'h2 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_2; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
+  wire [127:0] _GEN_1118 = 4'h3 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_3; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
+  wire [127:0] _GEN_1119 = 4'h4 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_4; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
+  wire [127:0] _GEN_1120 = 4'h5 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_5; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
+  wire [127:0] _GEN_1121 = 4'h6 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_6; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
+  wire [127:0] _GEN_1122 = 4'h7 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_7; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
+  wire [127:0] _GEN_1123 = 4'h8 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_8; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
+  wire [127:0] _GEN_1124 = 4'h9 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_9; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
+  wire [127:0] _GEN_1125 = 4'ha == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_10; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
+  wire [3:0] _cur_round_counter_T_1 = aes_key_reg_0 == aes_key_0 ? 4'hb : 4'h0; // @[TxAESEncrypter.scala 85:31]
+  wire [7:0] _cur_round_counter_T_3 = cur_round_counter + 8'h1; // @[TxAESEncrypter.scala 87:46]
+  wire [7:0] _GEN_1148 = cur_round_counter < 8'h33 ? _cur_round_counter_T_3 : cur_round_counter; // @[TxAESEncrypter.scala 86:42 87:25 43:34]
+  wire  _T_7 = cur_round_counter >= 8'hb; // @[TxAESEncrypter.scala 90:28]
+  wire [511:0] _GEN_1151 = 2'h1 == cur_round_counter[1:0] ? tmp_result_1 : tmp_result_0; // @[TxAESEncrypter.scala 92:{23,23}]
+  wire [511:0] _GEN_1152 = 2'h2 == cur_round_counter[1:0] ? tmp_result_2 : _GEN_1151; // @[TxAESEncrypter.scala 92:{23,23}]
+  wire [511:0] _GEN_1153 = 2'h3 == cur_round_counter[1:0] ? tmp_result_3 : _GEN_1152; // @[TxAESEncrypter.scala 92:{23,23}]
+  wire [511:0] _GEN_1154 = cur_round_counter == 8'h32 ? tmp_result_3 : _GEN_1039; // @[TxAESEncrypter.scala 93:46 94:23]
+  wire [511:0] _GEN_1170 = ~first_beat_reg ? tmp_tdata_reg : in_reg_tdata; // @[TxAESEncrypter.scala 74:31 98:18 TxPipelineHandler.scala 27:17]
+  wire  _GEN_1171 = ~first_beat_reg ? _T_7 & (out_shake_hand | _io_in_tready_T) : io_out_tready | ~in_reg_used_reg; // @[TxAESEncrypter.scala 74:31 99:18 TxPipelineHandler.scala 26:17]
+  wire  _GEN_1172 = ~first_beat_reg ? cur_round_counter == 8'h33 & _io_out_tvalid_T : in_reg_tvalid & in_reg_used_reg; // @[TxAESEncrypter.scala 100:19 74:31 TxPipelineHandler.scala 28:17]
+  assign io_in_tready = ~io_in_extern_config_c2h_match_op[8] ? io_out_tready | ~in_reg_used_reg : _GEN_1171; // @[TxAESEncrypter.scala 72:47 TxPipelineHandler.scala 26:17]
+  assign io_out_tdata = ~io_in_extern_config_c2h_match_op[8] ? in_reg_tdata : _GEN_1170; // @[TxAESEncrypter.scala 72:47 TxPipelineHandler.scala 27:17]
+  assign io_out_tvalid = ~io_in_extern_config_c2h_match_op[8] ? in_reg_tvalid & in_reg_used_reg : _GEN_1172; // @[TxAESEncrypter.scala 72:47 TxPipelineHandler.scala 28:17]
   assign io_out_tlast = in_reg_r[0]; // @[TxPipelineHandler.scala 15:116]
   assign io_out_tx_info_ip_chksum = io_in_tx_info_ip_chksum; // @[TxPipelineHandler.scala 30:18]
   assign io_out_tx_info_tcp_chksum = io_in_tx_info_tcp_chksum; // @[TxPipelineHandler.scala 30:18]
@@ -2111,130 +2130,133 @@ module TxAESEncrypter(
     end else if (in_shake_hand) begin // @[Reg.scala 29:18]
       in_reg_r <= _in_reg_T_1; // @[Reg.scala 29:22]
     end
+    first_beat_reg <= reset | _GEN_1; // @[Reg.scala 28:{20,20}]
     if (reset) begin // @[TxPipelineHandler.scala 19:32]
       in_reg_used_reg <= 1'h0; // @[TxPipelineHandler.scala 19:32]
     end else begin
       in_reg_used_reg <= _GEN_3;
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 70:47]
-      if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 74:36]
-        if (cur_round_counter == 8'h0) begin // @[TxAESEncrypter.scala 75:39]
-          aes_key_reg_0 <= aes_key_0; // @[TxAESEncrypter.scala 76:24]
-        end else if (4'h0 == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 78:40]
-          aes_key_reg_0 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 78:40]
-        end
-      end
-    end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 70:47]
-      if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 74:36]
-        if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 75:39]
-          if (4'h1 == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 78:40]
-            aes_key_reg_1 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 78:40]
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
+      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
+        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
+          if (cur_round_counter == 8'h0) begin // @[TxAESEncrypter.scala 77:39]
+            aes_key_reg_0 <= aes_key_0; // @[TxAESEncrypter.scala 78:24]
+          end else begin
+            aes_key_reg_0 <= _GEN_1115;
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 70:47]
-      if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 74:36]
-        if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 75:39]
-          if (4'h2 == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 78:40]
-            aes_key_reg_2 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 78:40]
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
+      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
+        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
+          if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 77:39]
+            aes_key_reg_1 <= _GEN_1116;
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 70:47]
-      if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 74:36]
-        if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 75:39]
-          if (4'h3 == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 78:40]
-            aes_key_reg_3 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 78:40]
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
+      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
+        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
+          if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 77:39]
+            aes_key_reg_2 <= _GEN_1117;
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 70:47]
-      if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 74:36]
-        if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 75:39]
-          if (4'h4 == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 78:40]
-            aes_key_reg_4 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 78:40]
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
+      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
+        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
+          if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 77:39]
+            aes_key_reg_3 <= _GEN_1118;
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 70:47]
-      if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 74:36]
-        if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 75:39]
-          if (4'h5 == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 78:40]
-            aes_key_reg_5 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 78:40]
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
+      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
+        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
+          if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 77:39]
+            aes_key_reg_4 <= _GEN_1119;
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 70:47]
-      if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 74:36]
-        if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 75:39]
-          if (4'h6 == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 78:40]
-            aes_key_reg_6 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 78:40]
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
+      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
+        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
+          if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 77:39]
+            aes_key_reg_5 <= _GEN_1120;
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 70:47]
-      if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 74:36]
-        if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 75:39]
-          if (4'h7 == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 78:40]
-            aes_key_reg_7 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 78:40]
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
+      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
+        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
+          if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 77:39]
+            aes_key_reg_6 <= _GEN_1121;
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 70:47]
-      if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 74:36]
-        if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 75:39]
-          if (4'h8 == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 78:40]
-            aes_key_reg_8 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 78:40]
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
+      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
+        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
+          if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 77:39]
+            aes_key_reg_7 <= _GEN_1122;
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 70:47]
-      if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 74:36]
-        if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 75:39]
-          if (4'h9 == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 78:40]
-            aes_key_reg_9 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 78:40]
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
+      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
+        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
+          if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 77:39]
+            aes_key_reg_8 <= _GEN_1123;
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 70:47]
-      if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 74:36]
-        if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 75:39]
-          if (4'ha == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 78:40]
-            aes_key_reg_10 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 78:40]
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
+      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
+        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
+          if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 77:39]
+            aes_key_reg_9 <= _GEN_1124;
+          end
+        end
+      end
+    end
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
+      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
+        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
+          if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 77:39]
+            aes_key_reg_10 <= _GEN_1125;
           end
         end
       end
     end
     if (reset) begin // @[TxAESEncrypter.scala 43:34]
       cur_round_counter <= 8'h0; // @[TxAESEncrypter.scala 43:34]
-    end else if (~io_in_extern_config_c2h_match_op[8]) begin // @[TxAESEncrypter.scala 70:47]
-      cur_round_counter <= 8'h0; // @[TxAESEncrypter.scala 71:23]
-    end else if (in_shake_hand) begin // @[TxAESEncrypter.scala 82:25]
-      cur_round_counter <= {{4'd0}, _cur_round_counter_T_1}; // @[TxAESEncrypter.scala 83:25]
-    end else if (cur_round_counter < 8'h33) begin // @[TxAESEncrypter.scala 84:42]
-      cur_round_counter <= _cur_round_counter_T_3; // @[TxAESEncrypter.scala 85:25]
+    end else if (~io_in_extern_config_c2h_match_op[8]) begin // @[TxAESEncrypter.scala 72:47]
+      cur_round_counter <= 8'h0; // @[TxAESEncrypter.scala 73:23]
+    end else if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
+      if (in_shake_hand) begin // @[TxAESEncrypter.scala 84:25]
+        cur_round_counter <= {{4'd0}, _cur_round_counter_T_1}; // @[TxAESEncrypter.scala 85:25]
+      end else begin
+        cur_round_counter <= _GEN_1148;
+      end
     end
-    if (~io_in_extern_config_c2h_match_op[8]) begin // @[TxAESEncrypter.scala 70:47]
+    if (~io_in_extern_config_c2h_match_op[8]) begin // @[TxAESEncrypter.scala 72:47]
       tmp_tdata_reg <= _GEN_1039;
-    end else if (cur_round_counter >= 8'hb & in_reg_used_reg) begin // @[TxAESEncrypter.scala 88:56]
-      if (cur_round_counter < 8'h32) begin // @[TxAESEncrypter.scala 89:38]
-        if (2'h3 == cur_round_counter[1:0]) begin // @[TxAESEncrypter.scala 90:23]
-          tmp_tdata_reg <= tmp_result_3; // @[TxAESEncrypter.scala 90:23]
+    end else if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
+      if (cur_round_counter >= 8'hb & in_reg_used_reg) begin // @[TxAESEncrypter.scala 90:56]
+        if (cur_round_counter < 8'h32) begin // @[TxAESEncrypter.scala 91:38]
+          tmp_tdata_reg <= _GEN_1153; // @[TxAESEncrypter.scala 92:23]
         end else begin
-          tmp_tdata_reg <= _GEN_1152;
+          tmp_tdata_reg <= _GEN_1154;
         end
-      end else if (cur_round_counter == 8'h32) begin // @[TxAESEncrypter.scala 91:46]
-        tmp_tdata_reg <= tmp_result_3; // @[TxAESEncrypter.scala 92:23]
       end else begin
         tmp_tdata_reg <= _GEN_1039;
       end
@@ -2281,33 +2303,35 @@ initial begin
   _RAND_0 = {19{`RANDOM}};
   in_reg_r = _RAND_0[577:0];
   _RAND_1 = {1{`RANDOM}};
-  in_reg_used_reg = _RAND_1[0:0];
-  _RAND_2 = {4{`RANDOM}};
-  aes_key_reg_0 = _RAND_2[127:0];
+  first_beat_reg = _RAND_1[0:0];
+  _RAND_2 = {1{`RANDOM}};
+  in_reg_used_reg = _RAND_2[0:0];
   _RAND_3 = {4{`RANDOM}};
-  aes_key_reg_1 = _RAND_3[127:0];
+  aes_key_reg_0 = _RAND_3[127:0];
   _RAND_4 = {4{`RANDOM}};
-  aes_key_reg_2 = _RAND_4[127:0];
+  aes_key_reg_1 = _RAND_4[127:0];
   _RAND_5 = {4{`RANDOM}};
-  aes_key_reg_3 = _RAND_5[127:0];
+  aes_key_reg_2 = _RAND_5[127:0];
   _RAND_6 = {4{`RANDOM}};
-  aes_key_reg_4 = _RAND_6[127:0];
+  aes_key_reg_3 = _RAND_6[127:0];
   _RAND_7 = {4{`RANDOM}};
-  aes_key_reg_5 = _RAND_7[127:0];
+  aes_key_reg_4 = _RAND_7[127:0];
   _RAND_8 = {4{`RANDOM}};
-  aes_key_reg_6 = _RAND_8[127:0];
+  aes_key_reg_5 = _RAND_8[127:0];
   _RAND_9 = {4{`RANDOM}};
-  aes_key_reg_7 = _RAND_9[127:0];
+  aes_key_reg_6 = _RAND_9[127:0];
   _RAND_10 = {4{`RANDOM}};
-  aes_key_reg_8 = _RAND_10[127:0];
+  aes_key_reg_7 = _RAND_10[127:0];
   _RAND_11 = {4{`RANDOM}};
-  aes_key_reg_9 = _RAND_11[127:0];
+  aes_key_reg_8 = _RAND_11[127:0];
   _RAND_12 = {4{`RANDOM}};
-  aes_key_reg_10 = _RAND_12[127:0];
-  _RAND_13 = {1{`RANDOM}};
-  cur_round_counter = _RAND_13[7:0];
-  _RAND_14 = {16{`RANDOM}};
-  tmp_tdata_reg = _RAND_14[511:0];
+  aes_key_reg_9 = _RAND_12[127:0];
+  _RAND_13 = {4{`RANDOM}};
+  aes_key_reg_10 = _RAND_13[127:0];
+  _RAND_14 = {1{`RANDOM}};
+  cur_round_counter = _RAND_14[7:0];
+  _RAND_15 = {16{`RANDOM}};
+  tmp_tdata_reg = _RAND_15[511:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -4870,7 +4894,7 @@ module RxAESDecrypter(
 `ifdef RANDOMIZE_REG_INIT
   reg [607:0] _RAND_0;
   reg [31:0] _RAND_1;
-  reg [127:0] _RAND_2;
+  reg [31:0] _RAND_2;
   reg [127:0] _RAND_3;
   reg [127:0] _RAND_4;
   reg [127:0] _RAND_5;
@@ -4881,15 +4905,19 @@ module RxAESDecrypter(
   reg [127:0] _RAND_10;
   reg [127:0] _RAND_11;
   reg [127:0] _RAND_12;
-  reg [31:0] _RAND_13;
-  reg [511:0] _RAND_14;
+  reg [127:0] _RAND_13;
+  reg [31:0] _RAND_14;
+  reg [511:0] _RAND_15;
 `endif // RANDOMIZE_REG_INIT
   wire  in_shake_hand = io_in_tready & io_in_tvalid; // @[RxPipelineHandler.scala 12:38]
   wire  out_shake_hand = io_out_tready & io_out_tvalid; // @[RxPipelineHandler.scala 13:38]
   wire [600:0] _in_reg_T_1 = {io_in_rx_info_tlen,6'h0,64'h0,io_in_tuser,io_in_tdata,io_in_tvalid,io_in_tlast}; // @[Cat.scala 31:58]
   reg [600:0] in_reg_r; // @[Reg.scala 28:20]
+  wire  in_reg_tlast = in_reg_r[0]; // @[RxPipelineHandler.scala 14:128]
   wire  in_reg_tvalid = in_reg_r[1]; // @[RxPipelineHandler.scala 14:128]
   wire [511:0] in_reg_tdata = in_reg_r[513:2]; // @[RxPipelineHandler.scala 14:128]
+  reg  first_beat_reg; // @[Reg.scala 28:20]
+  wire  _GEN_1 = in_shake_hand ? in_reg_tlast : first_beat_reg; // @[Reg.scala 29:18 28:20 29:22]
   reg  in_reg_used_reg; // @[RxPipelineHandler.scala 18:32]
   wire  _GEN_2 = out_shake_hand ? 1'h0 : in_reg_used_reg; // @[RxPipelineHandler.scala 21:29 22:21 18:32]
   wire  _GEN_3 = in_shake_hand | _GEN_2; // @[RxPipelineHandler.scala 19:23 20:21]
@@ -4911,14 +4939,14 @@ module RxAESDecrypter(
   wire [7:0] _cur_round_T_3 = {{2'd0}, _cur_round_T_2[7:2]}; // @[RxAESDecrypter.scala 40:82]
   wire [7:0] cur_round = cur_round_counter <= 8'hb ? 8'h0 : _cur_round_T_3; // @[RxAESDecrypter.scala 40:24]
   reg [511:0] tmp_tdata_reg; // @[RxAESDecrypter.scala 41:28]
-  wire [63:0] aes_key_0_lo_4 = {io_in_extern_config_c2h_match_arg_14[7:0],io_in_extern_config_c2h_match_arg_14[15:8],
-    io_in_extern_config_c2h_match_arg_14[23:16],io_in_extern_config_c2h_match_arg_14[31:24],
-    io_in_extern_config_c2h_match_arg_15[7:0],io_in_extern_config_c2h_match_arg_15[15:8],
-    io_in_extern_config_c2h_match_arg_15[23:16],io_in_extern_config_c2h_match_arg_15[31:24]}; // @[Cat.scala 31:58]
-  wire [127:0] aes_key_0 = {io_in_extern_config_c2h_match_arg_12[7:0],io_in_extern_config_c2h_match_arg_12[15:8],
-    io_in_extern_config_c2h_match_arg_12[23:16],io_in_extern_config_c2h_match_arg_12[31:24],
-    io_in_extern_config_c2h_match_arg_13[7:0],io_in_extern_config_c2h_match_arg_13[15:8],
-    io_in_extern_config_c2h_match_arg_13[23:16],io_in_extern_config_c2h_match_arg_13[31:24],aes_key_0_lo_4}; // @[Cat.scala 31:58]
+  wire [63:0] aes_key_0_lo_4 = {io_in_extern_config_c2h_match_arg_13[7:0],io_in_extern_config_c2h_match_arg_13[15:8],
+    io_in_extern_config_c2h_match_arg_13[23:16],io_in_extern_config_c2h_match_arg_13[31:24],
+    io_in_extern_config_c2h_match_arg_12[7:0],io_in_extern_config_c2h_match_arg_12[15:8],
+    io_in_extern_config_c2h_match_arg_12[23:16],io_in_extern_config_c2h_match_arg_12[31:24]}; // @[Cat.scala 31:58]
+  wire [127:0] aes_key_0 = {io_in_extern_config_c2h_match_arg_15[7:0],io_in_extern_config_c2h_match_arg_15[15:8],
+    io_in_extern_config_c2h_match_arg_15[23:16],io_in_extern_config_c2h_match_arg_15[31:24],
+    io_in_extern_config_c2h_match_arg_14[7:0],io_in_extern_config_c2h_match_arg_14[15:8],
+    io_in_extern_config_c2h_match_arg_14[23:16],io_in_extern_config_c2h_match_arg_14[31:24],aes_key_0_lo_4}; // @[Cat.scala 31:58]
   wire [63:0] tmp_result_0_trans_tdata_0_lo_4 = {tmp_tdata_reg[95:88],tmp_tdata_reg[119:112],tmp_tdata_reg[15:8],
     tmp_tdata_reg[39:32],tmp_tdata_reg[63:56],tmp_tdata_reg[87:80],tmp_tdata_reg[111:104],tmp_tdata_reg[7:0]}; // @[Cat.scala 31:58]
   wire [127:0] tmp_result_0_trans_tdata_0 = {tmp_tdata_reg[31:24],tmp_tdata_reg[55:48],tmp_tdata_reg[79:72],
@@ -7696,7 +7724,7 @@ module RxAESDecrypter(
     tmp_result_3_trans_tdata_56,tmp_result_3_hi_hi_lo,tmp_result_3_hi_lo}; // @[RxAESDecrypter.scala 36:21]
   wire [511:0] tmp_result_3 = {tmp_result_3_hi,tmp_result_3_lo}; // @[RxAESDecrypter.scala 36:21]
   wire [511:0] _GEN_1039 = in_shake_hand ? io_in_tdata : tmp_tdata_reg; // @[RxAESDecrypter.scala 62:25 63:23 41:28]
-  wire [7:0] _aes_key_reg_T_1 = cur_round_counter - 8'h1; // @[RxAESDecrypter.scala 74:94]
+  wire [7:0] _aes_key_reg_T_1 = cur_round_counter - 8'h1; // @[RxAESDecrypter.scala 75:94]
   wire [127:0] _GEN_1041 = 4'h1 == _aes_key_reg_T_1[3:0] ? aes_key_reg_1 : aes_key_reg_0; // @[cal_gf256.scala 134:{27,27}]
   wire [127:0] _GEN_1042 = 4'h2 == _aes_key_reg_T_1[3:0] ? aes_key_reg_2 : _GEN_1041; // @[cal_gf256.scala 134:{27,27}]
   wire [127:0] _GEN_1043 = 4'h3 == _aes_key_reg_T_1[3:0] ? aes_key_reg_3 : _GEN_1042; // @[cal_gf256.scala 134:{27,27}]
@@ -7786,26 +7814,40 @@ module RxAESDecrypter(
   wire [5:0] _aes_key_reg_next_key_0_T_28 = cur_round_counter == 8'h9 ? 6'h1b : 6'h36; // @[cal_gf256.scala 130:47]
   wire [255:0] _aes_key_reg_next_key_0_T_29 = cur_round_counter <= 8'h8 ? _aes_key_reg_next_key_0_T_26 : {{250'd0},
     _aes_key_reg_next_key_0_T_28}; // @[cal_gf256.scala 130:8]
-  wire [255:0] _GEN_1174 = {{224'd0}, _aes_key_reg_next_key_0_T_22}; // @[cal_gf256.scala 139:9]
-  wire [255:0] _aes_key_reg_next_key_0_T_30 = _GEN_1174 ^ _aes_key_reg_next_key_0_T_29; // @[cal_gf256.scala 139:9]
+  wire [255:0] _GEN_1190 = {{224'd0}, _aes_key_reg_next_key_0_T_22}; // @[cal_gf256.scala 139:9]
+  wire [255:0] _aes_key_reg_next_key_0_T_30 = _GEN_1190 ^ _aes_key_reg_next_key_0_T_29; // @[cal_gf256.scala 139:9]
   wire [31:0] aes_key_reg_next_key_0 = _aes_key_reg_next_key_0_T_30[31:0]; // @[cal_gf256.scala 133:24 134:17]
   wire [31:0] aes_key_reg_next_key_1 = _GEN_1050[63:32] ^ aes_key_reg_next_key_0; // @[cal_gf256.scala 140:35]
   wire [31:0] aes_key_reg_next_key_2 = _GEN_1050[95:64] ^ aes_key_reg_next_key_1; // @[cal_gf256.scala 141:35]
   wire [31:0] aes_key_reg_next_key_3 = _GEN_1050[127:96] ^ aes_key_reg_next_key_2; // @[cal_gf256.scala 142:36]
   wire [127:0] _aes_key_reg_T_3 = {aes_key_reg_next_key_3,aes_key_reg_next_key_2,aes_key_reg_next_key_1,
     aes_key_reg_next_key_0}; // @[cal_gf256.scala 143:14]
-  wire [3:0] _cur_round_counter_T_1 = aes_key_reg_0 == aes_key_0 ? 4'hb : 4'h0; // @[RxAESDecrypter.scala 79:37]
-  wire  _T_5 = cur_round_counter < 8'h33; // @[RxAESDecrypter.scala 80:38]
-  wire [7:0] _cur_round_counter_T_3 = cur_round_counter + 8'h1; // @[RxAESDecrypter.scala 81:52]
-  wire  _T_6 = cur_round_counter >= 8'hb; // @[RxAESDecrypter.scala 84:32]
-  wire [511:0] _GEN_1151 = 2'h1 == cur_round_counter[1:0] ? tmp_result_1 : tmp_result_0; // @[RxAESDecrypter.scala 88:{31,31}]
-  wire [511:0] _GEN_1152 = 2'h2 == cur_round_counter[1:0] ? tmp_result_2 : _GEN_1151; // @[RxAESDecrypter.scala 88:{31,31}]
-  wire [511:0] _GEN_1153 = 2'h3 == cur_round_counter[1:0] ? tmp_result_3 : _GEN_1152; // @[RxAESDecrypter.scala 88:{31,31}]
-  assign io_in_tready = ~io_in_extern_config_c2h_match_op[8] ? io_out_tready | ~in_reg_used_reg : _T_6 & (out_shake_hand
-     | _io_in_tready_T); // @[RxAESDecrypter.scala 66:48 RxPipelineHandler.scala 30:18 RxAESDecrypter.scala 93:24]
-  assign io_out_tdata = ~io_in_extern_config_c2h_match_op[8] ? in_reg_tdata : tmp_tdata_reg; // @[RxAESDecrypter.scala 66:48 RxPipelineHandler.scala 26:18 RxAESDecrypter.scala 92:22]
-  assign io_out_tvalid = ~io_in_extern_config_c2h_match_op[8] ? in_reg_tvalid & in_reg_used_reg : cur_round_counter == 8'h33
-     & _io_out_tvalid_T; // @[RxAESDecrypter.scala 66:48 RxPipelineHandler.scala 27:18 RxAESDecrypter.scala 94:23]
+  wire [127:0] _GEN_1115 = 4'h0 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_0; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
+  wire [127:0] _GEN_1116 = 4'h1 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_1; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
+  wire [127:0] _GEN_1117 = 4'h2 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_2; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
+  wire [127:0] _GEN_1118 = 4'h3 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_3; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
+  wire [127:0] _GEN_1119 = 4'h4 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_4; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
+  wire [127:0] _GEN_1120 = 4'h5 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_5; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
+  wire [127:0] _GEN_1121 = 4'h6 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_6; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
+  wire [127:0] _GEN_1122 = 4'h7 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_7; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
+  wire [127:0] _GEN_1123 = 4'h8 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_8; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
+  wire [127:0] _GEN_1124 = 4'h9 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_9; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
+  wire [127:0] _GEN_1125 = 4'ha == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_10; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
+  wire [3:0] _cur_round_counter_T_1 = aes_key_reg_0 == aes_key_0 ? 4'hb : 4'h0; // @[RxAESDecrypter.scala 80:37]
+  wire  _T_6 = cur_round_counter < 8'h33; // @[RxAESDecrypter.scala 81:38]
+  wire [7:0] _cur_round_counter_T_3 = cur_round_counter + 8'h1; // @[RxAESDecrypter.scala 82:52]
+  wire [7:0] _GEN_1148 = cur_round_counter < 8'h33 ? _cur_round_counter_T_3 : cur_round_counter; // @[RxAESDecrypter.scala 81:46 82:31 39:36]
+  wire  _T_7 = cur_round_counter >= 8'hb; // @[RxAESDecrypter.scala 85:32]
+  wire [511:0] _GEN_1151 = 2'h1 == cur_round_counter[1:0] ? tmp_result_1 : tmp_result_0; // @[RxAESDecrypter.scala 89:{31,31}]
+  wire [511:0] _GEN_1152 = 2'h2 == cur_round_counter[1:0] ? tmp_result_2 : _GEN_1151; // @[RxAESDecrypter.scala 89:{31,31}]
+  wire [511:0] _GEN_1153 = 2'h3 == cur_round_counter[1:0] ? tmp_result_3 : _GEN_1152; // @[RxAESDecrypter.scala 89:{31,31}]
+  wire [511:0] _GEN_1154 = _T_6 ? _GEN_1153 : _GEN_1039; // @[RxAESDecrypter.scala 88:50 89:31]
+  wire [511:0] _GEN_1170 = ~first_beat_reg ? tmp_tdata_reg : in_reg_tdata; // @[RxAESDecrypter.scala 69:33 93:22 RxPipelineHandler.scala 26:18]
+  wire  _GEN_1171 = ~first_beat_reg ? _T_7 & (out_shake_hand | _io_in_tready_T) : io_out_tready | ~in_reg_used_reg; // @[RxAESDecrypter.scala 69:33 94:24 RxPipelineHandler.scala 30:18]
+  wire  _GEN_1172 = ~first_beat_reg ? cur_round_counter == 8'h33 & _io_out_tvalid_T : in_reg_tvalid & in_reg_used_reg; // @[RxAESDecrypter.scala 69:33 95:23 RxPipelineHandler.scala 27:18]
+  assign io_in_tready = ~io_in_extern_config_c2h_match_op[8] ? io_out_tready | ~in_reg_used_reg : _GEN_1171; // @[RxAESDecrypter.scala 67:48 RxPipelineHandler.scala 30:18]
+  assign io_out_tdata = ~io_in_extern_config_c2h_match_op[8] ? in_reg_tdata : _GEN_1170; // @[RxAESDecrypter.scala 67:48 RxPipelineHandler.scala 26:18]
+  assign io_out_tvalid = ~io_in_extern_config_c2h_match_op[8] ? in_reg_tvalid & in_reg_used_reg : _GEN_1172; // @[RxAESDecrypter.scala 67:48 RxPipelineHandler.scala 27:18]
   assign io_out_tlast = in_reg_r[0]; // @[RxPipelineHandler.scala 14:128]
   assign io_out_tuser = in_reg_r[514]; // @[RxPipelineHandler.scala 14:128]
   assign io_out_rx_info_tlen = in_reg_r[600:585]; // @[RxPipelineHandler.scala 14:128]
@@ -7835,126 +7877,133 @@ module RxAESDecrypter(
     end else if (in_shake_hand) begin // @[Reg.scala 29:18]
       in_reg_r <= _in_reg_T_1; // @[Reg.scala 29:22]
     end
+    first_beat_reg <= reset | _GEN_1; // @[Reg.scala 28:{20,20}]
     if (reset) begin // @[RxPipelineHandler.scala 18:32]
       in_reg_used_reg <= 1'h0; // @[RxPipelineHandler.scala 18:32]
     end else begin
       in_reg_used_reg <= _GEN_3;
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 66:48]
-      if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 70:40]
-        if (cur_round_counter == 8'h0) begin // @[RxAESDecrypter.scala 71:45]
-          aes_key_reg_0 <= aes_key_0; // @[RxAESDecrypter.scala 72:32]
-        end else if (4'h0 == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 74:48]
-          aes_key_reg_0 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 74:48]
-        end
-      end
-    end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 66:48]
-      if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 70:40]
-        if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 71:45]
-          if (4'h1 == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 74:48]
-            aes_key_reg_1 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 74:48]
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
+      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
+        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
+          if (cur_round_counter == 8'h0) begin // @[RxAESDecrypter.scala 72:45]
+            aes_key_reg_0 <= aes_key_0; // @[RxAESDecrypter.scala 73:32]
+          end else begin
+            aes_key_reg_0 <= _GEN_1115;
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 66:48]
-      if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 70:40]
-        if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 71:45]
-          if (4'h2 == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 74:48]
-            aes_key_reg_2 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 74:48]
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
+      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
+        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
+          if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 72:45]
+            aes_key_reg_1 <= _GEN_1116;
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 66:48]
-      if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 70:40]
-        if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 71:45]
-          if (4'h3 == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 74:48]
-            aes_key_reg_3 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 74:48]
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
+      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
+        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
+          if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 72:45]
+            aes_key_reg_2 <= _GEN_1117;
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 66:48]
-      if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 70:40]
-        if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 71:45]
-          if (4'h4 == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 74:48]
-            aes_key_reg_4 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 74:48]
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
+      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
+        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
+          if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 72:45]
+            aes_key_reg_3 <= _GEN_1118;
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 66:48]
-      if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 70:40]
-        if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 71:45]
-          if (4'h5 == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 74:48]
-            aes_key_reg_5 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 74:48]
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
+      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
+        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
+          if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 72:45]
+            aes_key_reg_4 <= _GEN_1119;
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 66:48]
-      if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 70:40]
-        if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 71:45]
-          if (4'h6 == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 74:48]
-            aes_key_reg_6 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 74:48]
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
+      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
+        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
+          if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 72:45]
+            aes_key_reg_5 <= _GEN_1120;
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 66:48]
-      if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 70:40]
-        if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 71:45]
-          if (4'h7 == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 74:48]
-            aes_key_reg_7 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 74:48]
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
+      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
+        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
+          if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 72:45]
+            aes_key_reg_6 <= _GEN_1121;
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 66:48]
-      if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 70:40]
-        if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 71:45]
-          if (4'h8 == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 74:48]
-            aes_key_reg_8 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 74:48]
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
+      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
+        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
+          if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 72:45]
+            aes_key_reg_7 <= _GEN_1122;
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 66:48]
-      if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 70:40]
-        if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 71:45]
-          if (4'h9 == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 74:48]
-            aes_key_reg_9 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 74:48]
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
+      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
+        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
+          if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 72:45]
+            aes_key_reg_8 <= _GEN_1123;
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 66:48]
-      if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 70:40]
-        if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 71:45]
-          if (4'ha == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 74:48]
-            aes_key_reg_10 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 74:48]
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
+      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
+        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
+          if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 72:45]
+            aes_key_reg_9 <= _GEN_1124;
+          end
+        end
+      end
+    end
+    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
+      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
+        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
+          if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 72:45]
+            aes_key_reg_10 <= _GEN_1125;
           end
         end
       end
     end
     if (reset) begin // @[RxAESDecrypter.scala 39:36]
       cur_round_counter <= 8'h0; // @[RxAESDecrypter.scala 39:36]
-    end else if (~io_in_extern_config_c2h_match_op[8]) begin // @[RxAESDecrypter.scala 66:48]
-      cur_round_counter <= 8'h0; // @[RxAESDecrypter.scala 67:27]
-    end else if (in_shake_hand) begin // @[RxAESDecrypter.scala 78:29]
-      cur_round_counter <= {{4'd0}, _cur_round_counter_T_1}; // @[RxAESDecrypter.scala 79:31]
-    end else if (cur_round_counter < 8'h33) begin // @[RxAESDecrypter.scala 80:46]
-      cur_round_counter <= _cur_round_counter_T_3; // @[RxAESDecrypter.scala 81:31]
+    end else if (~io_in_extern_config_c2h_match_op[8]) begin // @[RxAESDecrypter.scala 67:48]
+      cur_round_counter <= 8'h0; // @[RxAESDecrypter.scala 68:27]
+    end else if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
+      if (in_shake_hand) begin // @[RxAESDecrypter.scala 79:29]
+        cur_round_counter <= {{4'd0}, _cur_round_counter_T_1}; // @[RxAESDecrypter.scala 80:31]
+      end else begin
+        cur_round_counter <= _GEN_1148;
+      end
     end
-    if (~io_in_extern_config_c2h_match_op[8]) begin // @[RxAESDecrypter.scala 66:48]
+    if (~io_in_extern_config_c2h_match_op[8]) begin // @[RxAESDecrypter.scala 67:48]
       tmp_tdata_reg <= _GEN_1039;
-    end else if (cur_round_counter >= 8'hb & in_reg_used_reg) begin // @[RxAESDecrypter.scala 84:60]
-      if (cur_round_counter == 8'hb) begin // @[RxAESDecrypter.scala 85:46]
-        tmp_tdata_reg <= tmp_result_2; // @[RxAESDecrypter.scala 86:31]
-      end else if (_T_5) begin // @[RxAESDecrypter.scala 87:50]
-        tmp_tdata_reg <= _GEN_1153; // @[RxAESDecrypter.scala 88:31]
+    end else if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
+      if (cur_round_counter >= 8'hb & in_reg_used_reg) begin // @[RxAESDecrypter.scala 85:60]
+        if (cur_round_counter == 8'hb) begin // @[RxAESDecrypter.scala 86:46]
+          tmp_tdata_reg <= tmp_result_2; // @[RxAESDecrypter.scala 87:31]
+        end else begin
+          tmp_tdata_reg <= _GEN_1154;
+        end
       end else begin
         tmp_tdata_reg <= _GEN_1039;
       end
@@ -8001,33 +8050,35 @@ initial begin
   _RAND_0 = {19{`RANDOM}};
   in_reg_r = _RAND_0[600:0];
   _RAND_1 = {1{`RANDOM}};
-  in_reg_used_reg = _RAND_1[0:0];
-  _RAND_2 = {4{`RANDOM}};
-  aes_key_reg_0 = _RAND_2[127:0];
+  first_beat_reg = _RAND_1[0:0];
+  _RAND_2 = {1{`RANDOM}};
+  in_reg_used_reg = _RAND_2[0:0];
   _RAND_3 = {4{`RANDOM}};
-  aes_key_reg_1 = _RAND_3[127:0];
+  aes_key_reg_0 = _RAND_3[127:0];
   _RAND_4 = {4{`RANDOM}};
-  aes_key_reg_2 = _RAND_4[127:0];
+  aes_key_reg_1 = _RAND_4[127:0];
   _RAND_5 = {4{`RANDOM}};
-  aes_key_reg_3 = _RAND_5[127:0];
+  aes_key_reg_2 = _RAND_5[127:0];
   _RAND_6 = {4{`RANDOM}};
-  aes_key_reg_4 = _RAND_6[127:0];
+  aes_key_reg_3 = _RAND_6[127:0];
   _RAND_7 = {4{`RANDOM}};
-  aes_key_reg_5 = _RAND_7[127:0];
+  aes_key_reg_4 = _RAND_7[127:0];
   _RAND_8 = {4{`RANDOM}};
-  aes_key_reg_6 = _RAND_8[127:0];
+  aes_key_reg_5 = _RAND_8[127:0];
   _RAND_9 = {4{`RANDOM}};
-  aes_key_reg_7 = _RAND_9[127:0];
+  aes_key_reg_6 = _RAND_9[127:0];
   _RAND_10 = {4{`RANDOM}};
-  aes_key_reg_8 = _RAND_10[127:0];
+  aes_key_reg_7 = _RAND_10[127:0];
   _RAND_11 = {4{`RANDOM}};
-  aes_key_reg_9 = _RAND_11[127:0];
+  aes_key_reg_8 = _RAND_11[127:0];
   _RAND_12 = {4{`RANDOM}};
-  aes_key_reg_10 = _RAND_12[127:0];
-  _RAND_13 = {1{`RANDOM}};
-  cur_round_counter = _RAND_13[7:0];
-  _RAND_14 = {16{`RANDOM}};
-  tmp_tdata_reg = _RAND_14[511:0];
+  aes_key_reg_9 = _RAND_12[127:0];
+  _RAND_13 = {4{`RANDOM}};
+  aes_key_reg_10 = _RAND_13[127:0];
+  _RAND_14 = {1{`RANDOM}};
+  cur_round_counter = _RAND_14[7:0];
+  _RAND_15 = {16{`RANDOM}};
+  tmp_tdata_reg = _RAND_15[511:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
