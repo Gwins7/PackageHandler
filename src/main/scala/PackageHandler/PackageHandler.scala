@@ -27,11 +27,13 @@ class PackageHandler extends Module {
     val h2c_err_counter          = Output(UInt(32.W))
   })
 
+  val extern_config_reg = RegNext(io.extern_config.asUInt,0.U).asTypeOf(new ExternConfig)
+
   val tx_handler = Module(new TxHandler)
   io.QDMA_h2c_stub_out <> tx_handler.io.QDMA_h2c_stub_out
   io.CMAC_in           <> tx_handler.io.CMAC_in
   tx_handler.io.reset_counter := io.reset_counter
-  tx_handler.io.extern_config   := io.extern_config
+  tx_handler.io.extern_config   := extern_config_reg
   io.h2c_pack_counter         := tx_handler.io.h2c_pack_counter
   io.h2c_err_counter          := tx_handler.io.h2c_err_counter
 
@@ -39,7 +41,7 @@ class PackageHandler extends Module {
   io.QDMA_c2h_stub_in <> rx_handler.io.QDMA_c2h_stub_in
   io.CMAC_out         <> rx_handler.io.CMAC_out
   rx_handler.io.reset_counter   := io.reset_counter
-  rx_handler.io.extern_config   := io.extern_config
+  rx_handler.io.extern_config   := extern_config_reg
   io.c2h_pack_counter           := rx_handler.io.c2h_pack_counter
   io.c2h_err_counter            := rx_handler.io.c2h_err_counter
 }

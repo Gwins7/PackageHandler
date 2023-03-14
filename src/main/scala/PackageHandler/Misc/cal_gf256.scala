@@ -60,7 +60,7 @@ trait cal_gf256 {
 
   def rev_move_bit_128(src:UInt): UInt = {
     Cat(
-      Cat(src(31,24),src(55,48),src(79,72),src(103,96)), //   3, 6, 9, 12
+      Cat(src(31,24),src(55,48),src(79,72),src(103,96)), //   3, 6, 9,12
       Cat(src(127,120),src(23,16),src(47,40),src(71,64)), // 15, 2, 5, 8
       Cat(src(95,88),src(119,112),src(15,8),src(39,32)),  // 11,14, 1, 4
       Cat(src(63,56),src(87,80),src(111,104),src(7,0))  //    7,10,13, 0
@@ -132,7 +132,7 @@ trait cal_gf256 {
   def get_next_key(cur_key:UInt,round:UInt): UInt ={
     val next_key = Wire(Vec(4,UInt(32.W)))//127:96
     next_key(0) := cur_key(31,0) ^ Cat(
-      s_substitute(cur_key(103,100),cur_key( 99, 96)),   //0, 103:96
+      s_substitute(cur_key(103,100),cur_key( 99, 96)), //0, 103:96
       s_substitute(cur_key(127,124),cur_key(123,120)), //3, 127:120
       s_substitute(cur_key(119,116),cur_key(115,112)), //2, 119:112
       s_substitute(cur_key(111,108),cur_key(107,104))  //1, 111:104

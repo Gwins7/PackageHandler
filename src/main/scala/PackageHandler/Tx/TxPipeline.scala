@@ -17,9 +17,9 @@ class TxPipeline extends Module{
 //    tx_aes_encrypter.io.out <> io.out
 
   val tx_chksum_generator = Module(new TxChksumGenerator())
-  io.in <> tx_chksum_generator.io.in
-  tx_chksum_generator.io.out <> tx_aes_encrypter.io.in
-  tx_aes_encrypter.io.out <> io.out
+  io.in <> tx_aes_encrypter.io.in
+  tx_aes_encrypter.io.out <> tx_chksum_generator.io.in
+  tx_chksum_generator.io.out <> io.out
 
 }
 

@@ -1,6 +1,4 @@
 module TxConverter(
-  input          clock,
-  input          reset,
   input  [511:0] io_in_tdata,
   input          io_in_tvalid,
   output         io_in_tready,
@@ -16,96 +14,20 @@ module TxConverter(
   output [31:0]  io_out_extern_config_c2h_match_arg_14,
   output [31:0]  io_out_extern_config_c2h_match_arg_15,
   input  [15:0]  io_extern_config_c2h_match_op,
-  input  [31:0]  io_extern_config_c2h_match_arg_0,
-  input  [31:0]  io_extern_config_c2h_match_arg_1,
-  input  [31:0]  io_extern_config_c2h_match_arg_2,
-  input  [31:0]  io_extern_config_c2h_match_arg_3,
-  input  [31:0]  io_extern_config_c2h_match_arg_4,
-  input  [31:0]  io_extern_config_c2h_match_arg_5,
-  input  [31:0]  io_extern_config_c2h_match_arg_6,
-  input  [31:0]  io_extern_config_c2h_match_arg_7,
-  input  [31:0]  io_extern_config_c2h_match_arg_8,
-  input  [31:0]  io_extern_config_c2h_match_arg_9,
-  input  [31:0]  io_extern_config_c2h_match_arg_10,
-  input  [31:0]  io_extern_config_c2h_match_arg_11,
   input  [31:0]  io_extern_config_c2h_match_arg_12,
   input  [31:0]  io_extern_config_c2h_match_arg_13,
   input  [31:0]  io_extern_config_c2h_match_arg_14,
   input  [31:0]  io_extern_config_c2h_match_arg_15
 );
-`ifdef RANDOMIZE_REG_INIT
-  reg [543:0] _RAND_0;
-`endif // RANDOMIZE_REG_INIT
-  wire [255:0] extern_config_reg_lo = {io_extern_config_c2h_match_arg_7,io_extern_config_c2h_match_arg_6,
-    io_extern_config_c2h_match_arg_5,io_extern_config_c2h_match_arg_4,io_extern_config_c2h_match_arg_3,
-    io_extern_config_c2h_match_arg_2,io_extern_config_c2h_match_arg_1,io_extern_config_c2h_match_arg_0}; // @[TxConverter.scala 17:54]
-  wire [527:0] _extern_config_reg_T = {io_extern_config_c2h_match_op,io_extern_config_c2h_match_arg_15,
-    io_extern_config_c2h_match_arg_14,io_extern_config_c2h_match_arg_13,io_extern_config_c2h_match_arg_12,
-    io_extern_config_c2h_match_arg_11,io_extern_config_c2h_match_arg_10,io_extern_config_c2h_match_arg_9,
-    io_extern_config_c2h_match_arg_8,extern_config_reg_lo}; // @[TxConverter.scala 17:54]
-  wire  _extern_config_reg_T_1 = io_out_tready & io_out_tvalid; // @[TxConverter.scala 17:79]
-  reg [527:0] extern_config_reg_r; // @[Reg.scala 28:20]
   assign io_in_tready = io_out_tready; // @[TxConverter.scala 24:26]
   assign io_out_tdata = io_in_tdata; // @[TxConverter.scala 23:26]
   assign io_out_tvalid = io_in_tvalid & ~io_in_tuser; // @[TxConverter.scala 15:34]
   assign io_out_tlast = io_in_tlast; // @[TxConverter.scala 22:26]
-  assign io_out_extern_config_c2h_match_op = extern_config_reg_r[527:512]; // @[TxConverter.scala 17:104]
-  assign io_out_extern_config_c2h_match_arg_12 = extern_config_reg_r[415:384]; // @[TxConverter.scala 17:104]
-  assign io_out_extern_config_c2h_match_arg_13 = extern_config_reg_r[447:416]; // @[TxConverter.scala 17:104]
-  assign io_out_extern_config_c2h_match_arg_14 = extern_config_reg_r[479:448]; // @[TxConverter.scala 17:104]
-  assign io_out_extern_config_c2h_match_arg_15 = extern_config_reg_r[511:480]; // @[TxConverter.scala 17:104]
-  always @(posedge clock) begin
-    if (reset) begin // @[Reg.scala 28:20]
-      extern_config_reg_r <= 528'h0; // @[Reg.scala 28:20]
-    end else if (_extern_config_reg_T_1) begin // @[Reg.scala 29:18]
-      extern_config_reg_r <= _extern_config_reg_T; // @[Reg.scala 29:22]
-    end
-  end
-// Register and memory initialization
-`ifdef RANDOMIZE_GARBAGE_ASSIGN
-`define RANDOMIZE
-`endif
-`ifdef RANDOMIZE_INVALID_ASSIGN
-`define RANDOMIZE
-`endif
-`ifdef RANDOMIZE_REG_INIT
-`define RANDOMIZE
-`endif
-`ifdef RANDOMIZE_MEM_INIT
-`define RANDOMIZE
-`endif
-`ifndef RANDOM
-`define RANDOM $random
-`endif
-`ifdef RANDOMIZE_MEM_INIT
-  integer initvar;
-`endif
-`ifndef SYNTHESIS
-`ifdef FIRRTL_BEFORE_INITIAL
-`FIRRTL_BEFORE_INITIAL
-`endif
-initial begin
-  `ifdef RANDOMIZE
-    `ifdef INIT_RANDOM
-      `INIT_RANDOM
-    `endif
-    `ifndef VERILATOR
-      `ifdef RANDOMIZE_DELAY
-        #`RANDOMIZE_DELAY begin end
-      `else
-        #0.002 begin end
-      `endif
-    `endif
-`ifdef RANDOMIZE_REG_INIT
-  _RAND_0 = {17{`RANDOM}};
-  extern_config_reg_r = _RAND_0[527:0];
-`endif // RANDOMIZE_REG_INIT
-  `endif // RANDOMIZE
-end // initial
-`ifdef FIRRTL_AFTER_INITIAL
-`FIRRTL_AFTER_INITIAL
-`endif
-`endif // SYNTHESIS
+  assign io_out_extern_config_c2h_match_op = io_extern_config_c2h_match_op; // @[TxConverter.scala 19:26]
+  assign io_out_extern_config_c2h_match_arg_12 = io_extern_config_c2h_match_arg_12; // @[TxConverter.scala 19:26]
+  assign io_out_extern_config_c2h_match_arg_13 = io_extern_config_c2h_match_arg_13; // @[TxConverter.scala 19:26]
+  assign io_out_extern_config_c2h_match_arg_14 = io_extern_config_c2h_match_arg_14; // @[TxConverter.scala 19:26]
+  assign io_out_extern_config_c2h_match_arg_15 = io_extern_config_c2h_match_arg_15; // @[TxConverter.scala 19:26]
 endmodule
 module TxAESEncrypter(
   input          clock,
@@ -114,8 +36,6 @@ module TxAESEncrypter(
   input          io_in_tvalid,
   output         io_in_tready,
   input          io_in_tlast,
-  input  [31:0]  io_in_tx_info_ip_chksum,
-  input  [31:0]  io_in_tx_info_tcp_chksum,
   input  [15:0]  io_in_extern_config_c2h_match_op,
   input  [31:0]  io_in_extern_config_c2h_match_arg_12,
   input  [31:0]  io_in_extern_config_c2h_match_arg_13,
@@ -125,8 +45,6 @@ module TxAESEncrypter(
   output         io_out_tvalid,
   input          io_out_tready,
   output         io_out_tlast,
-  output [31:0]  io_out_tx_info_ip_chksum,
-  output [31:0]  io_out_tx_info_tcp_chksum,
   output [15:0]  io_out_extern_config_c2h_match_op
 );
 `ifdef RANDOMIZE_REG_INIT
@@ -149,7 +67,7 @@ module TxAESEncrypter(
 `endif // RANDOMIZE_REG_INIT
   wire  in_shake_hand = io_in_tvalid & io_in_tready; // @[TxPipelineHandler.scala 12:36]
   wire  out_shake_hand = io_out_tready & io_out_tvalid; // @[TxPipelineHandler.scala 13:38]
-  wire [577:0] _in_reg_T_1 = {io_in_tx_info_ip_chksum,io_in_tx_info_tcp_chksum,io_in_tdata,io_in_tvalid,io_in_tlast}; // @[Cat.scala 31:58]
+  wire [577:0] _in_reg_T_1 = {64'h0,io_in_tdata,io_in_tvalid,io_in_tlast}; // @[Cat.scala 31:58]
   reg [577:0] in_reg_r; // @[Reg.scala 28:20]
   wire  in_reg_tlast = in_reg_r[0]; // @[TxPipelineHandler.scala 15:116]
   wire  in_reg_tvalid = in_reg_r[1]; // @[TxPipelineHandler.scala 15:116]
@@ -1996,133 +1914,113 @@ module TxAESEncrypter(
   wire [127:0] _GEN_1038 = 4'ha == cur_round[3:0] ? aes_key_reg_10 : _GEN_1037; // @[Cat.scala 31:{58,58}]
   wire [511:0] _tmp_result_3_T_2 = {_GEN_1038,_GEN_1038,_GEN_1038,_GEN_1038}; // @[Cat.scala 31:58]
   wire [511:0] tmp_result_3 = tmp_tdata_reg ^ _tmp_result_3_T_2; // @[TxAESEncrypter.scala 14:11]
-  wire [511:0] _GEN_1039 = in_shake_hand ? io_in_tdata : tmp_tdata_reg; // @[TxAESEncrypter.scala 66:23 67:19 45:26]
-  wire [7:0] _aes_key_reg_T_1 = cur_round_counter - 8'h1; // @[TxAESEncrypter.scala 80:86]
-  wire [127:0] _GEN_1041 = 4'h1 == _aes_key_reg_T_1[3:0] ? aes_key_reg_1 : aes_key_reg_0; // @[cal_gf256.scala 134:{27,27}]
-  wire [127:0] _GEN_1042 = 4'h2 == _aes_key_reg_T_1[3:0] ? aes_key_reg_2 : _GEN_1041; // @[cal_gf256.scala 134:{27,27}]
-  wire [127:0] _GEN_1043 = 4'h3 == _aes_key_reg_T_1[3:0] ? aes_key_reg_3 : _GEN_1042; // @[cal_gf256.scala 134:{27,27}]
-  wire [127:0] _GEN_1044 = 4'h4 == _aes_key_reg_T_1[3:0] ? aes_key_reg_4 : _GEN_1043; // @[cal_gf256.scala 134:{27,27}]
-  wire [127:0] _GEN_1045 = 4'h5 == _aes_key_reg_T_1[3:0] ? aes_key_reg_5 : _GEN_1044; // @[cal_gf256.scala 134:{27,27}]
-  wire [127:0] _GEN_1046 = 4'h6 == _aes_key_reg_T_1[3:0] ? aes_key_reg_6 : _GEN_1045; // @[cal_gf256.scala 134:{27,27}]
-  wire [127:0] _GEN_1047 = 4'h7 == _aes_key_reg_T_1[3:0] ? aes_key_reg_7 : _GEN_1046; // @[cal_gf256.scala 134:{27,27}]
-  wire [127:0] _GEN_1048 = 4'h8 == _aes_key_reg_T_1[3:0] ? aes_key_reg_8 : _GEN_1047; // @[cal_gf256.scala 134:{27,27}]
-  wire [127:0] _GEN_1049 = 4'h9 == _aes_key_reg_T_1[3:0] ? aes_key_reg_9 : _GEN_1048; // @[cal_gf256.scala 134:{27,27}]
-  wire [127:0] _GEN_1050 = 4'ha == _aes_key_reg_T_1[3:0] ? aes_key_reg_10 : _GEN_1049; // @[cal_gf256.scala 134:{27,27}]
-  wire [6:0] _aes_key_reg_next_key_0_T_3 = {_GEN_1050[99:96], 3'h0}; // @[cal_gf256.scala 27:25]
-  wire [127:0] _GEN_1052 = 4'h1 == _GEN_1050[103:100] ? 128'hc072a49cafa2d4adf04759fa7dc982ca : 128'h76abd7fe2b670130c56f6bf27b777c63
+  wire [127:0] _GEN_1039 = reset ? 128'h0 : aes_key_reg_0; // @[TxAESEncrypter.scala 65:22 66:20 12:24]
+  wire [7:0] _cur_round_counter_T_1 = cur_round_counter + 8'h1; // @[TxAESEncrypter.scala 78:44]
+  wire [7:0] _aes_key_reg_T_1 = cur_round_counter - 8'h1; // @[TxAESEncrypter.scala 80:84]
+  wire [127:0] _GEN_1045 = 4'h1 == _aes_key_reg_T_1[3:0] ? aes_key_reg_1 : aes_key_reg_0; // @[cal_gf256.scala 134:{27,27}]
+  wire [127:0] _GEN_1046 = 4'h2 == _aes_key_reg_T_1[3:0] ? aes_key_reg_2 : _GEN_1045; // @[cal_gf256.scala 134:{27,27}]
+  wire [127:0] _GEN_1047 = 4'h3 == _aes_key_reg_T_1[3:0] ? aes_key_reg_3 : _GEN_1046; // @[cal_gf256.scala 134:{27,27}]
+  wire [127:0] _GEN_1048 = 4'h4 == _aes_key_reg_T_1[3:0] ? aes_key_reg_4 : _GEN_1047; // @[cal_gf256.scala 134:{27,27}]
+  wire [127:0] _GEN_1049 = 4'h5 == _aes_key_reg_T_1[3:0] ? aes_key_reg_5 : _GEN_1048; // @[cal_gf256.scala 134:{27,27}]
+  wire [127:0] _GEN_1050 = 4'h6 == _aes_key_reg_T_1[3:0] ? aes_key_reg_6 : _GEN_1049; // @[cal_gf256.scala 134:{27,27}]
+  wire [127:0] _GEN_1051 = 4'h7 == _aes_key_reg_T_1[3:0] ? aes_key_reg_7 : _GEN_1050; // @[cal_gf256.scala 134:{27,27}]
+  wire [127:0] _GEN_1052 = 4'h8 == _aes_key_reg_T_1[3:0] ? aes_key_reg_8 : _GEN_1051; // @[cal_gf256.scala 134:{27,27}]
+  wire [127:0] _GEN_1053 = 4'h9 == _aes_key_reg_T_1[3:0] ? aes_key_reg_9 : _GEN_1052; // @[cal_gf256.scala 134:{27,27}]
+  wire [127:0] _GEN_1054 = 4'ha == _aes_key_reg_T_1[3:0] ? aes_key_reg_10 : _GEN_1053; // @[cal_gf256.scala 134:{27,27}]
+  wire [6:0] _aes_key_reg_next_key_0_T_3 = {_GEN_1054[99:96], 3'h0}; // @[cal_gf256.scala 27:25]
+  wire [127:0] _GEN_1056 = 4'h1 == _GEN_1054[103:100] ? 128'hc072a49cafa2d4adf04759fa7dc982ca : 128'h76abd7fe2b670130c56f6bf27b777c63
     ; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1053 = 4'h2 == _GEN_1050[103:100] ? 128'h1531d871f1e5a534ccf73f362693fdb7 : _GEN_1052; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1054 = 4'h3 == _GEN_1050[103:100] ? 128'h75b227ebe28012079a059618c323c704 : _GEN_1053; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1055 = 4'h4 == _GEN_1050[103:100] ? 128'h842fe329b3d63b52a05a6e1b1a2c8309 : _GEN_1054; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1056 = 4'h5 == _GEN_1050[103:100] ? 128'hcf584c4a39becb6a5bb1fc20ed00d153 : _GEN_1055; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1057 = 4'h6 == _GEN_1050[103:100] ? 128'ha89f3c507f02f94585334d43fbaaefd0 : _GEN_1056; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1058 = 4'h7 == _GEN_1050[103:100] ? 128'hd2f3ff1021dab6bcf5389d928f40a351 : _GEN_1057; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1059 = 4'h8 == _GEN_1050[103:100] ? 128'h73195d643d7ea7c41744975fec130ccd : _GEN_1058; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1060 = 4'h9 == _GEN_1050[103:100] ? 128'hdb0b5ede14b8ee4688902a22dc4f8160 : _GEN_1059; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1061 = 4'ha == _GEN_1050[103:100] ? 128'h79e4959162acd3c25c2406490a3a32e0 : _GEN_1060; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1062 = 4'hb == _GEN_1050[103:100] ? 128'h8ae7a65eaf4566ca94ed58d6d37c8e7 : _GEN_1061; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1063 = 4'hc == _GEN_1050[103:100] ? 128'h8a8bbd4b1f74dde8c6b4a61c2e2578ba : _GEN_1062; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1064 = 4'hd == _GEN_1050[103:100] ? 128'h9e1dc186b95735610ef6034866b53e70 : _GEN_1063; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1065 = 4'he == _GEN_1050[103:100] ? 128'hdf2855cee9871e9b948ed9691198f8e1 : _GEN_1064; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1066 = 4'hf == _GEN_1050[103:100] ? 128'h16bb54b00f2d99416842e6bf0d89a18c : _GEN_1065; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _aes_key_reg_next_key_0_T_4 = _GEN_1066 >> _aes_key_reg_next_key_0_T_3; // @[cal_gf256.scala 27:17]
-  wire [6:0] _aes_key_reg_next_key_0_T_8 = {_GEN_1050[123:120], 3'h0}; // @[cal_gf256.scala 27:25]
-  wire [127:0] _GEN_1068 = 4'h1 == _GEN_1050[127:124] ? 128'hc072a49cafa2d4adf04759fa7dc982ca : 128'h76abd7fe2b670130c56f6bf27b777c63
+  wire [127:0] _GEN_1057 = 4'h2 == _GEN_1054[103:100] ? 128'h1531d871f1e5a534ccf73f362693fdb7 : _GEN_1056; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1058 = 4'h3 == _GEN_1054[103:100] ? 128'h75b227ebe28012079a059618c323c704 : _GEN_1057; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1059 = 4'h4 == _GEN_1054[103:100] ? 128'h842fe329b3d63b52a05a6e1b1a2c8309 : _GEN_1058; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1060 = 4'h5 == _GEN_1054[103:100] ? 128'hcf584c4a39becb6a5bb1fc20ed00d153 : _GEN_1059; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1061 = 4'h6 == _GEN_1054[103:100] ? 128'ha89f3c507f02f94585334d43fbaaefd0 : _GEN_1060; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1062 = 4'h7 == _GEN_1054[103:100] ? 128'hd2f3ff1021dab6bcf5389d928f40a351 : _GEN_1061; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1063 = 4'h8 == _GEN_1054[103:100] ? 128'h73195d643d7ea7c41744975fec130ccd : _GEN_1062; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1064 = 4'h9 == _GEN_1054[103:100] ? 128'hdb0b5ede14b8ee4688902a22dc4f8160 : _GEN_1063; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1065 = 4'ha == _GEN_1054[103:100] ? 128'h79e4959162acd3c25c2406490a3a32e0 : _GEN_1064; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1066 = 4'hb == _GEN_1054[103:100] ? 128'h8ae7a65eaf4566ca94ed58d6d37c8e7 : _GEN_1065; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1067 = 4'hc == _GEN_1054[103:100] ? 128'h8a8bbd4b1f74dde8c6b4a61c2e2578ba : _GEN_1066; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1068 = 4'hd == _GEN_1054[103:100] ? 128'h9e1dc186b95735610ef6034866b53e70 : _GEN_1067; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1069 = 4'he == _GEN_1054[103:100] ? 128'hdf2855cee9871e9b948ed9691198f8e1 : _GEN_1068; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1070 = 4'hf == _GEN_1054[103:100] ? 128'h16bb54b00f2d99416842e6bf0d89a18c : _GEN_1069; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _aes_key_reg_next_key_0_T_4 = _GEN_1070 >> _aes_key_reg_next_key_0_T_3; // @[cal_gf256.scala 27:17]
+  wire [6:0] _aes_key_reg_next_key_0_T_8 = {_GEN_1054[123:120], 3'h0}; // @[cal_gf256.scala 27:25]
+  wire [127:0] _GEN_1072 = 4'h1 == _GEN_1054[127:124] ? 128'hc072a49cafa2d4adf04759fa7dc982ca : 128'h76abd7fe2b670130c56f6bf27b777c63
     ; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1069 = 4'h2 == _GEN_1050[127:124] ? 128'h1531d871f1e5a534ccf73f362693fdb7 : _GEN_1068; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1070 = 4'h3 == _GEN_1050[127:124] ? 128'h75b227ebe28012079a059618c323c704 : _GEN_1069; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1071 = 4'h4 == _GEN_1050[127:124] ? 128'h842fe329b3d63b52a05a6e1b1a2c8309 : _GEN_1070; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1072 = 4'h5 == _GEN_1050[127:124] ? 128'hcf584c4a39becb6a5bb1fc20ed00d153 : _GEN_1071; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1073 = 4'h6 == _GEN_1050[127:124] ? 128'ha89f3c507f02f94585334d43fbaaefd0 : _GEN_1072; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1074 = 4'h7 == _GEN_1050[127:124] ? 128'hd2f3ff1021dab6bcf5389d928f40a351 : _GEN_1073; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1075 = 4'h8 == _GEN_1050[127:124] ? 128'h73195d643d7ea7c41744975fec130ccd : _GEN_1074; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1076 = 4'h9 == _GEN_1050[127:124] ? 128'hdb0b5ede14b8ee4688902a22dc4f8160 : _GEN_1075; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1077 = 4'ha == _GEN_1050[127:124] ? 128'h79e4959162acd3c25c2406490a3a32e0 : _GEN_1076; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1078 = 4'hb == _GEN_1050[127:124] ? 128'h8ae7a65eaf4566ca94ed58d6d37c8e7 : _GEN_1077; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1079 = 4'hc == _GEN_1050[127:124] ? 128'h8a8bbd4b1f74dde8c6b4a61c2e2578ba : _GEN_1078; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1080 = 4'hd == _GEN_1050[127:124] ? 128'h9e1dc186b95735610ef6034866b53e70 : _GEN_1079; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1081 = 4'he == _GEN_1050[127:124] ? 128'hdf2855cee9871e9b948ed9691198f8e1 : _GEN_1080; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1082 = 4'hf == _GEN_1050[127:124] ? 128'h16bb54b00f2d99416842e6bf0d89a18c : _GEN_1081; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _aes_key_reg_next_key_0_T_9 = _GEN_1082 >> _aes_key_reg_next_key_0_T_8; // @[cal_gf256.scala 27:17]
-  wire [6:0] _aes_key_reg_next_key_0_T_13 = {_GEN_1050[115:112], 3'h0}; // @[cal_gf256.scala 27:25]
-  wire [127:0] _GEN_1084 = 4'h1 == _GEN_1050[119:116] ? 128'hc072a49cafa2d4adf04759fa7dc982ca : 128'h76abd7fe2b670130c56f6bf27b777c63
+  wire [127:0] _GEN_1073 = 4'h2 == _GEN_1054[127:124] ? 128'h1531d871f1e5a534ccf73f362693fdb7 : _GEN_1072; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1074 = 4'h3 == _GEN_1054[127:124] ? 128'h75b227ebe28012079a059618c323c704 : _GEN_1073; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1075 = 4'h4 == _GEN_1054[127:124] ? 128'h842fe329b3d63b52a05a6e1b1a2c8309 : _GEN_1074; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1076 = 4'h5 == _GEN_1054[127:124] ? 128'hcf584c4a39becb6a5bb1fc20ed00d153 : _GEN_1075; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1077 = 4'h6 == _GEN_1054[127:124] ? 128'ha89f3c507f02f94585334d43fbaaefd0 : _GEN_1076; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1078 = 4'h7 == _GEN_1054[127:124] ? 128'hd2f3ff1021dab6bcf5389d928f40a351 : _GEN_1077; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1079 = 4'h8 == _GEN_1054[127:124] ? 128'h73195d643d7ea7c41744975fec130ccd : _GEN_1078; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1080 = 4'h9 == _GEN_1054[127:124] ? 128'hdb0b5ede14b8ee4688902a22dc4f8160 : _GEN_1079; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1081 = 4'ha == _GEN_1054[127:124] ? 128'h79e4959162acd3c25c2406490a3a32e0 : _GEN_1080; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1082 = 4'hb == _GEN_1054[127:124] ? 128'h8ae7a65eaf4566ca94ed58d6d37c8e7 : _GEN_1081; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1083 = 4'hc == _GEN_1054[127:124] ? 128'h8a8bbd4b1f74dde8c6b4a61c2e2578ba : _GEN_1082; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1084 = 4'hd == _GEN_1054[127:124] ? 128'h9e1dc186b95735610ef6034866b53e70 : _GEN_1083; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1085 = 4'he == _GEN_1054[127:124] ? 128'hdf2855cee9871e9b948ed9691198f8e1 : _GEN_1084; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1086 = 4'hf == _GEN_1054[127:124] ? 128'h16bb54b00f2d99416842e6bf0d89a18c : _GEN_1085; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _aes_key_reg_next_key_0_T_9 = _GEN_1086 >> _aes_key_reg_next_key_0_T_8; // @[cal_gf256.scala 27:17]
+  wire [6:0] _aes_key_reg_next_key_0_T_13 = {_GEN_1054[115:112], 3'h0}; // @[cal_gf256.scala 27:25]
+  wire [127:0] _GEN_1088 = 4'h1 == _GEN_1054[119:116] ? 128'hc072a49cafa2d4adf04759fa7dc982ca : 128'h76abd7fe2b670130c56f6bf27b777c63
     ; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1085 = 4'h2 == _GEN_1050[119:116] ? 128'h1531d871f1e5a534ccf73f362693fdb7 : _GEN_1084; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1086 = 4'h3 == _GEN_1050[119:116] ? 128'h75b227ebe28012079a059618c323c704 : _GEN_1085; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1087 = 4'h4 == _GEN_1050[119:116] ? 128'h842fe329b3d63b52a05a6e1b1a2c8309 : _GEN_1086; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1088 = 4'h5 == _GEN_1050[119:116] ? 128'hcf584c4a39becb6a5bb1fc20ed00d153 : _GEN_1087; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1089 = 4'h6 == _GEN_1050[119:116] ? 128'ha89f3c507f02f94585334d43fbaaefd0 : _GEN_1088; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1090 = 4'h7 == _GEN_1050[119:116] ? 128'hd2f3ff1021dab6bcf5389d928f40a351 : _GEN_1089; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1091 = 4'h8 == _GEN_1050[119:116] ? 128'h73195d643d7ea7c41744975fec130ccd : _GEN_1090; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1092 = 4'h9 == _GEN_1050[119:116] ? 128'hdb0b5ede14b8ee4688902a22dc4f8160 : _GEN_1091; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1093 = 4'ha == _GEN_1050[119:116] ? 128'h79e4959162acd3c25c2406490a3a32e0 : _GEN_1092; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1094 = 4'hb == _GEN_1050[119:116] ? 128'h8ae7a65eaf4566ca94ed58d6d37c8e7 : _GEN_1093; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1095 = 4'hc == _GEN_1050[119:116] ? 128'h8a8bbd4b1f74dde8c6b4a61c2e2578ba : _GEN_1094; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1096 = 4'hd == _GEN_1050[119:116] ? 128'h9e1dc186b95735610ef6034866b53e70 : _GEN_1095; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1097 = 4'he == _GEN_1050[119:116] ? 128'hdf2855cee9871e9b948ed9691198f8e1 : _GEN_1096; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1098 = 4'hf == _GEN_1050[119:116] ? 128'h16bb54b00f2d99416842e6bf0d89a18c : _GEN_1097; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _aes_key_reg_next_key_0_T_14 = _GEN_1098 >> _aes_key_reg_next_key_0_T_13; // @[cal_gf256.scala 27:17]
-  wire [6:0] _aes_key_reg_next_key_0_T_18 = {_GEN_1050[107:104], 3'h0}; // @[cal_gf256.scala 27:25]
-  wire [127:0] _GEN_1100 = 4'h1 == _GEN_1050[111:108] ? 128'hc072a49cafa2d4adf04759fa7dc982ca : 128'h76abd7fe2b670130c56f6bf27b777c63
+  wire [127:0] _GEN_1089 = 4'h2 == _GEN_1054[119:116] ? 128'h1531d871f1e5a534ccf73f362693fdb7 : _GEN_1088; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1090 = 4'h3 == _GEN_1054[119:116] ? 128'h75b227ebe28012079a059618c323c704 : _GEN_1089; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1091 = 4'h4 == _GEN_1054[119:116] ? 128'h842fe329b3d63b52a05a6e1b1a2c8309 : _GEN_1090; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1092 = 4'h5 == _GEN_1054[119:116] ? 128'hcf584c4a39becb6a5bb1fc20ed00d153 : _GEN_1091; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1093 = 4'h6 == _GEN_1054[119:116] ? 128'ha89f3c507f02f94585334d43fbaaefd0 : _GEN_1092; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1094 = 4'h7 == _GEN_1054[119:116] ? 128'hd2f3ff1021dab6bcf5389d928f40a351 : _GEN_1093; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1095 = 4'h8 == _GEN_1054[119:116] ? 128'h73195d643d7ea7c41744975fec130ccd : _GEN_1094; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1096 = 4'h9 == _GEN_1054[119:116] ? 128'hdb0b5ede14b8ee4688902a22dc4f8160 : _GEN_1095; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1097 = 4'ha == _GEN_1054[119:116] ? 128'h79e4959162acd3c25c2406490a3a32e0 : _GEN_1096; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1098 = 4'hb == _GEN_1054[119:116] ? 128'h8ae7a65eaf4566ca94ed58d6d37c8e7 : _GEN_1097; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1099 = 4'hc == _GEN_1054[119:116] ? 128'h8a8bbd4b1f74dde8c6b4a61c2e2578ba : _GEN_1098; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1100 = 4'hd == _GEN_1054[119:116] ? 128'h9e1dc186b95735610ef6034866b53e70 : _GEN_1099; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1101 = 4'he == _GEN_1054[119:116] ? 128'hdf2855cee9871e9b948ed9691198f8e1 : _GEN_1100; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1102 = 4'hf == _GEN_1054[119:116] ? 128'h16bb54b00f2d99416842e6bf0d89a18c : _GEN_1101; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _aes_key_reg_next_key_0_T_14 = _GEN_1102 >> _aes_key_reg_next_key_0_T_13; // @[cal_gf256.scala 27:17]
+  wire [6:0] _aes_key_reg_next_key_0_T_18 = {_GEN_1054[107:104], 3'h0}; // @[cal_gf256.scala 27:25]
+  wire [127:0] _GEN_1104 = 4'h1 == _GEN_1054[111:108] ? 128'hc072a49cafa2d4adf04759fa7dc982ca : 128'h76abd7fe2b670130c56f6bf27b777c63
     ; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1101 = 4'h2 == _GEN_1050[111:108] ? 128'h1531d871f1e5a534ccf73f362693fdb7 : _GEN_1100; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1102 = 4'h3 == _GEN_1050[111:108] ? 128'h75b227ebe28012079a059618c323c704 : _GEN_1101; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1103 = 4'h4 == _GEN_1050[111:108] ? 128'h842fe329b3d63b52a05a6e1b1a2c8309 : _GEN_1102; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1104 = 4'h5 == _GEN_1050[111:108] ? 128'hcf584c4a39becb6a5bb1fc20ed00d153 : _GEN_1103; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1105 = 4'h6 == _GEN_1050[111:108] ? 128'ha89f3c507f02f94585334d43fbaaefd0 : _GEN_1104; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1106 = 4'h7 == _GEN_1050[111:108] ? 128'hd2f3ff1021dab6bcf5389d928f40a351 : _GEN_1105; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1107 = 4'h8 == _GEN_1050[111:108] ? 128'h73195d643d7ea7c41744975fec130ccd : _GEN_1106; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1108 = 4'h9 == _GEN_1050[111:108] ? 128'hdb0b5ede14b8ee4688902a22dc4f8160 : _GEN_1107; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1109 = 4'ha == _GEN_1050[111:108] ? 128'h79e4959162acd3c25c2406490a3a32e0 : _GEN_1108; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1110 = 4'hb == _GEN_1050[111:108] ? 128'h8ae7a65eaf4566ca94ed58d6d37c8e7 : _GEN_1109; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1111 = 4'hc == _GEN_1050[111:108] ? 128'h8a8bbd4b1f74dde8c6b4a61c2e2578ba : _GEN_1110; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1112 = 4'hd == _GEN_1050[111:108] ? 128'h9e1dc186b95735610ef6034866b53e70 : _GEN_1111; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1113 = 4'he == _GEN_1050[111:108] ? 128'hdf2855cee9871e9b948ed9691198f8e1 : _GEN_1112; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1114 = 4'hf == _GEN_1050[111:108] ? 128'h16bb54b00f2d99416842e6bf0d89a18c : _GEN_1113; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _aes_key_reg_next_key_0_T_19 = _GEN_1114 >> _aes_key_reg_next_key_0_T_18; // @[cal_gf256.scala 27:17]
+  wire [127:0] _GEN_1105 = 4'h2 == _GEN_1054[111:108] ? 128'h1531d871f1e5a534ccf73f362693fdb7 : _GEN_1104; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1106 = 4'h3 == _GEN_1054[111:108] ? 128'h75b227ebe28012079a059618c323c704 : _GEN_1105; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1107 = 4'h4 == _GEN_1054[111:108] ? 128'h842fe329b3d63b52a05a6e1b1a2c8309 : _GEN_1106; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1108 = 4'h5 == _GEN_1054[111:108] ? 128'hcf584c4a39becb6a5bb1fc20ed00d153 : _GEN_1107; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1109 = 4'h6 == _GEN_1054[111:108] ? 128'ha89f3c507f02f94585334d43fbaaefd0 : _GEN_1108; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1110 = 4'h7 == _GEN_1054[111:108] ? 128'hd2f3ff1021dab6bcf5389d928f40a351 : _GEN_1109; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1111 = 4'h8 == _GEN_1054[111:108] ? 128'h73195d643d7ea7c41744975fec130ccd : _GEN_1110; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1112 = 4'h9 == _GEN_1054[111:108] ? 128'hdb0b5ede14b8ee4688902a22dc4f8160 : _GEN_1111; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1113 = 4'ha == _GEN_1054[111:108] ? 128'h79e4959162acd3c25c2406490a3a32e0 : _GEN_1112; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1114 = 4'hb == _GEN_1054[111:108] ? 128'h8ae7a65eaf4566ca94ed58d6d37c8e7 : _GEN_1113; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1115 = 4'hc == _GEN_1054[111:108] ? 128'h8a8bbd4b1f74dde8c6b4a61c2e2578ba : _GEN_1114; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1116 = 4'hd == _GEN_1054[111:108] ? 128'h9e1dc186b95735610ef6034866b53e70 : _GEN_1115; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1117 = 4'he == _GEN_1054[111:108] ? 128'hdf2855cee9871e9b948ed9691198f8e1 : _GEN_1116; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1118 = 4'hf == _GEN_1054[111:108] ? 128'h16bb54b00f2d99416842e6bf0d89a18c : _GEN_1117; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _aes_key_reg_next_key_0_T_19 = _GEN_1118 >> _aes_key_reg_next_key_0_T_18; // @[cal_gf256.scala 27:17]
   wire [31:0] _aes_key_reg_next_key_0_T_21 = {_aes_key_reg_next_key_0_T_4[7:0],_aes_key_reg_next_key_0_T_9[7:0],
     _aes_key_reg_next_key_0_T_14[7:0],_aes_key_reg_next_key_0_T_19[7:0]}; // @[Cat.scala 31:58]
-  wire [31:0] _aes_key_reg_next_key_0_T_22 = _GEN_1050[31:0] ^ _aes_key_reg_next_key_0_T_21; // @[cal_gf256.scala 134:34]
+  wire [31:0] _aes_key_reg_next_key_0_T_22 = _GEN_1054[31:0] ^ _aes_key_reg_next_key_0_T_21; // @[cal_gf256.scala 134:34]
   wire [255:0] _aes_key_reg_next_key_0_T_26 = 256'h1 << _aes_key_reg_T_1; // @[cal_gf256.scala 130:23]
   wire [5:0] _aes_key_reg_next_key_0_T_28 = cur_round_counter == 8'h9 ? 6'h1b : 6'h36; // @[cal_gf256.scala 130:47]
   wire [255:0] _aes_key_reg_next_key_0_T_29 = cur_round_counter <= 8'h8 ? _aes_key_reg_next_key_0_T_26 : {{250'd0},
     _aes_key_reg_next_key_0_T_28}; // @[cal_gf256.scala 130:8]
-  wire [255:0] _GEN_1190 = {{224'd0}, _aes_key_reg_next_key_0_T_22}; // @[cal_gf256.scala 139:9]
-  wire [255:0] _aes_key_reg_next_key_0_T_30 = _GEN_1190 ^ _aes_key_reg_next_key_0_T_29; // @[cal_gf256.scala 139:9]
+  wire [255:0] _GEN_1176 = {{224'd0}, _aes_key_reg_next_key_0_T_22}; // @[cal_gf256.scala 139:9]
+  wire [255:0] _aes_key_reg_next_key_0_T_30 = _GEN_1176 ^ _aes_key_reg_next_key_0_T_29; // @[cal_gf256.scala 139:9]
   wire [31:0] aes_key_reg_next_key_0 = _aes_key_reg_next_key_0_T_30[31:0]; // @[cal_gf256.scala 133:24 134:17]
-  wire [31:0] aes_key_reg_next_key_1 = _GEN_1050[63:32] ^ aes_key_reg_next_key_0; // @[cal_gf256.scala 140:35]
-  wire [31:0] aes_key_reg_next_key_2 = _GEN_1050[95:64] ^ aes_key_reg_next_key_1; // @[cal_gf256.scala 141:35]
-  wire [31:0] aes_key_reg_next_key_3 = _GEN_1050[127:96] ^ aes_key_reg_next_key_2; // @[cal_gf256.scala 142:36]
+  wire [31:0] aes_key_reg_next_key_1 = _GEN_1054[63:32] ^ aes_key_reg_next_key_0; // @[cal_gf256.scala 140:35]
+  wire [31:0] aes_key_reg_next_key_2 = _GEN_1054[95:64] ^ aes_key_reg_next_key_1; // @[cal_gf256.scala 141:35]
+  wire [31:0] aes_key_reg_next_key_3 = _GEN_1054[127:96] ^ aes_key_reg_next_key_2; // @[cal_gf256.scala 142:36]
   wire [127:0] _aes_key_reg_T_3 = {aes_key_reg_next_key_3,aes_key_reg_next_key_2,aes_key_reg_next_key_1,
     aes_key_reg_next_key_0}; // @[cal_gf256.scala 143:14]
-  wire [127:0] _GEN_1115 = 4'h0 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_0; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
-  wire [127:0] _GEN_1116 = 4'h1 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_1; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
-  wire [127:0] _GEN_1117 = 4'h2 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_2; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
-  wire [127:0] _GEN_1118 = 4'h3 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_3; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
-  wire [127:0] _GEN_1119 = 4'h4 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_4; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
-  wire [127:0] _GEN_1120 = 4'h5 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_5; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
-  wire [127:0] _GEN_1121 = 4'h6 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_6; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
-  wire [127:0] _GEN_1122 = 4'h7 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_7; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
-  wire [127:0] _GEN_1123 = 4'h8 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_8; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
-  wire [127:0] _GEN_1124 = 4'h9 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_9; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
-  wire [127:0] _GEN_1125 = 4'ha == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_10; // @[TxAESEncrypter.scala 12:24 80:{40,40}]
-  wire [3:0] _cur_round_counter_T_1 = aes_key_reg_0 == aes_key_0 ? 4'hb : 4'h0; // @[TxAESEncrypter.scala 85:31]
-  wire [7:0] _cur_round_counter_T_3 = cur_round_counter + 8'h1; // @[TxAESEncrypter.scala 87:46]
-  wire [7:0] _GEN_1148 = cur_round_counter < 8'h33 ? _cur_round_counter_T_3 : cur_round_counter; // @[TxAESEncrypter.scala 86:42 87:25 43:34]
-  wire  _T_7 = cur_round_counter >= 8'hb; // @[TxAESEncrypter.scala 90:28]
-  wire [511:0] _GEN_1151 = 2'h1 == cur_round_counter[1:0] ? tmp_result_1 : tmp_result_0; // @[TxAESEncrypter.scala 92:{23,23}]
-  wire [511:0] _GEN_1152 = 2'h2 == cur_round_counter[1:0] ? tmp_result_2 : _GEN_1151; // @[TxAESEncrypter.scala 92:{23,23}]
-  wire [511:0] _GEN_1153 = 2'h3 == cur_round_counter[1:0] ? tmp_result_3 : _GEN_1152; // @[TxAESEncrypter.scala 92:{23,23}]
-  wire [511:0] _GEN_1154 = cur_round_counter == 8'h32 ? tmp_result_3 : _GEN_1039; // @[TxAESEncrypter.scala 93:46 94:23]
-  wire [511:0] _GEN_1170 = ~first_beat_reg ? tmp_tdata_reg : in_reg_tdata; // @[TxAESEncrypter.scala 74:31 98:18 TxPipelineHandler.scala 27:17]
-  wire  _GEN_1171 = ~first_beat_reg ? _T_7 & (out_shake_hand | _io_in_tready_T) : io_out_tready | ~in_reg_used_reg; // @[TxAESEncrypter.scala 74:31 99:18 TxPipelineHandler.scala 26:17]
-  wire  _GEN_1172 = ~first_beat_reg ? cur_round_counter == 8'h33 & _io_out_tvalid_T : in_reg_tvalid & in_reg_used_reg; // @[TxAESEncrypter.scala 100:19 74:31 TxPipelineHandler.scala 28:17]
-  assign io_in_tready = ~io_in_extern_config_c2h_match_op[8] ? io_out_tready | ~in_reg_used_reg : _GEN_1171; // @[TxAESEncrypter.scala 72:47 TxPipelineHandler.scala 26:17]
-  assign io_out_tdata = ~io_in_extern_config_c2h_match_op[8] ? in_reg_tdata : _GEN_1170; // @[TxAESEncrypter.scala 72:47 TxPipelineHandler.scala 27:17]
-  assign io_out_tvalid = ~io_in_extern_config_c2h_match_op[8] ? in_reg_tvalid & in_reg_used_reg : _GEN_1172; // @[TxAESEncrypter.scala 72:47 TxPipelineHandler.scala 28:17]
+  wire  _T_6 = cur_round_counter >= 8'hb; // @[TxAESEncrypter.scala 84:26]
+  assign io_in_tready = io_in_extern_config_c2h_match_op[8] & ~first_beat_reg ? _T_6 & (out_shake_hand | _io_in_tready_T
+    ) : io_out_tready | ~in_reg_used_reg; // @[TxAESEncrypter.scala 90:64 93:18 TxPipelineHandler.scala 26:17]
+  assign io_out_tdata = io_in_extern_config_c2h_match_op[8] & ~first_beat_reg ? tmp_tdata_reg : in_reg_tdata; // @[TxAESEncrypter.scala 90:64 92:18 TxPipelineHandler.scala 27:17]
+  assign io_out_tvalid = io_in_extern_config_c2h_match_op[8] & ~first_beat_reg ? cur_round_counter == 8'h33 &
+    _io_out_tvalid_T : in_reg_tvalid & in_reg_used_reg; // @[TxAESEncrypter.scala 90:64 94:19 TxPipelineHandler.scala 28:17]
   assign io_out_tlast = in_reg_r[0]; // @[TxPipelineHandler.scala 15:116]
-  assign io_out_tx_info_ip_chksum = io_in_tx_info_ip_chksum; // @[TxPipelineHandler.scala 30:18]
-  assign io_out_tx_info_tcp_chksum = io_in_tx_info_tcp_chksum; // @[TxPipelineHandler.scala 30:18]
   assign io_out_extern_config_c2h_match_op = io_in_extern_config_c2h_match_op; // @[TxPipelineHandler.scala 31:24]
   always @(posedge clock) begin
     if (reset) begin // @[Reg.scala 28:20]
@@ -2136,132 +2034,142 @@ module TxAESEncrypter(
     end else begin
       in_reg_used_reg <= _GEN_3;
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
-      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
-        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
-          if (cur_round_counter == 8'h0) begin // @[TxAESEncrypter.scala 77:39]
-            aes_key_reg_0 <= aes_key_0; // @[TxAESEncrypter.scala 78:24]
-          end else begin
-            aes_key_reg_0 <= _GEN_1115;
+    if (in_shake_hand) begin // @[TxAESEncrypter.scala 69:23]
+      if (aes_key_reg_0 == aes_key_0) begin // @[TxAESEncrypter.scala 71:41]
+        aes_key_reg_0 <= _GEN_1039;
+      end else if (~in_reg_tlast) begin // @[TxAESEncrypter.scala 73:30]
+        aes_key_reg_0 <= aes_key_0; // @[TxAESEncrypter.scala 74:22]
+      end else begin
+        aes_key_reg_0 <= _GEN_1039;
+      end
+    end else if (cur_round_counter < 8'h33) begin // @[TxAESEncrypter.scala 77:40]
+      if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 79:36]
+        if (4'h0 == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 80:38]
+          aes_key_reg_0 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 80:38]
+        end else begin
+          aes_key_reg_0 <= _GEN_1039;
+        end
+      end else begin
+        aes_key_reg_0 <= _GEN_1039;
+      end
+    end else begin
+      aes_key_reg_0 <= _GEN_1039;
+    end
+    if (!(in_shake_hand)) begin // @[TxAESEncrypter.scala 69:23]
+      if (cur_round_counter < 8'h33) begin // @[TxAESEncrypter.scala 77:40]
+        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 79:36]
+          if (4'h1 == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 80:38]
+            aes_key_reg_1 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 80:38]
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
-      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
-        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
-          if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 77:39]
-            aes_key_reg_1 <= _GEN_1116;
+    if (!(in_shake_hand)) begin // @[TxAESEncrypter.scala 69:23]
+      if (cur_round_counter < 8'h33) begin // @[TxAESEncrypter.scala 77:40]
+        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 79:36]
+          if (4'h2 == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 80:38]
+            aes_key_reg_2 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 80:38]
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
-      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
-        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
-          if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 77:39]
-            aes_key_reg_2 <= _GEN_1117;
+    if (!(in_shake_hand)) begin // @[TxAESEncrypter.scala 69:23]
+      if (cur_round_counter < 8'h33) begin // @[TxAESEncrypter.scala 77:40]
+        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 79:36]
+          if (4'h3 == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 80:38]
+            aes_key_reg_3 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 80:38]
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
-      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
-        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
-          if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 77:39]
-            aes_key_reg_3 <= _GEN_1118;
+    if (!(in_shake_hand)) begin // @[TxAESEncrypter.scala 69:23]
+      if (cur_round_counter < 8'h33) begin // @[TxAESEncrypter.scala 77:40]
+        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 79:36]
+          if (4'h4 == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 80:38]
+            aes_key_reg_4 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 80:38]
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
-      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
-        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
-          if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 77:39]
-            aes_key_reg_4 <= _GEN_1119;
+    if (!(in_shake_hand)) begin // @[TxAESEncrypter.scala 69:23]
+      if (cur_round_counter < 8'h33) begin // @[TxAESEncrypter.scala 77:40]
+        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 79:36]
+          if (4'h5 == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 80:38]
+            aes_key_reg_5 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 80:38]
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
-      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
-        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
-          if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 77:39]
-            aes_key_reg_5 <= _GEN_1120;
+    if (!(in_shake_hand)) begin // @[TxAESEncrypter.scala 69:23]
+      if (cur_round_counter < 8'h33) begin // @[TxAESEncrypter.scala 77:40]
+        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 79:36]
+          if (4'h6 == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 80:38]
+            aes_key_reg_6 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 80:38]
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
-      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
-        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
-          if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 77:39]
-            aes_key_reg_6 <= _GEN_1121;
+    if (!(in_shake_hand)) begin // @[TxAESEncrypter.scala 69:23]
+      if (cur_round_counter < 8'h33) begin // @[TxAESEncrypter.scala 77:40]
+        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 79:36]
+          if (4'h7 == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 80:38]
+            aes_key_reg_7 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 80:38]
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
-      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
-        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
-          if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 77:39]
-            aes_key_reg_7 <= _GEN_1122;
+    if (!(in_shake_hand)) begin // @[TxAESEncrypter.scala 69:23]
+      if (cur_round_counter < 8'h33) begin // @[TxAESEncrypter.scala 77:40]
+        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 79:36]
+          if (4'h8 == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 80:38]
+            aes_key_reg_8 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 80:38]
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
-      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
-        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
-          if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 77:39]
-            aes_key_reg_8 <= _GEN_1123;
+    if (!(in_shake_hand)) begin // @[TxAESEncrypter.scala 69:23]
+      if (cur_round_counter < 8'h33) begin // @[TxAESEncrypter.scala 77:40]
+        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 79:36]
+          if (4'h9 == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 80:38]
+            aes_key_reg_9 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 80:38]
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
-      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
-        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
-          if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 77:39]
-            aes_key_reg_9 <= _GEN_1124;
-          end
-        end
-      end
-    end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[TxAESEncrypter.scala 72:47]
-      if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
-        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 76:36]
-          if (!(cur_round_counter == 8'h0)) begin // @[TxAESEncrypter.scala 77:39]
-            aes_key_reg_10 <= _GEN_1125;
+    if (!(in_shake_hand)) begin // @[TxAESEncrypter.scala 69:23]
+      if (cur_round_counter < 8'h33) begin // @[TxAESEncrypter.scala 77:40]
+        if (cur_round_counter < 8'hb) begin // @[TxAESEncrypter.scala 79:36]
+          if (4'ha == cur_round_counter[3:0]) begin // @[TxAESEncrypter.scala 80:38]
+            aes_key_reg_10 <= _aes_key_reg_T_3; // @[TxAESEncrypter.scala 80:38]
           end
         end
       end
     end
     if (reset) begin // @[TxAESEncrypter.scala 43:34]
-      cur_round_counter <= 8'h0; // @[TxAESEncrypter.scala 43:34]
-    end else if (~io_in_extern_config_c2h_match_op[8]) begin // @[TxAESEncrypter.scala 72:47]
-      cur_round_counter <= 8'h0; // @[TxAESEncrypter.scala 73:23]
-    end else if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
-      if (in_shake_hand) begin // @[TxAESEncrypter.scala 84:25]
-        cur_round_counter <= {{4'd0}, _cur_round_counter_T_1}; // @[TxAESEncrypter.scala 85:25]
-      end else begin
-        cur_round_counter <= _GEN_1148;
+      cur_round_counter <= 8'h1; // @[TxAESEncrypter.scala 43:34]
+    end else if (in_shake_hand) begin // @[TxAESEncrypter.scala 69:23]
+      if (aes_key_reg_0 == aes_key_0) begin // @[TxAESEncrypter.scala 71:41]
+        cur_round_counter <= 8'hb; // @[TxAESEncrypter.scala 72:25]
+      end else if (~in_reg_tlast) begin // @[TxAESEncrypter.scala 73:30]
+        cur_round_counter <= 8'h1; // @[TxAESEncrypter.scala 75:25]
       end
+    end else if (cur_round_counter < 8'h33) begin // @[TxAESEncrypter.scala 77:40]
+      cur_round_counter <= _cur_round_counter_T_1; // @[TxAESEncrypter.scala 78:23]
     end
-    if (~io_in_extern_config_c2h_match_op[8]) begin // @[TxAESEncrypter.scala 72:47]
-      tmp_tdata_reg <= _GEN_1039;
-    end else if (~first_beat_reg) begin // @[TxAESEncrypter.scala 74:31]
-      if (cur_round_counter >= 8'hb & in_reg_used_reg) begin // @[TxAESEncrypter.scala 90:56]
-        if (cur_round_counter < 8'h32) begin // @[TxAESEncrypter.scala 91:38]
-          tmp_tdata_reg <= _GEN_1153; // @[TxAESEncrypter.scala 92:23]
-        end else begin
-          tmp_tdata_reg <= _GEN_1154;
-        end
+    if (cur_round_counter >= 8'hb & cur_round_counter < 8'h32) begin // @[TxAESEncrypter.scala 84:63]
+      if (2'h3 == cur_round_counter[1:0]) begin // @[TxAESEncrypter.scala 85:19]
+        tmp_tdata_reg <= tmp_result_3; // @[TxAESEncrypter.scala 85:19]
+      end else if (2'h2 == cur_round_counter[1:0]) begin // @[TxAESEncrypter.scala 85:19]
+        tmp_tdata_reg <= tmp_result_2; // @[TxAESEncrypter.scala 85:19]
+      end else if (2'h1 == cur_round_counter[1:0]) begin // @[TxAESEncrypter.scala 85:19]
+        tmp_tdata_reg <= tmp_result_1; // @[TxAESEncrypter.scala 85:19]
       end else begin
-        tmp_tdata_reg <= _GEN_1039;
+        tmp_tdata_reg <= tmp_result_0;
       end
-    end else begin
-      tmp_tdata_reg <= _GEN_1039;
+    end else if (cur_round_counter == 8'h32) begin // @[TxAESEncrypter.scala 86:42]
+      tmp_tdata_reg <= tmp_result_3; // @[TxAESEncrypter.scala 87:19]
+    end else if (in_shake_hand) begin // @[TxAESEncrypter.scala 69:23]
+      tmp_tdata_reg <= io_in_tdata; // @[TxAESEncrypter.scala 70:19]
     end
   end
 // Register and memory initialization
@@ -2581,21 +2489,13 @@ module TxChksumGenerator(
   output         io_in_tready,
   input          io_in_tlast,
   input  [15:0]  io_in_extern_config_c2h_match_op,
-  input  [31:0]  io_in_extern_config_c2h_match_arg_12,
-  input  [31:0]  io_in_extern_config_c2h_match_arg_13,
-  input  [31:0]  io_in_extern_config_c2h_match_arg_14,
-  input  [31:0]  io_in_extern_config_c2h_match_arg_15,
   output [511:0] io_out_tdata,
   output         io_out_tvalid,
   input          io_out_tready,
   output         io_out_tlast,
   output [31:0]  io_out_tx_info_ip_chksum,
   output [31:0]  io_out_tx_info_tcp_chksum,
-  output [15:0]  io_out_extern_config_c2h_match_op,
-  output [31:0]  io_out_extern_config_c2h_match_arg_12,
-  output [31:0]  io_out_extern_config_c2h_match_arg_13,
-  output [31:0]  io_out_extern_config_c2h_match_arg_14,
-  output [31:0]  io_out_extern_config_c2h_match_arg_15
+  output [15:0]  io_out_extern_config_c2h_match_op
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [607:0] _RAND_0;
@@ -2826,10 +2726,6 @@ module TxChksumGenerator(
   assign io_out_tx_info_ip_chksum = first_beat_reg ? ip_chksum_cal_io_out_sum : cal_ip_chksum_reg; // @[TxPipelineHandler.scala 71:34]
   assign io_out_tx_info_tcp_chksum = first_beat_reg ? tcp_hdr_chksum_result : _cal_tcp_chksum_reg_T_1; // @[TxPipelineHandler.scala 72:35]
   assign io_out_extern_config_c2h_match_op = io_in_extern_config_c2h_match_op; // @[TxPipelineHandler.scala 31:24]
-  assign io_out_extern_config_c2h_match_arg_12 = io_in_extern_config_c2h_match_arg_12; // @[TxPipelineHandler.scala 31:24]
-  assign io_out_extern_config_c2h_match_arg_13 = io_in_extern_config_c2h_match_arg_13; // @[TxPipelineHandler.scala 31:24]
-  assign io_out_extern_config_c2h_match_arg_14 = io_in_extern_config_c2h_match_arg_14; // @[TxPipelineHandler.scala 31:24]
-  assign io_out_extern_config_c2h_match_arg_15 = io_in_extern_config_c2h_match_arg_15; // @[TxPipelineHandler.scala 31:24]
   assign ip_chksum_cal_clock = clock;
   assign ip_chksum_cal_io_in_vec_0 = {{16'd0}, _ip_chksum_cal_io_in_vec_0_T_3}; // @[TxPipelineHandler.scala 40:37]
   assign ip_chksum_cal_io_in_vec_1 = {{16'd0}, _ip_chksum_cal_io_in_vec_1_T_3}; // @[TxPipelineHandler.scala 40:37]
@@ -3016,8 +2912,6 @@ module TxPipeline(
   wire  tx_aes_encrypter_io_in_tvalid; // @[TxPipeline.scala 15:32]
   wire  tx_aes_encrypter_io_in_tready; // @[TxPipeline.scala 15:32]
   wire  tx_aes_encrypter_io_in_tlast; // @[TxPipeline.scala 15:32]
-  wire [31:0] tx_aes_encrypter_io_in_tx_info_ip_chksum; // @[TxPipeline.scala 15:32]
-  wire [31:0] tx_aes_encrypter_io_in_tx_info_tcp_chksum; // @[TxPipeline.scala 15:32]
   wire [15:0] tx_aes_encrypter_io_in_extern_config_c2h_match_op; // @[TxPipeline.scala 15:32]
   wire [31:0] tx_aes_encrypter_io_in_extern_config_c2h_match_arg_12; // @[TxPipeline.scala 15:32]
   wire [31:0] tx_aes_encrypter_io_in_extern_config_c2h_match_arg_13; // @[TxPipeline.scala 15:32]
@@ -3027,8 +2921,6 @@ module TxPipeline(
   wire  tx_aes_encrypter_io_out_tvalid; // @[TxPipeline.scala 15:32]
   wire  tx_aes_encrypter_io_out_tready; // @[TxPipeline.scala 15:32]
   wire  tx_aes_encrypter_io_out_tlast; // @[TxPipeline.scala 15:32]
-  wire [31:0] tx_aes_encrypter_io_out_tx_info_ip_chksum; // @[TxPipeline.scala 15:32]
-  wire [31:0] tx_aes_encrypter_io_out_tx_info_tcp_chksum; // @[TxPipeline.scala 15:32]
   wire [15:0] tx_aes_encrypter_io_out_extern_config_c2h_match_op; // @[TxPipeline.scala 15:32]
   wire  tx_chksum_generator_clock; // @[TxPipeline.scala 19:35]
   wire  tx_chksum_generator_reset; // @[TxPipeline.scala 19:35]
@@ -3037,10 +2929,6 @@ module TxPipeline(
   wire  tx_chksum_generator_io_in_tready; // @[TxPipeline.scala 19:35]
   wire  tx_chksum_generator_io_in_tlast; // @[TxPipeline.scala 19:35]
   wire [15:0] tx_chksum_generator_io_in_extern_config_c2h_match_op; // @[TxPipeline.scala 19:35]
-  wire [31:0] tx_chksum_generator_io_in_extern_config_c2h_match_arg_12; // @[TxPipeline.scala 19:35]
-  wire [31:0] tx_chksum_generator_io_in_extern_config_c2h_match_arg_13; // @[TxPipeline.scala 19:35]
-  wire [31:0] tx_chksum_generator_io_in_extern_config_c2h_match_arg_14; // @[TxPipeline.scala 19:35]
-  wire [31:0] tx_chksum_generator_io_in_extern_config_c2h_match_arg_15; // @[TxPipeline.scala 19:35]
   wire [511:0] tx_chksum_generator_io_out_tdata; // @[TxPipeline.scala 19:35]
   wire  tx_chksum_generator_io_out_tvalid; // @[TxPipeline.scala 19:35]
   wire  tx_chksum_generator_io_out_tready; // @[TxPipeline.scala 19:35]
@@ -3048,10 +2936,6 @@ module TxPipeline(
   wire [31:0] tx_chksum_generator_io_out_tx_info_ip_chksum; // @[TxPipeline.scala 19:35]
   wire [31:0] tx_chksum_generator_io_out_tx_info_tcp_chksum; // @[TxPipeline.scala 19:35]
   wire [15:0] tx_chksum_generator_io_out_extern_config_c2h_match_op; // @[TxPipeline.scala 19:35]
-  wire [31:0] tx_chksum_generator_io_out_extern_config_c2h_match_arg_12; // @[TxPipeline.scala 19:35]
-  wire [31:0] tx_chksum_generator_io_out_extern_config_c2h_match_arg_13; // @[TxPipeline.scala 19:35]
-  wire [31:0] tx_chksum_generator_io_out_extern_config_c2h_match_arg_14; // @[TxPipeline.scala 19:35]
-  wire [31:0] tx_chksum_generator_io_out_extern_config_c2h_match_arg_15; // @[TxPipeline.scala 19:35]
   TxAESEncrypter tx_aes_encrypter ( // @[TxPipeline.scala 15:32]
     .clock(tx_aes_encrypter_clock),
     .reset(tx_aes_encrypter_reset),
@@ -3059,8 +2943,6 @@ module TxPipeline(
     .io_in_tvalid(tx_aes_encrypter_io_in_tvalid),
     .io_in_tready(tx_aes_encrypter_io_in_tready),
     .io_in_tlast(tx_aes_encrypter_io_in_tlast),
-    .io_in_tx_info_ip_chksum(tx_aes_encrypter_io_in_tx_info_ip_chksum),
-    .io_in_tx_info_tcp_chksum(tx_aes_encrypter_io_in_tx_info_tcp_chksum),
     .io_in_extern_config_c2h_match_op(tx_aes_encrypter_io_in_extern_config_c2h_match_op),
     .io_in_extern_config_c2h_match_arg_12(tx_aes_encrypter_io_in_extern_config_c2h_match_arg_12),
     .io_in_extern_config_c2h_match_arg_13(tx_aes_encrypter_io_in_extern_config_c2h_match_arg_13),
@@ -3070,8 +2952,6 @@ module TxPipeline(
     .io_out_tvalid(tx_aes_encrypter_io_out_tvalid),
     .io_out_tready(tx_aes_encrypter_io_out_tready),
     .io_out_tlast(tx_aes_encrypter_io_out_tlast),
-    .io_out_tx_info_ip_chksum(tx_aes_encrypter_io_out_tx_info_ip_chksum),
-    .io_out_tx_info_tcp_chksum(tx_aes_encrypter_io_out_tx_info_tcp_chksum),
     .io_out_extern_config_c2h_match_op(tx_aes_encrypter_io_out_extern_config_c2h_match_op)
   );
   TxChksumGenerator tx_chksum_generator ( // @[TxPipeline.scala 19:35]
@@ -3082,57 +2962,39 @@ module TxPipeline(
     .io_in_tready(tx_chksum_generator_io_in_tready),
     .io_in_tlast(tx_chksum_generator_io_in_tlast),
     .io_in_extern_config_c2h_match_op(tx_chksum_generator_io_in_extern_config_c2h_match_op),
-    .io_in_extern_config_c2h_match_arg_12(tx_chksum_generator_io_in_extern_config_c2h_match_arg_12),
-    .io_in_extern_config_c2h_match_arg_13(tx_chksum_generator_io_in_extern_config_c2h_match_arg_13),
-    .io_in_extern_config_c2h_match_arg_14(tx_chksum_generator_io_in_extern_config_c2h_match_arg_14),
-    .io_in_extern_config_c2h_match_arg_15(tx_chksum_generator_io_in_extern_config_c2h_match_arg_15),
     .io_out_tdata(tx_chksum_generator_io_out_tdata),
     .io_out_tvalid(tx_chksum_generator_io_out_tvalid),
     .io_out_tready(tx_chksum_generator_io_out_tready),
     .io_out_tlast(tx_chksum_generator_io_out_tlast),
     .io_out_tx_info_ip_chksum(tx_chksum_generator_io_out_tx_info_ip_chksum),
     .io_out_tx_info_tcp_chksum(tx_chksum_generator_io_out_tx_info_tcp_chksum),
-    .io_out_extern_config_c2h_match_op(tx_chksum_generator_io_out_extern_config_c2h_match_op),
-    .io_out_extern_config_c2h_match_arg_12(tx_chksum_generator_io_out_extern_config_c2h_match_arg_12),
-    .io_out_extern_config_c2h_match_arg_13(tx_chksum_generator_io_out_extern_config_c2h_match_arg_13),
-    .io_out_extern_config_c2h_match_arg_14(tx_chksum_generator_io_out_extern_config_c2h_match_arg_14),
-    .io_out_extern_config_c2h_match_arg_15(tx_chksum_generator_io_out_extern_config_c2h_match_arg_15)
+    .io_out_extern_config_c2h_match_op(tx_chksum_generator_io_out_extern_config_c2h_match_op)
   );
-  assign io_in_tready = tx_chksum_generator_io_in_tready; // @[TxPipeline.scala 20:9]
-  assign io_out_tdata = tx_aes_encrypter_io_out_tdata; // @[TxPipeline.scala 22:27]
-  assign io_out_tvalid = tx_aes_encrypter_io_out_tvalid; // @[TxPipeline.scala 22:27]
-  assign io_out_tlast = tx_aes_encrypter_io_out_tlast; // @[TxPipeline.scala 22:27]
-  assign io_out_tx_info_ip_chksum = tx_aes_encrypter_io_out_tx_info_ip_chksum; // @[TxPipeline.scala 22:27]
-  assign io_out_tx_info_tcp_chksum = tx_aes_encrypter_io_out_tx_info_tcp_chksum; // @[TxPipeline.scala 22:27]
-  assign io_out_extern_config_c2h_match_op = tx_aes_encrypter_io_out_extern_config_c2h_match_op; // @[TxPipeline.scala 22:27]
+  assign io_in_tready = tx_aes_encrypter_io_in_tready; // @[TxPipeline.scala 20:9]
+  assign io_out_tdata = tx_chksum_generator_io_out_tdata; // @[TxPipeline.scala 22:30]
+  assign io_out_tvalid = tx_chksum_generator_io_out_tvalid; // @[TxPipeline.scala 22:30]
+  assign io_out_tlast = tx_chksum_generator_io_out_tlast; // @[TxPipeline.scala 22:30]
+  assign io_out_tx_info_ip_chksum = tx_chksum_generator_io_out_tx_info_ip_chksum; // @[TxPipeline.scala 22:30]
+  assign io_out_tx_info_tcp_chksum = tx_chksum_generator_io_out_tx_info_tcp_chksum; // @[TxPipeline.scala 22:30]
+  assign io_out_extern_config_c2h_match_op = tx_chksum_generator_io_out_extern_config_c2h_match_op; // @[TxPipeline.scala 22:30]
   assign tx_aes_encrypter_clock = clock;
   assign tx_aes_encrypter_reset = reset;
-  assign tx_aes_encrypter_io_in_tdata = tx_chksum_generator_io_out_tdata; // @[TxPipeline.scala 21:30]
-  assign tx_aes_encrypter_io_in_tvalid = tx_chksum_generator_io_out_tvalid; // @[TxPipeline.scala 21:30]
-  assign tx_aes_encrypter_io_in_tlast = tx_chksum_generator_io_out_tlast; // @[TxPipeline.scala 21:30]
-  assign tx_aes_encrypter_io_in_tx_info_ip_chksum = tx_chksum_generator_io_out_tx_info_ip_chksum; // @[TxPipeline.scala 21:30]
-  assign tx_aes_encrypter_io_in_tx_info_tcp_chksum = tx_chksum_generator_io_out_tx_info_tcp_chksum; // @[TxPipeline.scala 21:30]
-  assign tx_aes_encrypter_io_in_extern_config_c2h_match_op = tx_chksum_generator_io_out_extern_config_c2h_match_op; // @[TxPipeline.scala 21:30]
-  assign tx_aes_encrypter_io_in_extern_config_c2h_match_arg_12 =
-    tx_chksum_generator_io_out_extern_config_c2h_match_arg_12; // @[TxPipeline.scala 21:30]
-  assign tx_aes_encrypter_io_in_extern_config_c2h_match_arg_13 =
-    tx_chksum_generator_io_out_extern_config_c2h_match_arg_13; // @[TxPipeline.scala 21:30]
-  assign tx_aes_encrypter_io_in_extern_config_c2h_match_arg_14 =
-    tx_chksum_generator_io_out_extern_config_c2h_match_arg_14; // @[TxPipeline.scala 21:30]
-  assign tx_aes_encrypter_io_in_extern_config_c2h_match_arg_15 =
-    tx_chksum_generator_io_out_extern_config_c2h_match_arg_15; // @[TxPipeline.scala 21:30]
-  assign tx_aes_encrypter_io_out_tready = io_out_tready; // @[TxPipeline.scala 22:27]
+  assign tx_aes_encrypter_io_in_tdata = io_in_tdata; // @[TxPipeline.scala 20:9]
+  assign tx_aes_encrypter_io_in_tvalid = io_in_tvalid; // @[TxPipeline.scala 20:9]
+  assign tx_aes_encrypter_io_in_tlast = io_in_tlast; // @[TxPipeline.scala 20:9]
+  assign tx_aes_encrypter_io_in_extern_config_c2h_match_op = io_in_extern_config_c2h_match_op; // @[TxPipeline.scala 20:9]
+  assign tx_aes_encrypter_io_in_extern_config_c2h_match_arg_12 = io_in_extern_config_c2h_match_arg_12; // @[TxPipeline.scala 20:9]
+  assign tx_aes_encrypter_io_in_extern_config_c2h_match_arg_13 = io_in_extern_config_c2h_match_arg_13; // @[TxPipeline.scala 20:9]
+  assign tx_aes_encrypter_io_in_extern_config_c2h_match_arg_14 = io_in_extern_config_c2h_match_arg_14; // @[TxPipeline.scala 20:9]
+  assign tx_aes_encrypter_io_in_extern_config_c2h_match_arg_15 = io_in_extern_config_c2h_match_arg_15; // @[TxPipeline.scala 20:9]
+  assign tx_aes_encrypter_io_out_tready = tx_chksum_generator_io_in_tready; // @[TxPipeline.scala 21:27]
   assign tx_chksum_generator_clock = clock;
   assign tx_chksum_generator_reset = reset;
-  assign tx_chksum_generator_io_in_tdata = io_in_tdata; // @[TxPipeline.scala 20:9]
-  assign tx_chksum_generator_io_in_tvalid = io_in_tvalid; // @[TxPipeline.scala 20:9]
-  assign tx_chksum_generator_io_in_tlast = io_in_tlast; // @[TxPipeline.scala 20:9]
-  assign tx_chksum_generator_io_in_extern_config_c2h_match_op = io_in_extern_config_c2h_match_op; // @[TxPipeline.scala 20:9]
-  assign tx_chksum_generator_io_in_extern_config_c2h_match_arg_12 = io_in_extern_config_c2h_match_arg_12; // @[TxPipeline.scala 20:9]
-  assign tx_chksum_generator_io_in_extern_config_c2h_match_arg_13 = io_in_extern_config_c2h_match_arg_13; // @[TxPipeline.scala 20:9]
-  assign tx_chksum_generator_io_in_extern_config_c2h_match_arg_14 = io_in_extern_config_c2h_match_arg_14; // @[TxPipeline.scala 20:9]
-  assign tx_chksum_generator_io_in_extern_config_c2h_match_arg_15 = io_in_extern_config_c2h_match_arg_15; // @[TxPipeline.scala 20:9]
-  assign tx_chksum_generator_io_out_tready = tx_aes_encrypter_io_in_tready; // @[TxPipeline.scala 21:30]
+  assign tx_chksum_generator_io_in_tdata = tx_aes_encrypter_io_out_tdata; // @[TxPipeline.scala 21:27]
+  assign tx_chksum_generator_io_in_tvalid = tx_aes_encrypter_io_out_tvalid; // @[TxPipeline.scala 21:27]
+  assign tx_chksum_generator_io_in_tlast = tx_aes_encrypter_io_out_tlast; // @[TxPipeline.scala 21:27]
+  assign tx_chksum_generator_io_in_extern_config_c2h_match_op = tx_aes_encrypter_io_out_extern_config_c2h_match_op; // @[TxPipeline.scala 21:27]
+  assign tx_chksum_generator_io_out_tready = io_out_tready; // @[TxPipeline.scala 22:30]
 endmodule
 module TxBufferFifo(
   input          clock,
@@ -3835,25 +3697,11 @@ module TxHandler(
   output [31:0]  io_h2c_pack_counter,
   output [31:0]  io_h2c_err_counter,
   input  [15:0]  io_extern_config_c2h_match_op,
-  input  [31:0]  io_extern_config_c2h_match_arg_0,
-  input  [31:0]  io_extern_config_c2h_match_arg_1,
-  input  [31:0]  io_extern_config_c2h_match_arg_2,
-  input  [31:0]  io_extern_config_c2h_match_arg_3,
-  input  [31:0]  io_extern_config_c2h_match_arg_4,
-  input  [31:0]  io_extern_config_c2h_match_arg_5,
-  input  [31:0]  io_extern_config_c2h_match_arg_6,
-  input  [31:0]  io_extern_config_c2h_match_arg_7,
-  input  [31:0]  io_extern_config_c2h_match_arg_8,
-  input  [31:0]  io_extern_config_c2h_match_arg_9,
-  input  [31:0]  io_extern_config_c2h_match_arg_10,
-  input  [31:0]  io_extern_config_c2h_match_arg_11,
   input  [31:0]  io_extern_config_c2h_match_arg_12,
   input  [31:0]  io_extern_config_c2h_match_arg_13,
   input  [31:0]  io_extern_config_c2h_match_arg_14,
   input  [31:0]  io_extern_config_c2h_match_arg_15
 );
-  wire  tx_converter_clock; // @[TxHandler.scala 20:28]
-  wire  tx_converter_reset; // @[TxHandler.scala 20:28]
   wire [511:0] tx_converter_io_in_tdata; // @[TxHandler.scala 20:28]
   wire  tx_converter_io_in_tvalid; // @[TxHandler.scala 20:28]
   wire  tx_converter_io_in_tready; // @[TxHandler.scala 20:28]
@@ -3869,18 +3717,6 @@ module TxHandler(
   wire [31:0] tx_converter_io_out_extern_config_c2h_match_arg_14; // @[TxHandler.scala 20:28]
   wire [31:0] tx_converter_io_out_extern_config_c2h_match_arg_15; // @[TxHandler.scala 20:28]
   wire [15:0] tx_converter_io_extern_config_c2h_match_op; // @[TxHandler.scala 20:28]
-  wire [31:0] tx_converter_io_extern_config_c2h_match_arg_0; // @[TxHandler.scala 20:28]
-  wire [31:0] tx_converter_io_extern_config_c2h_match_arg_1; // @[TxHandler.scala 20:28]
-  wire [31:0] tx_converter_io_extern_config_c2h_match_arg_2; // @[TxHandler.scala 20:28]
-  wire [31:0] tx_converter_io_extern_config_c2h_match_arg_3; // @[TxHandler.scala 20:28]
-  wire [31:0] tx_converter_io_extern_config_c2h_match_arg_4; // @[TxHandler.scala 20:28]
-  wire [31:0] tx_converter_io_extern_config_c2h_match_arg_5; // @[TxHandler.scala 20:28]
-  wire [31:0] tx_converter_io_extern_config_c2h_match_arg_6; // @[TxHandler.scala 20:28]
-  wire [31:0] tx_converter_io_extern_config_c2h_match_arg_7; // @[TxHandler.scala 20:28]
-  wire [31:0] tx_converter_io_extern_config_c2h_match_arg_8; // @[TxHandler.scala 20:28]
-  wire [31:0] tx_converter_io_extern_config_c2h_match_arg_9; // @[TxHandler.scala 20:28]
-  wire [31:0] tx_converter_io_extern_config_c2h_match_arg_10; // @[TxHandler.scala 20:28]
-  wire [31:0] tx_converter_io_extern_config_c2h_match_arg_11; // @[TxHandler.scala 20:28]
   wire [31:0] tx_converter_io_extern_config_c2h_match_arg_12; // @[TxHandler.scala 20:28]
   wire [31:0] tx_converter_io_extern_config_c2h_match_arg_13; // @[TxHandler.scala 20:28]
   wire [31:0] tx_converter_io_extern_config_c2h_match_arg_14; // @[TxHandler.scala 20:28]
@@ -3920,8 +3756,6 @@ module TxHandler(
   wire [31:0] tx_buffer_fifo_io_h2c_pack_counter; // @[TxHandler.scala 27:30]
   wire [31:0] tx_buffer_fifo_io_h2c_err_counter; // @[TxHandler.scala 27:30]
   TxConverter tx_converter ( // @[TxHandler.scala 20:28]
-    .clock(tx_converter_clock),
-    .reset(tx_converter_reset),
     .io_in_tdata(tx_converter_io_in_tdata),
     .io_in_tvalid(tx_converter_io_in_tvalid),
     .io_in_tready(tx_converter_io_in_tready),
@@ -3937,18 +3771,6 @@ module TxHandler(
     .io_out_extern_config_c2h_match_arg_14(tx_converter_io_out_extern_config_c2h_match_arg_14),
     .io_out_extern_config_c2h_match_arg_15(tx_converter_io_out_extern_config_c2h_match_arg_15),
     .io_extern_config_c2h_match_op(tx_converter_io_extern_config_c2h_match_op),
-    .io_extern_config_c2h_match_arg_0(tx_converter_io_extern_config_c2h_match_arg_0),
-    .io_extern_config_c2h_match_arg_1(tx_converter_io_extern_config_c2h_match_arg_1),
-    .io_extern_config_c2h_match_arg_2(tx_converter_io_extern_config_c2h_match_arg_2),
-    .io_extern_config_c2h_match_arg_3(tx_converter_io_extern_config_c2h_match_arg_3),
-    .io_extern_config_c2h_match_arg_4(tx_converter_io_extern_config_c2h_match_arg_4),
-    .io_extern_config_c2h_match_arg_5(tx_converter_io_extern_config_c2h_match_arg_5),
-    .io_extern_config_c2h_match_arg_6(tx_converter_io_extern_config_c2h_match_arg_6),
-    .io_extern_config_c2h_match_arg_7(tx_converter_io_extern_config_c2h_match_arg_7),
-    .io_extern_config_c2h_match_arg_8(tx_converter_io_extern_config_c2h_match_arg_8),
-    .io_extern_config_c2h_match_arg_9(tx_converter_io_extern_config_c2h_match_arg_9),
-    .io_extern_config_c2h_match_arg_10(tx_converter_io_extern_config_c2h_match_arg_10),
-    .io_extern_config_c2h_match_arg_11(tx_converter_io_extern_config_c2h_match_arg_11),
     .io_extern_config_c2h_match_arg_12(tx_converter_io_extern_config_c2h_match_arg_12),
     .io_extern_config_c2h_match_arg_13(tx_converter_io_extern_config_c2h_match_arg_13),
     .io_extern_config_c2h_match_arg_14(tx_converter_io_extern_config_c2h_match_arg_14),
@@ -3998,26 +3820,12 @@ module TxHandler(
   assign io_CMAC_in_tlast = tx_buffer_fifo_io_out_tlast; // @[TxHandler.scala 29:35]
   assign io_h2c_pack_counter = tx_buffer_fifo_io_h2c_pack_counter; // @[TxHandler.scala 31:35]
   assign io_h2c_err_counter = tx_buffer_fifo_io_h2c_err_counter; // @[TxHandler.scala 32:35]
-  assign tx_converter_clock = clock;
-  assign tx_converter_reset = reset;
   assign tx_converter_io_in_tdata = io_QDMA_h2c_stub_out_tdata; // @[TxHandler.scala 21:32]
   assign tx_converter_io_in_tvalid = io_QDMA_h2c_stub_out_tvalid; // @[TxHandler.scala 21:32]
   assign tx_converter_io_in_tlast = io_QDMA_h2c_stub_out_tlast; // @[TxHandler.scala 21:32]
   assign tx_converter_io_in_tuser = io_QDMA_h2c_stub_out_tuser; // @[TxHandler.scala 21:32]
   assign tx_converter_io_out_tready = tx_pipeline_io_in_tready; // @[TxHandler.scala 25:23]
   assign tx_converter_io_extern_config_c2h_match_op = io_extern_config_c2h_match_op; // @[TxHandler.scala 22:33]
-  assign tx_converter_io_extern_config_c2h_match_arg_0 = io_extern_config_c2h_match_arg_0; // @[TxHandler.scala 22:33]
-  assign tx_converter_io_extern_config_c2h_match_arg_1 = io_extern_config_c2h_match_arg_1; // @[TxHandler.scala 22:33]
-  assign tx_converter_io_extern_config_c2h_match_arg_2 = io_extern_config_c2h_match_arg_2; // @[TxHandler.scala 22:33]
-  assign tx_converter_io_extern_config_c2h_match_arg_3 = io_extern_config_c2h_match_arg_3; // @[TxHandler.scala 22:33]
-  assign tx_converter_io_extern_config_c2h_match_arg_4 = io_extern_config_c2h_match_arg_4; // @[TxHandler.scala 22:33]
-  assign tx_converter_io_extern_config_c2h_match_arg_5 = io_extern_config_c2h_match_arg_5; // @[TxHandler.scala 22:33]
-  assign tx_converter_io_extern_config_c2h_match_arg_6 = io_extern_config_c2h_match_arg_6; // @[TxHandler.scala 22:33]
-  assign tx_converter_io_extern_config_c2h_match_arg_7 = io_extern_config_c2h_match_arg_7; // @[TxHandler.scala 22:33]
-  assign tx_converter_io_extern_config_c2h_match_arg_8 = io_extern_config_c2h_match_arg_8; // @[TxHandler.scala 22:33]
-  assign tx_converter_io_extern_config_c2h_match_arg_9 = io_extern_config_c2h_match_arg_9; // @[TxHandler.scala 22:33]
-  assign tx_converter_io_extern_config_c2h_match_arg_10 = io_extern_config_c2h_match_arg_10; // @[TxHandler.scala 22:33]
-  assign tx_converter_io_extern_config_c2h_match_arg_11 = io_extern_config_c2h_match_arg_11; // @[TxHandler.scala 22:33]
   assign tx_converter_io_extern_config_c2h_match_arg_12 = io_extern_config_c2h_match_arg_12; // @[TxHandler.scala 22:33]
   assign tx_converter_io_extern_config_c2h_match_arg_13 = io_extern_config_c2h_match_arg_13; // @[TxHandler.scala 22:33]
   assign tx_converter_io_extern_config_c2h_match_arg_14 = io_extern_config_c2h_match_arg_14; // @[TxHandler.scala 22:33]
@@ -4309,8 +4117,7 @@ module RxConverter(
   reg [607:0] _RAND_0;
   reg [31:0] _RAND_1;
   reg [31:0] _RAND_2;
-  reg [543:0] _RAND_3;
-  reg [31:0] _RAND_4;
+  reg [31:0] _RAND_3;
 `endif // RANDOMIZE_REG_INIT
   wire  burst_size_cal_clock; // @[RxConverter.scala 28:30]
   wire [7:0] burst_size_cal_io_in_vec_0; // @[RxConverter.scala 28:30]
@@ -4391,18 +4198,10 @@ module RxConverter(
   reg  in_reg_used_reg; // @[RxConverter.scala 19:32]
   wire  _GEN_2 = out_shake_hand ? 1'h0 : in_reg_used_reg; // @[RxConverter.scala 22:29 23:21 19:32]
   wire  _GEN_3 = in_shake_hand | _GEN_2; // @[RxConverter.scala 20:23 21:21]
-  wire [255:0] extern_config_reg_lo = {io_extern_config_c2h_match_arg_7,io_extern_config_c2h_match_arg_6,
-    io_extern_config_c2h_match_arg_5,io_extern_config_c2h_match_arg_4,io_extern_config_c2h_match_arg_3,
-    io_extern_config_c2h_match_arg_2,io_extern_config_c2h_match_arg_1,io_extern_config_c2h_match_arg_0}; // @[RxConverter.scala 25:54]
-  wire [527:0] _extern_config_reg_T = {io_extern_config_c2h_match_op,io_extern_config_c2h_match_arg_15,
-    io_extern_config_c2h_match_arg_14,io_extern_config_c2h_match_arg_13,io_extern_config_c2h_match_arg_12,
-    io_extern_config_c2h_match_arg_11,io_extern_config_c2h_match_arg_10,io_extern_config_c2h_match_arg_9,
-    io_extern_config_c2h_match_arg_8,extern_config_reg_lo}; // @[RxConverter.scala 25:54]
-  reg [527:0] extern_config_reg_r; // @[Reg.scala 28:20]
   wire [63:0] cal_tkeep = in_shake_hand ? io_in_tkeep : in_reg_tkeep; // @[RxConverter.scala 27:22]
   reg [15:0] tlen_reg; // @[RxConverter.scala 33:25]
-  wire [15:0] _GEN_7 = {{8'd0}, burst_size_cal_io_out_sum}; // @[RxConverter.scala 38:28]
-  wire [15:0] _tlen_reg_T_1 = tlen_reg + _GEN_7; // @[RxConverter.scala 38:28]
+  wire [15:0] _GEN_6 = {{8'd0}, burst_size_cal_io_out_sum}; // @[RxConverter.scala 38:28]
+  wire [15:0] _tlen_reg_T_1 = tlen_reg + _GEN_6; // @[RxConverter.scala 38:28]
   wire  keep_val_0 = in_reg_tkeep[0]; // @[RxConverter.scala 44:32]
   wire  keep_val_8 = in_reg_tkeep[1]; // @[RxConverter.scala 44:32]
   wire  keep_val_16 = in_reg_tkeep[2]; // @[RxConverter.scala 44:32]
@@ -4675,23 +4474,23 @@ module RxConverter(
   assign io_out_tlast = in_reg_r[0]; // @[RxConverter.scala 17:119]
   assign io_out_tuser = in_reg_r[578]; // @[RxConverter.scala 17:119]
   assign io_out_rx_info_tlen = first_beat_reg ? {{8'd0}, burst_size_cal_io_out_sum} : _tlen_reg_T_1; // @[RxConverter.scala 57:29]
-  assign io_out_extern_config_c2h_match_op = extern_config_reg_r[527:512]; // @[RxConverter.scala 25:104]
-  assign io_out_extern_config_c2h_match_arg_0 = extern_config_reg_r[31:0]; // @[RxConverter.scala 25:104]
-  assign io_out_extern_config_c2h_match_arg_1 = extern_config_reg_r[63:32]; // @[RxConverter.scala 25:104]
-  assign io_out_extern_config_c2h_match_arg_2 = extern_config_reg_r[95:64]; // @[RxConverter.scala 25:104]
-  assign io_out_extern_config_c2h_match_arg_3 = extern_config_reg_r[127:96]; // @[RxConverter.scala 25:104]
-  assign io_out_extern_config_c2h_match_arg_4 = extern_config_reg_r[159:128]; // @[RxConverter.scala 25:104]
-  assign io_out_extern_config_c2h_match_arg_5 = extern_config_reg_r[191:160]; // @[RxConverter.scala 25:104]
-  assign io_out_extern_config_c2h_match_arg_6 = extern_config_reg_r[223:192]; // @[RxConverter.scala 25:104]
-  assign io_out_extern_config_c2h_match_arg_7 = extern_config_reg_r[255:224]; // @[RxConverter.scala 25:104]
-  assign io_out_extern_config_c2h_match_arg_8 = extern_config_reg_r[287:256]; // @[RxConverter.scala 25:104]
-  assign io_out_extern_config_c2h_match_arg_9 = extern_config_reg_r[319:288]; // @[RxConverter.scala 25:104]
-  assign io_out_extern_config_c2h_match_arg_10 = extern_config_reg_r[351:320]; // @[RxConverter.scala 25:104]
-  assign io_out_extern_config_c2h_match_arg_11 = extern_config_reg_r[383:352]; // @[RxConverter.scala 25:104]
-  assign io_out_extern_config_c2h_match_arg_12 = extern_config_reg_r[415:384]; // @[RxConverter.scala 25:104]
-  assign io_out_extern_config_c2h_match_arg_13 = extern_config_reg_r[447:416]; // @[RxConverter.scala 25:104]
-  assign io_out_extern_config_c2h_match_arg_14 = extern_config_reg_r[479:448]; // @[RxConverter.scala 25:104]
-  assign io_out_extern_config_c2h_match_arg_15 = extern_config_reg_r[511:480]; // @[RxConverter.scala 25:104]
+  assign io_out_extern_config_c2h_match_op = io_extern_config_c2h_match_op; // @[RxConverter.scala 59:24]
+  assign io_out_extern_config_c2h_match_arg_0 = io_extern_config_c2h_match_arg_0; // @[RxConverter.scala 59:24]
+  assign io_out_extern_config_c2h_match_arg_1 = io_extern_config_c2h_match_arg_1; // @[RxConverter.scala 59:24]
+  assign io_out_extern_config_c2h_match_arg_2 = io_extern_config_c2h_match_arg_2; // @[RxConverter.scala 59:24]
+  assign io_out_extern_config_c2h_match_arg_3 = io_extern_config_c2h_match_arg_3; // @[RxConverter.scala 59:24]
+  assign io_out_extern_config_c2h_match_arg_4 = io_extern_config_c2h_match_arg_4; // @[RxConverter.scala 59:24]
+  assign io_out_extern_config_c2h_match_arg_5 = io_extern_config_c2h_match_arg_5; // @[RxConverter.scala 59:24]
+  assign io_out_extern_config_c2h_match_arg_6 = io_extern_config_c2h_match_arg_6; // @[RxConverter.scala 59:24]
+  assign io_out_extern_config_c2h_match_arg_7 = io_extern_config_c2h_match_arg_7; // @[RxConverter.scala 59:24]
+  assign io_out_extern_config_c2h_match_arg_8 = io_extern_config_c2h_match_arg_8; // @[RxConverter.scala 59:24]
+  assign io_out_extern_config_c2h_match_arg_9 = io_extern_config_c2h_match_arg_9; // @[RxConverter.scala 59:24]
+  assign io_out_extern_config_c2h_match_arg_10 = io_extern_config_c2h_match_arg_10; // @[RxConverter.scala 59:24]
+  assign io_out_extern_config_c2h_match_arg_11 = io_extern_config_c2h_match_arg_11; // @[RxConverter.scala 59:24]
+  assign io_out_extern_config_c2h_match_arg_12 = io_extern_config_c2h_match_arg_12; // @[RxConverter.scala 59:24]
+  assign io_out_extern_config_c2h_match_arg_13 = io_extern_config_c2h_match_arg_13; // @[RxConverter.scala 59:24]
+  assign io_out_extern_config_c2h_match_arg_14 = io_extern_config_c2h_match_arg_14; // @[RxConverter.scala 59:24]
+  assign io_out_extern_config_c2h_match_arg_15 = io_extern_config_c2h_match_arg_15; // @[RxConverter.scala 59:24]
   assign burst_size_cal_clock = clock;
   assign burst_size_cal_io_in_vec_0 = {{7'd0}, cal_tkeep[0]}; // @[RxConverter.scala 29:53]
   assign burst_size_cal_io_in_vec_1 = {{7'd0}, cal_tkeep[1]}; // @[RxConverter.scala 29:53]
@@ -4769,11 +4568,6 @@ module RxConverter(
     end else begin
       in_reg_used_reg <= _GEN_3;
     end
-    if (reset) begin // @[Reg.scala 28:20]
-      extern_config_reg_r <= 528'h0; // @[Reg.scala 28:20]
-    end else if (out_shake_hand) begin // @[Reg.scala 29:18]
-      extern_config_reg_r <= _extern_config_reg_T; // @[Reg.scala 29:22]
-    end
     if (reset) begin // @[RxConverter.scala 33:25]
       tlen_reg <= 16'h0; // @[RxConverter.scala 33:25]
     end else if (in_shake_hand) begin // @[RxConverter.scala 34:24]
@@ -4826,10 +4620,8 @@ initial begin
   first_beat_reg = _RAND_1[0:0];
   _RAND_2 = {1{`RANDOM}};
   in_reg_used_reg = _RAND_2[0:0];
-  _RAND_3 = {17{`RANDOM}};
-  extern_config_reg_r = _RAND_3[527:0];
-  _RAND_4 = {1{`RANDOM}};
-  tlen_reg = _RAND_4[15:0];
+  _RAND_3 = {1{`RANDOM}};
+  tlen_reg = _RAND_3[15:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -4847,6 +4639,9 @@ module RxAESDecrypter(
   input          io_in_tlast,
   input          io_in_tuser,
   input  [15:0]  io_in_rx_info_tlen,
+  input  [5:0]   io_in_rx_info_qid,
+  input  [31:0]  io_in_rx_info_ip_chksum,
+  input  [31:0]  io_in_rx_info_tcp_chksum,
   input  [15:0]  io_in_extern_config_c2h_match_op,
   input  [31:0]  io_in_extern_config_c2h_match_arg_0,
   input  [31:0]  io_in_extern_config_c2h_match_arg_1,
@@ -4911,7 +4706,8 @@ module RxAESDecrypter(
 `endif // RANDOMIZE_REG_INIT
   wire  in_shake_hand = io_in_tready & io_in_tvalid; // @[RxPipelineHandler.scala 12:38]
   wire  out_shake_hand = io_out_tready & io_out_tvalid; // @[RxPipelineHandler.scala 13:38]
-  wire [600:0] _in_reg_T_1 = {io_in_rx_info_tlen,6'h0,64'h0,io_in_tuser,io_in_tdata,io_in_tvalid,io_in_tlast}; // @[Cat.scala 31:58]
+  wire [600:0] _in_reg_T_1 = {io_in_rx_info_tlen,io_in_rx_info_qid,io_in_rx_info_ip_chksum,io_in_rx_info_tcp_chksum,
+    io_in_tuser,io_in_tdata,io_in_tvalid,io_in_tlast}; // @[Cat.scala 31:58]
   reg [600:0] in_reg_r; // @[Reg.scala 28:20]
   wire  in_reg_tlast = in_reg_r[0]; // @[RxPipelineHandler.scala 14:128]
   wire  in_reg_tvalid = in_reg_r[1]; // @[RxPipelineHandler.scala 14:128]
@@ -7723,131 +7519,113 @@ module RxAESDecrypter(
     tmp_result_3_trans_tdata_60,tmp_result_3_trans_tdata_59,tmp_result_3_trans_tdata_58,tmp_result_3_trans_tdata_57,
     tmp_result_3_trans_tdata_56,tmp_result_3_hi_hi_lo,tmp_result_3_hi_lo}; // @[RxAESDecrypter.scala 36:21]
   wire [511:0] tmp_result_3 = {tmp_result_3_hi,tmp_result_3_lo}; // @[RxAESDecrypter.scala 36:21]
-  wire [511:0] _GEN_1039 = in_shake_hand ? io_in_tdata : tmp_tdata_reg; // @[RxAESDecrypter.scala 62:25 63:23 41:28]
-  wire [7:0] _aes_key_reg_T_1 = cur_round_counter - 8'h1; // @[RxAESDecrypter.scala 75:94]
-  wire [127:0] _GEN_1041 = 4'h1 == _aes_key_reg_T_1[3:0] ? aes_key_reg_1 : aes_key_reg_0; // @[cal_gf256.scala 134:{27,27}]
-  wire [127:0] _GEN_1042 = 4'h2 == _aes_key_reg_T_1[3:0] ? aes_key_reg_2 : _GEN_1041; // @[cal_gf256.scala 134:{27,27}]
-  wire [127:0] _GEN_1043 = 4'h3 == _aes_key_reg_T_1[3:0] ? aes_key_reg_3 : _GEN_1042; // @[cal_gf256.scala 134:{27,27}]
-  wire [127:0] _GEN_1044 = 4'h4 == _aes_key_reg_T_1[3:0] ? aes_key_reg_4 : _GEN_1043; // @[cal_gf256.scala 134:{27,27}]
-  wire [127:0] _GEN_1045 = 4'h5 == _aes_key_reg_T_1[3:0] ? aes_key_reg_5 : _GEN_1044; // @[cal_gf256.scala 134:{27,27}]
-  wire [127:0] _GEN_1046 = 4'h6 == _aes_key_reg_T_1[3:0] ? aes_key_reg_6 : _GEN_1045; // @[cal_gf256.scala 134:{27,27}]
-  wire [127:0] _GEN_1047 = 4'h7 == _aes_key_reg_T_1[3:0] ? aes_key_reg_7 : _GEN_1046; // @[cal_gf256.scala 134:{27,27}]
-  wire [127:0] _GEN_1048 = 4'h8 == _aes_key_reg_T_1[3:0] ? aes_key_reg_8 : _GEN_1047; // @[cal_gf256.scala 134:{27,27}]
-  wire [127:0] _GEN_1049 = 4'h9 == _aes_key_reg_T_1[3:0] ? aes_key_reg_9 : _GEN_1048; // @[cal_gf256.scala 134:{27,27}]
-  wire [127:0] _GEN_1050 = 4'ha == _aes_key_reg_T_1[3:0] ? aes_key_reg_10 : _GEN_1049; // @[cal_gf256.scala 134:{27,27}]
-  wire [6:0] _aes_key_reg_next_key_0_T_3 = {_GEN_1050[99:96], 3'h0}; // @[cal_gf256.scala 27:25]
-  wire [127:0] _GEN_1052 = 4'h1 == _GEN_1050[103:100] ? 128'hc072a49cafa2d4adf04759fa7dc982ca : 128'h76abd7fe2b670130c56f6bf27b777c63
+  wire [127:0] _GEN_1039 = reset ? 128'h0 : aes_key_reg_0; // @[RxAESDecrypter.scala 62:24 63:24 9:26]
+  wire  _T_3 = cur_round_counter < 8'h33; // @[RxAESDecrypter.scala 74:34]
+  wire [7:0] _cur_round_counter_T_1 = cur_round_counter + 8'h1; // @[RxAESDecrypter.scala 75:48]
+  wire [7:0] _aes_key_reg_T_1 = cur_round_counter - 8'h1; // @[RxAESDecrypter.scala 77:90]
+  wire [127:0] _GEN_1045 = 4'h1 == _aes_key_reg_T_1[3:0] ? aes_key_reg_1 : aes_key_reg_0; // @[cal_gf256.scala 134:{27,27}]
+  wire [127:0] _GEN_1046 = 4'h2 == _aes_key_reg_T_1[3:0] ? aes_key_reg_2 : _GEN_1045; // @[cal_gf256.scala 134:{27,27}]
+  wire [127:0] _GEN_1047 = 4'h3 == _aes_key_reg_T_1[3:0] ? aes_key_reg_3 : _GEN_1046; // @[cal_gf256.scala 134:{27,27}]
+  wire [127:0] _GEN_1048 = 4'h4 == _aes_key_reg_T_1[3:0] ? aes_key_reg_4 : _GEN_1047; // @[cal_gf256.scala 134:{27,27}]
+  wire [127:0] _GEN_1049 = 4'h5 == _aes_key_reg_T_1[3:0] ? aes_key_reg_5 : _GEN_1048; // @[cal_gf256.scala 134:{27,27}]
+  wire [127:0] _GEN_1050 = 4'h6 == _aes_key_reg_T_1[3:0] ? aes_key_reg_6 : _GEN_1049; // @[cal_gf256.scala 134:{27,27}]
+  wire [127:0] _GEN_1051 = 4'h7 == _aes_key_reg_T_1[3:0] ? aes_key_reg_7 : _GEN_1050; // @[cal_gf256.scala 134:{27,27}]
+  wire [127:0] _GEN_1052 = 4'h8 == _aes_key_reg_T_1[3:0] ? aes_key_reg_8 : _GEN_1051; // @[cal_gf256.scala 134:{27,27}]
+  wire [127:0] _GEN_1053 = 4'h9 == _aes_key_reg_T_1[3:0] ? aes_key_reg_9 : _GEN_1052; // @[cal_gf256.scala 134:{27,27}]
+  wire [127:0] _GEN_1054 = 4'ha == _aes_key_reg_T_1[3:0] ? aes_key_reg_10 : _GEN_1053; // @[cal_gf256.scala 134:{27,27}]
+  wire [6:0] _aes_key_reg_next_key_0_T_3 = {_GEN_1054[99:96], 3'h0}; // @[cal_gf256.scala 27:25]
+  wire [127:0] _GEN_1056 = 4'h1 == _GEN_1054[103:100] ? 128'hc072a49cafa2d4adf04759fa7dc982ca : 128'h76abd7fe2b670130c56f6bf27b777c63
     ; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1053 = 4'h2 == _GEN_1050[103:100] ? 128'h1531d871f1e5a534ccf73f362693fdb7 : _GEN_1052; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1054 = 4'h3 == _GEN_1050[103:100] ? 128'h75b227ebe28012079a059618c323c704 : _GEN_1053; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1055 = 4'h4 == _GEN_1050[103:100] ? 128'h842fe329b3d63b52a05a6e1b1a2c8309 : _GEN_1054; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1056 = 4'h5 == _GEN_1050[103:100] ? 128'hcf584c4a39becb6a5bb1fc20ed00d153 : _GEN_1055; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1057 = 4'h6 == _GEN_1050[103:100] ? 128'ha89f3c507f02f94585334d43fbaaefd0 : _GEN_1056; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1058 = 4'h7 == _GEN_1050[103:100] ? 128'hd2f3ff1021dab6bcf5389d928f40a351 : _GEN_1057; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1059 = 4'h8 == _GEN_1050[103:100] ? 128'h73195d643d7ea7c41744975fec130ccd : _GEN_1058; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1060 = 4'h9 == _GEN_1050[103:100] ? 128'hdb0b5ede14b8ee4688902a22dc4f8160 : _GEN_1059; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1061 = 4'ha == _GEN_1050[103:100] ? 128'h79e4959162acd3c25c2406490a3a32e0 : _GEN_1060; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1062 = 4'hb == _GEN_1050[103:100] ? 128'h8ae7a65eaf4566ca94ed58d6d37c8e7 : _GEN_1061; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1063 = 4'hc == _GEN_1050[103:100] ? 128'h8a8bbd4b1f74dde8c6b4a61c2e2578ba : _GEN_1062; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1064 = 4'hd == _GEN_1050[103:100] ? 128'h9e1dc186b95735610ef6034866b53e70 : _GEN_1063; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1065 = 4'he == _GEN_1050[103:100] ? 128'hdf2855cee9871e9b948ed9691198f8e1 : _GEN_1064; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1066 = 4'hf == _GEN_1050[103:100] ? 128'h16bb54b00f2d99416842e6bf0d89a18c : _GEN_1065; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _aes_key_reg_next_key_0_T_4 = _GEN_1066 >> _aes_key_reg_next_key_0_T_3; // @[cal_gf256.scala 27:17]
-  wire [6:0] _aes_key_reg_next_key_0_T_8 = {_GEN_1050[123:120], 3'h0}; // @[cal_gf256.scala 27:25]
-  wire [127:0] _GEN_1068 = 4'h1 == _GEN_1050[127:124] ? 128'hc072a49cafa2d4adf04759fa7dc982ca : 128'h76abd7fe2b670130c56f6bf27b777c63
+  wire [127:0] _GEN_1057 = 4'h2 == _GEN_1054[103:100] ? 128'h1531d871f1e5a534ccf73f362693fdb7 : _GEN_1056; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1058 = 4'h3 == _GEN_1054[103:100] ? 128'h75b227ebe28012079a059618c323c704 : _GEN_1057; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1059 = 4'h4 == _GEN_1054[103:100] ? 128'h842fe329b3d63b52a05a6e1b1a2c8309 : _GEN_1058; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1060 = 4'h5 == _GEN_1054[103:100] ? 128'hcf584c4a39becb6a5bb1fc20ed00d153 : _GEN_1059; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1061 = 4'h6 == _GEN_1054[103:100] ? 128'ha89f3c507f02f94585334d43fbaaefd0 : _GEN_1060; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1062 = 4'h7 == _GEN_1054[103:100] ? 128'hd2f3ff1021dab6bcf5389d928f40a351 : _GEN_1061; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1063 = 4'h8 == _GEN_1054[103:100] ? 128'h73195d643d7ea7c41744975fec130ccd : _GEN_1062; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1064 = 4'h9 == _GEN_1054[103:100] ? 128'hdb0b5ede14b8ee4688902a22dc4f8160 : _GEN_1063; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1065 = 4'ha == _GEN_1054[103:100] ? 128'h79e4959162acd3c25c2406490a3a32e0 : _GEN_1064; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1066 = 4'hb == _GEN_1054[103:100] ? 128'h8ae7a65eaf4566ca94ed58d6d37c8e7 : _GEN_1065; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1067 = 4'hc == _GEN_1054[103:100] ? 128'h8a8bbd4b1f74dde8c6b4a61c2e2578ba : _GEN_1066; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1068 = 4'hd == _GEN_1054[103:100] ? 128'h9e1dc186b95735610ef6034866b53e70 : _GEN_1067; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1069 = 4'he == _GEN_1054[103:100] ? 128'hdf2855cee9871e9b948ed9691198f8e1 : _GEN_1068; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1070 = 4'hf == _GEN_1054[103:100] ? 128'h16bb54b00f2d99416842e6bf0d89a18c : _GEN_1069; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _aes_key_reg_next_key_0_T_4 = _GEN_1070 >> _aes_key_reg_next_key_0_T_3; // @[cal_gf256.scala 27:17]
+  wire [6:0] _aes_key_reg_next_key_0_T_8 = {_GEN_1054[123:120], 3'h0}; // @[cal_gf256.scala 27:25]
+  wire [127:0] _GEN_1072 = 4'h1 == _GEN_1054[127:124] ? 128'hc072a49cafa2d4adf04759fa7dc982ca : 128'h76abd7fe2b670130c56f6bf27b777c63
     ; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1069 = 4'h2 == _GEN_1050[127:124] ? 128'h1531d871f1e5a534ccf73f362693fdb7 : _GEN_1068; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1070 = 4'h3 == _GEN_1050[127:124] ? 128'h75b227ebe28012079a059618c323c704 : _GEN_1069; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1071 = 4'h4 == _GEN_1050[127:124] ? 128'h842fe329b3d63b52a05a6e1b1a2c8309 : _GEN_1070; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1072 = 4'h5 == _GEN_1050[127:124] ? 128'hcf584c4a39becb6a5bb1fc20ed00d153 : _GEN_1071; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1073 = 4'h6 == _GEN_1050[127:124] ? 128'ha89f3c507f02f94585334d43fbaaefd0 : _GEN_1072; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1074 = 4'h7 == _GEN_1050[127:124] ? 128'hd2f3ff1021dab6bcf5389d928f40a351 : _GEN_1073; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1075 = 4'h8 == _GEN_1050[127:124] ? 128'h73195d643d7ea7c41744975fec130ccd : _GEN_1074; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1076 = 4'h9 == _GEN_1050[127:124] ? 128'hdb0b5ede14b8ee4688902a22dc4f8160 : _GEN_1075; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1077 = 4'ha == _GEN_1050[127:124] ? 128'h79e4959162acd3c25c2406490a3a32e0 : _GEN_1076; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1078 = 4'hb == _GEN_1050[127:124] ? 128'h8ae7a65eaf4566ca94ed58d6d37c8e7 : _GEN_1077; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1079 = 4'hc == _GEN_1050[127:124] ? 128'h8a8bbd4b1f74dde8c6b4a61c2e2578ba : _GEN_1078; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1080 = 4'hd == _GEN_1050[127:124] ? 128'h9e1dc186b95735610ef6034866b53e70 : _GEN_1079; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1081 = 4'he == _GEN_1050[127:124] ? 128'hdf2855cee9871e9b948ed9691198f8e1 : _GEN_1080; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1082 = 4'hf == _GEN_1050[127:124] ? 128'h16bb54b00f2d99416842e6bf0d89a18c : _GEN_1081; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _aes_key_reg_next_key_0_T_9 = _GEN_1082 >> _aes_key_reg_next_key_0_T_8; // @[cal_gf256.scala 27:17]
-  wire [6:0] _aes_key_reg_next_key_0_T_13 = {_GEN_1050[115:112], 3'h0}; // @[cal_gf256.scala 27:25]
-  wire [127:0] _GEN_1084 = 4'h1 == _GEN_1050[119:116] ? 128'hc072a49cafa2d4adf04759fa7dc982ca : 128'h76abd7fe2b670130c56f6bf27b777c63
+  wire [127:0] _GEN_1073 = 4'h2 == _GEN_1054[127:124] ? 128'h1531d871f1e5a534ccf73f362693fdb7 : _GEN_1072; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1074 = 4'h3 == _GEN_1054[127:124] ? 128'h75b227ebe28012079a059618c323c704 : _GEN_1073; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1075 = 4'h4 == _GEN_1054[127:124] ? 128'h842fe329b3d63b52a05a6e1b1a2c8309 : _GEN_1074; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1076 = 4'h5 == _GEN_1054[127:124] ? 128'hcf584c4a39becb6a5bb1fc20ed00d153 : _GEN_1075; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1077 = 4'h6 == _GEN_1054[127:124] ? 128'ha89f3c507f02f94585334d43fbaaefd0 : _GEN_1076; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1078 = 4'h7 == _GEN_1054[127:124] ? 128'hd2f3ff1021dab6bcf5389d928f40a351 : _GEN_1077; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1079 = 4'h8 == _GEN_1054[127:124] ? 128'h73195d643d7ea7c41744975fec130ccd : _GEN_1078; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1080 = 4'h9 == _GEN_1054[127:124] ? 128'hdb0b5ede14b8ee4688902a22dc4f8160 : _GEN_1079; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1081 = 4'ha == _GEN_1054[127:124] ? 128'h79e4959162acd3c25c2406490a3a32e0 : _GEN_1080; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1082 = 4'hb == _GEN_1054[127:124] ? 128'h8ae7a65eaf4566ca94ed58d6d37c8e7 : _GEN_1081; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1083 = 4'hc == _GEN_1054[127:124] ? 128'h8a8bbd4b1f74dde8c6b4a61c2e2578ba : _GEN_1082; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1084 = 4'hd == _GEN_1054[127:124] ? 128'h9e1dc186b95735610ef6034866b53e70 : _GEN_1083; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1085 = 4'he == _GEN_1054[127:124] ? 128'hdf2855cee9871e9b948ed9691198f8e1 : _GEN_1084; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1086 = 4'hf == _GEN_1054[127:124] ? 128'h16bb54b00f2d99416842e6bf0d89a18c : _GEN_1085; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _aes_key_reg_next_key_0_T_9 = _GEN_1086 >> _aes_key_reg_next_key_0_T_8; // @[cal_gf256.scala 27:17]
+  wire [6:0] _aes_key_reg_next_key_0_T_13 = {_GEN_1054[115:112], 3'h0}; // @[cal_gf256.scala 27:25]
+  wire [127:0] _GEN_1088 = 4'h1 == _GEN_1054[119:116] ? 128'hc072a49cafa2d4adf04759fa7dc982ca : 128'h76abd7fe2b670130c56f6bf27b777c63
     ; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1085 = 4'h2 == _GEN_1050[119:116] ? 128'h1531d871f1e5a534ccf73f362693fdb7 : _GEN_1084; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1086 = 4'h3 == _GEN_1050[119:116] ? 128'h75b227ebe28012079a059618c323c704 : _GEN_1085; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1087 = 4'h4 == _GEN_1050[119:116] ? 128'h842fe329b3d63b52a05a6e1b1a2c8309 : _GEN_1086; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1088 = 4'h5 == _GEN_1050[119:116] ? 128'hcf584c4a39becb6a5bb1fc20ed00d153 : _GEN_1087; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1089 = 4'h6 == _GEN_1050[119:116] ? 128'ha89f3c507f02f94585334d43fbaaefd0 : _GEN_1088; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1090 = 4'h7 == _GEN_1050[119:116] ? 128'hd2f3ff1021dab6bcf5389d928f40a351 : _GEN_1089; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1091 = 4'h8 == _GEN_1050[119:116] ? 128'h73195d643d7ea7c41744975fec130ccd : _GEN_1090; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1092 = 4'h9 == _GEN_1050[119:116] ? 128'hdb0b5ede14b8ee4688902a22dc4f8160 : _GEN_1091; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1093 = 4'ha == _GEN_1050[119:116] ? 128'h79e4959162acd3c25c2406490a3a32e0 : _GEN_1092; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1094 = 4'hb == _GEN_1050[119:116] ? 128'h8ae7a65eaf4566ca94ed58d6d37c8e7 : _GEN_1093; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1095 = 4'hc == _GEN_1050[119:116] ? 128'h8a8bbd4b1f74dde8c6b4a61c2e2578ba : _GEN_1094; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1096 = 4'hd == _GEN_1050[119:116] ? 128'h9e1dc186b95735610ef6034866b53e70 : _GEN_1095; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1097 = 4'he == _GEN_1050[119:116] ? 128'hdf2855cee9871e9b948ed9691198f8e1 : _GEN_1096; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1098 = 4'hf == _GEN_1050[119:116] ? 128'h16bb54b00f2d99416842e6bf0d89a18c : _GEN_1097; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _aes_key_reg_next_key_0_T_14 = _GEN_1098 >> _aes_key_reg_next_key_0_T_13; // @[cal_gf256.scala 27:17]
-  wire [6:0] _aes_key_reg_next_key_0_T_18 = {_GEN_1050[107:104], 3'h0}; // @[cal_gf256.scala 27:25]
-  wire [127:0] _GEN_1100 = 4'h1 == _GEN_1050[111:108] ? 128'hc072a49cafa2d4adf04759fa7dc982ca : 128'h76abd7fe2b670130c56f6bf27b777c63
+  wire [127:0] _GEN_1089 = 4'h2 == _GEN_1054[119:116] ? 128'h1531d871f1e5a534ccf73f362693fdb7 : _GEN_1088; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1090 = 4'h3 == _GEN_1054[119:116] ? 128'h75b227ebe28012079a059618c323c704 : _GEN_1089; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1091 = 4'h4 == _GEN_1054[119:116] ? 128'h842fe329b3d63b52a05a6e1b1a2c8309 : _GEN_1090; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1092 = 4'h5 == _GEN_1054[119:116] ? 128'hcf584c4a39becb6a5bb1fc20ed00d153 : _GEN_1091; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1093 = 4'h6 == _GEN_1054[119:116] ? 128'ha89f3c507f02f94585334d43fbaaefd0 : _GEN_1092; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1094 = 4'h7 == _GEN_1054[119:116] ? 128'hd2f3ff1021dab6bcf5389d928f40a351 : _GEN_1093; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1095 = 4'h8 == _GEN_1054[119:116] ? 128'h73195d643d7ea7c41744975fec130ccd : _GEN_1094; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1096 = 4'h9 == _GEN_1054[119:116] ? 128'hdb0b5ede14b8ee4688902a22dc4f8160 : _GEN_1095; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1097 = 4'ha == _GEN_1054[119:116] ? 128'h79e4959162acd3c25c2406490a3a32e0 : _GEN_1096; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1098 = 4'hb == _GEN_1054[119:116] ? 128'h8ae7a65eaf4566ca94ed58d6d37c8e7 : _GEN_1097; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1099 = 4'hc == _GEN_1054[119:116] ? 128'h8a8bbd4b1f74dde8c6b4a61c2e2578ba : _GEN_1098; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1100 = 4'hd == _GEN_1054[119:116] ? 128'h9e1dc186b95735610ef6034866b53e70 : _GEN_1099; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1101 = 4'he == _GEN_1054[119:116] ? 128'hdf2855cee9871e9b948ed9691198f8e1 : _GEN_1100; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1102 = 4'hf == _GEN_1054[119:116] ? 128'h16bb54b00f2d99416842e6bf0d89a18c : _GEN_1101; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _aes_key_reg_next_key_0_T_14 = _GEN_1102 >> _aes_key_reg_next_key_0_T_13; // @[cal_gf256.scala 27:17]
+  wire [6:0] _aes_key_reg_next_key_0_T_18 = {_GEN_1054[107:104], 3'h0}; // @[cal_gf256.scala 27:25]
+  wire [127:0] _GEN_1104 = 4'h1 == _GEN_1054[111:108] ? 128'hc072a49cafa2d4adf04759fa7dc982ca : 128'h76abd7fe2b670130c56f6bf27b777c63
     ; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1101 = 4'h2 == _GEN_1050[111:108] ? 128'h1531d871f1e5a534ccf73f362693fdb7 : _GEN_1100; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1102 = 4'h3 == _GEN_1050[111:108] ? 128'h75b227ebe28012079a059618c323c704 : _GEN_1101; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1103 = 4'h4 == _GEN_1050[111:108] ? 128'h842fe329b3d63b52a05a6e1b1a2c8309 : _GEN_1102; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1104 = 4'h5 == _GEN_1050[111:108] ? 128'hcf584c4a39becb6a5bb1fc20ed00d153 : _GEN_1103; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1105 = 4'h6 == _GEN_1050[111:108] ? 128'ha89f3c507f02f94585334d43fbaaefd0 : _GEN_1104; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1106 = 4'h7 == _GEN_1050[111:108] ? 128'hd2f3ff1021dab6bcf5389d928f40a351 : _GEN_1105; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1107 = 4'h8 == _GEN_1050[111:108] ? 128'h73195d643d7ea7c41744975fec130ccd : _GEN_1106; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1108 = 4'h9 == _GEN_1050[111:108] ? 128'hdb0b5ede14b8ee4688902a22dc4f8160 : _GEN_1107; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1109 = 4'ha == _GEN_1050[111:108] ? 128'h79e4959162acd3c25c2406490a3a32e0 : _GEN_1108; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1110 = 4'hb == _GEN_1050[111:108] ? 128'h8ae7a65eaf4566ca94ed58d6d37c8e7 : _GEN_1109; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1111 = 4'hc == _GEN_1050[111:108] ? 128'h8a8bbd4b1f74dde8c6b4a61c2e2578ba : _GEN_1110; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1112 = 4'hd == _GEN_1050[111:108] ? 128'h9e1dc186b95735610ef6034866b53e70 : _GEN_1111; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1113 = 4'he == _GEN_1050[111:108] ? 128'hdf2855cee9871e9b948ed9691198f8e1 : _GEN_1112; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _GEN_1114 = 4'hf == _GEN_1050[111:108] ? 128'h16bb54b00f2d99416842e6bf0d89a18c : _GEN_1113; // @[cal_gf256.scala 27:{17,17}]
-  wire [127:0] _aes_key_reg_next_key_0_T_19 = _GEN_1114 >> _aes_key_reg_next_key_0_T_18; // @[cal_gf256.scala 27:17]
+  wire [127:0] _GEN_1105 = 4'h2 == _GEN_1054[111:108] ? 128'h1531d871f1e5a534ccf73f362693fdb7 : _GEN_1104; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1106 = 4'h3 == _GEN_1054[111:108] ? 128'h75b227ebe28012079a059618c323c704 : _GEN_1105; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1107 = 4'h4 == _GEN_1054[111:108] ? 128'h842fe329b3d63b52a05a6e1b1a2c8309 : _GEN_1106; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1108 = 4'h5 == _GEN_1054[111:108] ? 128'hcf584c4a39becb6a5bb1fc20ed00d153 : _GEN_1107; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1109 = 4'h6 == _GEN_1054[111:108] ? 128'ha89f3c507f02f94585334d43fbaaefd0 : _GEN_1108; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1110 = 4'h7 == _GEN_1054[111:108] ? 128'hd2f3ff1021dab6bcf5389d928f40a351 : _GEN_1109; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1111 = 4'h8 == _GEN_1054[111:108] ? 128'h73195d643d7ea7c41744975fec130ccd : _GEN_1110; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1112 = 4'h9 == _GEN_1054[111:108] ? 128'hdb0b5ede14b8ee4688902a22dc4f8160 : _GEN_1111; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1113 = 4'ha == _GEN_1054[111:108] ? 128'h79e4959162acd3c25c2406490a3a32e0 : _GEN_1112; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1114 = 4'hb == _GEN_1054[111:108] ? 128'h8ae7a65eaf4566ca94ed58d6d37c8e7 : _GEN_1113; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1115 = 4'hc == _GEN_1054[111:108] ? 128'h8a8bbd4b1f74dde8c6b4a61c2e2578ba : _GEN_1114; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1116 = 4'hd == _GEN_1054[111:108] ? 128'h9e1dc186b95735610ef6034866b53e70 : _GEN_1115; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1117 = 4'he == _GEN_1054[111:108] ? 128'hdf2855cee9871e9b948ed9691198f8e1 : _GEN_1116; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _GEN_1118 = 4'hf == _GEN_1054[111:108] ? 128'h16bb54b00f2d99416842e6bf0d89a18c : _GEN_1117; // @[cal_gf256.scala 27:{17,17}]
+  wire [127:0] _aes_key_reg_next_key_0_T_19 = _GEN_1118 >> _aes_key_reg_next_key_0_T_18; // @[cal_gf256.scala 27:17]
   wire [31:0] _aes_key_reg_next_key_0_T_21 = {_aes_key_reg_next_key_0_T_4[7:0],_aes_key_reg_next_key_0_T_9[7:0],
     _aes_key_reg_next_key_0_T_14[7:0],_aes_key_reg_next_key_0_T_19[7:0]}; // @[Cat.scala 31:58]
-  wire [31:0] _aes_key_reg_next_key_0_T_22 = _GEN_1050[31:0] ^ _aes_key_reg_next_key_0_T_21; // @[cal_gf256.scala 134:34]
+  wire [31:0] _aes_key_reg_next_key_0_T_22 = _GEN_1054[31:0] ^ _aes_key_reg_next_key_0_T_21; // @[cal_gf256.scala 134:34]
   wire [255:0] _aes_key_reg_next_key_0_T_26 = 256'h1 << _aes_key_reg_T_1; // @[cal_gf256.scala 130:23]
   wire [5:0] _aes_key_reg_next_key_0_T_28 = cur_round_counter == 8'h9 ? 6'h1b : 6'h36; // @[cal_gf256.scala 130:47]
   wire [255:0] _aes_key_reg_next_key_0_T_29 = cur_round_counter <= 8'h8 ? _aes_key_reg_next_key_0_T_26 : {{250'd0},
     _aes_key_reg_next_key_0_T_28}; // @[cal_gf256.scala 130:8]
-  wire [255:0] _GEN_1190 = {{224'd0}, _aes_key_reg_next_key_0_T_22}; // @[cal_gf256.scala 139:9]
-  wire [255:0] _aes_key_reg_next_key_0_T_30 = _GEN_1190 ^ _aes_key_reg_next_key_0_T_29; // @[cal_gf256.scala 139:9]
+  wire [255:0] _GEN_1176 = {{224'd0}, _aes_key_reg_next_key_0_T_22}; // @[cal_gf256.scala 139:9]
+  wire [255:0] _aes_key_reg_next_key_0_T_30 = _GEN_1176 ^ _aes_key_reg_next_key_0_T_29; // @[cal_gf256.scala 139:9]
   wire [31:0] aes_key_reg_next_key_0 = _aes_key_reg_next_key_0_T_30[31:0]; // @[cal_gf256.scala 133:24 134:17]
-  wire [31:0] aes_key_reg_next_key_1 = _GEN_1050[63:32] ^ aes_key_reg_next_key_0; // @[cal_gf256.scala 140:35]
-  wire [31:0] aes_key_reg_next_key_2 = _GEN_1050[95:64] ^ aes_key_reg_next_key_1; // @[cal_gf256.scala 141:35]
-  wire [31:0] aes_key_reg_next_key_3 = _GEN_1050[127:96] ^ aes_key_reg_next_key_2; // @[cal_gf256.scala 142:36]
+  wire [31:0] aes_key_reg_next_key_1 = _GEN_1054[63:32] ^ aes_key_reg_next_key_0; // @[cal_gf256.scala 140:35]
+  wire [31:0] aes_key_reg_next_key_2 = _GEN_1054[95:64] ^ aes_key_reg_next_key_1; // @[cal_gf256.scala 141:35]
+  wire [31:0] aes_key_reg_next_key_3 = _GEN_1054[127:96] ^ aes_key_reg_next_key_2; // @[cal_gf256.scala 142:36]
   wire [127:0] _aes_key_reg_T_3 = {aes_key_reg_next_key_3,aes_key_reg_next_key_2,aes_key_reg_next_key_1,
     aes_key_reg_next_key_0}; // @[cal_gf256.scala 143:14]
-  wire [127:0] _GEN_1115 = 4'h0 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_0; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
-  wire [127:0] _GEN_1116 = 4'h1 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_1; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
-  wire [127:0] _GEN_1117 = 4'h2 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_2; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
-  wire [127:0] _GEN_1118 = 4'h3 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_3; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
-  wire [127:0] _GEN_1119 = 4'h4 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_4; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
-  wire [127:0] _GEN_1120 = 4'h5 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_5; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
-  wire [127:0] _GEN_1121 = 4'h6 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_6; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
-  wire [127:0] _GEN_1122 = 4'h7 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_7; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
-  wire [127:0] _GEN_1123 = 4'h8 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_8; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
-  wire [127:0] _GEN_1124 = 4'h9 == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_9; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
-  wire [127:0] _GEN_1125 = 4'ha == cur_round_counter[3:0] ? _aes_key_reg_T_3 : aes_key_reg_10; // @[RxAESDecrypter.scala 75:{48,48} 9:26]
-  wire [3:0] _cur_round_counter_T_1 = aes_key_reg_0 == aes_key_0 ? 4'hb : 4'h0; // @[RxAESDecrypter.scala 80:37]
-  wire  _T_6 = cur_round_counter < 8'h33; // @[RxAESDecrypter.scala 81:38]
-  wire [7:0] _cur_round_counter_T_3 = cur_round_counter + 8'h1; // @[RxAESDecrypter.scala 82:52]
-  wire [7:0] _GEN_1148 = cur_round_counter < 8'h33 ? _cur_round_counter_T_3 : cur_round_counter; // @[RxAESDecrypter.scala 81:46 82:31 39:36]
-  wire  _T_7 = cur_round_counter >= 8'hb; // @[RxAESDecrypter.scala 85:32]
-  wire [511:0] _GEN_1151 = 2'h1 == cur_round_counter[1:0] ? tmp_result_1 : tmp_result_0; // @[RxAESDecrypter.scala 89:{31,31}]
-  wire [511:0] _GEN_1152 = 2'h2 == cur_round_counter[1:0] ? tmp_result_2 : _GEN_1151; // @[RxAESDecrypter.scala 89:{31,31}]
-  wire [511:0] _GEN_1153 = 2'h3 == cur_round_counter[1:0] ? tmp_result_3 : _GEN_1152; // @[RxAESDecrypter.scala 89:{31,31}]
-  wire [511:0] _GEN_1154 = _T_6 ? _GEN_1153 : _GEN_1039; // @[RxAESDecrypter.scala 88:50 89:31]
-  wire [511:0] _GEN_1170 = ~first_beat_reg ? tmp_tdata_reg : in_reg_tdata; // @[RxAESDecrypter.scala 69:33 93:22 RxPipelineHandler.scala 26:18]
-  wire  _GEN_1171 = ~first_beat_reg ? _T_7 & (out_shake_hand | _io_in_tready_T) : io_out_tready | ~in_reg_used_reg; // @[RxAESDecrypter.scala 69:33 94:24 RxPipelineHandler.scala 30:18]
-  wire  _GEN_1172 = ~first_beat_reg ? cur_round_counter == 8'h33 & _io_out_tvalid_T : in_reg_tvalid & in_reg_used_reg; // @[RxAESDecrypter.scala 69:33 95:23 RxPipelineHandler.scala 27:18]
-  assign io_in_tready = ~io_in_extern_config_c2h_match_op[8] ? io_out_tready | ~in_reg_used_reg : _GEN_1171; // @[RxAESDecrypter.scala 67:48 RxPipelineHandler.scala 30:18]
-  assign io_out_tdata = ~io_in_extern_config_c2h_match_op[8] ? in_reg_tdata : _GEN_1170; // @[RxAESDecrypter.scala 67:48 RxPipelineHandler.scala 26:18]
-  assign io_out_tvalid = ~io_in_extern_config_c2h_match_op[8] ? in_reg_tvalid & in_reg_used_reg : _GEN_1172; // @[RxAESDecrypter.scala 67:48 RxPipelineHandler.scala 27:18]
+  wire [511:0] _GEN_1167 = 2'h1 == cur_round_counter[1:0] ? tmp_result_1 : tmp_result_0; // @[RxAESDecrypter.scala 84:{23,23}]
+  assign io_in_tready = io_in_extern_config_c2h_match_op[8] & ~first_beat_reg ? cur_round_counter >= 8'hb & (
+    out_shake_hand | _io_in_tready_T) : io_out_tready | ~in_reg_used_reg; // @[RxAESDecrypter.scala 87:66 90:24 RxPipelineHandler.scala 30:18]
+  assign io_out_tdata = io_in_extern_config_c2h_match_op[8] & ~first_beat_reg ? tmp_tdata_reg : in_reg_tdata; // @[RxAESDecrypter.scala 87:66 89:22 RxPipelineHandler.scala 26:18]
+  assign io_out_tvalid = io_in_extern_config_c2h_match_op[8] & ~first_beat_reg ? cur_round_counter == 8'h33 &
+    _io_out_tvalid_T : in_reg_tvalid & in_reg_used_reg; // @[RxAESDecrypter.scala 87:66 91:23 RxPipelineHandler.scala 27:18]
   assign io_out_tlast = in_reg_r[0]; // @[RxPipelineHandler.scala 14:128]
   assign io_out_tuser = in_reg_r[514]; // @[RxPipelineHandler.scala 14:128]
   assign io_out_rx_info_tlen = in_reg_r[600:585]; // @[RxPipelineHandler.scala 14:128]
@@ -7883,132 +7661,140 @@ module RxAESDecrypter(
     end else begin
       in_reg_used_reg <= _GEN_3;
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
-      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
-        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
-          if (cur_round_counter == 8'h0) begin // @[RxAESDecrypter.scala 72:45]
-            aes_key_reg_0 <= aes_key_0; // @[RxAESDecrypter.scala 73:32]
-          end else begin
-            aes_key_reg_0 <= _GEN_1115;
+    if (in_shake_hand) begin // @[RxAESDecrypter.scala 66:25]
+      if (aes_key_reg_0 == aes_key_0) begin // @[RxAESDecrypter.scala 68:45]
+        aes_key_reg_0 <= _GEN_1039;
+      end else if (~in_reg_tlast) begin // @[RxAESDecrypter.scala 70:34]
+        aes_key_reg_0 <= aes_key_0; // @[RxAESDecrypter.scala 71:28]
+      end else begin
+        aes_key_reg_0 <= _GEN_1039;
+      end
+    end else if (cur_round_counter < 8'h33) begin // @[RxAESDecrypter.scala 74:42]
+      if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 76:40]
+        if (4'h0 == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 77:44]
+          aes_key_reg_0 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 77:44]
+        end else begin
+          aes_key_reg_0 <= _GEN_1039;
+        end
+      end else begin
+        aes_key_reg_0 <= _GEN_1039;
+      end
+    end else begin
+      aes_key_reg_0 <= _GEN_1039;
+    end
+    if (!(in_shake_hand)) begin // @[RxAESDecrypter.scala 66:25]
+      if (cur_round_counter < 8'h33) begin // @[RxAESDecrypter.scala 74:42]
+        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 76:40]
+          if (4'h1 == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 77:44]
+            aes_key_reg_1 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 77:44]
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
-      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
-        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
-          if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 72:45]
-            aes_key_reg_1 <= _GEN_1116;
+    if (!(in_shake_hand)) begin // @[RxAESDecrypter.scala 66:25]
+      if (cur_round_counter < 8'h33) begin // @[RxAESDecrypter.scala 74:42]
+        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 76:40]
+          if (4'h2 == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 77:44]
+            aes_key_reg_2 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 77:44]
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
-      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
-        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
-          if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 72:45]
-            aes_key_reg_2 <= _GEN_1117;
+    if (!(in_shake_hand)) begin // @[RxAESDecrypter.scala 66:25]
+      if (cur_round_counter < 8'h33) begin // @[RxAESDecrypter.scala 74:42]
+        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 76:40]
+          if (4'h3 == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 77:44]
+            aes_key_reg_3 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 77:44]
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
-      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
-        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
-          if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 72:45]
-            aes_key_reg_3 <= _GEN_1118;
+    if (!(in_shake_hand)) begin // @[RxAESDecrypter.scala 66:25]
+      if (cur_round_counter < 8'h33) begin // @[RxAESDecrypter.scala 74:42]
+        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 76:40]
+          if (4'h4 == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 77:44]
+            aes_key_reg_4 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 77:44]
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
-      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
-        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
-          if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 72:45]
-            aes_key_reg_4 <= _GEN_1119;
+    if (!(in_shake_hand)) begin // @[RxAESDecrypter.scala 66:25]
+      if (cur_round_counter < 8'h33) begin // @[RxAESDecrypter.scala 74:42]
+        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 76:40]
+          if (4'h5 == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 77:44]
+            aes_key_reg_5 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 77:44]
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
-      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
-        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
-          if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 72:45]
-            aes_key_reg_5 <= _GEN_1120;
+    if (!(in_shake_hand)) begin // @[RxAESDecrypter.scala 66:25]
+      if (cur_round_counter < 8'h33) begin // @[RxAESDecrypter.scala 74:42]
+        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 76:40]
+          if (4'h6 == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 77:44]
+            aes_key_reg_6 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 77:44]
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
-      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
-        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
-          if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 72:45]
-            aes_key_reg_6 <= _GEN_1121;
+    if (!(in_shake_hand)) begin // @[RxAESDecrypter.scala 66:25]
+      if (cur_round_counter < 8'h33) begin // @[RxAESDecrypter.scala 74:42]
+        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 76:40]
+          if (4'h7 == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 77:44]
+            aes_key_reg_7 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 77:44]
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
-      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
-        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
-          if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 72:45]
-            aes_key_reg_7 <= _GEN_1122;
+    if (!(in_shake_hand)) begin // @[RxAESDecrypter.scala 66:25]
+      if (cur_round_counter < 8'h33) begin // @[RxAESDecrypter.scala 74:42]
+        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 76:40]
+          if (4'h8 == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 77:44]
+            aes_key_reg_8 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 77:44]
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
-      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
-        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
-          if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 72:45]
-            aes_key_reg_8 <= _GEN_1123;
+    if (!(in_shake_hand)) begin // @[RxAESDecrypter.scala 66:25]
+      if (cur_round_counter < 8'h33) begin // @[RxAESDecrypter.scala 74:42]
+        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 76:40]
+          if (4'h9 == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 77:44]
+            aes_key_reg_9 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 77:44]
           end
         end
       end
     end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
-      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
-        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
-          if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 72:45]
-            aes_key_reg_9 <= _GEN_1124;
-          end
-        end
-      end
-    end
-    if (!(~io_in_extern_config_c2h_match_op[8])) begin // @[RxAESDecrypter.scala 67:48]
-      if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
-        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 71:40]
-          if (!(cur_round_counter == 8'h0)) begin // @[RxAESDecrypter.scala 72:45]
-            aes_key_reg_10 <= _GEN_1125;
+    if (!(in_shake_hand)) begin // @[RxAESDecrypter.scala 66:25]
+      if (cur_round_counter < 8'h33) begin // @[RxAESDecrypter.scala 74:42]
+        if (cur_round_counter < 8'hb) begin // @[RxAESDecrypter.scala 76:40]
+          if (4'ha == cur_round_counter[3:0]) begin // @[RxAESDecrypter.scala 77:44]
+            aes_key_reg_10 <= _aes_key_reg_T_3; // @[RxAESDecrypter.scala 77:44]
           end
         end
       end
     end
     if (reset) begin // @[RxAESDecrypter.scala 39:36]
-      cur_round_counter <= 8'h0; // @[RxAESDecrypter.scala 39:36]
-    end else if (~io_in_extern_config_c2h_match_op[8]) begin // @[RxAESDecrypter.scala 67:48]
-      cur_round_counter <= 8'h0; // @[RxAESDecrypter.scala 68:27]
-    end else if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
-      if (in_shake_hand) begin // @[RxAESDecrypter.scala 79:29]
-        cur_round_counter <= {{4'd0}, _cur_round_counter_T_1}; // @[RxAESDecrypter.scala 80:31]
-      end else begin
-        cur_round_counter <= _GEN_1148;
+      cur_round_counter <= 8'h1; // @[RxAESDecrypter.scala 39:36]
+    end else if (in_shake_hand) begin // @[RxAESDecrypter.scala 66:25]
+      if (aes_key_reg_0 == aes_key_0) begin // @[RxAESDecrypter.scala 68:45]
+        cur_round_counter <= 8'hb; // @[RxAESDecrypter.scala 69:31]
+      end else if (~in_reg_tlast) begin // @[RxAESDecrypter.scala 70:34]
+        cur_round_counter <= 8'h1; // @[RxAESDecrypter.scala 72:31]
       end
+    end else if (cur_round_counter < 8'h33) begin // @[RxAESDecrypter.scala 74:42]
+      cur_round_counter <= _cur_round_counter_T_1; // @[RxAESDecrypter.scala 75:27]
     end
-    if (~io_in_extern_config_c2h_match_op[8]) begin // @[RxAESDecrypter.scala 67:48]
-      tmp_tdata_reg <= _GEN_1039;
-    end else if (~first_beat_reg) begin // @[RxAESDecrypter.scala 69:33]
-      if (cur_round_counter >= 8'hb & in_reg_used_reg) begin // @[RxAESDecrypter.scala 85:60]
-        if (cur_round_counter == 8'hb) begin // @[RxAESDecrypter.scala 86:46]
-          tmp_tdata_reg <= tmp_result_2; // @[RxAESDecrypter.scala 87:31]
-        end else begin
-          tmp_tdata_reg <= _GEN_1154;
-        end
+    if (cur_round_counter == 8'hb) begin // @[RxAESDecrypter.scala 81:38]
+      tmp_tdata_reg <= tmp_result_2; // @[RxAESDecrypter.scala 82:23]
+    end else if (cur_round_counter > 8'hb & _T_3) begin // @[RxAESDecrypter.scala 83:70]
+      if (2'h3 == cur_round_counter[1:0]) begin // @[RxAESDecrypter.scala 84:23]
+        tmp_tdata_reg <= tmp_result_3; // @[RxAESDecrypter.scala 84:23]
+      end else if (2'h2 == cur_round_counter[1:0]) begin // @[RxAESDecrypter.scala 84:23]
+        tmp_tdata_reg <= tmp_result_2; // @[RxAESDecrypter.scala 84:23]
       end else begin
-        tmp_tdata_reg <= _GEN_1039;
+        tmp_tdata_reg <= _GEN_1167;
       end
-    end else begin
-      tmp_tdata_reg <= _GEN_1039;
+    end else if (in_shake_hand) begin // @[RxAESDecrypter.scala 66:25]
+      tmp_tdata_reg <= io_in_tdata; // @[RxAESDecrypter.scala 67:23]
     end
   end
 // Register and memory initialization
@@ -8783,9 +8569,6 @@ module RxChksumVerifier(
   input          io_in_tlast,
   input          io_in_tuser,
   input  [15:0]  io_in_rx_info_tlen,
-  input  [5:0]   io_in_rx_info_qid,
-  input  [31:0]  io_in_rx_info_ip_chksum,
-  input  [31:0]  io_in_rx_info_tcp_chksum,
   input  [15:0]  io_in_extern_config_c2h_match_op,
   input  [31:0]  io_in_extern_config_c2h_match_arg_0,
   input  [31:0]  io_in_extern_config_c2h_match_arg_1,
@@ -8919,8 +8702,7 @@ module RxChksumVerifier(
   wire [31:0] tcp_hdr_chksum_cal_io_out_sum; // @[RxPipelineHandler.scala 55:34]
   wire  in_shake_hand = io_in_tready & io_in_tvalid; // @[RxPipelineHandler.scala 12:38]
   wire  out_shake_hand = io_out_tready & io_out_tvalid; // @[RxPipelineHandler.scala 13:38]
-  wire [600:0] _in_reg_T_1 = {io_in_rx_info_tlen,io_in_rx_info_qid,io_in_rx_info_ip_chksum,io_in_rx_info_tcp_chksum,
-    io_in_tuser,io_in_tdata,io_in_tvalid,io_in_tlast}; // @[Cat.scala 31:58]
+  wire [600:0] _in_reg_T_1 = {io_in_rx_info_tlen,6'h0,64'h0,io_in_tuser,io_in_tdata,io_in_tvalid,io_in_tlast}; // @[Cat.scala 31:58]
   reg [600:0] in_reg_r; // @[Reg.scala 28:20]
   wire  in_reg_tlast = in_reg_r[0]; // @[RxPipelineHandler.scala 14:128]
   wire  in_reg_tvalid = in_reg_r[1]; // @[RxPipelineHandler.scala 14:128]
@@ -11072,6 +10854,9 @@ module RxPipeline(
   wire  rx_aes_decrypter_io_in_tlast; // @[RxPipeline.scala 34:35]
   wire  rx_aes_decrypter_io_in_tuser; // @[RxPipeline.scala 34:35]
   wire [15:0] rx_aes_decrypter_io_in_rx_info_tlen; // @[RxPipeline.scala 34:35]
+  wire [5:0] rx_aes_decrypter_io_in_rx_info_qid; // @[RxPipeline.scala 34:35]
+  wire [31:0] rx_aes_decrypter_io_in_rx_info_ip_chksum; // @[RxPipeline.scala 34:35]
+  wire [31:0] rx_aes_decrypter_io_in_rx_info_tcp_chksum; // @[RxPipeline.scala 34:35]
   wire [15:0] rx_aes_decrypter_io_in_extern_config_c2h_match_op; // @[RxPipeline.scala 34:35]
   wire [31:0] rx_aes_decrypter_io_in_extern_config_c2h_match_arg_0; // @[RxPipeline.scala 34:35]
   wire [31:0] rx_aes_decrypter_io_in_extern_config_c2h_match_arg_1; // @[RxPipeline.scala 34:35]
@@ -11161,9 +10946,6 @@ module RxPipeline(
   wire  rx_chksum_verifier_io_in_tlast; // @[RxPipeline.scala 39:34]
   wire  rx_chksum_verifier_io_in_tuser; // @[RxPipeline.scala 39:34]
   wire [15:0] rx_chksum_verifier_io_in_rx_info_tlen; // @[RxPipeline.scala 39:34]
-  wire [5:0] rx_chksum_verifier_io_in_rx_info_qid; // @[RxPipeline.scala 39:34]
-  wire [31:0] rx_chksum_verifier_io_in_rx_info_ip_chksum; // @[RxPipeline.scala 39:34]
-  wire [31:0] rx_chksum_verifier_io_in_rx_info_tcp_chksum; // @[RxPipeline.scala 39:34]
   wire [15:0] rx_chksum_verifier_io_in_extern_config_c2h_match_op; // @[RxPipeline.scala 39:34]
   wire [31:0] rx_chksum_verifier_io_in_extern_config_c2h_match_arg_0; // @[RxPipeline.scala 39:34]
   wire [31:0] rx_chksum_verifier_io_in_extern_config_c2h_match_arg_1; // @[RxPipeline.scala 39:34]
@@ -11378,6 +11160,9 @@ module RxPipeline(
     .io_in_tlast(rx_aes_decrypter_io_in_tlast),
     .io_in_tuser(rx_aes_decrypter_io_in_tuser),
     .io_in_rx_info_tlen(rx_aes_decrypter_io_in_rx_info_tlen),
+    .io_in_rx_info_qid(rx_aes_decrypter_io_in_rx_info_qid),
+    .io_in_rx_info_ip_chksum(rx_aes_decrypter_io_in_rx_info_ip_chksum),
+    .io_in_rx_info_tcp_chksum(rx_aes_decrypter_io_in_rx_info_tcp_chksum),
     .io_in_extern_config_c2h_match_op(rx_aes_decrypter_io_in_extern_config_c2h_match_op),
     .io_in_extern_config_c2h_match_arg_0(rx_aes_decrypter_io_in_extern_config_c2h_match_arg_0),
     .io_in_extern_config_c2h_match_arg_1(rx_aes_decrypter_io_in_extern_config_c2h_match_arg_1),
@@ -11471,9 +11256,6 @@ module RxPipeline(
     .io_in_tlast(rx_chksum_verifier_io_in_tlast),
     .io_in_tuser(rx_chksum_verifier_io_in_tuser),
     .io_in_rx_info_tlen(rx_chksum_verifier_io_in_rx_info_tlen),
-    .io_in_rx_info_qid(rx_chksum_verifier_io_in_rx_info_qid),
-    .io_in_rx_info_ip_chksum(rx_chksum_verifier_io_in_rx_info_ip_chksum),
-    .io_in_rx_info_tcp_chksum(rx_chksum_verifier_io_in_rx_info_tcp_chksum),
     .io_in_extern_config_c2h_match_op(rx_chksum_verifier_io_in_extern_config_c2h_match_op),
     .io_in_extern_config_c2h_match_arg_0(rx_chksum_verifier_io_in_extern_config_c2h_match_arg_0),
     .io_in_extern_config_c2h_match_arg_1(rx_chksum_verifier_io_in_extern_config_c2h_match_arg_1),
@@ -11686,7 +11468,7 @@ module RxPipeline(
     .io_out_extern_config_c2h_match_arg_14(rx_string_searcher_io_out_extern_config_c2h_match_arg_14),
     .io_out_extern_config_c2h_match_arg_15(rx_string_searcher_io_out_extern_config_c2h_match_arg_15)
   );
-  assign io_in_tready = rx_aes_decrypter_io_in_tready; // @[RxPipeline.scala 43:9]
+  assign io_in_tready = rx_chksum_verifier_io_in_tready; // @[RxPipeline.scala 43:9]
   assign io_out_tdata = rx_re_searcher_io_out_tdata; // @[RxPipeline.scala 49:25]
   assign io_out_tvalid = rx_re_searcher_io_out_tvalid; // @[RxPipeline.scala 49:25]
   assign io_out_tlast = rx_re_searcher_io_out_tlast; // @[RxPipeline.scala 49:25]
@@ -11698,29 +11480,38 @@ module RxPipeline(
   assign io_out_extern_config_c2h_match_op = rx_re_searcher_io_out_extern_config_c2h_match_op; // @[RxPipeline.scala 49:25]
   assign rx_aes_decrypter_clock = clock;
   assign rx_aes_decrypter_reset = reset;
-  assign rx_aes_decrypter_io_in_tdata = io_in_tdata; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_in_tvalid = io_in_tvalid; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_in_tlast = io_in_tlast; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_in_tuser = io_in_tuser; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_in_rx_info_tlen = io_in_rx_info_tlen; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_in_extern_config_c2h_match_op = io_in_extern_config_c2h_match_op; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_0 = io_in_extern_config_c2h_match_arg_0; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_1 = io_in_extern_config_c2h_match_arg_1; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_2 = io_in_extern_config_c2h_match_arg_2; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_3 = io_in_extern_config_c2h_match_arg_3; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_4 = io_in_extern_config_c2h_match_arg_4; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_5 = io_in_extern_config_c2h_match_arg_5; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_6 = io_in_extern_config_c2h_match_arg_6; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_7 = io_in_extern_config_c2h_match_arg_7; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_8 = io_in_extern_config_c2h_match_arg_8; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_9 = io_in_extern_config_c2h_match_arg_9; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_10 = io_in_extern_config_c2h_match_arg_10; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_11 = io_in_extern_config_c2h_match_arg_11; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_12 = io_in_extern_config_c2h_match_arg_12; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_13 = io_in_extern_config_c2h_match_arg_13; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_14 = io_in_extern_config_c2h_match_arg_14; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_15 = io_in_extern_config_c2h_match_arg_15; // @[RxPipeline.scala 43:9]
-  assign rx_aes_decrypter_io_out_tready = rx_chksum_verifier_io_in_tready; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_tdata = rx_chksum_verifier_io_out_tdata; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_tvalid = rx_chksum_verifier_io_out_tvalid; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_tlast = rx_chksum_verifier_io_out_tlast; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_tuser = rx_chksum_verifier_io_out_tuser; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_rx_info_tlen = rx_chksum_verifier_io_out_rx_info_tlen; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_rx_info_qid = rx_chksum_verifier_io_out_rx_info_qid; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_rx_info_ip_chksum = rx_chksum_verifier_io_out_rx_info_ip_chksum; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_rx_info_tcp_chksum = rx_chksum_verifier_io_out_rx_info_tcp_chksum; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_extern_config_c2h_match_op = rx_chksum_verifier_io_out_extern_config_c2h_match_op; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_0 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_0; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_1 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_1; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_2 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_2; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_3 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_3; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_4 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_4; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_5 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_5; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_6 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_6; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_7 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_7; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_8 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_8; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_9 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_9; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_10 =
+    rx_chksum_verifier_io_out_extern_config_c2h_match_arg_10; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_11 =
+    rx_chksum_verifier_io_out_extern_config_c2h_match_arg_11; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_12 =
+    rx_chksum_verifier_io_out_extern_config_c2h_match_arg_12; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_13 =
+    rx_chksum_verifier_io_out_extern_config_c2h_match_arg_13; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_14 =
+    rx_chksum_verifier_io_out_extern_config_c2h_match_arg_14; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_in_extern_config_c2h_match_arg_15 =
+    rx_chksum_verifier_io_out_extern_config_c2h_match_arg_15; // @[RxPipeline.scala 44:29]
+  assign rx_aes_decrypter_io_out_tready = rx_rss_hasher_io_in_tready; // @[RxPipeline.scala 45:29]
   assign rx_re_searcher_clock = clock;
   assign rx_re_searcher_reset = reset;
   assign rx_re_searcher_io_in_tdata = rx_string_searcher_io_out_tdata; // @[RxPipeline.scala 48:29]
@@ -11751,65 +11542,56 @@ module RxPipeline(
   assign rx_re_searcher_io_out_tready = io_out_tready; // @[RxPipeline.scala 49:25]
   assign rx_chksum_verifier_clock = clock;
   assign rx_chksum_verifier_reset = reset;
-  assign rx_chksum_verifier_io_in_tdata = rx_aes_decrypter_io_out_tdata; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_tvalid = rx_aes_decrypter_io_out_tvalid; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_tlast = rx_aes_decrypter_io_out_tlast; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_tuser = rx_aes_decrypter_io_out_tuser; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_rx_info_tlen = rx_aes_decrypter_io_out_rx_info_tlen; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_rx_info_qid = rx_aes_decrypter_io_out_rx_info_qid; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_rx_info_ip_chksum = rx_aes_decrypter_io_out_rx_info_ip_chksum; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_rx_info_tcp_chksum = rx_aes_decrypter_io_out_rx_info_tcp_chksum; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_extern_config_c2h_match_op = rx_aes_decrypter_io_out_extern_config_c2h_match_op; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_0 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_0; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_1 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_1; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_2 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_2; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_3 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_3; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_4 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_4; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_5 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_5; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_6 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_6; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_7 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_7; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_8 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_8; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_9 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_9; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_10 =
-    rx_aes_decrypter_io_out_extern_config_c2h_match_arg_10; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_11 =
-    rx_aes_decrypter_io_out_extern_config_c2h_match_arg_11; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_12 =
-    rx_aes_decrypter_io_out_extern_config_c2h_match_arg_12; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_13 =
-    rx_aes_decrypter_io_out_extern_config_c2h_match_arg_13; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_14 =
-    rx_aes_decrypter_io_out_extern_config_c2h_match_arg_14; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_15 =
-    rx_aes_decrypter_io_out_extern_config_c2h_match_arg_15; // @[RxPipeline.scala 44:29]
-  assign rx_chksum_verifier_io_out_tready = rx_rss_hasher_io_in_tready; // @[RxPipeline.scala 45:29]
+  assign rx_chksum_verifier_io_in_tdata = io_in_tdata; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_in_tvalid = io_in_tvalid; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_in_tlast = io_in_tlast; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_in_tuser = io_in_tuser; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_in_rx_info_tlen = io_in_rx_info_tlen; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_in_extern_config_c2h_match_op = io_in_extern_config_c2h_match_op; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_0 = io_in_extern_config_c2h_match_arg_0; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_1 = io_in_extern_config_c2h_match_arg_1; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_2 = io_in_extern_config_c2h_match_arg_2; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_3 = io_in_extern_config_c2h_match_arg_3; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_4 = io_in_extern_config_c2h_match_arg_4; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_5 = io_in_extern_config_c2h_match_arg_5; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_6 = io_in_extern_config_c2h_match_arg_6; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_7 = io_in_extern_config_c2h_match_arg_7; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_8 = io_in_extern_config_c2h_match_arg_8; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_9 = io_in_extern_config_c2h_match_arg_9; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_10 = io_in_extern_config_c2h_match_arg_10; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_11 = io_in_extern_config_c2h_match_arg_11; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_12 = io_in_extern_config_c2h_match_arg_12; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_13 = io_in_extern_config_c2h_match_arg_13; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_14 = io_in_extern_config_c2h_match_arg_14; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_in_extern_config_c2h_match_arg_15 = io_in_extern_config_c2h_match_arg_15; // @[RxPipeline.scala 43:9]
+  assign rx_chksum_verifier_io_out_tready = rx_aes_decrypter_io_in_tready; // @[RxPipeline.scala 44:29]
   assign rx_rss_hasher_clock = clock;
   assign rx_rss_hasher_reset = reset;
-  assign rx_rss_hasher_io_in_tdata = rx_chksum_verifier_io_out_tdata; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_tvalid = rx_chksum_verifier_io_out_tvalid; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_tlast = rx_chksum_verifier_io_out_tlast; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_tuser = rx_chksum_verifier_io_out_tuser; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_rx_info_tlen = rx_chksum_verifier_io_out_rx_info_tlen; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_rx_info_qid = rx_chksum_verifier_io_out_rx_info_qid; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_rx_info_ip_chksum = rx_chksum_verifier_io_out_rx_info_ip_chksum; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_rx_info_tcp_chksum = rx_chksum_verifier_io_out_rx_info_tcp_chksum; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_extern_config_c2h_match_op = rx_chksum_verifier_io_out_extern_config_c2h_match_op; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_0 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_0; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_1 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_1; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_2 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_2; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_3 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_3; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_4 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_4; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_5 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_5; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_6 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_6; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_7 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_7; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_8 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_8; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_9 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_9; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_10 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_10; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_11 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_11; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_12 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_12; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_13 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_13; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_14 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_14; // @[RxPipeline.scala 45:29]
-  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_15 = rx_chksum_verifier_io_out_extern_config_c2h_match_arg_15; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_tdata = rx_aes_decrypter_io_out_tdata; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_tvalid = rx_aes_decrypter_io_out_tvalid; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_tlast = rx_aes_decrypter_io_out_tlast; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_tuser = rx_aes_decrypter_io_out_tuser; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_rx_info_tlen = rx_aes_decrypter_io_out_rx_info_tlen; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_rx_info_qid = rx_aes_decrypter_io_out_rx_info_qid; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_rx_info_ip_chksum = rx_aes_decrypter_io_out_rx_info_ip_chksum; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_rx_info_tcp_chksum = rx_aes_decrypter_io_out_rx_info_tcp_chksum; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_extern_config_c2h_match_op = rx_aes_decrypter_io_out_extern_config_c2h_match_op; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_0 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_0; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_1 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_1; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_2 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_2; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_3 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_3; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_4 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_4; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_5 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_5; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_6 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_6; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_7 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_7; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_8 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_8; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_9 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_9; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_10 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_10; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_11 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_11; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_12 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_12; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_13 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_13; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_14 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_14; // @[RxPipeline.scala 45:29]
+  assign rx_rss_hasher_io_in_extern_config_c2h_match_arg_15 = rx_aes_decrypter_io_out_extern_config_c2h_match_arg_15; // @[RxPipeline.scala 45:29]
   assign rx_rss_hasher_io_out_tready = rx_string_matcher_io_in_tready; // @[RxPipeline.scala 46:29]
   assign rx_string_matcher_clock = clock;
   assign rx_string_matcher_reset = reset;
@@ -13150,71 +12932,70 @@ module PackageHandler(
   output [31:0]  io_h2c_pack_counter,
   output [31:0]  io_h2c_err_counter
 );
-  wire  tx_handler_clock; // @[PackageHandler.scala 30:26]
-  wire  tx_handler_reset; // @[PackageHandler.scala 30:26]
-  wire [511:0] tx_handler_io_QDMA_h2c_stub_out_tdata; // @[PackageHandler.scala 30:26]
-  wire  tx_handler_io_QDMA_h2c_stub_out_tvalid; // @[PackageHandler.scala 30:26]
-  wire  tx_handler_io_QDMA_h2c_stub_out_tready; // @[PackageHandler.scala 30:26]
-  wire  tx_handler_io_QDMA_h2c_stub_out_tlast; // @[PackageHandler.scala 30:26]
-  wire  tx_handler_io_QDMA_h2c_stub_out_tuser; // @[PackageHandler.scala 30:26]
-  wire [511:0] tx_handler_io_CMAC_in_tdata; // @[PackageHandler.scala 30:26]
-  wire  tx_handler_io_CMAC_in_tvalid; // @[PackageHandler.scala 30:26]
-  wire  tx_handler_io_CMAC_in_tready; // @[PackageHandler.scala 30:26]
-  wire  tx_handler_io_CMAC_in_tlast; // @[PackageHandler.scala 30:26]
-  wire  tx_handler_io_reset_counter; // @[PackageHandler.scala 30:26]
-  wire [31:0] tx_handler_io_h2c_pack_counter; // @[PackageHandler.scala 30:26]
-  wire [31:0] tx_handler_io_h2c_err_counter; // @[PackageHandler.scala 30:26]
-  wire [15:0] tx_handler_io_extern_config_c2h_match_op; // @[PackageHandler.scala 30:26]
-  wire [31:0] tx_handler_io_extern_config_c2h_match_arg_0; // @[PackageHandler.scala 30:26]
-  wire [31:0] tx_handler_io_extern_config_c2h_match_arg_1; // @[PackageHandler.scala 30:26]
-  wire [31:0] tx_handler_io_extern_config_c2h_match_arg_2; // @[PackageHandler.scala 30:26]
-  wire [31:0] tx_handler_io_extern_config_c2h_match_arg_3; // @[PackageHandler.scala 30:26]
-  wire [31:0] tx_handler_io_extern_config_c2h_match_arg_4; // @[PackageHandler.scala 30:26]
-  wire [31:0] tx_handler_io_extern_config_c2h_match_arg_5; // @[PackageHandler.scala 30:26]
-  wire [31:0] tx_handler_io_extern_config_c2h_match_arg_6; // @[PackageHandler.scala 30:26]
-  wire [31:0] tx_handler_io_extern_config_c2h_match_arg_7; // @[PackageHandler.scala 30:26]
-  wire [31:0] tx_handler_io_extern_config_c2h_match_arg_8; // @[PackageHandler.scala 30:26]
-  wire [31:0] tx_handler_io_extern_config_c2h_match_arg_9; // @[PackageHandler.scala 30:26]
-  wire [31:0] tx_handler_io_extern_config_c2h_match_arg_10; // @[PackageHandler.scala 30:26]
-  wire [31:0] tx_handler_io_extern_config_c2h_match_arg_11; // @[PackageHandler.scala 30:26]
-  wire [31:0] tx_handler_io_extern_config_c2h_match_arg_12; // @[PackageHandler.scala 30:26]
-  wire [31:0] tx_handler_io_extern_config_c2h_match_arg_13; // @[PackageHandler.scala 30:26]
-  wire [31:0] tx_handler_io_extern_config_c2h_match_arg_14; // @[PackageHandler.scala 30:26]
-  wire [31:0] tx_handler_io_extern_config_c2h_match_arg_15; // @[PackageHandler.scala 30:26]
-  wire  rx_handler_clock; // @[PackageHandler.scala 38:26]
-  wire  rx_handler_reset; // @[PackageHandler.scala 38:26]
-  wire [511:0] rx_handler_io_CMAC_out_tdata; // @[PackageHandler.scala 38:26]
-  wire  rx_handler_io_CMAC_out_tvalid; // @[PackageHandler.scala 38:26]
-  wire  rx_handler_io_CMAC_out_tready; // @[PackageHandler.scala 38:26]
-  wire  rx_handler_io_CMAC_out_tlast; // @[PackageHandler.scala 38:26]
-  wire  rx_handler_io_CMAC_out_tuser; // @[PackageHandler.scala 38:26]
-  wire [63:0] rx_handler_io_CMAC_out_tkeep; // @[PackageHandler.scala 38:26]
-  wire [511:0] rx_handler_io_QDMA_c2h_stub_in_tdata; // @[PackageHandler.scala 38:26]
-  wire  rx_handler_io_QDMA_c2h_stub_in_tvalid; // @[PackageHandler.scala 38:26]
-  wire  rx_handler_io_QDMA_c2h_stub_in_tready; // @[PackageHandler.scala 38:26]
-  wire  rx_handler_io_QDMA_c2h_stub_in_tlast; // @[PackageHandler.scala 38:26]
-  wire  rx_handler_io_QDMA_c2h_stub_in_tuser; // @[PackageHandler.scala 38:26]
-  wire  rx_handler_io_reset_counter; // @[PackageHandler.scala 38:26]
-  wire [31:0] rx_handler_io_c2h_pack_counter; // @[PackageHandler.scala 38:26]
-  wire [31:0] rx_handler_io_c2h_err_counter; // @[PackageHandler.scala 38:26]
-  wire [15:0] rx_handler_io_extern_config_c2h_match_op; // @[PackageHandler.scala 38:26]
-  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_0; // @[PackageHandler.scala 38:26]
-  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_1; // @[PackageHandler.scala 38:26]
-  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_2; // @[PackageHandler.scala 38:26]
-  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_3; // @[PackageHandler.scala 38:26]
-  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_4; // @[PackageHandler.scala 38:26]
-  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_5; // @[PackageHandler.scala 38:26]
-  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_6; // @[PackageHandler.scala 38:26]
-  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_7; // @[PackageHandler.scala 38:26]
-  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_8; // @[PackageHandler.scala 38:26]
-  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_9; // @[PackageHandler.scala 38:26]
-  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_10; // @[PackageHandler.scala 38:26]
-  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_11; // @[PackageHandler.scala 38:26]
-  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_12; // @[PackageHandler.scala 38:26]
-  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_13; // @[PackageHandler.scala 38:26]
-  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_14; // @[PackageHandler.scala 38:26]
-  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_15; // @[PackageHandler.scala 38:26]
-  TxHandler tx_handler ( // @[PackageHandler.scala 30:26]
+`ifdef RANDOMIZE_REG_INIT
+  reg [543:0] _RAND_0;
+`endif // RANDOMIZE_REG_INIT
+  wire  tx_handler_clock; // @[PackageHandler.scala 32:26]
+  wire  tx_handler_reset; // @[PackageHandler.scala 32:26]
+  wire [511:0] tx_handler_io_QDMA_h2c_stub_out_tdata; // @[PackageHandler.scala 32:26]
+  wire  tx_handler_io_QDMA_h2c_stub_out_tvalid; // @[PackageHandler.scala 32:26]
+  wire  tx_handler_io_QDMA_h2c_stub_out_tready; // @[PackageHandler.scala 32:26]
+  wire  tx_handler_io_QDMA_h2c_stub_out_tlast; // @[PackageHandler.scala 32:26]
+  wire  tx_handler_io_QDMA_h2c_stub_out_tuser; // @[PackageHandler.scala 32:26]
+  wire [511:0] tx_handler_io_CMAC_in_tdata; // @[PackageHandler.scala 32:26]
+  wire  tx_handler_io_CMAC_in_tvalid; // @[PackageHandler.scala 32:26]
+  wire  tx_handler_io_CMAC_in_tready; // @[PackageHandler.scala 32:26]
+  wire  tx_handler_io_CMAC_in_tlast; // @[PackageHandler.scala 32:26]
+  wire  tx_handler_io_reset_counter; // @[PackageHandler.scala 32:26]
+  wire [31:0] tx_handler_io_h2c_pack_counter; // @[PackageHandler.scala 32:26]
+  wire [31:0] tx_handler_io_h2c_err_counter; // @[PackageHandler.scala 32:26]
+  wire [15:0] tx_handler_io_extern_config_c2h_match_op; // @[PackageHandler.scala 32:26]
+  wire [31:0] tx_handler_io_extern_config_c2h_match_arg_12; // @[PackageHandler.scala 32:26]
+  wire [31:0] tx_handler_io_extern_config_c2h_match_arg_13; // @[PackageHandler.scala 32:26]
+  wire [31:0] tx_handler_io_extern_config_c2h_match_arg_14; // @[PackageHandler.scala 32:26]
+  wire [31:0] tx_handler_io_extern_config_c2h_match_arg_15; // @[PackageHandler.scala 32:26]
+  wire  rx_handler_clock; // @[PackageHandler.scala 40:26]
+  wire  rx_handler_reset; // @[PackageHandler.scala 40:26]
+  wire [511:0] rx_handler_io_CMAC_out_tdata; // @[PackageHandler.scala 40:26]
+  wire  rx_handler_io_CMAC_out_tvalid; // @[PackageHandler.scala 40:26]
+  wire  rx_handler_io_CMAC_out_tready; // @[PackageHandler.scala 40:26]
+  wire  rx_handler_io_CMAC_out_tlast; // @[PackageHandler.scala 40:26]
+  wire  rx_handler_io_CMAC_out_tuser; // @[PackageHandler.scala 40:26]
+  wire [63:0] rx_handler_io_CMAC_out_tkeep; // @[PackageHandler.scala 40:26]
+  wire [511:0] rx_handler_io_QDMA_c2h_stub_in_tdata; // @[PackageHandler.scala 40:26]
+  wire  rx_handler_io_QDMA_c2h_stub_in_tvalid; // @[PackageHandler.scala 40:26]
+  wire  rx_handler_io_QDMA_c2h_stub_in_tready; // @[PackageHandler.scala 40:26]
+  wire  rx_handler_io_QDMA_c2h_stub_in_tlast; // @[PackageHandler.scala 40:26]
+  wire  rx_handler_io_QDMA_c2h_stub_in_tuser; // @[PackageHandler.scala 40:26]
+  wire  rx_handler_io_reset_counter; // @[PackageHandler.scala 40:26]
+  wire [31:0] rx_handler_io_c2h_pack_counter; // @[PackageHandler.scala 40:26]
+  wire [31:0] rx_handler_io_c2h_err_counter; // @[PackageHandler.scala 40:26]
+  wire [15:0] rx_handler_io_extern_config_c2h_match_op; // @[PackageHandler.scala 40:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_0; // @[PackageHandler.scala 40:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_1; // @[PackageHandler.scala 40:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_2; // @[PackageHandler.scala 40:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_3; // @[PackageHandler.scala 40:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_4; // @[PackageHandler.scala 40:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_5; // @[PackageHandler.scala 40:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_6; // @[PackageHandler.scala 40:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_7; // @[PackageHandler.scala 40:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_8; // @[PackageHandler.scala 40:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_9; // @[PackageHandler.scala 40:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_10; // @[PackageHandler.scala 40:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_11; // @[PackageHandler.scala 40:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_12; // @[PackageHandler.scala 40:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_13; // @[PackageHandler.scala 40:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_14; // @[PackageHandler.scala 40:26]
+  wire [31:0] rx_handler_io_extern_config_c2h_match_arg_15; // @[PackageHandler.scala 40:26]
+  wire [255:0] extern_config_reg_lo = {io_extern_config_c2h_match_arg_7,io_extern_config_c2h_match_arg_6,
+    io_extern_config_c2h_match_arg_5,io_extern_config_c2h_match_arg_4,io_extern_config_c2h_match_arg_3,
+    io_extern_config_c2h_match_arg_2,io_extern_config_c2h_match_arg_1,io_extern_config_c2h_match_arg_0}; // @[PackageHandler.scala 30:52]
+  wire [527:0] _extern_config_reg_T = {io_extern_config_c2h_match_op,io_extern_config_c2h_match_arg_15,
+    io_extern_config_c2h_match_arg_14,io_extern_config_c2h_match_arg_13,io_extern_config_c2h_match_arg_12,
+    io_extern_config_c2h_match_arg_11,io_extern_config_c2h_match_arg_10,io_extern_config_c2h_match_arg_9,
+    io_extern_config_c2h_match_arg_8,extern_config_reg_lo}; // @[PackageHandler.scala 30:52]
+  reg [527:0] extern_config_reg_REG; // @[PackageHandler.scala 30:34]
+  TxHandler tx_handler ( // @[PackageHandler.scala 32:26]
     .clock(tx_handler_clock),
     .reset(tx_handler_reset),
     .io_QDMA_h2c_stub_out_tdata(tx_handler_io_QDMA_h2c_stub_out_tdata),
@@ -13230,24 +13011,12 @@ module PackageHandler(
     .io_h2c_pack_counter(tx_handler_io_h2c_pack_counter),
     .io_h2c_err_counter(tx_handler_io_h2c_err_counter),
     .io_extern_config_c2h_match_op(tx_handler_io_extern_config_c2h_match_op),
-    .io_extern_config_c2h_match_arg_0(tx_handler_io_extern_config_c2h_match_arg_0),
-    .io_extern_config_c2h_match_arg_1(tx_handler_io_extern_config_c2h_match_arg_1),
-    .io_extern_config_c2h_match_arg_2(tx_handler_io_extern_config_c2h_match_arg_2),
-    .io_extern_config_c2h_match_arg_3(tx_handler_io_extern_config_c2h_match_arg_3),
-    .io_extern_config_c2h_match_arg_4(tx_handler_io_extern_config_c2h_match_arg_4),
-    .io_extern_config_c2h_match_arg_5(tx_handler_io_extern_config_c2h_match_arg_5),
-    .io_extern_config_c2h_match_arg_6(tx_handler_io_extern_config_c2h_match_arg_6),
-    .io_extern_config_c2h_match_arg_7(tx_handler_io_extern_config_c2h_match_arg_7),
-    .io_extern_config_c2h_match_arg_8(tx_handler_io_extern_config_c2h_match_arg_8),
-    .io_extern_config_c2h_match_arg_9(tx_handler_io_extern_config_c2h_match_arg_9),
-    .io_extern_config_c2h_match_arg_10(tx_handler_io_extern_config_c2h_match_arg_10),
-    .io_extern_config_c2h_match_arg_11(tx_handler_io_extern_config_c2h_match_arg_11),
     .io_extern_config_c2h_match_arg_12(tx_handler_io_extern_config_c2h_match_arg_12),
     .io_extern_config_c2h_match_arg_13(tx_handler_io_extern_config_c2h_match_arg_13),
     .io_extern_config_c2h_match_arg_14(tx_handler_io_extern_config_c2h_match_arg_14),
     .io_extern_config_c2h_match_arg_15(tx_handler_io_extern_config_c2h_match_arg_15)
   );
-  RxHandler rx_handler ( // @[PackageHandler.scala 38:26]
+  RxHandler rx_handler ( // @[PackageHandler.scala 40:26]
     .clock(rx_handler_clock),
     .reset(rx_handler_reset),
     .io_CMAC_out_tdata(rx_handler_io_CMAC_out_tdata),
@@ -13282,70 +13051,110 @@ module PackageHandler(
     .io_extern_config_c2h_match_arg_14(rx_handler_io_extern_config_c2h_match_arg_14),
     .io_extern_config_c2h_match_arg_15(rx_handler_io_extern_config_c2h_match_arg_15)
   );
-  assign io_QDMA_h2c_stub_out_tready = tx_handler_io_QDMA_h2c_stub_out_tready; // @[PackageHandler.scala 31:24]
-  assign io_CMAC_in_tdata = tx_handler_io_CMAC_in_tdata; // @[PackageHandler.scala 32:24]
-  assign io_CMAC_in_tvalid = tx_handler_io_CMAC_in_tvalid; // @[PackageHandler.scala 32:24]
-  assign io_CMAC_in_tlast = tx_handler_io_CMAC_in_tlast; // @[PackageHandler.scala 32:24]
-  assign io_CMAC_in_tuser = 1'h0; // @[PackageHandler.scala 32:24]
-  assign io_CMAC_in_tkeep = 64'hffffffffffffffff; // @[PackageHandler.scala 32:24]
-  assign io_CMAC_out_tready = rx_handler_io_CMAC_out_tready; // @[PackageHandler.scala 40:23]
-  assign io_QDMA_c2h_stub_in_tdata = rx_handler_io_QDMA_c2h_stub_in_tdata; // @[PackageHandler.scala 39:23]
-  assign io_QDMA_c2h_stub_in_tvalid = rx_handler_io_QDMA_c2h_stub_in_tvalid; // @[PackageHandler.scala 39:23]
-  assign io_QDMA_c2h_stub_in_tlast = rx_handler_io_QDMA_c2h_stub_in_tlast; // @[PackageHandler.scala 39:23]
-  assign io_QDMA_c2h_stub_in_tuser = rx_handler_io_QDMA_c2h_stub_in_tuser; // @[PackageHandler.scala 39:23]
-  assign io_c2h_pack_counter = rx_handler_io_c2h_pack_counter; // @[PackageHandler.scala 43:33]
-  assign io_c2h_err_counter = rx_handler_io_c2h_err_counter; // @[PackageHandler.scala 44:33]
-  assign io_h2c_pack_counter = tx_handler_io_h2c_pack_counter; // @[PackageHandler.scala 35:31]
-  assign io_h2c_err_counter = tx_handler_io_h2c_err_counter; // @[PackageHandler.scala 36:31]
+  assign io_QDMA_h2c_stub_out_tready = tx_handler_io_QDMA_h2c_stub_out_tready; // @[PackageHandler.scala 33:24]
+  assign io_CMAC_in_tdata = tx_handler_io_CMAC_in_tdata; // @[PackageHandler.scala 34:24]
+  assign io_CMAC_in_tvalid = tx_handler_io_CMAC_in_tvalid; // @[PackageHandler.scala 34:24]
+  assign io_CMAC_in_tlast = tx_handler_io_CMAC_in_tlast; // @[PackageHandler.scala 34:24]
+  assign io_CMAC_in_tuser = 1'h0; // @[PackageHandler.scala 34:24]
+  assign io_CMAC_in_tkeep = 64'hffffffffffffffff; // @[PackageHandler.scala 34:24]
+  assign io_CMAC_out_tready = rx_handler_io_CMAC_out_tready; // @[PackageHandler.scala 42:23]
+  assign io_QDMA_c2h_stub_in_tdata = rx_handler_io_QDMA_c2h_stub_in_tdata; // @[PackageHandler.scala 41:23]
+  assign io_QDMA_c2h_stub_in_tvalid = rx_handler_io_QDMA_c2h_stub_in_tvalid; // @[PackageHandler.scala 41:23]
+  assign io_QDMA_c2h_stub_in_tlast = rx_handler_io_QDMA_c2h_stub_in_tlast; // @[PackageHandler.scala 41:23]
+  assign io_QDMA_c2h_stub_in_tuser = rx_handler_io_QDMA_c2h_stub_in_tuser; // @[PackageHandler.scala 41:23]
+  assign io_c2h_pack_counter = rx_handler_io_c2h_pack_counter; // @[PackageHandler.scala 45:33]
+  assign io_c2h_err_counter = rx_handler_io_c2h_err_counter; // @[PackageHandler.scala 46:33]
+  assign io_h2c_pack_counter = tx_handler_io_h2c_pack_counter; // @[PackageHandler.scala 37:31]
+  assign io_h2c_err_counter = tx_handler_io_h2c_err_counter; // @[PackageHandler.scala 38:31]
   assign tx_handler_clock = clock;
   assign tx_handler_reset = reset;
-  assign tx_handler_io_QDMA_h2c_stub_out_tdata = io_QDMA_h2c_stub_out_tdata; // @[PackageHandler.scala 31:24]
-  assign tx_handler_io_QDMA_h2c_stub_out_tvalid = io_QDMA_h2c_stub_out_tvalid; // @[PackageHandler.scala 31:24]
-  assign tx_handler_io_QDMA_h2c_stub_out_tlast = io_QDMA_h2c_stub_out_tlast; // @[PackageHandler.scala 31:24]
-  assign tx_handler_io_QDMA_h2c_stub_out_tuser = io_QDMA_h2c_stub_out_tuser; // @[PackageHandler.scala 31:24]
-  assign tx_handler_io_CMAC_in_tready = io_CMAC_in_tready; // @[PackageHandler.scala 32:24]
-  assign tx_handler_io_reset_counter = io_reset_counter; // @[PackageHandler.scala 33:31]
-  assign tx_handler_io_extern_config_c2h_match_op = io_extern_config_c2h_match_op; // @[PackageHandler.scala 34:33]
-  assign tx_handler_io_extern_config_c2h_match_arg_0 = io_extern_config_c2h_match_arg_0; // @[PackageHandler.scala 34:33]
-  assign tx_handler_io_extern_config_c2h_match_arg_1 = io_extern_config_c2h_match_arg_1; // @[PackageHandler.scala 34:33]
-  assign tx_handler_io_extern_config_c2h_match_arg_2 = io_extern_config_c2h_match_arg_2; // @[PackageHandler.scala 34:33]
-  assign tx_handler_io_extern_config_c2h_match_arg_3 = io_extern_config_c2h_match_arg_3; // @[PackageHandler.scala 34:33]
-  assign tx_handler_io_extern_config_c2h_match_arg_4 = io_extern_config_c2h_match_arg_4; // @[PackageHandler.scala 34:33]
-  assign tx_handler_io_extern_config_c2h_match_arg_5 = io_extern_config_c2h_match_arg_5; // @[PackageHandler.scala 34:33]
-  assign tx_handler_io_extern_config_c2h_match_arg_6 = io_extern_config_c2h_match_arg_6; // @[PackageHandler.scala 34:33]
-  assign tx_handler_io_extern_config_c2h_match_arg_7 = io_extern_config_c2h_match_arg_7; // @[PackageHandler.scala 34:33]
-  assign tx_handler_io_extern_config_c2h_match_arg_8 = io_extern_config_c2h_match_arg_8; // @[PackageHandler.scala 34:33]
-  assign tx_handler_io_extern_config_c2h_match_arg_9 = io_extern_config_c2h_match_arg_9; // @[PackageHandler.scala 34:33]
-  assign tx_handler_io_extern_config_c2h_match_arg_10 = io_extern_config_c2h_match_arg_10; // @[PackageHandler.scala 34:33]
-  assign tx_handler_io_extern_config_c2h_match_arg_11 = io_extern_config_c2h_match_arg_11; // @[PackageHandler.scala 34:33]
-  assign tx_handler_io_extern_config_c2h_match_arg_12 = io_extern_config_c2h_match_arg_12; // @[PackageHandler.scala 34:33]
-  assign tx_handler_io_extern_config_c2h_match_arg_13 = io_extern_config_c2h_match_arg_13; // @[PackageHandler.scala 34:33]
-  assign tx_handler_io_extern_config_c2h_match_arg_14 = io_extern_config_c2h_match_arg_14; // @[PackageHandler.scala 34:33]
-  assign tx_handler_io_extern_config_c2h_match_arg_15 = io_extern_config_c2h_match_arg_15; // @[PackageHandler.scala 34:33]
+  assign tx_handler_io_QDMA_h2c_stub_out_tdata = io_QDMA_h2c_stub_out_tdata; // @[PackageHandler.scala 33:24]
+  assign tx_handler_io_QDMA_h2c_stub_out_tvalid = io_QDMA_h2c_stub_out_tvalid; // @[PackageHandler.scala 33:24]
+  assign tx_handler_io_QDMA_h2c_stub_out_tlast = io_QDMA_h2c_stub_out_tlast; // @[PackageHandler.scala 33:24]
+  assign tx_handler_io_QDMA_h2c_stub_out_tuser = io_QDMA_h2c_stub_out_tuser; // @[PackageHandler.scala 33:24]
+  assign tx_handler_io_CMAC_in_tready = io_CMAC_in_tready; // @[PackageHandler.scala 34:24]
+  assign tx_handler_io_reset_counter = io_reset_counter; // @[PackageHandler.scala 35:31]
+  assign tx_handler_io_extern_config_c2h_match_op = extern_config_reg_REG[527:512]; // @[PackageHandler.scala 30:72]
+  assign tx_handler_io_extern_config_c2h_match_arg_12 = extern_config_reg_REG[415:384]; // @[PackageHandler.scala 30:72]
+  assign tx_handler_io_extern_config_c2h_match_arg_13 = extern_config_reg_REG[447:416]; // @[PackageHandler.scala 30:72]
+  assign tx_handler_io_extern_config_c2h_match_arg_14 = extern_config_reg_REG[479:448]; // @[PackageHandler.scala 30:72]
+  assign tx_handler_io_extern_config_c2h_match_arg_15 = extern_config_reg_REG[511:480]; // @[PackageHandler.scala 30:72]
   assign rx_handler_clock = clock;
   assign rx_handler_reset = reset;
-  assign rx_handler_io_CMAC_out_tdata = io_CMAC_out_tdata; // @[PackageHandler.scala 40:23]
-  assign rx_handler_io_CMAC_out_tvalid = io_CMAC_out_tvalid; // @[PackageHandler.scala 40:23]
-  assign rx_handler_io_CMAC_out_tlast = io_CMAC_out_tlast; // @[PackageHandler.scala 40:23]
-  assign rx_handler_io_CMAC_out_tuser = io_CMAC_out_tuser; // @[PackageHandler.scala 40:23]
-  assign rx_handler_io_CMAC_out_tkeep = io_CMAC_out_tkeep; // @[PackageHandler.scala 40:23]
-  assign rx_handler_io_QDMA_c2h_stub_in_tready = io_QDMA_c2h_stub_in_tready; // @[PackageHandler.scala 39:23]
-  assign rx_handler_io_reset_counter = io_reset_counter; // @[PackageHandler.scala 41:33]
-  assign rx_handler_io_extern_config_c2h_match_op = io_extern_config_c2h_match_op; // @[PackageHandler.scala 42:33]
-  assign rx_handler_io_extern_config_c2h_match_arg_0 = io_extern_config_c2h_match_arg_0; // @[PackageHandler.scala 42:33]
-  assign rx_handler_io_extern_config_c2h_match_arg_1 = io_extern_config_c2h_match_arg_1; // @[PackageHandler.scala 42:33]
-  assign rx_handler_io_extern_config_c2h_match_arg_2 = io_extern_config_c2h_match_arg_2; // @[PackageHandler.scala 42:33]
-  assign rx_handler_io_extern_config_c2h_match_arg_3 = io_extern_config_c2h_match_arg_3; // @[PackageHandler.scala 42:33]
-  assign rx_handler_io_extern_config_c2h_match_arg_4 = io_extern_config_c2h_match_arg_4; // @[PackageHandler.scala 42:33]
-  assign rx_handler_io_extern_config_c2h_match_arg_5 = io_extern_config_c2h_match_arg_5; // @[PackageHandler.scala 42:33]
-  assign rx_handler_io_extern_config_c2h_match_arg_6 = io_extern_config_c2h_match_arg_6; // @[PackageHandler.scala 42:33]
-  assign rx_handler_io_extern_config_c2h_match_arg_7 = io_extern_config_c2h_match_arg_7; // @[PackageHandler.scala 42:33]
-  assign rx_handler_io_extern_config_c2h_match_arg_8 = io_extern_config_c2h_match_arg_8; // @[PackageHandler.scala 42:33]
-  assign rx_handler_io_extern_config_c2h_match_arg_9 = io_extern_config_c2h_match_arg_9; // @[PackageHandler.scala 42:33]
-  assign rx_handler_io_extern_config_c2h_match_arg_10 = io_extern_config_c2h_match_arg_10; // @[PackageHandler.scala 42:33]
-  assign rx_handler_io_extern_config_c2h_match_arg_11 = io_extern_config_c2h_match_arg_11; // @[PackageHandler.scala 42:33]
-  assign rx_handler_io_extern_config_c2h_match_arg_12 = io_extern_config_c2h_match_arg_12; // @[PackageHandler.scala 42:33]
-  assign rx_handler_io_extern_config_c2h_match_arg_13 = io_extern_config_c2h_match_arg_13; // @[PackageHandler.scala 42:33]
-  assign rx_handler_io_extern_config_c2h_match_arg_14 = io_extern_config_c2h_match_arg_14; // @[PackageHandler.scala 42:33]
-  assign rx_handler_io_extern_config_c2h_match_arg_15 = io_extern_config_c2h_match_arg_15; // @[PackageHandler.scala 42:33]
+  assign rx_handler_io_CMAC_out_tdata = io_CMAC_out_tdata; // @[PackageHandler.scala 42:23]
+  assign rx_handler_io_CMAC_out_tvalid = io_CMAC_out_tvalid; // @[PackageHandler.scala 42:23]
+  assign rx_handler_io_CMAC_out_tlast = io_CMAC_out_tlast; // @[PackageHandler.scala 42:23]
+  assign rx_handler_io_CMAC_out_tuser = io_CMAC_out_tuser; // @[PackageHandler.scala 42:23]
+  assign rx_handler_io_CMAC_out_tkeep = io_CMAC_out_tkeep; // @[PackageHandler.scala 42:23]
+  assign rx_handler_io_QDMA_c2h_stub_in_tready = io_QDMA_c2h_stub_in_tready; // @[PackageHandler.scala 41:23]
+  assign rx_handler_io_reset_counter = io_reset_counter; // @[PackageHandler.scala 43:33]
+  assign rx_handler_io_extern_config_c2h_match_op = extern_config_reg_REG[527:512]; // @[PackageHandler.scala 30:72]
+  assign rx_handler_io_extern_config_c2h_match_arg_0 = extern_config_reg_REG[31:0]; // @[PackageHandler.scala 30:72]
+  assign rx_handler_io_extern_config_c2h_match_arg_1 = extern_config_reg_REG[63:32]; // @[PackageHandler.scala 30:72]
+  assign rx_handler_io_extern_config_c2h_match_arg_2 = extern_config_reg_REG[95:64]; // @[PackageHandler.scala 30:72]
+  assign rx_handler_io_extern_config_c2h_match_arg_3 = extern_config_reg_REG[127:96]; // @[PackageHandler.scala 30:72]
+  assign rx_handler_io_extern_config_c2h_match_arg_4 = extern_config_reg_REG[159:128]; // @[PackageHandler.scala 30:72]
+  assign rx_handler_io_extern_config_c2h_match_arg_5 = extern_config_reg_REG[191:160]; // @[PackageHandler.scala 30:72]
+  assign rx_handler_io_extern_config_c2h_match_arg_6 = extern_config_reg_REG[223:192]; // @[PackageHandler.scala 30:72]
+  assign rx_handler_io_extern_config_c2h_match_arg_7 = extern_config_reg_REG[255:224]; // @[PackageHandler.scala 30:72]
+  assign rx_handler_io_extern_config_c2h_match_arg_8 = extern_config_reg_REG[287:256]; // @[PackageHandler.scala 30:72]
+  assign rx_handler_io_extern_config_c2h_match_arg_9 = extern_config_reg_REG[319:288]; // @[PackageHandler.scala 30:72]
+  assign rx_handler_io_extern_config_c2h_match_arg_10 = extern_config_reg_REG[351:320]; // @[PackageHandler.scala 30:72]
+  assign rx_handler_io_extern_config_c2h_match_arg_11 = extern_config_reg_REG[383:352]; // @[PackageHandler.scala 30:72]
+  assign rx_handler_io_extern_config_c2h_match_arg_12 = extern_config_reg_REG[415:384]; // @[PackageHandler.scala 30:72]
+  assign rx_handler_io_extern_config_c2h_match_arg_13 = extern_config_reg_REG[447:416]; // @[PackageHandler.scala 30:72]
+  assign rx_handler_io_extern_config_c2h_match_arg_14 = extern_config_reg_REG[479:448]; // @[PackageHandler.scala 30:72]
+  assign rx_handler_io_extern_config_c2h_match_arg_15 = extern_config_reg_REG[511:480]; // @[PackageHandler.scala 30:72]
+  always @(posedge clock) begin
+    if (reset) begin // @[PackageHandler.scala 30:34]
+      extern_config_reg_REG <= 528'h0; // @[PackageHandler.scala 30:34]
+    end else begin
+      extern_config_reg_REG <= _extern_config_reg_T; // @[PackageHandler.scala 30:34]
+    end
+  end
+// Register and memory initialization
+`ifdef RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_REG_INIT
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+`define RANDOMIZE
+`endif
+`ifndef RANDOM
+`define RANDOM $random
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+  integer initvar;
+`endif
+`ifndef SYNTHESIS
+`ifdef FIRRTL_BEFORE_INITIAL
+`FIRRTL_BEFORE_INITIAL
+`endif
+initial begin
+  `ifdef RANDOMIZE
+    `ifdef INIT_RANDOM
+      `INIT_RANDOM
+    `endif
+    `ifndef VERILATOR
+      `ifdef RANDOMIZE_DELAY
+        #`RANDOMIZE_DELAY begin end
+      `else
+        #0.002 begin end
+      `endif
+    `endif
+`ifdef RANDOMIZE_REG_INIT
+  _RAND_0 = {17{`RANDOM}};
+  extern_config_reg_REG = _RAND_0[527:0];
+`endif // RANDOMIZE_REG_INIT
+  `endif // RANDOMIZE
+end // initial
+`ifdef FIRRTL_AFTER_INITIAL
+`FIRRTL_AFTER_INITIAL
+`endif
+`endif // SYNTHESIS
 endmodule

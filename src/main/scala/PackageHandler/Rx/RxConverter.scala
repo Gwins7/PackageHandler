@@ -22,7 +22,7 @@ class RxConverter extends Module{
   }.elsewhen(out_shake_hand){
     in_reg_used_reg := false.B
   }
-  val extern_config_reg = RegEnable(io.extern_config.asUInt,0.U,io.out.tready & io.out.tvalid).asTypeOf(new ExternConfig)
+//  val extern_config_reg = RegEnable(io.extern_config.asUInt,0.U,io.out.tready & io.out.tvalid).asTypeOf(new ExternConfig)
 
   val cal_tkeep = Mux(in_shake_hand,io.in.tkeep,in_reg.tkeep)
   val burst_size_cal = Module(new ReduceAddSync(64,8))
@@ -56,5 +56,5 @@ class RxConverter extends Module{
   io.out.rx_info := WireDefault(0.U.asTypeOf(new RxInfo))
   io.out.rx_info.tlen := Mux(first_beat_reg,cur_burst_size,tlen_reg + cur_burst_size)
   io.out.rx_info.qid := 0.U
-  io.out.extern_config := extern_config_reg
+  io.out.extern_config := io.extern_config
 }

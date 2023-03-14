@@ -14,9 +14,9 @@ class TxConverter extends Module{
   })
   val true_tvalid = io.in.tvalid & !io.in.tuser
 
-  val extern_config_reg = RegEnable(io.extern_config.asUInt,0.U,io.out.tready & io.out.tvalid).asTypeOf(new ExternConfig)
+  //  val extern_config_reg = RegEnable(io.extern_config.asUInt,0.U,io.out.tready & io.out.tvalid).asTypeOf(new ExternConfig)
 
-  io.out.extern_config   := extern_config_reg
+  io.out.extern_config   := io.extern_config
   io.out.tx_info         := 0.U.asTypeOf(new TxInfo()) // Default
   io.out.tvalid          := true_tvalid
   io.out.tlast           := io.in.tlast
