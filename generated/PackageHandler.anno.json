@@ -1,5 +1,41 @@
 [
   {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~PackageHandler|ReduceAddSync",
+    "duplicate":"~PackageHandler|PackageHandler/tx_handler:TxHandler/tx_pipeline:TxPipeline/tx_chksum_generator:TxChksumGenerator/ip_chksum_cal:ReduceAddSync",
+    "index":0.07407407407407407
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~PackageHandler|ReduceAddSync_1",
+    "duplicate":"~PackageHandler|PackageHandler/tx_handler:TxHandler/tx_pipeline:TxPipeline/tx_chksum_generator:TxChksumGenerator/tcp_pld_chksum_cal:ReduceAddSync_1",
+    "index":0.1111111111111111
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~PackageHandler|ReduceAddSync_2",
+    "duplicate":"~PackageHandler|PackageHandler/tx_handler:TxHandler/tx_pipeline:TxPipeline/tx_chksum_generator:TxChksumGenerator/tcp_hdr_chksum_cal:ReduceAddSync_1",
+    "index":0.14814814814814814
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~PackageHandler|ReduceAddSync_4",
+    "duplicate":"~PackageHandler|PackageHandler/rx_handler:RxHandler/rx_pipeline:RxPipeline/rx_chksum_verifier:RxChksumVerifier/ip_chksum_cal:ReduceAddSync",
+    "index":0.5555555555555556
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~PackageHandler|ReduceAddSync_5",
+    "duplicate":"~PackageHandler|PackageHandler/rx_handler:RxHandler/rx_pipeline:RxPipeline/rx_chksum_verifier:RxChksumVerifier/tcp_pld_chksum_cal:ReduceAddSync_1",
+    "index":0.5925925925925926
+  },
+  {
+    "class":"firrtl.transforms.DedupedResult",
+    "original":"~PackageHandler|ReduceAddSync_6",
+    "duplicate":"~PackageHandler|PackageHandler/rx_handler:RxHandler/rx_pipeline:RxPipeline/rx_chksum_verifier:RxChksumVerifier/tcp_hdr_chksum_cal:ReduceAddSync_1",
+    "index":0.6296296296296297
+  },
+  {
     "class":"firrtl.EmitCircuitAnnotation",
     "emitter":"firrtl.VerilogEmitter"
   },
