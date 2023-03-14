@@ -84,7 +84,7 @@ class RxAESDecrypter extends RxPipelineHandler with cal_gf256{
         tmp_tdata_reg := tmp_result(cur_round_counter(1, 0))
     }
 
-    when (io.in.extern_config.c2h_match_op(8) && !first_beat_reg){
+    when (io.in.extern_config.c2h_match_op(7) && !first_beat_reg){
         // ATTENTION: when in first beat, we don't do decryption
         io.out.tdata := tmp_tdata_reg
         io.in.tready   := (cur_round_counter >= 11.U) & (out_shake_hand | !in_reg_used_reg)

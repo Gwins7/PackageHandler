@@ -2,7 +2,7 @@ circuit PackageHandler :
   module TxConverter :
     input clock : Clock
     input reset : Reset
-    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tx_info : { ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}
+    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tx_info : { ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}
 
     node _true_tvalid_T = eq(io.in.tuser, UInt<1>("h0")) @[TxConverter.scala 15:36]
     node true_tvalid = and(io.in.tvalid, _true_tvalid_T) @[TxConverter.scala 15:34]
@@ -36,7 +36,7 @@ circuit PackageHandler :
   module TxAESEncrypter :
     input clock : Clock
     input reset : Reset
-    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tx_info : { ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tx_info : { ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}}
+    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tx_info : { ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tx_info : { ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}}
 
     node in_shake_hand = and(io.in.tvalid, io.in.tready) @[TxPipelineHandler.scala 12:36]
     node out_shake_hand = and(io.out.tready, io.out.tvalid) @[TxPipelineHandler.scala 13:38]
@@ -92,7 +92,7 @@ circuit PackageHandler :
     _io_out_tx_info_WIRE.ip_chksum <= io.in.tx_info.ip_chksum
     io.out.tx_info.tcp_chksum <= _io_out_tx_info_WIRE.tcp_chksum @[TxPipelineHandler.scala 30:18]
     io.out.tx_info.ip_chksum <= _io_out_tx_info_WIRE.ip_chksum @[TxPipelineHandler.scala 30:18]
-    wire _io_out_extern_config_WIRE : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}
+    wire _io_out_extern_config_WIRE : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}
     _io_out_extern_config_WIRE.c2h_match_arg[0] <= io.in.extern_config.c2h_match_arg[0]
     _io_out_extern_config_WIRE.c2h_match_arg[1] <= io.in.extern_config.c2h_match_arg[1]
     _io_out_extern_config_WIRE.c2h_match_arg[2] <= io.in.extern_config.c2h_match_arg[2]
@@ -3985,7 +3985,7 @@ circuit PackageHandler :
       node _T_9 = eq(cur_round_counter, UInt<6>("h32")) @[TxAESEncrypter.scala 86:32]
       when _T_9 : @[TxAESEncrypter.scala 86:42]
         tmp_tdata_reg <= tmp_result[3] @[TxAESEncrypter.scala 87:19]
-    node _T_10 = bits(io.in.extern_config.c2h_match_op, 8, 8) @[TxAESEncrypter.scala 90:41]
+    node _T_10 = bits(io.in.extern_config.c2h_match_op, 7, 7) @[TxAESEncrypter.scala 90:41]
     node _T_11 = eq(first_beat_reg, UInt<1>("h0")) @[TxAESEncrypter.scala 90:48]
     node _T_12 = and(_T_10, _T_11) @[TxAESEncrypter.scala 90:45]
     when _T_12 : @[TxAESEncrypter.scala 90:64]
@@ -4287,7 +4287,7 @@ circuit PackageHandler :
   module TxChksumGenerator :
     input clock : Clock
     input reset : Reset
-    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tx_info : { ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tx_info : { ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}}
+    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tx_info : { ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tx_info : { ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}}
 
     node in_shake_hand = and(io.in.tvalid, io.in.tready) @[TxPipelineHandler.scala 12:36]
     node out_shake_hand = and(io.out.tready, io.out.tvalid) @[TxPipelineHandler.scala 13:38]
@@ -4343,7 +4343,7 @@ circuit PackageHandler :
     _io_out_tx_info_WIRE.ip_chksum <= io.in.tx_info.ip_chksum
     io.out.tx_info.tcp_chksum <= _io_out_tx_info_WIRE.tcp_chksum @[TxPipelineHandler.scala 30:18]
     io.out.tx_info.ip_chksum <= _io_out_tx_info_WIRE.ip_chksum @[TxPipelineHandler.scala 30:18]
-    wire _io_out_extern_config_WIRE : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}
+    wire _io_out_extern_config_WIRE : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}
     _io_out_extern_config_WIRE.c2h_match_arg[0] <= io.in.extern_config.c2h_match_arg[0]
     _io_out_extern_config_WIRE.c2h_match_arg[1] <= io.in.extern_config.c2h_match_arg[1]
     _io_out_extern_config_WIRE.c2h_match_arg[2] <= io.in.extern_config.c2h_match_arg[2]
@@ -4727,7 +4727,7 @@ circuit PackageHandler :
   module TxPipeline :
     input clock : Clock
     input reset : Reset
-    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tx_info : { ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tx_info : { ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}}
+    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tx_info : { ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tx_info : { ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}}
 
     inst tx_aes_encrypter of TxAESEncrypter @[TxPipeline.scala 15:32]
     tx_aes_encrypter.clock <= clock
@@ -4808,7 +4808,7 @@ circuit PackageHandler :
   module TxBufferFifo :
     input clock : Clock
     input reset : Reset
-    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tx_info : { ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip tkeep : UInt<64>}, flip reset_counter : UInt<1>, h2c_pack_counter : UInt<32>, h2c_err_counter : UInt<32>}
+    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tx_info : { ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip tkeep : UInt<64>}, flip reset_counter : UInt<1>, h2c_pack_counter : UInt<32>, h2c_err_counter : UInt<32>}
 
     node in_shake_hand = and(io.in.tvalid, io.in.tready) @[TxBufferFifo.scala 39:36]
     smem data_buf_reg : UInt<512> [64] @[TxBufferFifo.scala 40:33]
@@ -5102,7 +5102,7 @@ circuit PackageHandler :
   module TxHandler :
     input clock : Clock
     input reset : Reset
-    output io : { QDMA_h2c_stub_out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, flip CMAC_in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip tkeep : UInt<64>}, flip reset_counter : UInt<1>, h2c_pack_counter : UInt<32>, h2c_err_counter : UInt<32>, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}
+    output io : { QDMA_h2c_stub_out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, flip CMAC_in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip tkeep : UInt<64>}, flip reset_counter : UInt<1>, h2c_pack_counter : UInt<32>, h2c_err_counter : UInt<32>, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}
 
     inst tx_converter of TxConverter @[TxHandler.scala 20:28]
     tx_converter.clock <= clock
@@ -5402,7 +5402,7 @@ circuit PackageHandler :
   module RxConverter :
     input clock : Clock
     input reset : Reset
-    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip tkeep : UInt<64>}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}
+    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip tkeep : UInt<64>}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}
 
     node in_shake_hand = and(io.in.tvalid, io.in.tready) @[RxConverter.scala 15:36]
     node out_shake_hand = and(io.out.tready, io.out.tvalid) @[RxConverter.scala 16:38]
@@ -7166,7 +7166,7 @@ circuit PackageHandler :
   module RxAESDecrypter :
     input clock : Clock
     input reset : Reset
-    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}}
+    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}}
 
     node in_shake_hand = and(io.in.tready, io.in.tvalid) @[RxPipelineHandler.scala 12:38]
     node out_shake_hand = and(io.out.tready, io.out.tvalid) @[RxPipelineHandler.scala 13:38]
@@ -7238,7 +7238,7 @@ circuit PackageHandler :
     wire _io_in_tready_WIRE : UInt<1>
     _io_in_tready_WIRE <= _io_in_tready_T_1
     io.in.tready <= _io_in_tready_WIRE @[RxPipelineHandler.scala 30:18]
-    wire _io_out_extern_config_WIRE : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}
+    wire _io_out_extern_config_WIRE : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}
     _io_out_extern_config_WIRE.c2h_match_arg[0] <= io.in.extern_config.c2h_match_arg[0]
     _io_out_extern_config_WIRE.c2h_match_arg[1] <= io.in.extern_config.c2h_match_arg[1]
     _io_out_extern_config_WIRE.c2h_match_arg[2] <= io.in.extern_config.c2h_match_arg[2]
@@ -19709,7 +19709,7 @@ circuit PackageHandler :
       when _T_9 : @[RxAESDecrypter.scala 83:70]
         node _tmp_tdata_reg_T = bits(cur_round_counter, 1, 0) @[RxAESDecrypter.scala 84:54]
         tmp_tdata_reg <= tmp_result[_tmp_tdata_reg_T] @[RxAESDecrypter.scala 84:23]
-    node _T_10 = bits(io.in.extern_config.c2h_match_op, 8, 8) @[RxAESDecrypter.scala 87:43]
+    node _T_10 = bits(io.in.extern_config.c2h_match_op, 7, 7) @[RxAESDecrypter.scala 87:43]
     node _T_11 = eq(first_beat_reg, UInt<1>("h0")) @[RxAESDecrypter.scala 87:50]
     node _T_12 = and(_T_10, _T_11) @[RxAESDecrypter.scala 87:47]
     when _T_12 : @[RxAESDecrypter.scala 87:66]
@@ -19723,743 +19723,6 @@ circuit PackageHandler :
       node _io_out_tvalid_T_2 = and(in_reg.tvalid, in_reg_used_reg) @[RxAESDecrypter.scala 91:72]
       node _io_out_tvalid_T_3 = and(_io_out_tvalid_T_1, _io_out_tvalid_T_2) @[RxAESDecrypter.scala 91:55]
       io.out.tvalid <= _io_out_tvalid_T_3 @[RxAESDecrypter.scala 91:23]
-
-  module REHandlerUnit :
-    input clock : Clock
-    input reset : Reset
-    output io : { flip in_char : UInt<8>, flip in_state : UInt<4>, flip in_rule : UInt<32>[16], out_state : UInt<4>}
-
-    wire _result_WIRE : UInt<4>[16] @[RxRESearcher.scala 18:40]
-    _result_WIRE[0] <= UInt<4>("h0") @[RxRESearcher.scala 18:40]
-    _result_WIRE[1] <= UInt<4>("h0") @[RxRESearcher.scala 18:40]
-    _result_WIRE[2] <= UInt<4>("h0") @[RxRESearcher.scala 18:40]
-    _result_WIRE[3] <= UInt<4>("h0") @[RxRESearcher.scala 18:40]
-    _result_WIRE[4] <= UInt<4>("h0") @[RxRESearcher.scala 18:40]
-    _result_WIRE[5] <= UInt<4>("h0") @[RxRESearcher.scala 18:40]
-    _result_WIRE[6] <= UInt<4>("h0") @[RxRESearcher.scala 18:40]
-    _result_WIRE[7] <= UInt<4>("h0") @[RxRESearcher.scala 18:40]
-    _result_WIRE[8] <= UInt<4>("h0") @[RxRESearcher.scala 18:40]
-    _result_WIRE[9] <= UInt<4>("h0") @[RxRESearcher.scala 18:40]
-    _result_WIRE[10] <= UInt<4>("h0") @[RxRESearcher.scala 18:40]
-    _result_WIRE[11] <= UInt<4>("h0") @[RxRESearcher.scala 18:40]
-    _result_WIRE[12] <= UInt<4>("h0") @[RxRESearcher.scala 18:40]
-    _result_WIRE[13] <= UInt<4>("h0") @[RxRESearcher.scala 18:40]
-    _result_WIRE[14] <= UInt<4>("h0") @[RxRESearcher.scala 18:40]
-    _result_WIRE[15] <= UInt<4>("h0") @[RxRESearcher.scala 18:40]
-    wire result : UInt<4>[16]
-    result[0] <= _result_WIRE[0]
-    result[1] <= _result_WIRE[1]
-    result[2] <= _result_WIRE[2]
-    result[3] <= _result_WIRE[3]
-    result[4] <= _result_WIRE[4]
-    result[5] <= _result_WIRE[5]
-    result[6] <= _result_WIRE[6]
-    result[7] <= _result_WIRE[7]
-    result[8] <= _result_WIRE[8]
-    result[9] <= _result_WIRE[9]
-    result[10] <= _result_WIRE[10]
-    result[11] <= _result_WIRE[11]
-    result[12] <= _result_WIRE[12]
-    result[13] <= _result_WIRE[13]
-    result[14] <= _result_WIRE[14]
-    result[15] <= _result_WIRE[15]
-    node _char_1_or_2_cmp_T = bits(io.in_rule[0], 7, 0) @[RxRESearcher.scala 22:56]
-    node _char_1_or_2_cmp_T_1 = eq(io.in_char, _char_1_or_2_cmp_T) @[RxRESearcher.scala 22:39]
-    node _char_1_or_2_cmp_T_2 = bits(io.in_rule[0], 15, 8) @[RxRESearcher.scala 22:94]
-    node _char_1_or_2_cmp_T_3 = eq(io.in_char, _char_1_or_2_cmp_T_2) @[RxRESearcher.scala 22:77]
-    node char_1_or_2_cmp = or(_char_1_or_2_cmp_T_1, _char_1_or_2_cmp_T_3) @[RxRESearcher.scala 22:63]
-    node _char_1_to_2_cmp_T = bits(io.in_rule[0], 7, 0) @[RxRESearcher.scala 23:55]
-    node _char_1_to_2_cmp_T_1 = geq(io.in_char, _char_1_to_2_cmp_T) @[RxRESearcher.scala 23:39]
-    node _char_1_to_2_cmp_T_2 = bits(io.in_rule[0], 15, 8) @[RxRESearcher.scala 23:92]
-    node _char_1_to_2_cmp_T_3 = leq(io.in_char, _char_1_to_2_cmp_T_2) @[RxRESearcher.scala 23:76]
-    node char_1_to_2_cmp = and(_char_1_to_2_cmp_T_1, _char_1_to_2_cmp_T_3) @[RxRESearcher.scala 23:62]
-    node _cmp_result_T = bits(io.in_rule[0], 17, 17) @[RxRESearcher.scala 24:39]
-    node cmp_result = mux(_cmp_result_T, char_1_to_2_cmp, char_1_or_2_cmp) @[RxRESearcher.scala 24:25]
-    node _match_ok_T = bits(io.in_rule[0], 16, 16) @[RxRESearcher.scala 25:39]
-    node _match_ok_T_1 = eq(cmp_result, UInt<1>("h0")) @[RxRESearcher.scala 25:44]
-    node match_ok = mux(_match_ok_T, _match_ok_T_1, cmp_result) @[RxRESearcher.scala 25:25]
-    node _T = bits(io.in_rule[0], 27, 24) @[RxRESearcher.scala 27:41]
-    node _T_1 = eq(io.in_state, _T) @[RxRESearcher.scala 27:24]
-    node _T_2 = and(_T_1, match_ok) @[RxRESearcher.scala 27:50]
-    when _T_2 : @[RxRESearcher.scala 27:61]
-      node _result_0_T = bits(io.in_rule[0], 31, 28) @[RxRESearcher.scala 28:35]
-      result[0] <= _result_0_T @[RxRESearcher.scala 28:19]
-    node _char_1_or_2_cmp_T_4 = bits(io.in_rule[1], 7, 0) @[RxRESearcher.scala 22:56]
-    node _char_1_or_2_cmp_T_5 = eq(io.in_char, _char_1_or_2_cmp_T_4) @[RxRESearcher.scala 22:39]
-    node _char_1_or_2_cmp_T_6 = bits(io.in_rule[1], 15, 8) @[RxRESearcher.scala 22:94]
-    node _char_1_or_2_cmp_T_7 = eq(io.in_char, _char_1_or_2_cmp_T_6) @[RxRESearcher.scala 22:77]
-    node char_1_or_2_cmp_1 = or(_char_1_or_2_cmp_T_5, _char_1_or_2_cmp_T_7) @[RxRESearcher.scala 22:63]
-    node _char_1_to_2_cmp_T_4 = bits(io.in_rule[1], 7, 0) @[RxRESearcher.scala 23:55]
-    node _char_1_to_2_cmp_T_5 = geq(io.in_char, _char_1_to_2_cmp_T_4) @[RxRESearcher.scala 23:39]
-    node _char_1_to_2_cmp_T_6 = bits(io.in_rule[1], 15, 8) @[RxRESearcher.scala 23:92]
-    node _char_1_to_2_cmp_T_7 = leq(io.in_char, _char_1_to_2_cmp_T_6) @[RxRESearcher.scala 23:76]
-    node char_1_to_2_cmp_1 = and(_char_1_to_2_cmp_T_5, _char_1_to_2_cmp_T_7) @[RxRESearcher.scala 23:62]
-    node _cmp_result_T_1 = bits(io.in_rule[1], 17, 17) @[RxRESearcher.scala 24:39]
-    node cmp_result_1 = mux(_cmp_result_T_1, char_1_to_2_cmp_1, char_1_or_2_cmp_1) @[RxRESearcher.scala 24:25]
-    node _match_ok_T_2 = bits(io.in_rule[1], 16, 16) @[RxRESearcher.scala 25:39]
-    node _match_ok_T_3 = eq(cmp_result_1, UInt<1>("h0")) @[RxRESearcher.scala 25:44]
-    node match_ok_1 = mux(_match_ok_T_2, _match_ok_T_3, cmp_result_1) @[RxRESearcher.scala 25:25]
-    node _T_3 = bits(io.in_rule[1], 27, 24) @[RxRESearcher.scala 27:41]
-    node _T_4 = eq(io.in_state, _T_3) @[RxRESearcher.scala 27:24]
-    node _T_5 = and(_T_4, match_ok_1) @[RxRESearcher.scala 27:50]
-    when _T_5 : @[RxRESearcher.scala 27:61]
-      node _result_1_T = bits(io.in_rule[1], 31, 28) @[RxRESearcher.scala 28:35]
-      result[1] <= _result_1_T @[RxRESearcher.scala 28:19]
-    node _char_1_or_2_cmp_T_8 = bits(io.in_rule[2], 7, 0) @[RxRESearcher.scala 22:56]
-    node _char_1_or_2_cmp_T_9 = eq(io.in_char, _char_1_or_2_cmp_T_8) @[RxRESearcher.scala 22:39]
-    node _char_1_or_2_cmp_T_10 = bits(io.in_rule[2], 15, 8) @[RxRESearcher.scala 22:94]
-    node _char_1_or_2_cmp_T_11 = eq(io.in_char, _char_1_or_2_cmp_T_10) @[RxRESearcher.scala 22:77]
-    node char_1_or_2_cmp_2 = or(_char_1_or_2_cmp_T_9, _char_1_or_2_cmp_T_11) @[RxRESearcher.scala 22:63]
-    node _char_1_to_2_cmp_T_8 = bits(io.in_rule[2], 7, 0) @[RxRESearcher.scala 23:55]
-    node _char_1_to_2_cmp_T_9 = geq(io.in_char, _char_1_to_2_cmp_T_8) @[RxRESearcher.scala 23:39]
-    node _char_1_to_2_cmp_T_10 = bits(io.in_rule[2], 15, 8) @[RxRESearcher.scala 23:92]
-    node _char_1_to_2_cmp_T_11 = leq(io.in_char, _char_1_to_2_cmp_T_10) @[RxRESearcher.scala 23:76]
-    node char_1_to_2_cmp_2 = and(_char_1_to_2_cmp_T_9, _char_1_to_2_cmp_T_11) @[RxRESearcher.scala 23:62]
-    node _cmp_result_T_2 = bits(io.in_rule[2], 17, 17) @[RxRESearcher.scala 24:39]
-    node cmp_result_2 = mux(_cmp_result_T_2, char_1_to_2_cmp_2, char_1_or_2_cmp_2) @[RxRESearcher.scala 24:25]
-    node _match_ok_T_4 = bits(io.in_rule[2], 16, 16) @[RxRESearcher.scala 25:39]
-    node _match_ok_T_5 = eq(cmp_result_2, UInt<1>("h0")) @[RxRESearcher.scala 25:44]
-    node match_ok_2 = mux(_match_ok_T_4, _match_ok_T_5, cmp_result_2) @[RxRESearcher.scala 25:25]
-    node _T_6 = bits(io.in_rule[2], 27, 24) @[RxRESearcher.scala 27:41]
-    node _T_7 = eq(io.in_state, _T_6) @[RxRESearcher.scala 27:24]
-    node _T_8 = and(_T_7, match_ok_2) @[RxRESearcher.scala 27:50]
-    when _T_8 : @[RxRESearcher.scala 27:61]
-      node _result_2_T = bits(io.in_rule[2], 31, 28) @[RxRESearcher.scala 28:35]
-      result[2] <= _result_2_T @[RxRESearcher.scala 28:19]
-    node _char_1_or_2_cmp_T_12 = bits(io.in_rule[3], 7, 0) @[RxRESearcher.scala 22:56]
-    node _char_1_or_2_cmp_T_13 = eq(io.in_char, _char_1_or_2_cmp_T_12) @[RxRESearcher.scala 22:39]
-    node _char_1_or_2_cmp_T_14 = bits(io.in_rule[3], 15, 8) @[RxRESearcher.scala 22:94]
-    node _char_1_or_2_cmp_T_15 = eq(io.in_char, _char_1_or_2_cmp_T_14) @[RxRESearcher.scala 22:77]
-    node char_1_or_2_cmp_3 = or(_char_1_or_2_cmp_T_13, _char_1_or_2_cmp_T_15) @[RxRESearcher.scala 22:63]
-    node _char_1_to_2_cmp_T_12 = bits(io.in_rule[3], 7, 0) @[RxRESearcher.scala 23:55]
-    node _char_1_to_2_cmp_T_13 = geq(io.in_char, _char_1_to_2_cmp_T_12) @[RxRESearcher.scala 23:39]
-    node _char_1_to_2_cmp_T_14 = bits(io.in_rule[3], 15, 8) @[RxRESearcher.scala 23:92]
-    node _char_1_to_2_cmp_T_15 = leq(io.in_char, _char_1_to_2_cmp_T_14) @[RxRESearcher.scala 23:76]
-    node char_1_to_2_cmp_3 = and(_char_1_to_2_cmp_T_13, _char_1_to_2_cmp_T_15) @[RxRESearcher.scala 23:62]
-    node _cmp_result_T_3 = bits(io.in_rule[3], 17, 17) @[RxRESearcher.scala 24:39]
-    node cmp_result_3 = mux(_cmp_result_T_3, char_1_to_2_cmp_3, char_1_or_2_cmp_3) @[RxRESearcher.scala 24:25]
-    node _match_ok_T_6 = bits(io.in_rule[3], 16, 16) @[RxRESearcher.scala 25:39]
-    node _match_ok_T_7 = eq(cmp_result_3, UInt<1>("h0")) @[RxRESearcher.scala 25:44]
-    node match_ok_3 = mux(_match_ok_T_6, _match_ok_T_7, cmp_result_3) @[RxRESearcher.scala 25:25]
-    node _T_9 = bits(io.in_rule[3], 27, 24) @[RxRESearcher.scala 27:41]
-    node _T_10 = eq(io.in_state, _T_9) @[RxRESearcher.scala 27:24]
-    node _T_11 = and(_T_10, match_ok_3) @[RxRESearcher.scala 27:50]
-    when _T_11 : @[RxRESearcher.scala 27:61]
-      node _result_3_T = bits(io.in_rule[3], 31, 28) @[RxRESearcher.scala 28:35]
-      result[3] <= _result_3_T @[RxRESearcher.scala 28:19]
-    node _char_1_or_2_cmp_T_16 = bits(io.in_rule[4], 7, 0) @[RxRESearcher.scala 22:56]
-    node _char_1_or_2_cmp_T_17 = eq(io.in_char, _char_1_or_2_cmp_T_16) @[RxRESearcher.scala 22:39]
-    node _char_1_or_2_cmp_T_18 = bits(io.in_rule[4], 15, 8) @[RxRESearcher.scala 22:94]
-    node _char_1_or_2_cmp_T_19 = eq(io.in_char, _char_1_or_2_cmp_T_18) @[RxRESearcher.scala 22:77]
-    node char_1_or_2_cmp_4 = or(_char_1_or_2_cmp_T_17, _char_1_or_2_cmp_T_19) @[RxRESearcher.scala 22:63]
-    node _char_1_to_2_cmp_T_16 = bits(io.in_rule[4], 7, 0) @[RxRESearcher.scala 23:55]
-    node _char_1_to_2_cmp_T_17 = geq(io.in_char, _char_1_to_2_cmp_T_16) @[RxRESearcher.scala 23:39]
-    node _char_1_to_2_cmp_T_18 = bits(io.in_rule[4], 15, 8) @[RxRESearcher.scala 23:92]
-    node _char_1_to_2_cmp_T_19 = leq(io.in_char, _char_1_to_2_cmp_T_18) @[RxRESearcher.scala 23:76]
-    node char_1_to_2_cmp_4 = and(_char_1_to_2_cmp_T_17, _char_1_to_2_cmp_T_19) @[RxRESearcher.scala 23:62]
-    node _cmp_result_T_4 = bits(io.in_rule[4], 17, 17) @[RxRESearcher.scala 24:39]
-    node cmp_result_4 = mux(_cmp_result_T_4, char_1_to_2_cmp_4, char_1_or_2_cmp_4) @[RxRESearcher.scala 24:25]
-    node _match_ok_T_8 = bits(io.in_rule[4], 16, 16) @[RxRESearcher.scala 25:39]
-    node _match_ok_T_9 = eq(cmp_result_4, UInt<1>("h0")) @[RxRESearcher.scala 25:44]
-    node match_ok_4 = mux(_match_ok_T_8, _match_ok_T_9, cmp_result_4) @[RxRESearcher.scala 25:25]
-    node _T_12 = bits(io.in_rule[4], 27, 24) @[RxRESearcher.scala 27:41]
-    node _T_13 = eq(io.in_state, _T_12) @[RxRESearcher.scala 27:24]
-    node _T_14 = and(_T_13, match_ok_4) @[RxRESearcher.scala 27:50]
-    when _T_14 : @[RxRESearcher.scala 27:61]
-      node _result_4_T = bits(io.in_rule[4], 31, 28) @[RxRESearcher.scala 28:35]
-      result[4] <= _result_4_T @[RxRESearcher.scala 28:19]
-    node _char_1_or_2_cmp_T_20 = bits(io.in_rule[5], 7, 0) @[RxRESearcher.scala 22:56]
-    node _char_1_or_2_cmp_T_21 = eq(io.in_char, _char_1_or_2_cmp_T_20) @[RxRESearcher.scala 22:39]
-    node _char_1_or_2_cmp_T_22 = bits(io.in_rule[5], 15, 8) @[RxRESearcher.scala 22:94]
-    node _char_1_or_2_cmp_T_23 = eq(io.in_char, _char_1_or_2_cmp_T_22) @[RxRESearcher.scala 22:77]
-    node char_1_or_2_cmp_5 = or(_char_1_or_2_cmp_T_21, _char_1_or_2_cmp_T_23) @[RxRESearcher.scala 22:63]
-    node _char_1_to_2_cmp_T_20 = bits(io.in_rule[5], 7, 0) @[RxRESearcher.scala 23:55]
-    node _char_1_to_2_cmp_T_21 = geq(io.in_char, _char_1_to_2_cmp_T_20) @[RxRESearcher.scala 23:39]
-    node _char_1_to_2_cmp_T_22 = bits(io.in_rule[5], 15, 8) @[RxRESearcher.scala 23:92]
-    node _char_1_to_2_cmp_T_23 = leq(io.in_char, _char_1_to_2_cmp_T_22) @[RxRESearcher.scala 23:76]
-    node char_1_to_2_cmp_5 = and(_char_1_to_2_cmp_T_21, _char_1_to_2_cmp_T_23) @[RxRESearcher.scala 23:62]
-    node _cmp_result_T_5 = bits(io.in_rule[5], 17, 17) @[RxRESearcher.scala 24:39]
-    node cmp_result_5 = mux(_cmp_result_T_5, char_1_to_2_cmp_5, char_1_or_2_cmp_5) @[RxRESearcher.scala 24:25]
-    node _match_ok_T_10 = bits(io.in_rule[5], 16, 16) @[RxRESearcher.scala 25:39]
-    node _match_ok_T_11 = eq(cmp_result_5, UInt<1>("h0")) @[RxRESearcher.scala 25:44]
-    node match_ok_5 = mux(_match_ok_T_10, _match_ok_T_11, cmp_result_5) @[RxRESearcher.scala 25:25]
-    node _T_15 = bits(io.in_rule[5], 27, 24) @[RxRESearcher.scala 27:41]
-    node _T_16 = eq(io.in_state, _T_15) @[RxRESearcher.scala 27:24]
-    node _T_17 = and(_T_16, match_ok_5) @[RxRESearcher.scala 27:50]
-    when _T_17 : @[RxRESearcher.scala 27:61]
-      node _result_5_T = bits(io.in_rule[5], 31, 28) @[RxRESearcher.scala 28:35]
-      result[5] <= _result_5_T @[RxRESearcher.scala 28:19]
-    node _char_1_or_2_cmp_T_24 = bits(io.in_rule[6], 7, 0) @[RxRESearcher.scala 22:56]
-    node _char_1_or_2_cmp_T_25 = eq(io.in_char, _char_1_or_2_cmp_T_24) @[RxRESearcher.scala 22:39]
-    node _char_1_or_2_cmp_T_26 = bits(io.in_rule[6], 15, 8) @[RxRESearcher.scala 22:94]
-    node _char_1_or_2_cmp_T_27 = eq(io.in_char, _char_1_or_2_cmp_T_26) @[RxRESearcher.scala 22:77]
-    node char_1_or_2_cmp_6 = or(_char_1_or_2_cmp_T_25, _char_1_or_2_cmp_T_27) @[RxRESearcher.scala 22:63]
-    node _char_1_to_2_cmp_T_24 = bits(io.in_rule[6], 7, 0) @[RxRESearcher.scala 23:55]
-    node _char_1_to_2_cmp_T_25 = geq(io.in_char, _char_1_to_2_cmp_T_24) @[RxRESearcher.scala 23:39]
-    node _char_1_to_2_cmp_T_26 = bits(io.in_rule[6], 15, 8) @[RxRESearcher.scala 23:92]
-    node _char_1_to_2_cmp_T_27 = leq(io.in_char, _char_1_to_2_cmp_T_26) @[RxRESearcher.scala 23:76]
-    node char_1_to_2_cmp_6 = and(_char_1_to_2_cmp_T_25, _char_1_to_2_cmp_T_27) @[RxRESearcher.scala 23:62]
-    node _cmp_result_T_6 = bits(io.in_rule[6], 17, 17) @[RxRESearcher.scala 24:39]
-    node cmp_result_6 = mux(_cmp_result_T_6, char_1_to_2_cmp_6, char_1_or_2_cmp_6) @[RxRESearcher.scala 24:25]
-    node _match_ok_T_12 = bits(io.in_rule[6], 16, 16) @[RxRESearcher.scala 25:39]
-    node _match_ok_T_13 = eq(cmp_result_6, UInt<1>("h0")) @[RxRESearcher.scala 25:44]
-    node match_ok_6 = mux(_match_ok_T_12, _match_ok_T_13, cmp_result_6) @[RxRESearcher.scala 25:25]
-    node _T_18 = bits(io.in_rule[6], 27, 24) @[RxRESearcher.scala 27:41]
-    node _T_19 = eq(io.in_state, _T_18) @[RxRESearcher.scala 27:24]
-    node _T_20 = and(_T_19, match_ok_6) @[RxRESearcher.scala 27:50]
-    when _T_20 : @[RxRESearcher.scala 27:61]
-      node _result_6_T = bits(io.in_rule[6], 31, 28) @[RxRESearcher.scala 28:35]
-      result[6] <= _result_6_T @[RxRESearcher.scala 28:19]
-    node _char_1_or_2_cmp_T_28 = bits(io.in_rule[7], 7, 0) @[RxRESearcher.scala 22:56]
-    node _char_1_or_2_cmp_T_29 = eq(io.in_char, _char_1_or_2_cmp_T_28) @[RxRESearcher.scala 22:39]
-    node _char_1_or_2_cmp_T_30 = bits(io.in_rule[7], 15, 8) @[RxRESearcher.scala 22:94]
-    node _char_1_or_2_cmp_T_31 = eq(io.in_char, _char_1_or_2_cmp_T_30) @[RxRESearcher.scala 22:77]
-    node char_1_or_2_cmp_7 = or(_char_1_or_2_cmp_T_29, _char_1_or_2_cmp_T_31) @[RxRESearcher.scala 22:63]
-    node _char_1_to_2_cmp_T_28 = bits(io.in_rule[7], 7, 0) @[RxRESearcher.scala 23:55]
-    node _char_1_to_2_cmp_T_29 = geq(io.in_char, _char_1_to_2_cmp_T_28) @[RxRESearcher.scala 23:39]
-    node _char_1_to_2_cmp_T_30 = bits(io.in_rule[7], 15, 8) @[RxRESearcher.scala 23:92]
-    node _char_1_to_2_cmp_T_31 = leq(io.in_char, _char_1_to_2_cmp_T_30) @[RxRESearcher.scala 23:76]
-    node char_1_to_2_cmp_7 = and(_char_1_to_2_cmp_T_29, _char_1_to_2_cmp_T_31) @[RxRESearcher.scala 23:62]
-    node _cmp_result_T_7 = bits(io.in_rule[7], 17, 17) @[RxRESearcher.scala 24:39]
-    node cmp_result_7 = mux(_cmp_result_T_7, char_1_to_2_cmp_7, char_1_or_2_cmp_7) @[RxRESearcher.scala 24:25]
-    node _match_ok_T_14 = bits(io.in_rule[7], 16, 16) @[RxRESearcher.scala 25:39]
-    node _match_ok_T_15 = eq(cmp_result_7, UInt<1>("h0")) @[RxRESearcher.scala 25:44]
-    node match_ok_7 = mux(_match_ok_T_14, _match_ok_T_15, cmp_result_7) @[RxRESearcher.scala 25:25]
-    node _T_21 = bits(io.in_rule[7], 27, 24) @[RxRESearcher.scala 27:41]
-    node _T_22 = eq(io.in_state, _T_21) @[RxRESearcher.scala 27:24]
-    node _T_23 = and(_T_22, match_ok_7) @[RxRESearcher.scala 27:50]
-    when _T_23 : @[RxRESearcher.scala 27:61]
-      node _result_7_T = bits(io.in_rule[7], 31, 28) @[RxRESearcher.scala 28:35]
-      result[7] <= _result_7_T @[RxRESearcher.scala 28:19]
-    node _char_1_or_2_cmp_T_32 = bits(io.in_rule[8], 7, 0) @[RxRESearcher.scala 22:56]
-    node _char_1_or_2_cmp_T_33 = eq(io.in_char, _char_1_or_2_cmp_T_32) @[RxRESearcher.scala 22:39]
-    node _char_1_or_2_cmp_T_34 = bits(io.in_rule[8], 15, 8) @[RxRESearcher.scala 22:94]
-    node _char_1_or_2_cmp_T_35 = eq(io.in_char, _char_1_or_2_cmp_T_34) @[RxRESearcher.scala 22:77]
-    node char_1_or_2_cmp_8 = or(_char_1_or_2_cmp_T_33, _char_1_or_2_cmp_T_35) @[RxRESearcher.scala 22:63]
-    node _char_1_to_2_cmp_T_32 = bits(io.in_rule[8], 7, 0) @[RxRESearcher.scala 23:55]
-    node _char_1_to_2_cmp_T_33 = geq(io.in_char, _char_1_to_2_cmp_T_32) @[RxRESearcher.scala 23:39]
-    node _char_1_to_2_cmp_T_34 = bits(io.in_rule[8], 15, 8) @[RxRESearcher.scala 23:92]
-    node _char_1_to_2_cmp_T_35 = leq(io.in_char, _char_1_to_2_cmp_T_34) @[RxRESearcher.scala 23:76]
-    node char_1_to_2_cmp_8 = and(_char_1_to_2_cmp_T_33, _char_1_to_2_cmp_T_35) @[RxRESearcher.scala 23:62]
-    node _cmp_result_T_8 = bits(io.in_rule[8], 17, 17) @[RxRESearcher.scala 24:39]
-    node cmp_result_8 = mux(_cmp_result_T_8, char_1_to_2_cmp_8, char_1_or_2_cmp_8) @[RxRESearcher.scala 24:25]
-    node _match_ok_T_16 = bits(io.in_rule[8], 16, 16) @[RxRESearcher.scala 25:39]
-    node _match_ok_T_17 = eq(cmp_result_8, UInt<1>("h0")) @[RxRESearcher.scala 25:44]
-    node match_ok_8 = mux(_match_ok_T_16, _match_ok_T_17, cmp_result_8) @[RxRESearcher.scala 25:25]
-    node _T_24 = bits(io.in_rule[8], 27, 24) @[RxRESearcher.scala 27:41]
-    node _T_25 = eq(io.in_state, _T_24) @[RxRESearcher.scala 27:24]
-    node _T_26 = and(_T_25, match_ok_8) @[RxRESearcher.scala 27:50]
-    when _T_26 : @[RxRESearcher.scala 27:61]
-      node _result_8_T = bits(io.in_rule[8], 31, 28) @[RxRESearcher.scala 28:35]
-      result[8] <= _result_8_T @[RxRESearcher.scala 28:19]
-    node _char_1_or_2_cmp_T_36 = bits(io.in_rule[9], 7, 0) @[RxRESearcher.scala 22:56]
-    node _char_1_or_2_cmp_T_37 = eq(io.in_char, _char_1_or_2_cmp_T_36) @[RxRESearcher.scala 22:39]
-    node _char_1_or_2_cmp_T_38 = bits(io.in_rule[9], 15, 8) @[RxRESearcher.scala 22:94]
-    node _char_1_or_2_cmp_T_39 = eq(io.in_char, _char_1_or_2_cmp_T_38) @[RxRESearcher.scala 22:77]
-    node char_1_or_2_cmp_9 = or(_char_1_or_2_cmp_T_37, _char_1_or_2_cmp_T_39) @[RxRESearcher.scala 22:63]
-    node _char_1_to_2_cmp_T_36 = bits(io.in_rule[9], 7, 0) @[RxRESearcher.scala 23:55]
-    node _char_1_to_2_cmp_T_37 = geq(io.in_char, _char_1_to_2_cmp_T_36) @[RxRESearcher.scala 23:39]
-    node _char_1_to_2_cmp_T_38 = bits(io.in_rule[9], 15, 8) @[RxRESearcher.scala 23:92]
-    node _char_1_to_2_cmp_T_39 = leq(io.in_char, _char_1_to_2_cmp_T_38) @[RxRESearcher.scala 23:76]
-    node char_1_to_2_cmp_9 = and(_char_1_to_2_cmp_T_37, _char_1_to_2_cmp_T_39) @[RxRESearcher.scala 23:62]
-    node _cmp_result_T_9 = bits(io.in_rule[9], 17, 17) @[RxRESearcher.scala 24:39]
-    node cmp_result_9 = mux(_cmp_result_T_9, char_1_to_2_cmp_9, char_1_or_2_cmp_9) @[RxRESearcher.scala 24:25]
-    node _match_ok_T_18 = bits(io.in_rule[9], 16, 16) @[RxRESearcher.scala 25:39]
-    node _match_ok_T_19 = eq(cmp_result_9, UInt<1>("h0")) @[RxRESearcher.scala 25:44]
-    node match_ok_9 = mux(_match_ok_T_18, _match_ok_T_19, cmp_result_9) @[RxRESearcher.scala 25:25]
-    node _T_27 = bits(io.in_rule[9], 27, 24) @[RxRESearcher.scala 27:41]
-    node _T_28 = eq(io.in_state, _T_27) @[RxRESearcher.scala 27:24]
-    node _T_29 = and(_T_28, match_ok_9) @[RxRESearcher.scala 27:50]
-    when _T_29 : @[RxRESearcher.scala 27:61]
-      node _result_9_T = bits(io.in_rule[9], 31, 28) @[RxRESearcher.scala 28:35]
-      result[9] <= _result_9_T @[RxRESearcher.scala 28:19]
-    node _char_1_or_2_cmp_T_40 = bits(io.in_rule[10], 7, 0) @[RxRESearcher.scala 22:56]
-    node _char_1_or_2_cmp_T_41 = eq(io.in_char, _char_1_or_2_cmp_T_40) @[RxRESearcher.scala 22:39]
-    node _char_1_or_2_cmp_T_42 = bits(io.in_rule[10], 15, 8) @[RxRESearcher.scala 22:94]
-    node _char_1_or_2_cmp_T_43 = eq(io.in_char, _char_1_or_2_cmp_T_42) @[RxRESearcher.scala 22:77]
-    node char_1_or_2_cmp_10 = or(_char_1_or_2_cmp_T_41, _char_1_or_2_cmp_T_43) @[RxRESearcher.scala 22:63]
-    node _char_1_to_2_cmp_T_40 = bits(io.in_rule[10], 7, 0) @[RxRESearcher.scala 23:55]
-    node _char_1_to_2_cmp_T_41 = geq(io.in_char, _char_1_to_2_cmp_T_40) @[RxRESearcher.scala 23:39]
-    node _char_1_to_2_cmp_T_42 = bits(io.in_rule[10], 15, 8) @[RxRESearcher.scala 23:92]
-    node _char_1_to_2_cmp_T_43 = leq(io.in_char, _char_1_to_2_cmp_T_42) @[RxRESearcher.scala 23:76]
-    node char_1_to_2_cmp_10 = and(_char_1_to_2_cmp_T_41, _char_1_to_2_cmp_T_43) @[RxRESearcher.scala 23:62]
-    node _cmp_result_T_10 = bits(io.in_rule[10], 17, 17) @[RxRESearcher.scala 24:39]
-    node cmp_result_10 = mux(_cmp_result_T_10, char_1_to_2_cmp_10, char_1_or_2_cmp_10) @[RxRESearcher.scala 24:25]
-    node _match_ok_T_20 = bits(io.in_rule[10], 16, 16) @[RxRESearcher.scala 25:39]
-    node _match_ok_T_21 = eq(cmp_result_10, UInt<1>("h0")) @[RxRESearcher.scala 25:44]
-    node match_ok_10 = mux(_match_ok_T_20, _match_ok_T_21, cmp_result_10) @[RxRESearcher.scala 25:25]
-    node _T_30 = bits(io.in_rule[10], 27, 24) @[RxRESearcher.scala 27:41]
-    node _T_31 = eq(io.in_state, _T_30) @[RxRESearcher.scala 27:24]
-    node _T_32 = and(_T_31, match_ok_10) @[RxRESearcher.scala 27:50]
-    when _T_32 : @[RxRESearcher.scala 27:61]
-      node _result_10_T = bits(io.in_rule[10], 31, 28) @[RxRESearcher.scala 28:35]
-      result[10] <= _result_10_T @[RxRESearcher.scala 28:19]
-    node _char_1_or_2_cmp_T_44 = bits(io.in_rule[11], 7, 0) @[RxRESearcher.scala 22:56]
-    node _char_1_or_2_cmp_T_45 = eq(io.in_char, _char_1_or_2_cmp_T_44) @[RxRESearcher.scala 22:39]
-    node _char_1_or_2_cmp_T_46 = bits(io.in_rule[11], 15, 8) @[RxRESearcher.scala 22:94]
-    node _char_1_or_2_cmp_T_47 = eq(io.in_char, _char_1_or_2_cmp_T_46) @[RxRESearcher.scala 22:77]
-    node char_1_or_2_cmp_11 = or(_char_1_or_2_cmp_T_45, _char_1_or_2_cmp_T_47) @[RxRESearcher.scala 22:63]
-    node _char_1_to_2_cmp_T_44 = bits(io.in_rule[11], 7, 0) @[RxRESearcher.scala 23:55]
-    node _char_1_to_2_cmp_T_45 = geq(io.in_char, _char_1_to_2_cmp_T_44) @[RxRESearcher.scala 23:39]
-    node _char_1_to_2_cmp_T_46 = bits(io.in_rule[11], 15, 8) @[RxRESearcher.scala 23:92]
-    node _char_1_to_2_cmp_T_47 = leq(io.in_char, _char_1_to_2_cmp_T_46) @[RxRESearcher.scala 23:76]
-    node char_1_to_2_cmp_11 = and(_char_1_to_2_cmp_T_45, _char_1_to_2_cmp_T_47) @[RxRESearcher.scala 23:62]
-    node _cmp_result_T_11 = bits(io.in_rule[11], 17, 17) @[RxRESearcher.scala 24:39]
-    node cmp_result_11 = mux(_cmp_result_T_11, char_1_to_2_cmp_11, char_1_or_2_cmp_11) @[RxRESearcher.scala 24:25]
-    node _match_ok_T_22 = bits(io.in_rule[11], 16, 16) @[RxRESearcher.scala 25:39]
-    node _match_ok_T_23 = eq(cmp_result_11, UInt<1>("h0")) @[RxRESearcher.scala 25:44]
-    node match_ok_11 = mux(_match_ok_T_22, _match_ok_T_23, cmp_result_11) @[RxRESearcher.scala 25:25]
-    node _T_33 = bits(io.in_rule[11], 27, 24) @[RxRESearcher.scala 27:41]
-    node _T_34 = eq(io.in_state, _T_33) @[RxRESearcher.scala 27:24]
-    node _T_35 = and(_T_34, match_ok_11) @[RxRESearcher.scala 27:50]
-    when _T_35 : @[RxRESearcher.scala 27:61]
-      node _result_11_T = bits(io.in_rule[11], 31, 28) @[RxRESearcher.scala 28:35]
-      result[11] <= _result_11_T @[RxRESearcher.scala 28:19]
-    node _char_1_or_2_cmp_T_48 = bits(io.in_rule[12], 7, 0) @[RxRESearcher.scala 22:56]
-    node _char_1_or_2_cmp_T_49 = eq(io.in_char, _char_1_or_2_cmp_T_48) @[RxRESearcher.scala 22:39]
-    node _char_1_or_2_cmp_T_50 = bits(io.in_rule[12], 15, 8) @[RxRESearcher.scala 22:94]
-    node _char_1_or_2_cmp_T_51 = eq(io.in_char, _char_1_or_2_cmp_T_50) @[RxRESearcher.scala 22:77]
-    node char_1_or_2_cmp_12 = or(_char_1_or_2_cmp_T_49, _char_1_or_2_cmp_T_51) @[RxRESearcher.scala 22:63]
-    node _char_1_to_2_cmp_T_48 = bits(io.in_rule[12], 7, 0) @[RxRESearcher.scala 23:55]
-    node _char_1_to_2_cmp_T_49 = geq(io.in_char, _char_1_to_2_cmp_T_48) @[RxRESearcher.scala 23:39]
-    node _char_1_to_2_cmp_T_50 = bits(io.in_rule[12], 15, 8) @[RxRESearcher.scala 23:92]
-    node _char_1_to_2_cmp_T_51 = leq(io.in_char, _char_1_to_2_cmp_T_50) @[RxRESearcher.scala 23:76]
-    node char_1_to_2_cmp_12 = and(_char_1_to_2_cmp_T_49, _char_1_to_2_cmp_T_51) @[RxRESearcher.scala 23:62]
-    node _cmp_result_T_12 = bits(io.in_rule[12], 17, 17) @[RxRESearcher.scala 24:39]
-    node cmp_result_12 = mux(_cmp_result_T_12, char_1_to_2_cmp_12, char_1_or_2_cmp_12) @[RxRESearcher.scala 24:25]
-    node _match_ok_T_24 = bits(io.in_rule[12], 16, 16) @[RxRESearcher.scala 25:39]
-    node _match_ok_T_25 = eq(cmp_result_12, UInt<1>("h0")) @[RxRESearcher.scala 25:44]
-    node match_ok_12 = mux(_match_ok_T_24, _match_ok_T_25, cmp_result_12) @[RxRESearcher.scala 25:25]
-    node _T_36 = bits(io.in_rule[12], 27, 24) @[RxRESearcher.scala 27:41]
-    node _T_37 = eq(io.in_state, _T_36) @[RxRESearcher.scala 27:24]
-    node _T_38 = and(_T_37, match_ok_12) @[RxRESearcher.scala 27:50]
-    when _T_38 : @[RxRESearcher.scala 27:61]
-      node _result_12_T = bits(io.in_rule[12], 31, 28) @[RxRESearcher.scala 28:35]
-      result[12] <= _result_12_T @[RxRESearcher.scala 28:19]
-    node _char_1_or_2_cmp_T_52 = bits(io.in_rule[13], 7, 0) @[RxRESearcher.scala 22:56]
-    node _char_1_or_2_cmp_T_53 = eq(io.in_char, _char_1_or_2_cmp_T_52) @[RxRESearcher.scala 22:39]
-    node _char_1_or_2_cmp_T_54 = bits(io.in_rule[13], 15, 8) @[RxRESearcher.scala 22:94]
-    node _char_1_or_2_cmp_T_55 = eq(io.in_char, _char_1_or_2_cmp_T_54) @[RxRESearcher.scala 22:77]
-    node char_1_or_2_cmp_13 = or(_char_1_or_2_cmp_T_53, _char_1_or_2_cmp_T_55) @[RxRESearcher.scala 22:63]
-    node _char_1_to_2_cmp_T_52 = bits(io.in_rule[13], 7, 0) @[RxRESearcher.scala 23:55]
-    node _char_1_to_2_cmp_T_53 = geq(io.in_char, _char_1_to_2_cmp_T_52) @[RxRESearcher.scala 23:39]
-    node _char_1_to_2_cmp_T_54 = bits(io.in_rule[13], 15, 8) @[RxRESearcher.scala 23:92]
-    node _char_1_to_2_cmp_T_55 = leq(io.in_char, _char_1_to_2_cmp_T_54) @[RxRESearcher.scala 23:76]
-    node char_1_to_2_cmp_13 = and(_char_1_to_2_cmp_T_53, _char_1_to_2_cmp_T_55) @[RxRESearcher.scala 23:62]
-    node _cmp_result_T_13 = bits(io.in_rule[13], 17, 17) @[RxRESearcher.scala 24:39]
-    node cmp_result_13 = mux(_cmp_result_T_13, char_1_to_2_cmp_13, char_1_or_2_cmp_13) @[RxRESearcher.scala 24:25]
-    node _match_ok_T_26 = bits(io.in_rule[13], 16, 16) @[RxRESearcher.scala 25:39]
-    node _match_ok_T_27 = eq(cmp_result_13, UInt<1>("h0")) @[RxRESearcher.scala 25:44]
-    node match_ok_13 = mux(_match_ok_T_26, _match_ok_T_27, cmp_result_13) @[RxRESearcher.scala 25:25]
-    node _T_39 = bits(io.in_rule[13], 27, 24) @[RxRESearcher.scala 27:41]
-    node _T_40 = eq(io.in_state, _T_39) @[RxRESearcher.scala 27:24]
-    node _T_41 = and(_T_40, match_ok_13) @[RxRESearcher.scala 27:50]
-    when _T_41 : @[RxRESearcher.scala 27:61]
-      node _result_13_T = bits(io.in_rule[13], 31, 28) @[RxRESearcher.scala 28:35]
-      result[13] <= _result_13_T @[RxRESearcher.scala 28:19]
-    node _char_1_or_2_cmp_T_56 = bits(io.in_rule[14], 7, 0) @[RxRESearcher.scala 22:56]
-    node _char_1_or_2_cmp_T_57 = eq(io.in_char, _char_1_or_2_cmp_T_56) @[RxRESearcher.scala 22:39]
-    node _char_1_or_2_cmp_T_58 = bits(io.in_rule[14], 15, 8) @[RxRESearcher.scala 22:94]
-    node _char_1_or_2_cmp_T_59 = eq(io.in_char, _char_1_or_2_cmp_T_58) @[RxRESearcher.scala 22:77]
-    node char_1_or_2_cmp_14 = or(_char_1_or_2_cmp_T_57, _char_1_or_2_cmp_T_59) @[RxRESearcher.scala 22:63]
-    node _char_1_to_2_cmp_T_56 = bits(io.in_rule[14], 7, 0) @[RxRESearcher.scala 23:55]
-    node _char_1_to_2_cmp_T_57 = geq(io.in_char, _char_1_to_2_cmp_T_56) @[RxRESearcher.scala 23:39]
-    node _char_1_to_2_cmp_T_58 = bits(io.in_rule[14], 15, 8) @[RxRESearcher.scala 23:92]
-    node _char_1_to_2_cmp_T_59 = leq(io.in_char, _char_1_to_2_cmp_T_58) @[RxRESearcher.scala 23:76]
-    node char_1_to_2_cmp_14 = and(_char_1_to_2_cmp_T_57, _char_1_to_2_cmp_T_59) @[RxRESearcher.scala 23:62]
-    node _cmp_result_T_14 = bits(io.in_rule[14], 17, 17) @[RxRESearcher.scala 24:39]
-    node cmp_result_14 = mux(_cmp_result_T_14, char_1_to_2_cmp_14, char_1_or_2_cmp_14) @[RxRESearcher.scala 24:25]
-    node _match_ok_T_28 = bits(io.in_rule[14], 16, 16) @[RxRESearcher.scala 25:39]
-    node _match_ok_T_29 = eq(cmp_result_14, UInt<1>("h0")) @[RxRESearcher.scala 25:44]
-    node match_ok_14 = mux(_match_ok_T_28, _match_ok_T_29, cmp_result_14) @[RxRESearcher.scala 25:25]
-    node _T_42 = bits(io.in_rule[14], 27, 24) @[RxRESearcher.scala 27:41]
-    node _T_43 = eq(io.in_state, _T_42) @[RxRESearcher.scala 27:24]
-    node _T_44 = and(_T_43, match_ok_14) @[RxRESearcher.scala 27:50]
-    when _T_44 : @[RxRESearcher.scala 27:61]
-      node _result_14_T = bits(io.in_rule[14], 31, 28) @[RxRESearcher.scala 28:35]
-      result[14] <= _result_14_T @[RxRESearcher.scala 28:19]
-    node _char_1_or_2_cmp_T_60 = bits(io.in_rule[15], 7, 0) @[RxRESearcher.scala 22:56]
-    node _char_1_or_2_cmp_T_61 = eq(io.in_char, _char_1_or_2_cmp_T_60) @[RxRESearcher.scala 22:39]
-    node _char_1_or_2_cmp_T_62 = bits(io.in_rule[15], 15, 8) @[RxRESearcher.scala 22:94]
-    node _char_1_or_2_cmp_T_63 = eq(io.in_char, _char_1_or_2_cmp_T_62) @[RxRESearcher.scala 22:77]
-    node char_1_or_2_cmp_15 = or(_char_1_or_2_cmp_T_61, _char_1_or_2_cmp_T_63) @[RxRESearcher.scala 22:63]
-    node _char_1_to_2_cmp_T_60 = bits(io.in_rule[15], 7, 0) @[RxRESearcher.scala 23:55]
-    node _char_1_to_2_cmp_T_61 = geq(io.in_char, _char_1_to_2_cmp_T_60) @[RxRESearcher.scala 23:39]
-    node _char_1_to_2_cmp_T_62 = bits(io.in_rule[15], 15, 8) @[RxRESearcher.scala 23:92]
-    node _char_1_to_2_cmp_T_63 = leq(io.in_char, _char_1_to_2_cmp_T_62) @[RxRESearcher.scala 23:76]
-    node char_1_to_2_cmp_15 = and(_char_1_to_2_cmp_T_61, _char_1_to_2_cmp_T_63) @[RxRESearcher.scala 23:62]
-    node _cmp_result_T_15 = bits(io.in_rule[15], 17, 17) @[RxRESearcher.scala 24:39]
-    node cmp_result_15 = mux(_cmp_result_T_15, char_1_to_2_cmp_15, char_1_or_2_cmp_15) @[RxRESearcher.scala 24:25]
-    node _match_ok_T_30 = bits(io.in_rule[15], 16, 16) @[RxRESearcher.scala 25:39]
-    node _match_ok_T_31 = eq(cmp_result_15, UInt<1>("h0")) @[RxRESearcher.scala 25:44]
-    node match_ok_15 = mux(_match_ok_T_30, _match_ok_T_31, cmp_result_15) @[RxRESearcher.scala 25:25]
-    node _T_45 = bits(io.in_rule[15], 27, 24) @[RxRESearcher.scala 27:41]
-    node _T_46 = eq(io.in_state, _T_45) @[RxRESearcher.scala 27:24]
-    node _T_47 = and(_T_46, match_ok_15) @[RxRESearcher.scala 27:50]
-    when _T_47 : @[RxRESearcher.scala 27:61]
-      node _result_15_T = bits(io.in_rule[15], 31, 28) @[RxRESearcher.scala 28:35]
-      result[15] <= _result_15_T @[RxRESearcher.scala 28:19]
-    node _io_out_state_T = eq(io.in_state, UInt<4>("hf")) @[RxRESearcher.scala 32:35]
-    node _io_out_state_T_1 = or(result[0], result[1]) @[RxRESearcher.scala 32:68]
-    node _io_out_state_T_2 = or(result[2], result[3]) @[RxRESearcher.scala 32:68]
-    node _io_out_state_T_3 = or(result[4], result[5]) @[RxRESearcher.scala 32:68]
-    node _io_out_state_T_4 = or(result[6], result[7]) @[RxRESearcher.scala 32:68]
-    node _io_out_state_T_5 = or(result[8], result[9]) @[RxRESearcher.scala 32:68]
-    node _io_out_state_T_6 = or(result[10], result[11]) @[RxRESearcher.scala 32:68]
-    node _io_out_state_T_7 = or(result[12], result[13]) @[RxRESearcher.scala 32:68]
-    node _io_out_state_T_8 = or(result[14], result[15]) @[RxRESearcher.scala 32:68]
-    node _io_out_state_T_9 = or(_io_out_state_T_1, _io_out_state_T_2) @[RxRESearcher.scala 32:68]
-    node _io_out_state_T_10 = or(_io_out_state_T_3, _io_out_state_T_4) @[RxRESearcher.scala 32:68]
-    node _io_out_state_T_11 = or(_io_out_state_T_5, _io_out_state_T_6) @[RxRESearcher.scala 32:68]
-    node _io_out_state_T_12 = or(_io_out_state_T_7, _io_out_state_T_8) @[RxRESearcher.scala 32:68]
-    node _io_out_state_T_13 = or(_io_out_state_T_9, _io_out_state_T_10) @[RxRESearcher.scala 32:68]
-    node _io_out_state_T_14 = or(_io_out_state_T_11, _io_out_state_T_12) @[RxRESearcher.scala 32:68]
-    node _io_out_state_T_15 = or(_io_out_state_T_13, _io_out_state_T_14) @[RxRESearcher.scala 32:68]
-    node _io_out_state_T_16 = mux(_io_out_state_T, UInt<4>("hf"), _io_out_state_T_15) @[RxRESearcher.scala 32:22]
-    io.out_state <= _io_out_state_T_16 @[RxRESearcher.scala 32:16]
-
-  module REHandler :
-    input clock : Clock
-    input reset : Reset
-    output io : { flip in_char : UInt<8>, flip in_state : UInt<4>, flip in_rule : UInt<32>[16], flip in_en : UInt<1>, out_state : UInt<4>}
-
-    inst re_handler_unit_queue_0 of REHandlerUnit @[RxRESearcher.scala 45:52]
-    re_handler_unit_queue_0.clock <= clock
-    re_handler_unit_queue_0.reset <= reset
-    reg part_result_reg : UInt<4>, clock with :
-      reset => (reset, UInt<4>("h0")) @[RxRESearcher.scala 46:32]
-    node _re_handler_unit_queue_0_io_in_char_T = bits(io.in_char, 7, 0) @[RxRESearcher.scala 49:54]
-    re_handler_unit_queue_0.io.in_char <= _re_handler_unit_queue_0_io_in_char_T @[RxRESearcher.scala 49:41]
-    re_handler_unit_queue_0.io.in_rule[0] <= io.in_rule[0] @[RxRESearcher.scala 50:41]
-    re_handler_unit_queue_0.io.in_rule[1] <= io.in_rule[1] @[RxRESearcher.scala 50:41]
-    re_handler_unit_queue_0.io.in_rule[2] <= io.in_rule[2] @[RxRESearcher.scala 50:41]
-    re_handler_unit_queue_0.io.in_rule[3] <= io.in_rule[3] @[RxRESearcher.scala 50:41]
-    re_handler_unit_queue_0.io.in_rule[4] <= io.in_rule[4] @[RxRESearcher.scala 50:41]
-    re_handler_unit_queue_0.io.in_rule[5] <= io.in_rule[5] @[RxRESearcher.scala 50:41]
-    re_handler_unit_queue_0.io.in_rule[6] <= io.in_rule[6] @[RxRESearcher.scala 50:41]
-    re_handler_unit_queue_0.io.in_rule[7] <= io.in_rule[7] @[RxRESearcher.scala 50:41]
-    re_handler_unit_queue_0.io.in_rule[8] <= io.in_rule[8] @[RxRESearcher.scala 50:41]
-    re_handler_unit_queue_0.io.in_rule[9] <= io.in_rule[9] @[RxRESearcher.scala 50:41]
-    re_handler_unit_queue_0.io.in_rule[10] <= io.in_rule[10] @[RxRESearcher.scala 50:41]
-    re_handler_unit_queue_0.io.in_rule[11] <= io.in_rule[11] @[RxRESearcher.scala 50:41]
-    re_handler_unit_queue_0.io.in_rule[12] <= io.in_rule[12] @[RxRESearcher.scala 50:41]
-    re_handler_unit_queue_0.io.in_rule[13] <= io.in_rule[13] @[RxRESearcher.scala 50:41]
-    re_handler_unit_queue_0.io.in_rule[14] <= io.in_rule[14] @[RxRESearcher.scala 50:41]
-    re_handler_unit_queue_0.io.in_rule[15] <= io.in_rule[15] @[RxRESearcher.scala 50:41]
-    re_handler_unit_queue_0.io.in_state <= io.in_state @[RxRESearcher.scala 51:54]
-    when io.in_en : @[RxRESearcher.scala 55:19]
-      part_result_reg <= re_handler_unit_queue_0.io.out_state @[RxRESearcher.scala 56:21]
-    io.out_state <= part_result_reg @[RxRESearcher.scala 58:16]
-
-  module RxRESearcher :
-    input clock : Clock
-    input reset : Reset
-    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}}
-
-    node in_shake_hand = and(io.in.tready, io.in.tvalid) @[RxPipelineHandler.scala 12:38]
-    node out_shake_hand = and(io.out.tready, io.out.tvalid) @[RxPipelineHandler.scala 13:38]
-    node in_reg_lo = cat(io.in.rx_info.ip_chksum, io.in.rx_info.tcp_chksum) @[RxPipelineHandler.scala 14:44]
-    node in_reg_hi = cat(io.in.rx_info.tlen, io.in.rx_info.qid) @[RxPipelineHandler.scala 14:44]
-    node _in_reg_T = cat(in_reg_hi, in_reg_lo) @[RxPipelineHandler.scala 14:44]
-    node in_reg_lo_1 = cat(io.in.tvalid, io.in.tlast) @[Cat.scala 31:58]
-    node in_reg_hi_hi = cat(_in_reg_T, io.in.tuser) @[Cat.scala 31:58]
-    node in_reg_hi_1 = cat(in_reg_hi_hi, io.in.tdata) @[Cat.scala 31:58]
-    node _in_reg_T_1 = cat(in_reg_hi_1, in_reg_lo_1) @[Cat.scala 31:58]
-    reg in_reg_r : UInt, clock with :
-      reset => (reset, UInt<1>("h1")) @[Reg.scala 28:20]
-    when in_shake_hand : @[Reg.scala 29:18]
-      in_reg_r <= _in_reg_T_1 @[Reg.scala 29:22]
-    wire in_reg : { rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, tuser : UInt<1>, tdata : UInt<512>, tvalid : UInt<1>, tlast : UInt<1>} @[RxPipelineHandler.scala 14:128]
-    wire _in_reg_WIRE : UInt<601>
-    _in_reg_WIRE <= in_reg_r
-    node _in_reg_T_2 = bits(_in_reg_WIRE, 0, 0) @[RxPipelineHandler.scala 14:128]
-    in_reg.tlast <= _in_reg_T_2 @[RxPipelineHandler.scala 14:128]
-    node _in_reg_T_3 = bits(_in_reg_WIRE, 1, 1) @[RxPipelineHandler.scala 14:128]
-    in_reg.tvalid <= _in_reg_T_3 @[RxPipelineHandler.scala 14:128]
-    node _in_reg_T_4 = bits(_in_reg_WIRE, 513, 2) @[RxPipelineHandler.scala 14:128]
-    in_reg.tdata <= _in_reg_T_4 @[RxPipelineHandler.scala 14:128]
-    node _in_reg_T_5 = bits(_in_reg_WIRE, 514, 514) @[RxPipelineHandler.scala 14:128]
-    in_reg.tuser <= _in_reg_T_5 @[RxPipelineHandler.scala 14:128]
-    node _in_reg_T_6 = bits(_in_reg_WIRE, 546, 515) @[RxPipelineHandler.scala 14:128]
-    in_reg.rx_info.tcp_chksum <= _in_reg_T_6 @[RxPipelineHandler.scala 14:128]
-    node _in_reg_T_7 = bits(_in_reg_WIRE, 578, 547) @[RxPipelineHandler.scala 14:128]
-    in_reg.rx_info.ip_chksum <= _in_reg_T_7 @[RxPipelineHandler.scala 14:128]
-    node _in_reg_T_8 = bits(_in_reg_WIRE, 584, 579) @[RxPipelineHandler.scala 14:128]
-    in_reg.rx_info.qid <= _in_reg_T_8 @[RxPipelineHandler.scala 14:128]
-    node _in_reg_T_9 = bits(_in_reg_WIRE, 600, 585) @[RxPipelineHandler.scala 14:128]
-    in_reg.rx_info.tlen <= _in_reg_T_9 @[RxPipelineHandler.scala 14:128]
-    reg first_beat_reg : UInt<1>, clock with :
-      reset => (reset, UInt<1>("h1")) @[Reg.scala 28:20]
-    when in_shake_hand : @[Reg.scala 29:18]
-      first_beat_reg <= in_reg.tlast @[Reg.scala 29:22]
-    reg in_reg_used_reg : UInt<1>, clock with :
-      reset => (reset, UInt<1>("h0")) @[RxPipelineHandler.scala 18:32]
-    when in_shake_hand : @[RxPipelineHandler.scala 19:23]
-      in_reg_used_reg <= UInt<1>("h1") @[RxPipelineHandler.scala 20:21]
-    else :
-      when out_shake_hand : @[RxPipelineHandler.scala 21:29]
-        in_reg_used_reg <= UInt<1>("h0") @[RxPipelineHandler.scala 22:21]
-    wire _io_out_tuser_WIRE : UInt<1>
-    _io_out_tuser_WIRE <= in_reg.tuser
-    io.out.tuser <= _io_out_tuser_WIRE @[RxPipelineHandler.scala 25:18]
-    wire _io_out_tdata_WIRE : UInt
-    _io_out_tdata_WIRE <= in_reg.tdata
-    io.out.tdata <= _io_out_tdata_WIRE @[RxPipelineHandler.scala 26:18]
-    node _io_out_tvalid_T = and(in_reg.tvalid, in_reg_used_reg) @[RxPipelineHandler.scala 27:47]
-    wire _io_out_tvalid_WIRE : UInt<1>
-    _io_out_tvalid_WIRE <= _io_out_tvalid_T
-    io.out.tvalid <= _io_out_tvalid_WIRE @[RxPipelineHandler.scala 27:18]
-    wire _io_out_tlast_WIRE : UInt<1>
-    _io_out_tlast_WIRE <= in_reg.tlast
-    io.out.tlast <= _io_out_tlast_WIRE @[RxPipelineHandler.scala 28:18]
-    wire _io_out_rx_info_WIRE : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}
-    _io_out_rx_info_WIRE.tcp_chksum <= in_reg.rx_info.tcp_chksum
-    _io_out_rx_info_WIRE.ip_chksum <= in_reg.rx_info.ip_chksum
-    _io_out_rx_info_WIRE.qid <= in_reg.rx_info.qid
-    _io_out_rx_info_WIRE.tlen <= in_reg.rx_info.tlen
-    io.out.rx_info.tcp_chksum <= _io_out_rx_info_WIRE.tcp_chksum @[RxPipelineHandler.scala 29:18]
-    io.out.rx_info.ip_chksum <= _io_out_rx_info_WIRE.ip_chksum @[RxPipelineHandler.scala 29:18]
-    io.out.rx_info.qid <= _io_out_rx_info_WIRE.qid @[RxPipelineHandler.scala 29:18]
-    io.out.rx_info.tlen <= _io_out_rx_info_WIRE.tlen @[RxPipelineHandler.scala 29:18]
-    node _io_in_tready_T = eq(in_reg_used_reg, UInt<1>("h0")) @[RxPipelineHandler.scala 30:49]
-    node _io_in_tready_T_1 = or(io.out.tready, _io_in_tready_T) @[RxPipelineHandler.scala 30:47]
-    wire _io_in_tready_WIRE : UInt<1>
-    _io_in_tready_WIRE <= _io_in_tready_T_1
-    io.in.tready <= _io_in_tready_WIRE @[RxPipelineHandler.scala 30:18]
-    wire _io_out_extern_config_WIRE : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}
-    _io_out_extern_config_WIRE.c2h_match_arg[0] <= io.in.extern_config.c2h_match_arg[0]
-    _io_out_extern_config_WIRE.c2h_match_arg[1] <= io.in.extern_config.c2h_match_arg[1]
-    _io_out_extern_config_WIRE.c2h_match_arg[2] <= io.in.extern_config.c2h_match_arg[2]
-    _io_out_extern_config_WIRE.c2h_match_arg[3] <= io.in.extern_config.c2h_match_arg[3]
-    _io_out_extern_config_WIRE.c2h_match_arg[4] <= io.in.extern_config.c2h_match_arg[4]
-    _io_out_extern_config_WIRE.c2h_match_arg[5] <= io.in.extern_config.c2h_match_arg[5]
-    _io_out_extern_config_WIRE.c2h_match_arg[6] <= io.in.extern_config.c2h_match_arg[6]
-    _io_out_extern_config_WIRE.c2h_match_arg[7] <= io.in.extern_config.c2h_match_arg[7]
-    _io_out_extern_config_WIRE.c2h_match_arg[8] <= io.in.extern_config.c2h_match_arg[8]
-    _io_out_extern_config_WIRE.c2h_match_arg[9] <= io.in.extern_config.c2h_match_arg[9]
-    _io_out_extern_config_WIRE.c2h_match_arg[10] <= io.in.extern_config.c2h_match_arg[10]
-    _io_out_extern_config_WIRE.c2h_match_arg[11] <= io.in.extern_config.c2h_match_arg[11]
-    _io_out_extern_config_WIRE.c2h_match_arg[12] <= io.in.extern_config.c2h_match_arg[12]
-    _io_out_extern_config_WIRE.c2h_match_arg[13] <= io.in.extern_config.c2h_match_arg[13]
-    _io_out_extern_config_WIRE.c2h_match_arg[14] <= io.in.extern_config.c2h_match_arg[14]
-    _io_out_extern_config_WIRE.c2h_match_arg[15] <= io.in.extern_config.c2h_match_arg[15]
-    _io_out_extern_config_WIRE.c2h_match_op <= io.in.extern_config.c2h_match_op
-    io.out.extern_config.c2h_match_arg[0] <= _io_out_extern_config_WIRE.c2h_match_arg[0] @[RxPipelineHandler.scala 31:24]
-    io.out.extern_config.c2h_match_arg[1] <= _io_out_extern_config_WIRE.c2h_match_arg[1] @[RxPipelineHandler.scala 31:24]
-    io.out.extern_config.c2h_match_arg[2] <= _io_out_extern_config_WIRE.c2h_match_arg[2] @[RxPipelineHandler.scala 31:24]
-    io.out.extern_config.c2h_match_arg[3] <= _io_out_extern_config_WIRE.c2h_match_arg[3] @[RxPipelineHandler.scala 31:24]
-    io.out.extern_config.c2h_match_arg[4] <= _io_out_extern_config_WIRE.c2h_match_arg[4] @[RxPipelineHandler.scala 31:24]
-    io.out.extern_config.c2h_match_arg[5] <= _io_out_extern_config_WIRE.c2h_match_arg[5] @[RxPipelineHandler.scala 31:24]
-    io.out.extern_config.c2h_match_arg[6] <= _io_out_extern_config_WIRE.c2h_match_arg[6] @[RxPipelineHandler.scala 31:24]
-    io.out.extern_config.c2h_match_arg[7] <= _io_out_extern_config_WIRE.c2h_match_arg[7] @[RxPipelineHandler.scala 31:24]
-    io.out.extern_config.c2h_match_arg[8] <= _io_out_extern_config_WIRE.c2h_match_arg[8] @[RxPipelineHandler.scala 31:24]
-    io.out.extern_config.c2h_match_arg[9] <= _io_out_extern_config_WIRE.c2h_match_arg[9] @[RxPipelineHandler.scala 31:24]
-    io.out.extern_config.c2h_match_arg[10] <= _io_out_extern_config_WIRE.c2h_match_arg[10] @[RxPipelineHandler.scala 31:24]
-    io.out.extern_config.c2h_match_arg[11] <= _io_out_extern_config_WIRE.c2h_match_arg[11] @[RxPipelineHandler.scala 31:24]
-    io.out.extern_config.c2h_match_arg[12] <= _io_out_extern_config_WIRE.c2h_match_arg[12] @[RxPipelineHandler.scala 31:24]
-    io.out.extern_config.c2h_match_arg[13] <= _io_out_extern_config_WIRE.c2h_match_arg[13] @[RxPipelineHandler.scala 31:24]
-    io.out.extern_config.c2h_match_arg[14] <= _io_out_extern_config_WIRE.c2h_match_arg[14] @[RxPipelineHandler.scala 31:24]
-    io.out.extern_config.c2h_match_arg[15] <= _io_out_extern_config_WIRE.c2h_match_arg[15] @[RxPipelineHandler.scala 31:24]
-    io.out.extern_config.c2h_match_op <= _io_out_extern_config_WIRE.c2h_match_op @[RxPipelineHandler.scala 31:24]
-    reg beat_counter_reg : UInt<8>, clock with :
-      reset => (reset, UInt<8>("h0")) @[RxRESearcher.scala 67:33]
-    reg match_wait_reg : UInt<1>, clock with :
-      reset => (reset, UInt<1>("h0")) @[RxRESearcher.scala 68:31]
-    node cur_beat_done = eq(beat_counter_reg, UInt<6>("h3f")) @[RxRESearcher.scala 70:41]
-    wire data_vec : UInt<8>[64] @[RxRESearcher.scala 73:22]
-    node _data_vec_0_T = bits(in_reg.tdata, 7, 0) @[RxRESearcher.scala 75:32]
-    data_vec[0] <= _data_vec_0_T @[RxRESearcher.scala 75:17]
-    node _data_vec_1_T = bits(in_reg.tdata, 15, 8) @[RxRESearcher.scala 75:32]
-    data_vec[1] <= _data_vec_1_T @[RxRESearcher.scala 75:17]
-    node _data_vec_2_T = bits(in_reg.tdata, 23, 16) @[RxRESearcher.scala 75:32]
-    data_vec[2] <= _data_vec_2_T @[RxRESearcher.scala 75:17]
-    node _data_vec_3_T = bits(in_reg.tdata, 31, 24) @[RxRESearcher.scala 75:32]
-    data_vec[3] <= _data_vec_3_T @[RxRESearcher.scala 75:17]
-    node _data_vec_4_T = bits(in_reg.tdata, 39, 32) @[RxRESearcher.scala 75:32]
-    data_vec[4] <= _data_vec_4_T @[RxRESearcher.scala 75:17]
-    node _data_vec_5_T = bits(in_reg.tdata, 47, 40) @[RxRESearcher.scala 75:32]
-    data_vec[5] <= _data_vec_5_T @[RxRESearcher.scala 75:17]
-    node _data_vec_6_T = bits(in_reg.tdata, 55, 48) @[RxRESearcher.scala 75:32]
-    data_vec[6] <= _data_vec_6_T @[RxRESearcher.scala 75:17]
-    node _data_vec_7_T = bits(in_reg.tdata, 63, 56) @[RxRESearcher.scala 75:32]
-    data_vec[7] <= _data_vec_7_T @[RxRESearcher.scala 75:17]
-    node _data_vec_8_T = bits(in_reg.tdata, 71, 64) @[RxRESearcher.scala 75:32]
-    data_vec[8] <= _data_vec_8_T @[RxRESearcher.scala 75:17]
-    node _data_vec_9_T = bits(in_reg.tdata, 79, 72) @[RxRESearcher.scala 75:32]
-    data_vec[9] <= _data_vec_9_T @[RxRESearcher.scala 75:17]
-    node _data_vec_10_T = bits(in_reg.tdata, 87, 80) @[RxRESearcher.scala 75:32]
-    data_vec[10] <= _data_vec_10_T @[RxRESearcher.scala 75:17]
-    node _data_vec_11_T = bits(in_reg.tdata, 95, 88) @[RxRESearcher.scala 75:32]
-    data_vec[11] <= _data_vec_11_T @[RxRESearcher.scala 75:17]
-    node _data_vec_12_T = bits(in_reg.tdata, 103, 96) @[RxRESearcher.scala 75:32]
-    data_vec[12] <= _data_vec_12_T @[RxRESearcher.scala 75:17]
-    node _data_vec_13_T = bits(in_reg.tdata, 111, 104) @[RxRESearcher.scala 75:32]
-    data_vec[13] <= _data_vec_13_T @[RxRESearcher.scala 75:17]
-    node _data_vec_14_T = bits(in_reg.tdata, 119, 112) @[RxRESearcher.scala 75:32]
-    data_vec[14] <= _data_vec_14_T @[RxRESearcher.scala 75:17]
-    node _data_vec_15_T = bits(in_reg.tdata, 127, 120) @[RxRESearcher.scala 75:32]
-    data_vec[15] <= _data_vec_15_T @[RxRESearcher.scala 75:17]
-    node _data_vec_16_T = bits(in_reg.tdata, 135, 128) @[RxRESearcher.scala 75:32]
-    data_vec[16] <= _data_vec_16_T @[RxRESearcher.scala 75:17]
-    node _data_vec_17_T = bits(in_reg.tdata, 143, 136) @[RxRESearcher.scala 75:32]
-    data_vec[17] <= _data_vec_17_T @[RxRESearcher.scala 75:17]
-    node _data_vec_18_T = bits(in_reg.tdata, 151, 144) @[RxRESearcher.scala 75:32]
-    data_vec[18] <= _data_vec_18_T @[RxRESearcher.scala 75:17]
-    node _data_vec_19_T = bits(in_reg.tdata, 159, 152) @[RxRESearcher.scala 75:32]
-    data_vec[19] <= _data_vec_19_T @[RxRESearcher.scala 75:17]
-    node _data_vec_20_T = bits(in_reg.tdata, 167, 160) @[RxRESearcher.scala 75:32]
-    data_vec[20] <= _data_vec_20_T @[RxRESearcher.scala 75:17]
-    node _data_vec_21_T = bits(in_reg.tdata, 175, 168) @[RxRESearcher.scala 75:32]
-    data_vec[21] <= _data_vec_21_T @[RxRESearcher.scala 75:17]
-    node _data_vec_22_T = bits(in_reg.tdata, 183, 176) @[RxRESearcher.scala 75:32]
-    data_vec[22] <= _data_vec_22_T @[RxRESearcher.scala 75:17]
-    node _data_vec_23_T = bits(in_reg.tdata, 191, 184) @[RxRESearcher.scala 75:32]
-    data_vec[23] <= _data_vec_23_T @[RxRESearcher.scala 75:17]
-    node _data_vec_24_T = bits(in_reg.tdata, 199, 192) @[RxRESearcher.scala 75:32]
-    data_vec[24] <= _data_vec_24_T @[RxRESearcher.scala 75:17]
-    node _data_vec_25_T = bits(in_reg.tdata, 207, 200) @[RxRESearcher.scala 75:32]
-    data_vec[25] <= _data_vec_25_T @[RxRESearcher.scala 75:17]
-    node _data_vec_26_T = bits(in_reg.tdata, 215, 208) @[RxRESearcher.scala 75:32]
-    data_vec[26] <= _data_vec_26_T @[RxRESearcher.scala 75:17]
-    node _data_vec_27_T = bits(in_reg.tdata, 223, 216) @[RxRESearcher.scala 75:32]
-    data_vec[27] <= _data_vec_27_T @[RxRESearcher.scala 75:17]
-    node _data_vec_28_T = bits(in_reg.tdata, 231, 224) @[RxRESearcher.scala 75:32]
-    data_vec[28] <= _data_vec_28_T @[RxRESearcher.scala 75:17]
-    node _data_vec_29_T = bits(in_reg.tdata, 239, 232) @[RxRESearcher.scala 75:32]
-    data_vec[29] <= _data_vec_29_T @[RxRESearcher.scala 75:17]
-    node _data_vec_30_T = bits(in_reg.tdata, 247, 240) @[RxRESearcher.scala 75:32]
-    data_vec[30] <= _data_vec_30_T @[RxRESearcher.scala 75:17]
-    node _data_vec_31_T = bits(in_reg.tdata, 255, 248) @[RxRESearcher.scala 75:32]
-    data_vec[31] <= _data_vec_31_T @[RxRESearcher.scala 75:17]
-    node _data_vec_32_T = bits(in_reg.tdata, 263, 256) @[RxRESearcher.scala 75:32]
-    data_vec[32] <= _data_vec_32_T @[RxRESearcher.scala 75:17]
-    node _data_vec_33_T = bits(in_reg.tdata, 271, 264) @[RxRESearcher.scala 75:32]
-    data_vec[33] <= _data_vec_33_T @[RxRESearcher.scala 75:17]
-    node _data_vec_34_T = bits(in_reg.tdata, 279, 272) @[RxRESearcher.scala 75:32]
-    data_vec[34] <= _data_vec_34_T @[RxRESearcher.scala 75:17]
-    node _data_vec_35_T = bits(in_reg.tdata, 287, 280) @[RxRESearcher.scala 75:32]
-    data_vec[35] <= _data_vec_35_T @[RxRESearcher.scala 75:17]
-    node _data_vec_36_T = bits(in_reg.tdata, 295, 288) @[RxRESearcher.scala 75:32]
-    data_vec[36] <= _data_vec_36_T @[RxRESearcher.scala 75:17]
-    node _data_vec_37_T = bits(in_reg.tdata, 303, 296) @[RxRESearcher.scala 75:32]
-    data_vec[37] <= _data_vec_37_T @[RxRESearcher.scala 75:17]
-    node _data_vec_38_T = bits(in_reg.tdata, 311, 304) @[RxRESearcher.scala 75:32]
-    data_vec[38] <= _data_vec_38_T @[RxRESearcher.scala 75:17]
-    node _data_vec_39_T = bits(in_reg.tdata, 319, 312) @[RxRESearcher.scala 75:32]
-    data_vec[39] <= _data_vec_39_T @[RxRESearcher.scala 75:17]
-    node _data_vec_40_T = bits(in_reg.tdata, 327, 320) @[RxRESearcher.scala 75:32]
-    data_vec[40] <= _data_vec_40_T @[RxRESearcher.scala 75:17]
-    node _data_vec_41_T = bits(in_reg.tdata, 335, 328) @[RxRESearcher.scala 75:32]
-    data_vec[41] <= _data_vec_41_T @[RxRESearcher.scala 75:17]
-    node _data_vec_42_T = bits(in_reg.tdata, 343, 336) @[RxRESearcher.scala 75:32]
-    data_vec[42] <= _data_vec_42_T @[RxRESearcher.scala 75:17]
-    node _data_vec_43_T = bits(in_reg.tdata, 351, 344) @[RxRESearcher.scala 75:32]
-    data_vec[43] <= _data_vec_43_T @[RxRESearcher.scala 75:17]
-    node _data_vec_44_T = bits(in_reg.tdata, 359, 352) @[RxRESearcher.scala 75:32]
-    data_vec[44] <= _data_vec_44_T @[RxRESearcher.scala 75:17]
-    node _data_vec_45_T = bits(in_reg.tdata, 367, 360) @[RxRESearcher.scala 75:32]
-    data_vec[45] <= _data_vec_45_T @[RxRESearcher.scala 75:17]
-    node _data_vec_46_T = bits(in_reg.tdata, 375, 368) @[RxRESearcher.scala 75:32]
-    data_vec[46] <= _data_vec_46_T @[RxRESearcher.scala 75:17]
-    node _data_vec_47_T = bits(in_reg.tdata, 383, 376) @[RxRESearcher.scala 75:32]
-    data_vec[47] <= _data_vec_47_T @[RxRESearcher.scala 75:17]
-    node _data_vec_48_T = bits(in_reg.tdata, 391, 384) @[RxRESearcher.scala 75:32]
-    data_vec[48] <= _data_vec_48_T @[RxRESearcher.scala 75:17]
-    node _data_vec_49_T = bits(in_reg.tdata, 399, 392) @[RxRESearcher.scala 75:32]
-    data_vec[49] <= _data_vec_49_T @[RxRESearcher.scala 75:17]
-    node _data_vec_50_T = bits(in_reg.tdata, 407, 400) @[RxRESearcher.scala 75:32]
-    data_vec[50] <= _data_vec_50_T @[RxRESearcher.scala 75:17]
-    node _data_vec_51_T = bits(in_reg.tdata, 415, 408) @[RxRESearcher.scala 75:32]
-    data_vec[51] <= _data_vec_51_T @[RxRESearcher.scala 75:17]
-    node _data_vec_52_T = bits(in_reg.tdata, 423, 416) @[RxRESearcher.scala 75:32]
-    data_vec[52] <= _data_vec_52_T @[RxRESearcher.scala 75:17]
-    node _data_vec_53_T = bits(in_reg.tdata, 431, 424) @[RxRESearcher.scala 75:32]
-    data_vec[53] <= _data_vec_53_T @[RxRESearcher.scala 75:17]
-    node _data_vec_54_T = bits(in_reg.tdata, 439, 432) @[RxRESearcher.scala 75:32]
-    data_vec[54] <= _data_vec_54_T @[RxRESearcher.scala 75:17]
-    node _data_vec_55_T = bits(in_reg.tdata, 447, 440) @[RxRESearcher.scala 75:32]
-    data_vec[55] <= _data_vec_55_T @[RxRESearcher.scala 75:17]
-    node _data_vec_56_T = bits(in_reg.tdata, 455, 448) @[RxRESearcher.scala 75:32]
-    data_vec[56] <= _data_vec_56_T @[RxRESearcher.scala 75:17]
-    node _data_vec_57_T = bits(in_reg.tdata, 463, 456) @[RxRESearcher.scala 75:32]
-    data_vec[57] <= _data_vec_57_T @[RxRESearcher.scala 75:17]
-    node _data_vec_58_T = bits(in_reg.tdata, 471, 464) @[RxRESearcher.scala 75:32]
-    data_vec[58] <= _data_vec_58_T @[RxRESearcher.scala 75:17]
-    node _data_vec_59_T = bits(in_reg.tdata, 479, 472) @[RxRESearcher.scala 75:32]
-    data_vec[59] <= _data_vec_59_T @[RxRESearcher.scala 75:17]
-    node _data_vec_60_T = bits(in_reg.tdata, 487, 480) @[RxRESearcher.scala 75:32]
-    data_vec[60] <= _data_vec_60_T @[RxRESearcher.scala 75:17]
-    node _data_vec_61_T = bits(in_reg.tdata, 495, 488) @[RxRESearcher.scala 75:32]
-    data_vec[61] <= _data_vec_61_T @[RxRESearcher.scala 75:17]
-    node _data_vec_62_T = bits(in_reg.tdata, 503, 496) @[RxRESearcher.scala 75:32]
-    data_vec[62] <= _data_vec_62_T @[RxRESearcher.scala 75:17]
-    node _data_vec_63_T = bits(in_reg.tdata, 511, 504) @[RxRESearcher.scala 75:32]
-    data_vec[63] <= _data_vec_63_T @[RxRESearcher.scala 75:17]
-    node _input_data_T = eq(match_wait_reg, UInt<1>("h0")) @[RxRESearcher.scala 77:40]
-    node _input_data_T_1 = or(cur_beat_done, _input_data_T) @[RxRESearcher.scala 77:38]
-    node _input_data_T_2 = bits(beat_counter_reg, 5, 0)
-    node _input_data_T_3 = add(beat_counter_reg, UInt<1>("h1")) @[RxRESearcher.scala 77:109]
-    node _input_data_T_4 = tail(_input_data_T_3, 1) @[RxRESearcher.scala 77:109]
-    node _input_data_T_5 = bits(_input_data_T_4, 5, 0)
-    node input_data = mux(_input_data_T_1, data_vec[_input_data_T_2], data_vec[_input_data_T_5]) @[RxRESearcher.scala 77:23]
-    inst re_handler of REHandler @[RxRESearcher.scala 79:26]
-    re_handler.clock <= clock
-    re_handler.reset <= reset
-    node match_found = eq(re_handler.io.out_state, UInt<4>("hf")) @[RxRESearcher.scala 81:46]
-    node _cur_state_T = eq(match_wait_reg, UInt<1>("h0")) @[RxRESearcher.scala 83:41]
-    node _cur_state_T_1 = and(first_beat_reg, _cur_state_T) @[RxRESearcher.scala 83:39]
-    node _cur_state_T_2 = and(in_shake_hand, in_reg.tlast) @[RxRESearcher.scala 83:75]
-    node _cur_state_T_3 = or(_cur_state_T_1, _cur_state_T_2) @[RxRESearcher.scala 83:58]
-    node cur_state = mux(_cur_state_T_3, UInt<1>("h0"), re_handler.io.out_state) @[RxRESearcher.scala 83:22]
-    re_handler.io.in_rule[0] <= io.in.extern_config.c2h_match_arg[0] @[RxRESearcher.scala 87:25]
-    re_handler.io.in_rule[1] <= io.in.extern_config.c2h_match_arg[1] @[RxRESearcher.scala 87:25]
-    re_handler.io.in_rule[2] <= io.in.extern_config.c2h_match_arg[2] @[RxRESearcher.scala 87:25]
-    re_handler.io.in_rule[3] <= io.in.extern_config.c2h_match_arg[3] @[RxRESearcher.scala 87:25]
-    re_handler.io.in_rule[4] <= io.in.extern_config.c2h_match_arg[4] @[RxRESearcher.scala 87:25]
-    re_handler.io.in_rule[5] <= io.in.extern_config.c2h_match_arg[5] @[RxRESearcher.scala 87:25]
-    re_handler.io.in_rule[6] <= io.in.extern_config.c2h_match_arg[6] @[RxRESearcher.scala 87:25]
-    re_handler.io.in_rule[7] <= io.in.extern_config.c2h_match_arg[7] @[RxRESearcher.scala 87:25]
-    re_handler.io.in_rule[8] <= io.in.extern_config.c2h_match_arg[8] @[RxRESearcher.scala 87:25]
-    re_handler.io.in_rule[9] <= io.in.extern_config.c2h_match_arg[9] @[RxRESearcher.scala 87:25]
-    re_handler.io.in_rule[10] <= io.in.extern_config.c2h_match_arg[10] @[RxRESearcher.scala 87:25]
-    re_handler.io.in_rule[11] <= io.in.extern_config.c2h_match_arg[11] @[RxRESearcher.scala 87:25]
-    re_handler.io.in_rule[12] <= io.in.extern_config.c2h_match_arg[12] @[RxRESearcher.scala 87:25]
-    re_handler.io.in_rule[13] <= io.in.extern_config.c2h_match_arg[13] @[RxRESearcher.scala 87:25]
-    re_handler.io.in_rule[14] <= io.in.extern_config.c2h_match_arg[14] @[RxRESearcher.scala 87:25]
-    re_handler.io.in_rule[15] <= io.in.extern_config.c2h_match_arg[15] @[RxRESearcher.scala 87:25]
-    re_handler.io.in_char <= input_data @[RxRESearcher.scala 88:25]
-    re_handler.io.in_state <= cur_state @[RxRESearcher.scala 89:26]
-    node _re_handler_io_in_en_T = eq(cur_beat_done, UInt<1>("h0")) @[RxRESearcher.scala 90:26]
-    node _re_handler_io_in_en_T_1 = and(in_shake_hand, in_reg.tlast) @[RxRESearcher.scala 90:58]
-    node _re_handler_io_in_en_T_2 = or(_re_handler_io_in_en_T, _re_handler_io_in_en_T_1) @[RxRESearcher.scala 90:41]
-    re_handler.io.in_en <= _re_handler_io_in_en_T_2 @[RxRESearcher.scala 90:23]
-    when in_shake_hand : @[RxRESearcher.scala 92:23]
-      beat_counter_reg <= UInt<1>("h0") @[RxRESearcher.scala 93:22]
-      when in_reg.tlast : @[RxRESearcher.scala 94:24]
-        match_wait_reg <= UInt<1>("h0") @[RxRESearcher.scala 95:22]
-      else :
-        match_wait_reg <= match_found @[RxRESearcher.scala 97:22]
-    else :
-      node _T = eq(match_wait_reg, UInt<1>("h0")) @[RxRESearcher.scala 99:14]
-      when _T : @[RxRESearcher.scala 99:31]
-        match_wait_reg <= UInt<1>("h1") @[RxRESearcher.scala 100:20]
-      else :
-        node _T_1 = lt(beat_counter_reg, UInt<6>("h3f")) @[RxRESearcher.scala 101:31]
-        when _T_1 : @[RxRESearcher.scala 101:54]
-          node _beat_counter_reg_T = add(beat_counter_reg, UInt<1>("h1")) @[RxRESearcher.scala 102:42]
-          node _beat_counter_reg_T_1 = tail(_beat_counter_reg_T, 1) @[RxRESearcher.scala 102:42]
-          beat_counter_reg <= _beat_counter_reg_T_1 @[RxRESearcher.scala 102:22]
-    node _T_2 = bits(io.in.extern_config.c2h_match_op, 7, 7) @[RxRESearcher.scala 105:41]
-    when _T_2 : @[RxRESearcher.scala 105:45]
-      node _io_out_rx_info_qid_T = mux(match_found, UInt<1>("h1"), in_reg.rx_info.qid) @[RxRESearcher.scala 106:30]
-      io.out.rx_info.qid <= _io_out_rx_info_qid_T @[RxRESearcher.scala 106:24]
-      node _io_in_tready_T_2 = eq(in_reg_used_reg, UInt<1>("h0")) @[RxRESearcher.scala 107:38]
-      node _io_in_tready_T_3 = or(out_shake_hand, _io_in_tready_T_2) @[RxRESearcher.scala 107:36]
-      io.in.tready <= _io_in_tready_T_3 @[RxRESearcher.scala 107:18]
-      node _io_out_tvalid_T_1 = and(in_reg.tvalid, in_reg_used_reg) @[RxRESearcher.scala 108:36]
-      node _io_out_tvalid_T_2 = or(cur_beat_done, match_found) @[RxRESearcher.scala 108:71]
-      node _io_out_tvalid_T_3 = and(_io_out_tvalid_T_1, _io_out_tvalid_T_2) @[RxRESearcher.scala 108:54]
-      io.out.tvalid <= _io_out_tvalid_T_3 @[RxRESearcher.scala 108:19]
 
   module ReduceAddSync_4 :
     input clock : Clock
@@ -20748,7 +20011,7 @@ circuit PackageHandler :
   module RxChksumVerifier :
     input clock : Clock
     input reset : Reset
-    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}}
+    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}}
 
     node in_shake_hand = and(io.in.tready, io.in.tvalid) @[RxPipelineHandler.scala 12:38]
     node out_shake_hand = and(io.out.tready, io.out.tvalid) @[RxPipelineHandler.scala 13:38]
@@ -20820,7 +20083,7 @@ circuit PackageHandler :
     wire _io_in_tready_WIRE : UInt<1>
     _io_in_tready_WIRE <= _io_in_tready_T_1
     io.in.tready <= _io_in_tready_WIRE @[RxPipelineHandler.scala 30:18]
-    wire _io_out_extern_config_WIRE : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}
+    wire _io_out_extern_config_WIRE : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}
     _io_out_extern_config_WIRE.c2h_match_arg[0] <= io.in.extern_config.c2h_match_arg[0]
     _io_out_extern_config_WIRE.c2h_match_arg[1] <= io.in.extern_config.c2h_match_arg[1]
     _io_out_extern_config_WIRE.c2h_match_arg[2] <= io.in.extern_config.c2h_match_arg[2]
@@ -21493,7 +20756,7 @@ circuit PackageHandler :
   module RxRSSHasher :
     input clock : Clock
     input reset : Reset
-    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}}
+    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}}
 
     node in_shake_hand = and(io.in.tready, io.in.tvalid) @[RxPipelineHandler.scala 12:38]
     node out_shake_hand = and(io.out.tready, io.out.tvalid) @[RxPipelineHandler.scala 13:38]
@@ -21565,7 +20828,7 @@ circuit PackageHandler :
     wire _io_in_tready_WIRE : UInt<1>
     _io_in_tready_WIRE <= _io_in_tready_T_1
     io.in.tready <= _io_in_tready_WIRE @[RxPipelineHandler.scala 30:18]
-    wire _io_out_extern_config_WIRE : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}
+    wire _io_out_extern_config_WIRE : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}
     _io_out_extern_config_WIRE.c2h_match_arg[0] <= io.in.extern_config.c2h_match_arg[0]
     _io_out_extern_config_WIRE.c2h_match_arg[1] <= io.in.extern_config.c2h_match_arg[1]
     _io_out_extern_config_WIRE.c2h_match_arg[2] <= io.in.extern_config.c2h_match_arg[2]
@@ -22314,7 +21577,7 @@ circuit PackageHandler :
   module RxStrMatcher :
     input clock : Clock
     input reset : Reset
-    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}}
+    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}}
 
     node in_shake_hand = and(io.in.tready, io.in.tvalid) @[RxPipelineHandler.scala 12:38]
     node out_shake_hand = and(io.out.tready, io.out.tvalid) @[RxPipelineHandler.scala 13:38]
@@ -22386,7 +21649,7 @@ circuit PackageHandler :
     wire _io_in_tready_WIRE : UInt<1>
     _io_in_tready_WIRE <= _io_in_tready_T_1
     io.in.tready <= _io_in_tready_WIRE @[RxPipelineHandler.scala 30:18]
-    wire _io_out_extern_config_WIRE : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}
+    wire _io_out_extern_config_WIRE : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}
     _io_out_extern_config_WIRE.c2h_match_arg[0] <= io.in.extern_config.c2h_match_arg[0]
     _io_out_extern_config_WIRE.c2h_match_arg[1] <= io.in.extern_config.c2h_match_arg[1]
     _io_out_extern_config_WIRE.c2h_match_arg[2] <= io.in.extern_config.c2h_match_arg[2]
@@ -22723,7 +21986,7 @@ circuit PackageHandler :
   module RxStrSearcher :
     input clock : Clock
     input reset : Reset
-    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}}
+    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}}
 
     node in_shake_hand = and(io.in.tready, io.in.tvalid) @[RxPipelineHandler.scala 12:38]
     node out_shake_hand = and(io.out.tready, io.out.tvalid) @[RxPipelineHandler.scala 13:38]
@@ -22795,7 +22058,7 @@ circuit PackageHandler :
     wire _io_in_tready_WIRE : UInt<1>
     _io_in_tready_WIRE <= _io_in_tready_T_1
     io.in.tready <= _io_in_tready_WIRE @[RxPipelineHandler.scala 30:18]
-    wire _io_out_extern_config_WIRE : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}
+    wire _io_out_extern_config_WIRE : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}
     _io_out_extern_config_WIRE.c2h_match_arg[0] <= io.in.extern_config.c2h_match_arg[0]
     _io_out_extern_config_WIRE.c2h_match_arg[1] <= io.in.extern_config.c2h_match_arg[1]
     _io_out_extern_config_WIRE.c2h_match_arg[2] <= io.in.extern_config.c2h_match_arg[2]
@@ -23655,14 +22918,11 @@ circuit PackageHandler :
   module RxPipeline :
     input clock : Clock
     input reset : Reset
-    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}}
+    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}}
 
     inst rx_aes_decrypter of RxAESDecrypter @[RxPipeline.scala 34:35]
     rx_aes_decrypter.clock <= clock
     rx_aes_decrypter.reset <= reset
-    inst rx_re_searcher of RxRESearcher @[RxPipeline.scala 38:30]
-    rx_re_searcher.clock <= clock
-    rx_re_searcher.reset <= reset
     inst rx_chksum_verifier of RxChksumVerifier @[RxPipeline.scala 39:34]
     rx_chksum_verifier.clock <= clock
     rx_chksum_verifier.reset <= reset
@@ -23805,63 +23065,37 @@ circuit PackageHandler :
     rx_string_matcher.io.out.tready <= rx_string_searcher.io.in.tready @[RxPipeline.scala 47:29]
     rx_string_searcher.io.in.tvalid <= rx_string_matcher.io.out.tvalid @[RxPipeline.scala 47:29]
     rx_string_searcher.io.in.tdata <= rx_string_matcher.io.out.tdata @[RxPipeline.scala 47:29]
-    rx_re_searcher.io.in.extern_config.c2h_match_arg[0] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[0] @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.extern_config.c2h_match_arg[1] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[1] @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.extern_config.c2h_match_arg[2] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[2] @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.extern_config.c2h_match_arg[3] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[3] @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.extern_config.c2h_match_arg[4] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[4] @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.extern_config.c2h_match_arg[5] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[5] @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.extern_config.c2h_match_arg[6] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[6] @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.extern_config.c2h_match_arg[7] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[7] @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.extern_config.c2h_match_arg[8] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[8] @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.extern_config.c2h_match_arg[9] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[9] @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.extern_config.c2h_match_arg[10] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[10] @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.extern_config.c2h_match_arg[11] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[11] @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.extern_config.c2h_match_arg[12] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[12] @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.extern_config.c2h_match_arg[13] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[13] @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.extern_config.c2h_match_arg[14] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[14] @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.extern_config.c2h_match_arg[15] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[15] @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.extern_config.c2h_match_op <= rx_string_searcher.io.out.extern_config.c2h_match_op @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.rx_info.tcp_chksum <= rx_string_searcher.io.out.rx_info.tcp_chksum @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.rx_info.ip_chksum <= rx_string_searcher.io.out.rx_info.ip_chksum @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.rx_info.qid <= rx_string_searcher.io.out.rx_info.qid @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.rx_info.tlen <= rx_string_searcher.io.out.rx_info.tlen @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.tuser <= rx_string_searcher.io.out.tuser @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.tlast <= rx_string_searcher.io.out.tlast @[RxPipeline.scala 48:29]
-    rx_string_searcher.io.out.tready <= rx_re_searcher.io.in.tready @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.tvalid <= rx_string_searcher.io.out.tvalid @[RxPipeline.scala 48:29]
-    rx_re_searcher.io.in.tdata <= rx_string_searcher.io.out.tdata @[RxPipeline.scala 48:29]
-    io.out.extern_config.c2h_match_arg[0] <= rx_re_searcher.io.out.extern_config.c2h_match_arg[0] @[RxPipeline.scala 49:25]
-    io.out.extern_config.c2h_match_arg[1] <= rx_re_searcher.io.out.extern_config.c2h_match_arg[1] @[RxPipeline.scala 49:25]
-    io.out.extern_config.c2h_match_arg[2] <= rx_re_searcher.io.out.extern_config.c2h_match_arg[2] @[RxPipeline.scala 49:25]
-    io.out.extern_config.c2h_match_arg[3] <= rx_re_searcher.io.out.extern_config.c2h_match_arg[3] @[RxPipeline.scala 49:25]
-    io.out.extern_config.c2h_match_arg[4] <= rx_re_searcher.io.out.extern_config.c2h_match_arg[4] @[RxPipeline.scala 49:25]
-    io.out.extern_config.c2h_match_arg[5] <= rx_re_searcher.io.out.extern_config.c2h_match_arg[5] @[RxPipeline.scala 49:25]
-    io.out.extern_config.c2h_match_arg[6] <= rx_re_searcher.io.out.extern_config.c2h_match_arg[6] @[RxPipeline.scala 49:25]
-    io.out.extern_config.c2h_match_arg[7] <= rx_re_searcher.io.out.extern_config.c2h_match_arg[7] @[RxPipeline.scala 49:25]
-    io.out.extern_config.c2h_match_arg[8] <= rx_re_searcher.io.out.extern_config.c2h_match_arg[8] @[RxPipeline.scala 49:25]
-    io.out.extern_config.c2h_match_arg[9] <= rx_re_searcher.io.out.extern_config.c2h_match_arg[9] @[RxPipeline.scala 49:25]
-    io.out.extern_config.c2h_match_arg[10] <= rx_re_searcher.io.out.extern_config.c2h_match_arg[10] @[RxPipeline.scala 49:25]
-    io.out.extern_config.c2h_match_arg[11] <= rx_re_searcher.io.out.extern_config.c2h_match_arg[11] @[RxPipeline.scala 49:25]
-    io.out.extern_config.c2h_match_arg[12] <= rx_re_searcher.io.out.extern_config.c2h_match_arg[12] @[RxPipeline.scala 49:25]
-    io.out.extern_config.c2h_match_arg[13] <= rx_re_searcher.io.out.extern_config.c2h_match_arg[13] @[RxPipeline.scala 49:25]
-    io.out.extern_config.c2h_match_arg[14] <= rx_re_searcher.io.out.extern_config.c2h_match_arg[14] @[RxPipeline.scala 49:25]
-    io.out.extern_config.c2h_match_arg[15] <= rx_re_searcher.io.out.extern_config.c2h_match_arg[15] @[RxPipeline.scala 49:25]
-    io.out.extern_config.c2h_match_op <= rx_re_searcher.io.out.extern_config.c2h_match_op @[RxPipeline.scala 49:25]
-    io.out.rx_info.tcp_chksum <= rx_re_searcher.io.out.rx_info.tcp_chksum @[RxPipeline.scala 49:25]
-    io.out.rx_info.ip_chksum <= rx_re_searcher.io.out.rx_info.ip_chksum @[RxPipeline.scala 49:25]
-    io.out.rx_info.qid <= rx_re_searcher.io.out.rx_info.qid @[RxPipeline.scala 49:25]
-    io.out.rx_info.tlen <= rx_re_searcher.io.out.rx_info.tlen @[RxPipeline.scala 49:25]
-    io.out.tuser <= rx_re_searcher.io.out.tuser @[RxPipeline.scala 49:25]
-    io.out.tlast <= rx_re_searcher.io.out.tlast @[RxPipeline.scala 49:25]
-    rx_re_searcher.io.out.tready <= io.out.tready @[RxPipeline.scala 49:25]
-    io.out.tvalid <= rx_re_searcher.io.out.tvalid @[RxPipeline.scala 49:25]
-    io.out.tdata <= rx_re_searcher.io.out.tdata @[RxPipeline.scala 49:25]
+    io.out.extern_config.c2h_match_arg[0] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[0] @[RxPipeline.scala 48:29]
+    io.out.extern_config.c2h_match_arg[1] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[1] @[RxPipeline.scala 48:29]
+    io.out.extern_config.c2h_match_arg[2] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[2] @[RxPipeline.scala 48:29]
+    io.out.extern_config.c2h_match_arg[3] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[3] @[RxPipeline.scala 48:29]
+    io.out.extern_config.c2h_match_arg[4] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[4] @[RxPipeline.scala 48:29]
+    io.out.extern_config.c2h_match_arg[5] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[5] @[RxPipeline.scala 48:29]
+    io.out.extern_config.c2h_match_arg[6] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[6] @[RxPipeline.scala 48:29]
+    io.out.extern_config.c2h_match_arg[7] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[7] @[RxPipeline.scala 48:29]
+    io.out.extern_config.c2h_match_arg[8] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[8] @[RxPipeline.scala 48:29]
+    io.out.extern_config.c2h_match_arg[9] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[9] @[RxPipeline.scala 48:29]
+    io.out.extern_config.c2h_match_arg[10] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[10] @[RxPipeline.scala 48:29]
+    io.out.extern_config.c2h_match_arg[11] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[11] @[RxPipeline.scala 48:29]
+    io.out.extern_config.c2h_match_arg[12] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[12] @[RxPipeline.scala 48:29]
+    io.out.extern_config.c2h_match_arg[13] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[13] @[RxPipeline.scala 48:29]
+    io.out.extern_config.c2h_match_arg[14] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[14] @[RxPipeline.scala 48:29]
+    io.out.extern_config.c2h_match_arg[15] <= rx_string_searcher.io.out.extern_config.c2h_match_arg[15] @[RxPipeline.scala 48:29]
+    io.out.extern_config.c2h_match_op <= rx_string_searcher.io.out.extern_config.c2h_match_op @[RxPipeline.scala 48:29]
+    io.out.rx_info.tcp_chksum <= rx_string_searcher.io.out.rx_info.tcp_chksum @[RxPipeline.scala 48:29]
+    io.out.rx_info.ip_chksum <= rx_string_searcher.io.out.rx_info.ip_chksum @[RxPipeline.scala 48:29]
+    io.out.rx_info.qid <= rx_string_searcher.io.out.rx_info.qid @[RxPipeline.scala 48:29]
+    io.out.rx_info.tlen <= rx_string_searcher.io.out.rx_info.tlen @[RxPipeline.scala 48:29]
+    io.out.tuser <= rx_string_searcher.io.out.tuser @[RxPipeline.scala 48:29]
+    io.out.tlast <= rx_string_searcher.io.out.tlast @[RxPipeline.scala 48:29]
+    rx_string_searcher.io.out.tready <= io.out.tready @[RxPipeline.scala 48:29]
+    io.out.tvalid <= rx_string_searcher.io.out.tvalid @[RxPipeline.scala 48:29]
+    io.out.tdata <= rx_string_searcher.io.out.tdata @[RxPipeline.scala 48:29]
 
   module RxBufferFifo :
     input clock : Clock
     input reset : Reset
-    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, out_qid : UInt<6>, out_tlen : UInt<16>, flip reset_counter : UInt<1>, c2h_pack_counter : UInt<32>, c2h_err_counter : UInt<32>}
+    output io : { in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip rx_info : { tlen : UInt<16>, qid : UInt<6>, ip_chksum : UInt<32>, tcp_chksum : UInt<32>}, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}, flip out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, out_qid : UInt<6>, out_tlen : UInt<16>, flip reset_counter : UInt<1>, c2h_pack_counter : UInt<32>, c2h_err_counter : UInt<32>}
 
     node in_shake_hand = and(io.in.tvalid, io.in.tready) @[RxBufferFifo.scala 44:36]
     smem data_buf_reg : UInt<512> [64] @[RxBufferFifo.scala 45:33]
@@ -24225,7 +23459,7 @@ circuit PackageHandler :
   module RxHandler :
     input clock : Clock
     input reset : Reset
-    output io : { CMAC_out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip tkeep : UInt<64>}, flip QDMA_c2h_stub_in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, flip reset_counter : UInt<1>, c2h_pack_counter : UInt<32>, c2h_err_counter : UInt<32>, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}}
+    output io : { CMAC_out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip tkeep : UInt<64>}, flip QDMA_c2h_stub_in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, flip reset_counter : UInt<1>, c2h_pack_counter : UInt<32>, c2h_err_counter : UInt<32>, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}}
 
     inst rx_converter of RxConverter @[RxHandler.scala 38:28]
     rx_converter.clock <= clock
@@ -24386,7 +23620,7 @@ circuit PackageHandler :
   module PackageHandler :
     input clock : Clock
     input reset : UInt<1>
-    output io : { QDMA_h2c_stub_out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, flip CMAC_in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip tkeep : UInt<64>}, CMAC_out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip tkeep : UInt<64>}, flip QDMA_c2h_stub_in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, flip reset_counter : UInt<1>, flip extern_config : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]}, c2h_pack_counter : UInt<32>, c2h_err_counter : UInt<32>, h2c_pack_counter : UInt<32>, h2c_err_counter : UInt<32>}
+    output io : { QDMA_h2c_stub_out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, flip CMAC_in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip tkeep : UInt<64>}, CMAC_out : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>, flip tkeep : UInt<64>}, flip QDMA_c2h_stub_in : { flip tdata : UInt<512>, flip tvalid : UInt<1>, tready : UInt<1>, flip tlast : UInt<1>, flip tuser : UInt<1>}, flip reset_counter : UInt<1>, flip extern_config : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]}, c2h_pack_counter : UInt<32>, c2h_err_counter : UInt<32>, h2c_pack_counter : UInt<32>, h2c_err_counter : UInt<32>}
 
     node extern_config_reg_lo_lo_lo = cat(io.extern_config.c2h_match_arg[1], io.extern_config.c2h_match_arg[0]) @[PackageHandler.scala 30:52]
     node extern_config_reg_lo_lo_hi = cat(io.extern_config.c2h_match_arg[3], io.extern_config.c2h_match_arg[2]) @[PackageHandler.scala 30:52]
@@ -24407,8 +23641,8 @@ circuit PackageHandler :
     reg extern_config_reg_REG : UInt, clock with :
       reset => (reset, UInt<1>("h0")) @[PackageHandler.scala 30:34]
     extern_config_reg_REG <= _extern_config_reg_T @[PackageHandler.scala 30:34]
-    wire extern_config_reg : { c2h_match_op : UInt<16>, c2h_match_arg : UInt<32>[16]} @[PackageHandler.scala 30:72]
-    wire _extern_config_reg_WIRE : UInt<528>
+    wire extern_config_reg : { c2h_match_op : UInt<8>, c2h_match_arg : UInt<32>[16]} @[PackageHandler.scala 30:72]
+    wire _extern_config_reg_WIRE : UInt<520>
     _extern_config_reg_WIRE <= extern_config_reg_REG
     node _extern_config_reg_T_1 = bits(_extern_config_reg_WIRE, 31, 0) @[PackageHandler.scala 30:72]
     extern_config_reg.c2h_match_arg[0] <= _extern_config_reg_T_1 @[PackageHandler.scala 30:72]
@@ -24442,7 +23676,7 @@ circuit PackageHandler :
     extern_config_reg.c2h_match_arg[14] <= _extern_config_reg_T_15 @[PackageHandler.scala 30:72]
     node _extern_config_reg_T_16 = bits(_extern_config_reg_WIRE, 511, 480) @[PackageHandler.scala 30:72]
     extern_config_reg.c2h_match_arg[15] <= _extern_config_reg_T_16 @[PackageHandler.scala 30:72]
-    node _extern_config_reg_T_17 = bits(_extern_config_reg_WIRE, 527, 512) @[PackageHandler.scala 30:72]
+    node _extern_config_reg_T_17 = bits(_extern_config_reg_WIRE, 519, 512) @[PackageHandler.scala 30:72]
     extern_config_reg.c2h_match_op <= _extern_config_reg_T_17 @[PackageHandler.scala 30:72]
     inst tx_handler of TxHandler @[PackageHandler.scala 32:26]
     tx_handler.clock <= clock
