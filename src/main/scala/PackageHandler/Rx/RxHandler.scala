@@ -42,7 +42,7 @@ class RxHandler extends Module{
   val rx_pipeline = Module(new RxPipeline())
   rx_converter.io.out <> rx_pipeline.io.in
 
-  val rx_buffer_fifo = Module(new RxBufferFifo()) // a packet's max burst is 32 (2048 bytes)
+  val rx_buffer_fifo = Module(new RxBufferFIFO()) // a packet's max burst is 32 (2048 bytes)
   rx_pipeline.io.out <> rx_buffer_fifo.io.in
   rx_buffer_fifo.io.reset_counter := io.reset_counter
   io.c2h_pack_counter := rx_buffer_fifo.io.c2h_pack_counter

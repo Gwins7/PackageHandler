@@ -39,6 +39,6 @@ class RxPipelineHandlerReg extends Bundle {
 }
 
 class ExternConfig extends Bundle {
-  val c2h_match_op   = UInt(16.W)
-  val c2h_match_arg =  Vec(16,UInt(32.W))
+  val op   = UInt(16.W)
+  val arg =  Vec(16,UInt(32.W))
 }

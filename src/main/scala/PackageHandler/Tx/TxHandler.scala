@@ -24,7 +24,7 @@ class TxHandler extends Module {
   val tx_pipeline = Module(new TxPipeline())
   tx_converter.io.out <> tx_pipeline.io.in
 
-  val tx_buffer_fifo = Module(new TxBufferFifo())
+  val tx_buffer_fifo = Module(new TxBufferFIFO())
   tx_pipeline.io.out              <> tx_buffer_fifo.io.in
   tx_buffer_fifo.io.out           <> io.CMAC_in
   tx_buffer_fifo.io.reset_counter := io.reset_counter

@@ -16,6 +16,6 @@ object GenerateREVerilog extends App {
 }
 
 object GenerateTxBufferVerilog extends App {
-  emitVerilog(new TxBufferFifo(), Array("--target-dir", "generated"))
+  emitVerilog(new TxBufferFIFO(), Array("--target-dir", "generated"))
   println("generate TxBuffer Verilog successfully!")
 }

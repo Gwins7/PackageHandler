@@ -4,7 +4,7 @@ import chisel3._
 import chisel3.util._
 
 
-class RxBufferFifo2 extends Module with NetFunc {
+class RxBufferFIFO2 extends Module with NetFunc {
   /*
     ATTENTION:
     this Module is RxBufferFifo implemented by FifoIP;
@@ -51,7 +51,7 @@ class RxBufferFifo2 extends Module with NetFunc {
   end_tcp_chksum := ~chksum_cal(mid_tcp_chksum)
 
   def chksum_pass: Bool = {
-    !io.in.extern_config.c2h_match_op(6) ||
+    !io.in.extern_config.op(6) ||
       !(change_order_16(rx_data_fifo.io.m_axis.tdata(111, 96)) === "h_0800".U) ||
       end_ip_chksum === 0.U && (!(rx_data_fifo.io.m_axis.tdata(191, 184) === 6.U) || end_tcp_chksum === 0.U)
   }

@@ -43,10 +43,10 @@ class RxAESDecrypter extends RxPipelineHandler with cal_gf256 {
     val tmp_tdata_reg = Reg(UInt(512.W))
 
 
-    val aes_key_0 = Cat(change_order_32(io.in.extern_config.c2h_match_arg(15)),
-        change_order_32(io.in.extern_config.c2h_match_arg(14)),
-        change_order_32(io.in.extern_config.c2h_match_arg(13)),
-        change_order_32(io.in.extern_config.c2h_match_arg(12)))
+    val aes_key_0 = Cat(change_order_32(io.in.extern_config.arg(15)),
+        change_order_32(io.in.extern_config.arg(14)),
+        change_order_32(io.in.extern_config.arg(13)),
+        change_order_32(io.in.extern_config.arg(12)))
 
     // cur_round_counter:
     // 0~9: aes_key_gen
@@ -85,7 +85,7 @@ class RxAESDecrypter extends RxPipelineHandler with cal_gf256 {
     }.elsewhen(cur_round_counter > 11.U && cur_round_counter < 51.U) {
         tmp_tdata_reg := tmp_result(cur_round_counter(1, 0))
     }
-    when (io.in.extern_config.c2h_match_op(8) && !first_beat_reg){
+    when (io.in.extern_config.op(8) && !first_beat_reg){
         // ATTENTION: when in first beat, we don't do decryption
         io.out.tdata := tmp_tdata_reg
         io.in.tready   := (cur_round_counter >= 11.U) & (out_shake_hand | !in_reg_used_reg)

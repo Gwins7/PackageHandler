@@ -84,8 +84,12 @@ val cal_tdata = Mux(in_shake_hand,io.in.tdata,in_reg.tdata)
 // op(7) : RxRESearcher
 
 class RxRSSHasher extends RxPipelineHandler {
-// arg(0): hash_seed; arg(1): hash_mask
-  val hash_key = io.in.extern_config.c2h_match_arg(0) // symmetric: fill(20,"h_6d5a".U), we just set 6d5a6d5a
+// arg(0)~arg(3): hash_seed; arg(4)~arg(5): jump_table
+  val hash_key = Cat(io.in.extern_config.arg(0),
+                     io.in.extern_config.arg(1),
+                     io.in.extern_config.arg(2),
+                     io.in.extern_config.arg(3))
+  // symmetric: fill(20,"h_6d5a".U), we just set 6d5a6d5a
 
   val cal_tdata = Mux(in_shake_hand,io.in.tdata,in_reg.tdata)
   val src_ip   = change_order_32(cal_tdata(239,208))
@@ -96,10 +100,7 @@ class RxRSSHasher extends RxPipelineHandler {
 
   val cal_hash_key_vec = Wire(Vec(96,UInt(32.W)))
   for (i <- 0 until 96) {
-    if (i%32==31) cal_hash_key_vec(i) := Mux(info(i),hash_key(31,0),0.U)
-    else cal_hash_key_vec(i) := Mux(info(i),Cat(hash_key(i%32,0),hash_key(31,(i%32)+1)),0.U)
-//    if (i%16==15) cal_hash_key(i) := Mux(info(i),Cat(hash_key(15,0),hash_key(15,0)),0.U)
-//    else cal_hash_key(i) := Mux(info(i),Cat(hash_key(i%16,0),hash_key(15,0),hash_key(15,(i%16)+1)),0.U)
+    cal_hash_key_vec(i) := Mux(info(i),hash_key(i+32,i+1),0.U)
   }
   val hash_xor_sync = Module(new ReduceXorSync(96,32))
   val hash_xor_result = Wire(UInt(32.W))
@@ -108,10 +109,21 @@ class RxRSSHasher extends RxPipelineHandler {
   }
   hash_xor_result := hash_xor_sync.io.out_sum
 
+//    val cal_qid = hash_xor_result & io.in.extern_config.c2h_match_arg(1)
+
+  // use jump table to handle the RSS result
+
+  // we limit the hash_result and the actual rx_queue number in 16 (0~15), so jump-target's width for every hash_result is 4.
+
+  // if you want to extend it, you just need to extend the length of jump_table and jump-target's width for every hash_result
+      val jump_table = Cat(io.in.extern_config.arg(4),
+                           io.in.extern_config.arg(5))
+      val jump_offset = hash_xor_result(3,0) << 2.U
+      val cal_qid = (jump_table << jump_offset)(63,60)
+
   //  save the qid calculated in first beat and use it for whole packet
-    val cal_qid = hash_xor_result & io.in.extern_config.c2h_match_arg(1)
-    val cur_packet_qid_reg = RegEnable(cal_qid,0.U,in_shake_hand & first_beat_reg)
-  when (io.in.extern_config.c2h_match_op(5)){
+  val cur_packet_qid_reg = RegEnable(cal_qid,0.U,in_shake_hand & first_beat_reg)
+  when (io.in.extern_config.op(5)){
     io.out.rx_info.qid := Mux(first_beat_reg,cal_qid,cur_packet_qid_reg)
   }
 }
@@ -125,10 +137,10 @@ class RxStrMatcher extends RxPipelineHandler {
     (op(0) & (a === b)) | (op(1) & (a > b)) | (op(2) & (a < b)) | (!op(0) & !op(1) & !op(2) & (a =/= b))
   }
 
-  val match_op      = io.in.extern_config.c2h_match_op
-  val match_content = io.in.extern_config.c2h_match_arg(0)
-  val match_mask    = io.in.extern_config.c2h_match_arg(1)
-  val match_place   = io.in.extern_config.c2h_match_arg(2) // start from 0
+  val match_op      = io.in.extern_config.op
+  val match_content = io.in.extern_config.arg(0)
+  val match_mask    = io.in.extern_config.arg(1)
+  val match_place   = io.in.extern_config.arg(2) // start from 0
 
   val match_found = WireDefault(false.B)
   val match_found_reg = RegInit(false.B)
@@ -183,9 +195,9 @@ class RxStrMatcher extends RxPipelineHandler {
 class RxStrSearcher extends RxPipelineHandler {
   // arg(0): content; arg(1): mask
 
-  val search_op      = Mux(in_shake_hand,io.in.extern_config.c2h_match_op,io.in.extern_config.c2h_match_op)
-  val search_content = Mux(in_shake_hand,io.in.extern_config.c2h_match_arg(0),io.in.extern_config.c2h_match_arg(0))
-  val search_mask    = Mux(in_shake_hand,io.in.extern_config.c2h_match_arg(1),io.in.extern_config.c2h_match_arg(1))
+  val search_op      = Mux(in_shake_hand,io.in.extern_config.op,io.in.extern_config.op)
+  val search_content = Mux(in_shake_hand,io.in.extern_config.arg(0),io.in.extern_config.arg(0))
+  val search_mask    = Mux(in_shake_hand,io.in.extern_config.arg(1),io.in.extern_config.arg(1))
 
   val search_value = search_content & search_mask
 

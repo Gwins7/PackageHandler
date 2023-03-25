@@ -4,7 +4,7 @@ import PackageHandler.Misc._
 import chisel3._
 import chisel3.util._
 
-class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module with NetFunc {
+class TxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module with NetFunc {
   /*
     ATTENTION: in order to avoid using multiplier, we assume that the depth and the burst size must be power of 2
    */
@@ -106,7 +106,7 @@ class TxBufferFifo (val depth: Int = 2,val burst_size: Int = 32) extends Module 
             info_buf_reg(wr_index_reg).pkt_type := Cat((change_order_16(io.in.tdata(111,96)) === "h_0800".U) & (io.in.tdata(191,184) === 6.U),
                                                         change_order_16(io.in.tdata(111,96)) === "h_0800".U)
             info_buf_reg(wr_index_reg).used := true.B
-            info_buf_reg(wr_index_reg).chksum_offload := io.in.extern_config.c2h_match_op(6)
+            info_buf_reg(wr_index_reg).chksum_offload := io.in.extern_config.op(6)
           }
           data_buf_reg(wr_pos_reg) := io.in.tdata
           info_buf_reg(wr_index_reg).burst := info_buf_reg(wr_index_reg).burst + 1.U

@@ -4,7 +4,7 @@ import chisel3._
 import chisel3.util._
 
 
-class TxBufferFifo2 extends Module with NetFunc {
+class TxBufferFIFO2 extends Module with NetFunc {
   /*
     ATTENTION:
     this Module is TxBufferFifo implemented by FifoIP
@@ -78,7 +78,7 @@ class TxBufferFifo2 extends Module with NetFunc {
   val rev_ip_chksum = change_order_16(end_ip_chksum)
   val rev_tcp_chksum = change_order_16(end_tcp_chksum)
 
-  io.out.tdata := Mux(out_first_beat_reg & io.in.extern_config.c2h_match_op(6),
+  io.out.tdata := Mux(out_first_beat_reg & io.in.extern_config.op(6),
     Cat(tx_data_fifo.io.m_axis.tdata(511, 416),
         Mux(change_order_16(tx_data_fifo.io.m_axis.tdata(111, 96)) === "h_0800".U && tx_data_fifo.io.m_axis.tdata(191, 184) === 6.U, rev_tcp_chksum, tx_data_fifo.io.m_axis.tdata(415, 400)),
         tx_data_fifo.io.m_axis.tdata(399, 208),
