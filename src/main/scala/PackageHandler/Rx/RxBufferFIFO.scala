@@ -57,9 +57,9 @@ class RxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
   val rd_pos_reg   = RegInit(0.U(unsignedBitLength(burst_unit_num).W))
   val rd_pos_next = WireDefault(0.U(unsignedBitLength(burst_unit_num).W)) // used for sync-mem
 
-  val valid_vec = Wire(Vec(depth,Bool()))
-  for (i <- 0 until depth) valid_vec(i) := info_buf_reg(i).valid
-  val buf_full = valid_vec.reduceTree(_&_)
+  val pre_valid_vec = Wire(Vec(depth,Bool()))
+  for (i <- 0 until depth) pre_valid_vec(i) := info_buf_reg(i).pre_valid
+  val buf_full = pre_valid_vec.reduceTree(_&_)
 
   io.in.tready := !buf_full
   val pack_counter = RegInit(0.U(32.W))
@@ -80,9 +80,9 @@ class RxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
   mid_tcp_chksum := chksum_cal(io.in.rx_info.tcp_chksum)
 
   val end_ip_chksum  = Wire(UInt(16.W))
-  end_ip_chksum := ~chksum_cal(mid_ip_chksum)
+  end_ip_chksum := ~chksum_cal(mid_ip_chksum)(15,0)
   val end_tcp_chksum = Wire(UInt(16.W))
-  end_tcp_chksum := ~chksum_cal(mid_tcp_chksum)
+  end_tcp_chksum := ~chksum_cal(mid_tcp_chksum)(15,0)
   // write part of ring buffer
   when (io.reset_counter){ // if the counter need to be reset, then reset the register
     pack_counter := 0.U
@@ -124,9 +124,8 @@ class RxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
         data_buf_reg(wr_pos_reg) := io.in.tdata
         info_buf_reg(wr_index_reg).burst := info_buf_reg(wr_index_reg).burst + 1.U
         when (io.in.tlast) {
-          when (info_buf_reg(wr_index_reg).burst === 0.U) {
-            info_buf_reg(wr_index_reg).pre_valid := true.B
-          }.otherwise{
+          info_buf_reg(wr_index_reg).pre_valid := true.B
+          when (info_buf_reg(wr_index_reg).burst =/= 0.U) {
             info_buf_reg(wr_index_reg).valid := true.B
           }
           // we use the information given by tlast beat as packet's final information
@@ -188,8 +187,7 @@ class RxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
   }
 
   for (i <- 0 until depth) {
-    when(info_buf_reg(i).pre_valid) {
-      info_buf_reg(i).pre_valid := false.B
+    when(info_buf_reg(i).pre_valid && !info_buf_reg(i).valid){
       info_buf_reg(i).valid := true.B
     }
   }

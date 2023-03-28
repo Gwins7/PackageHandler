@@ -11,7 +11,7 @@ trait NetFunc {
     Cat(i(7,0),i(15,8),i(23,16),i(31,24))
   }
   def chksum_cal(i: UInt): UInt ={
-    i(31,16) + i(15,0)
+    Cat(0.U(16.W),i(31,16)) + Cat(0.U(16.W),i(15,0))
 //    Mux(i(31,16) > 0.U,
 //      i(31,16) + i(15,0), i(15,0))
   }
