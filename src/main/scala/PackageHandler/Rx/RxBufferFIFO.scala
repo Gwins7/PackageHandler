@@ -108,6 +108,7 @@ class RxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
       info_buf_reg(wr_index_reg) := 0.U.asTypeOf(new BufferInfo)
 
     }.elsewhen (io.in.tlast && io.in.tuser) {
+      // packet is invalid by CMAC
       err_counter := err_counter + 1.U
       wr_pos_reg := wr_index_reg << log2Ceil(burst_size).U
       info_buf_reg(wr_index_reg) := 0.U.asTypeOf(new BufferInfo)

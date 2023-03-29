@@ -16,6 +16,7 @@ class TxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
     val pre_valid = Bool()
     val chksum_offload = Bool()
     val pkt_type = UInt(2.W) // 0:ipv4 1:tcp
+    val mty = UInt(6.W)
     val ip_chksum = UInt(16.W)
     val tcp_chksum = UInt(16.W)
     val burst = UInt(unsignedBitLength(burst_size).W)
@@ -77,8 +78,7 @@ class TxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
   when (io.reset_counter){ // if the counter need to be reset, then reset the register
     pack_counter := 0.U
     err_counter := 0.U
-  }
-    .elsewhen (in_shake_hand) {
+  }.elsewhen (in_shake_hand) {
       when (io.in.tlast) { // count the total num of the rx packet (calculated by tlast)
         pack_counter := pack_counter + 1.U
       }
@@ -116,8 +116,9 @@ class TxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
             info_buf_reg(wr_index_reg).pre_valid := true.B
             when(info_buf_reg(wr_index_reg).burst =/= 0.U) {
               info_buf_reg(wr_index_reg).valid := true.B
+              info_buf_reg(wr_index_reg).mty   := io.in.tx_info.mty // packet min length is 64B
             }
-            info_buf_reg(wr_index_reg).ip_chksum := end_ip_chksum
+            info_buf_reg(wr_index_reg).ip_chksum  := end_ip_chksum
             info_buf_reg(wr_index_reg).tcp_chksum := end_tcp_chksum
             wr_index_reg := index_inc(wr_index_reg)
             wr_pos_reg := index_inc(wr_index_reg) << log2Ceil(burst_size).U
@@ -135,7 +136,12 @@ class TxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
   // read part of ring buffer
   val out_shake_hand = io.out.tready & io.out.tvalid // we finished shake hand in current beat
 
-  io.out.tkeep := Fill(64,1.U(1.W))
+  val tkeep_cal = Wire(Vec(64, UInt(1.W)))
+  for (i <- 0 until 64) {
+    tkeep_cal(i) := info_buf_reg(rd_index_reg).mty < (64-i).U
+  }
+
+  io.out.tkeep := Mux(io.out.tlast,tkeep_cal.asUInt,Fill(64,1.U(1.W)))
   io.out.tuser := 0.U
   io.out.tvalid := info_buf_reg(rd_index_reg).valid
   io.out.tlast  := io.out.tvalid & (info_buf_reg(rd_index_reg).burst === 1.U)

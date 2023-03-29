@@ -4,6 +4,7 @@ import chisel3._
 import chisel3.util._
 
 class TxInfo extends Bundle {
+  val mty = UInt(6.W)
   val ip_chksum = UInt(32.W)
   val tcp_chksum = UInt(32.W)
 }

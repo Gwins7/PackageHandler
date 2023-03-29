@@ -32,11 +32,7 @@ class RxConverter extends Module{
   // count tlen
   val tlen_reg = RegInit(0.U(16.W))
   when (in_shake_hand) {
-    when (first_beat_reg) {
-      tlen_reg := cur_burst_size
-    }.otherwise{
-      tlen_reg := tlen_reg + cur_burst_size
-    }
+      tlen_reg := Mux(first_beat_reg,cur_burst_size,tlen_reg + cur_burst_size)
   }
 
   val keep_val = Wire(Vec(512,UInt(1.W)))
@@ -49,7 +45,7 @@ class RxConverter extends Module{
 //  io.out.rx_info.qid := qid_mask_wrapper.io.out_dec
 
   io.out.tuser  := in_reg.tuser
-  io.out.tdata  := in_reg.tdata & keep_val.asTypeOf(UInt(512.W))
+  io.out.tdata  := in_reg.tdata & keep_val.asUInt
   io.out.tvalid := in_reg.tvalid & in_reg_used_reg
   io.out.tlast  := in_reg.tlast
   io.in.tready  := io.out.tready | !in_reg_used_reg
