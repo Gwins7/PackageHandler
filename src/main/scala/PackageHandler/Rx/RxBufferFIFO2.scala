@@ -1,7 +1,6 @@
 package PackageHandler.Rx
 import PackageHandler.Misc._
 import chisel3._
-import chisel3.util._
 
 
 class RxBufferFIFO2 extends Module with NetFunc {

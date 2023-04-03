@@ -1,8 +1,9 @@
 package PackageHandler
 
-
-import PackageHandler.Rx._
+import PackageHandler.Tx.PipelineHandler._
+import PackageHandler.Rx.PipelineHandler._
 import PackageHandler.Tx._
+import PackageHandler.Rx._
 import chisel3.emitVerilog
 
 object GenerateAllVerilog extends App {
@@ -10,12 +11,7 @@ object GenerateAllVerilog extends App {
   println("generate All Verilog successfully!")
 }
 
-object GenerateREVerilog extends App {
-  emitVerilog(new RxRESearcher(), Array("--target-dir", "generated"))
-  println("generate RE Verilog successfully!")
-}
-
-object GenerateTxBufferVerilog extends App {
-  emitVerilog(new TxBufferFIFO(), Array("--target-dir", "generated"))
-  println("generate TxBuffer Verilog successfully!")
+object GenerateFunctionVerilog extends App {
+  emitVerilog(new TxAESEncrypter(), Array("--target-dir", "generated"))
+  println("generate Function Verilog successfully!")
 }

@@ -1,6 +1,7 @@
 package PackageHandler.Tx
 
 import PackageHandler.Misc._
+import PackageHandler.Tx.PipelineHandler._
 import chisel3._
 import chisel3.util._
 

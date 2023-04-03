@@ -1,4 +1,4 @@
-package PackageHandler.Rx
+package PackageHandler.Rx.PipelineHandler
 
 import PackageHandler.Misc._
 import chisel3._

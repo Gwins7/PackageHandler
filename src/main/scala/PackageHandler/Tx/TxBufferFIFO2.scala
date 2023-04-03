@@ -88,6 +88,12 @@ class TxBufferFIFO2 extends Module with NetFunc {
 
   io.out.tvalid := tx_data_fifo.io.m_axis.tvalid & tx_info_fifo.io.m_axis.tvalid
   io.out.tlast := out_shake_hand & tx_data_fifo.io.m_axis.tlast
-  io.out.tkeep := Fill(64, 1.U(1.W))
+
+  val tkeep_cal = Wire(Vec(64, UInt(1.W)))
+  for (i <- 0 until 64) {
+    tkeep_cal(i) := pkt_info.mty < (64 - i).U
+  }
+  io.out.tkeep := Mux(io.out.tlast & !out_first_beat_reg, tkeep_cal.asUInt, Fill(64, 1.U(1.W)))
+
   io.out.tuser := 0.U
 }
