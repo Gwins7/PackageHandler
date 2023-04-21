@@ -5,7 +5,8 @@ import chisel3._
 class RxChksumVerifier extends RxPipelineHandler {
   /*
     Calculate chksum to be checked later
-    attention: the real verification is in RxBufferFifo
+    attention: the real verification is in RxBufferFIFO
+    symmetric to TxChksumGenerator
    */
   val cal_tdata = Mux(in_shake_hand,io.in.tdata,in_reg.tdata)
   // ip header (without existed checksum)
@@ -25,6 +26,7 @@ class RxChksumVerifier extends RxPipelineHandler {
   // tcp header (attention: some information from ip header is needed) (without existed checksum)
   val tcp_hdr_chksum_cal = Module(new ReduceAddSync(32,32))
   for (i <- 0 until 32) {
+    // build fake TCP header
     if (i==8 || i>=13) tcp_hdr_chksum_cal.io.in_vec(i) := change_order_16(cal_tdata(16*i+15,16*i))
     else if (i==11) tcp_hdr_chksum_cal.io.in_vec(i) := cal_tdata(16*i+15,16*i+8)
     else tcp_hdr_chksum_cal.io.in_vec(i) := 0.U
@@ -34,6 +36,7 @@ class RxChksumVerifier extends RxPipelineHandler {
   val cal_ip_chksum_reg = RegInit(0.U(32.W))
   val cal_tcp_chksum_reg = RegInit(0.U(32.W))
 
+  // the calculate result reg
   when (in_shake_hand) {
     when (first_beat_reg) {
       cal_ip_chksum_reg := ip_chksum_result

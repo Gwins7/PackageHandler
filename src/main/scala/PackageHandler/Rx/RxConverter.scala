@@ -22,8 +22,8 @@ class RxConverter extends Module{
   }.elsewhen(out_shake_hand){
     in_reg_used_reg := false.B
   }
-//  val extern_config_reg = RegEnable(io.extern_config.asUInt,0.U,io.out.tready & io.out.tvalid).asTypeOf(new ExternConfig)
 
+  // calculate valid len in this beat
   val cal_tkeep = Mux(in_shake_hand,io.in.tkeep,in_reg.tkeep)
   val burst_size_cal = Module(new ReduceAddSync(64,8))
   for (i <- 0 until 64) burst_size_cal.io.in_vec(i) := cal_tkeep(i)
@@ -34,18 +34,14 @@ class RxConverter extends Module{
   when (in_shake_hand) {
       tlen_reg := Mux(first_beat_reg,cur_burst_size,tlen_reg + cur_burst_size)
   }
-
+  // extend tkeep
   val keep_val = Wire(Vec(512,UInt(1.W)))
   for (i <- 0 until 512){
     keep_val(i) := in_reg.tkeep(i/8)
   }
-//  val qid_mask_wrapper = Module(new SoftwareRegWrapper(32))
-//  qid_mask_wrapper.io.in_mask :=  extern_config_reg.c2h_sw_qid_mask
-//  qid_mask_wrapper.io.in_tlast := in_shake_hand & in_reg.tlast
-//  io.out.rx_info.qid := qid_mask_wrapper.io.out_dec
 
   io.out.tuser  := in_reg.tuser
-  io.out.tdata  := in_reg.tdata & keep_val.asUInt
+  io.out.tdata  := in_reg.tdata & keep_val.asUInt // we only use valid part of tdata
   io.out.tvalid := in_reg.tvalid & in_reg_used_reg
   io.out.tlast  := in_reg.tlast
   io.in.tready  := io.out.tready | !in_reg_used_reg

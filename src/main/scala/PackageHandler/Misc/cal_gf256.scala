@@ -3,6 +3,8 @@ package PackageHandler.Misc
 import chisel3._
 import chisel3.util._
 
+// used in AES function
+
 trait cal_gf256 {
   // https://blog.csdn.net/qq_28205153/article/details/55798628
   def s_substitute(lin:UInt,col:UInt):UInt = {

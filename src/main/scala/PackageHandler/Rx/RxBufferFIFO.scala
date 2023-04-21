@@ -13,14 +13,14 @@ class RxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
   class BufferInfo extends Bundle {
     val used = Bool()  // this is high when we start writing
     val valid = Bool() // this is high when we finish writing (ready to read)
-    val pre_valid = Bool()
-    val chksum_offload = Bool()
-    val pkt_type = UInt(2.W) // 0:ipv4 1:tcp
+    val pre_valid = Bool() // when pkt_len is 64B, we need to use this to wait 1 beat
+    val chksum_offload = Bool() // 1 to open chksum offload
+    val pkt_type = UInt(2.W) // (0):ipv4 (1):tcp
     val qid = UInt(6.W)
     val len = UInt(16.W) // actual length of current packet; used to generate c2h header
-    val ip_chksum = UInt(16.W)
-    val tcp_chksum = UInt(16.W)
-    val burst = UInt(unsignedBitLength(burst_size).W)
+    val ip_chksum = UInt(16.W) // cal result of ip chksum
+    val tcp_chksum = UInt(16.W)// cal result of tcp chksum
+    val burst = UInt(unsignedBitLength(burst_size).W) // how much unsent burst in this pkt now
   }
 
   val io = IO(new Bundle {
@@ -36,7 +36,7 @@ class RxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
   })
 
   def index_inc(index: UInt): UInt ={
-    (index + 1.U) & (depth-1).U
+    (index + 1.U) & (depth-1).U // cycle in depth
   }
 
   val burst_unit_num = depth * burst_size
@@ -50,8 +50,8 @@ class RxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
    * actually we can use unsignedBitLength(depth-1).W in wr/rd_index_reg to save register,
    * but somehow when we use burst_unit_num, timing is better
    */
-  val wr_index_reg = RegInit(0.U(unsignedBitLength(burst_unit_num).W))
-  val rd_index_reg = RegInit(0.U(unsignedBitLength(burst_unit_num).W))
+  val wr_index_reg = RegInit(0.U(unsignedBitLength(burst_unit_num).W)) // can change width to unsignedBitLength(depth-1)
+  val rd_index_reg = RegInit(0.U(unsignedBitLength(burst_unit_num).W)) // can change width to unsignedBitLength(depth-1)
 
   val wr_pos_reg   = RegInit(0.U(unsignedBitLength(burst_unit_num).W))
   val rd_pos_reg   = RegInit(0.U(unsignedBitLength(burst_unit_num).W))
@@ -59,7 +59,7 @@ class RxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
 
   val pre_valid_vec = Wire(Vec(depth,Bool()))
   for (i <- 0 until depth) pre_valid_vec(i) := info_buf_reg(i).pre_valid
-  val buf_full = pre_valid_vec.reduceTree(_&_)
+  val buf_full = pre_valid_vec.reduceTree(_&_) // now buffer is full
 
   io.in.tready := !buf_full
   val pack_counter = RegInit(0.U(32.W))
@@ -118,8 +118,8 @@ class RxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
         // normal transmission process
         when (!info_buf_reg(wr_index_reg).used) { //ready to receive this package; first burst
           info_buf_reg(wr_index_reg).used := true.B
-          info_buf_reg(wr_index_reg).pkt_type := Cat((change_order_16(io.in.tdata(111,96)) === "h_0800".U) & (io.in.tdata(191,184) === 6.U),
-                                                      change_order_16(io.in.tdata(111,96)) === "h_0800".U)
+          info_buf_reg(wr_index_reg).pkt_type := Cat((change_order_16(io.in.tdata(111,96)) === "h_0800".U) & (io.in.tdata(191,184) === 6.U), //TCP
+                                                      change_order_16(io.in.tdata(111,96)) === "h_0800".U) // IPV4
           info_buf_reg(wr_index_reg).chksum_offload := io.in.extern_config.op(6)
         }
         data_buf_reg(wr_pos_reg) := io.in.tdata
@@ -148,12 +148,13 @@ class RxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
   }
 
   // read part of ring buffer
-  val out_shake_hand = io.out.tready & info_buf_reg(rd_index_reg).valid // we finished shake hand in current beat
 
+  val out_shake_hand = io.out.tready & info_buf_reg(rd_index_reg).valid // we finished shake hand in current beat
+// check if chksum is OK
   def chksum_pass: Bool = {
-      !info_buf_reg(rd_index_reg).chksum_offload ||
-    ((!info_buf_reg(rd_index_reg).pkt_type(0) || info_buf_reg(rd_index_reg).ip_chksum  === 0.U) &&
-     (!info_buf_reg(rd_index_reg).pkt_type(1) || info_buf_reg(rd_index_reg).tcp_chksum === 0.U))
+      !info_buf_reg(rd_index_reg).chksum_offload || // not offload
+    ((!info_buf_reg(rd_index_reg).pkt_type(0) || info_buf_reg(rd_index_reg).ip_chksum  === 0.U) && // ip
+     (!info_buf_reg(rd_index_reg).pkt_type(1) || info_buf_reg(rd_index_reg).tcp_chksum === 0.U)) // tcp
   }
 
   io.out_qid    := info_buf_reg(rd_index_reg).qid
@@ -172,7 +173,7 @@ class RxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
   when (out_shake_hand){
       // data_buf_reg(rd_pos_reg) := 0.U
       rd_pos_reg := rd_pos_next
-
+      // the last beat
       when (info_buf_reg(rd_index_reg).burst === 1.U) {
         info_buf_reg(rd_index_reg) := 0.U.asTypeOf(new BufferInfo)
         rd_index_reg := index_inc(rd_index_reg)
@@ -181,12 +182,14 @@ class RxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
       }
   }
 
+  // combination logic
   when (info_buf_reg(rd_index_reg).burst === 1.U) {
     rd_pos_next := index_inc(rd_index_reg) << log2Ceil(burst_size).U
   }.otherwise{
     rd_pos_next := rd_pos_reg + 1.U
   }
 
+  // pre_valid -> valid
   for (i <- 0 until depth) {
     when(info_buf_reg(i).pre_valid && !info_buf_reg(i).valid){
       info_buf_reg(i).valid := true.B

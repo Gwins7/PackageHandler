@@ -9,18 +9,17 @@ class RxRESearcher(val step: Int = 1) extends RxPipelineHandler with NetFunc {
 
   class REHandlerUnit extends Module {
     // check 1 byte jump
-
     val io = IO(new Bundle {
       val in_char = Input(UInt(8.W))
       val in_state = Input(UInt(4.W))
       val in_rule = Input(Vec(16,UInt(32.W)))
-      // rule: 16 (nxt_state(4),cur_state(4),char(8)) * 16
+      // DFA rule is in the document
       val out_state = Output(UInt(4.W))
     })
     val result = WireDefault(0.U.asTypeOf(Vec(16,UInt(4.W))))
     for (i <- 0 until 16){
       // only one rule per situation is OK
-      // we don't need to and because we only get 1 input char
+      // we don't need to implement AND because we only get 1 input char
       val char_1_or_2_cmp = (io.in_char === io.in_rule(i)(7,0)) | (io.in_char === io.in_rule(i)(15,8))
       val char_1_to_2_cmp = (io.in_char >= io.in_rule(i)(7,0)) & (io.in_char <= io.in_rule(i)(15,8))
       val cmp_result = Mux(io.in_rule(i)(16),char_1_to_2_cmp,char_1_or_2_cmp)
@@ -41,7 +40,6 @@ class RxRESearcher(val step: Int = 1) extends RxPipelineHandler with NetFunc {
       val in_state = Input(UInt(4.W))
       val in_rule = Input(Vec(16,UInt(32.W)))
       val in_en = Input(Bool())
-      // rule: 16 (nxt_state(4),cur_state(4),reserve(6),dep(1),not(1),char2(8),char1(8)) * 16
       val out_state = Output(UInt(4.W))
     })
     val re_handler_unit_queue = Seq.fill(step)(Module(new REHandlerUnit))

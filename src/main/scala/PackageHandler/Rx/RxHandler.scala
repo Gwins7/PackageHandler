@@ -33,6 +33,7 @@ class RxHandler extends Module{
     val c2h_err_counter          = Output(UInt(32.W))
     val extern_config            = Input(new ExternConfig())
   })
+
   /* c2h direction */
 
   val rx_converter = Module(new RxConverter())
@@ -42,7 +43,7 @@ class RxHandler extends Module{
   val rx_pipeline = Module(new RxPipeline())
   rx_converter.io.out <> rx_pipeline.io.in
 
-  val rx_buffer_fifo = Module(new RxBufferFIFO()) // a packet's max burst is 32 (2048 bytes)
+  val rx_buffer_fifo = Module(new RxBufferFIFO())
   rx_pipeline.io.out <> rx_buffer_fifo.io.in
   rx_buffer_fifo.io.reset_counter := io.reset_counter
   io.c2h_pack_counter := rx_buffer_fifo.io.c2h_pack_counter
@@ -60,16 +61,16 @@ class RxHandler extends Module{
   io.QDMA_c2h_stub_in.tuser := QDMA_c2h_stub_in_tuser_reg & io.QDMA_c2h_stub_in.tvalid
 
   io.QDMA_c2h_stub_in.tvalid := rx_buffer_fifo.io.out.tvalid
-  // when we send the header, the buffer should be blocked and the tlast should be low
+  // when we send the QDMA header, the buffer should be blocked and the tlast should be low
   io.QDMA_c2h_stub_in.tlast  := rx_buffer_fifo.io.out.tlast & !io.QDMA_c2h_stub_in.tuser
   rx_buffer_fifo.io.out.tready :=  io.QDMA_c2h_stub_in.tready & !io.QDMA_c2h_stub_in.tuser
 
-  // transport tdata (when tuser = 1, generate a header and send it first)
+  // send tdata (when tuser = 1, generate a header and send it first)
   when(io.QDMA_c2h_stub_in.tuser){
     // Generate new c2h header
     val Gen_c2h_hdr = WireDefault(0.U.asTypeOf(new c2h_stub_hdr_beat))
     Gen_c2h_hdr.flow_id := Gen_c2h_hdr.qid; Gen_c2h_hdr.tdest := Gen_c2h_hdr.qid
-    //only useful information
+    // we only need to get qid and tlen
     Gen_c2h_hdr.qid := rx_buffer_fifo.io.out_qid; // [5:0]
     Gen_c2h_hdr.pkt_len := rx_buffer_fifo.io.out_tlen
     io.QDMA_c2h_stub_in.tdata := Gen_c2h_hdr.asUInt

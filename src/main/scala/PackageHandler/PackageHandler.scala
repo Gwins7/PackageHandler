@@ -26,7 +26,7 @@ class PackageHandler extends Module {
     val h2c_pack_counter         = Output(UInt(32.W))
     val h2c_err_counter          = Output(UInt(32.W))
   })
-
+  // save extern_config to cut length of signal
   val extern_config_reg = RegNext(io.extern_config.asUInt,0.U).asTypeOf(new ExternConfig)
 
   val tx_handler = Module(new TxHandler)

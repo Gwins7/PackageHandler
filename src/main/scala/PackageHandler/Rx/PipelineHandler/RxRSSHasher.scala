@@ -9,7 +9,7 @@ class RxRSSHasher extends RxPipelineHandler {
     io.in.extern_config.arg(1),
     io.in.extern_config.arg(2),
     io.in.extern_config.arg(3))
-  // symmetric: fill(20,"h_6d5a".U), we just set 6d5a6d5a
+  // symmetric: hash_key = Fill(20,"h_6d5a".U)
 
   val cal_tdata = Mux(in_shake_hand,io.in.tdata,in_reg.tdata)
   val src_ip   = change_order_32(cal_tdata(239,208))
@@ -18,6 +18,7 @@ class RxRSSHasher extends RxPipelineHandler {
   val dst_port = change_order_16(cal_tdata(303,288))
   val info = Cat(src_ip,dst_ip,src_port,dst_port) // 96 bits
 
+  // calculate by Toeplitz Algorithm
   val cal_hash_key_vec = Wire(Vec(96,UInt(32.W)))
   for (i <- 0 until 96) {
     cal_hash_key_vec(i) := Mux(info(i),hash_key(i+32,i+1),0.U)
@@ -28,8 +29,6 @@ class RxRSSHasher extends RxPipelineHandler {
     hash_xor_sync.io.in_vec(i) := cal_hash_key_vec(i)
   }
   hash_xor_result := hash_xor_sync.io.out_sum
-
-  //    val cal_qid = hash_xor_result & io.in.extern_config.c2h_match_arg(1)
 
   // use jump table to handle the RSS result
   // we limit the hash_result and the actual rx_queue number in 16 (0~15), so jump-target's width for every hash_result is 4.

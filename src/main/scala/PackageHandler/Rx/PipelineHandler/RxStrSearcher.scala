@@ -6,7 +6,8 @@ import chisel3.util._
 
 // search function
 class RxStrSearcher extends RxPipelineHandler {
-  // arg(0): content; arg(1): mask
+  // arg0: content; arg1: mask
+  // almost the same as RxStrMatcher
 
   val search_op      = Mux(in_shake_hand,io.in.extern_config.op,io.in.extern_config.op)
   val search_content = Mux(in_shake_hand,io.in.extern_config.arg(0),io.in.extern_config.arg(0))
@@ -38,17 +39,12 @@ class RxStrSearcher extends RxPipelineHandler {
 
   val search_found_reg = RegInit(false.B)
   when (in_shake_hand) {
-    previous_tdata_reg := in_reg.tdata(511,488)
+    previous_tdata_reg := in_reg.tdata(511,488) // 63,62,61
     when (in_reg.tlast) {
       search_found_reg := false.B
     }.elsewhen (!search_found_reg) {
       search_found_reg := search_or_result
     }
-    //    when (first_beat_reg) {
-    //      search_found_reg := search_or_result
-    //    }.otherwise{
-    //      search_found_reg := search_found_reg | search_or_result
-    //    }
   }
 
   when (search_op(4)) {

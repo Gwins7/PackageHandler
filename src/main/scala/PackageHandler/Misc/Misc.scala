@@ -19,7 +19,8 @@ trait NetFunc {
 
 
 class ReduceOpSync (vecnum: Int, width: Int) extends Module {
-
+  // we need to wait 1 beat to get the result;
+  // we cut vec in half and cal it in reduce tree
   val io = IO(new Bundle {
     val in_vec = Input(Vec(vecnum,UInt(width.W)))
     val out_sum = Output(UInt(width.W))

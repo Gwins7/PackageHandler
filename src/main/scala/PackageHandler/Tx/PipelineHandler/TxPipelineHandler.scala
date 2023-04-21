@@ -14,7 +14,6 @@ class TxPipelineHandler extends Module with NetFunc {
 
   val in_reg = RegEnable(Cat(io.in.tx_info.asUInt,io.in.tdata,io.in.tvalid,io.in.tlast),1.U,in_shake_hand).asTypeOf(new TxPipelineHandlerReg)
   val first_beat_reg = RegEnable(in_reg.tlast,true.B,in_shake_hand)
-//  val extern_config_reg = RegEnable(io.in.extern_config.asUInt,0.U,in_shake_hand).asTypeOf(new ExternConfig)
 
   val in_reg_used_reg = RegInit(false.B)
   when (in_shake_hand){

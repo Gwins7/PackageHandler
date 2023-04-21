@@ -4,8 +4,8 @@ import PackageHandler.Misc._
 import chisel3._
 import chisel3.util._
 
-//
 // https://blog.csdn.net/qq_28205153/article/details/55798628
+// symmetric to RxAESDecryter
 
 class TxAESEncrypter extends TxPipelineHandler with cal_gf256 {
 
@@ -49,13 +49,7 @@ class TxAESEncrypter extends TxPipelineHandler with cal_gf256 {
                       change_order_32(io.in.extern_config.arg(13)),
                       change_order_32(io.in.extern_config.arg(12)))
 
-  // cur_round_counter:
-  // 0~10: aes_key_gen
-  // 11, (11+4*1), ..., (11+4*9), 50: encode -> %4=3 || 50
-  // 12, (12+4*1), ..., (12+4*9) : byte_change ->%4=0
-  // 13, (13+4*1), ..., (13+4*9) : bit_move -> %4=1
-  // 14  (14+4*1), ..., (14+4*8) : mul ->%4=2
-
+  // current beat result
   val tmp_result = Wire(Vec(4, UInt(512.W)))
   tmp_result(0) := byte_change(tmp_tdata_reg)
   tmp_result(1) := bit_move(tmp_tdata_reg)
@@ -70,16 +64,23 @@ class TxAESEncrypter extends TxPipelineHandler with cal_gf256 {
 
   when(in_shake_hand) {
     when (aes_key_reg(0) === aes_key_0) {
-      cur_round_counter := 11.U
+      cur_round_counter := 11.U // skip key generation process
     }.elsewhen(!in_reg.tlast){
-      cur_round_counter := 1.U
+      cur_round_counter := 1.U // start key generation
     }
-  }.elsewhen(cur_round_counter < 51.U) {
+  }.elsewhen(cur_round_counter < 51.U) { // now we are generating key
     cur_round_counter := cur_round_counter + 1.U
     when(cur_round_counter < 11.U) {
       aes_key_reg(cur_round_counter) := get_next_key(aes_key_reg(cur_round_counter - 1.U), cur_round_counter)
     }
   }
+
+  // cur_round_counter:
+  // 0~10: aes_key_gen
+  // 11, (11+4*1), ..., (11+4*9), 50: encode -> %4=3 || 50
+  // 12, (12+4*1), ..., (12+4*9) : byte_change ->%4=0
+  // 13, (13+4*1), ..., (13+4*9) : bit_move -> %4=1
+  // 14  (14+4*1), ..., (14+4*8) : mul ->%4=2
 
   when(in_shake_hand) {
     tmp_tdata_reg := io.in.tdata

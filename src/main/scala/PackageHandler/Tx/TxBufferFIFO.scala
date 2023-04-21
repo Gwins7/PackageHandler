@@ -39,8 +39,6 @@ class TxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
 
   val in_shake_hand = io.in.tvalid & io.in.tready
   val data_buf_reg = SyncReadMem(burst_unit_num,UInt(512.W))
-  // if we want to use block RAM instead of registers, refer:
-  // https://blog.csdn.net/qq_39507748/article/details/118080849
   val info_buf_reg = RegInit(VecInit.fill(depth)(0.U.asTypeOf(new BufferInfo)))
   val wr_index_reg = RegInit(0.U(unsignedBitLength(burst_unit_num).W))
   val rd_index_reg = RegInit(0.U(unsignedBitLength(burst_unit_num).W))

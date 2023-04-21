@@ -10,25 +10,30 @@ class AxisIO extends Bundle{
   val tlast  = Input(Bool())
 }
 class TxPipelineAxisIO extends AxisIO{
+  // used by TxPipelineHandler
   val tx_info = Input(new TxInfo())
   val extern_config = Input(new ExternConfig())
 }
 
 class RxPipelineAxisIO extends AxisIO{
+  // used by RxPipelineHandler
   val tuser = Input(Bool())
   val rx_info = Input(new RxInfo())
   val extern_config = Input(new ExternConfig())
 }
 
 class QDMAAxisIO extends AxisIO{
+  // used by QDMA
   val tuser = Input(Bool())
 }
 
 class CMACAxisIO extends QDMAAxisIO{
+  // used by CMAC
   val tkeep = Input(UInt(64.W))
 }
 
 class FifoIPIO (width:Int) extends Bundle {
+  // used in BufferFIFO2
   val tdata = Input(UInt(width.W))
   val tlast = Input(Bool())
   val tready = Output(Bool())

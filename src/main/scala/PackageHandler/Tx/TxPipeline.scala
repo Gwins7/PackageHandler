@@ -14,9 +14,6 @@ class TxPipeline extends Module{
   // add pipeline handler here
 
   val tx_aes_encrypter = Module(new TxAESEncrypter())
-//    io.in <> tx_aes_encrypter.io.in
-//    tx_aes_encrypter.io.out <> io.out
-
   val tx_chksum_generator = Module(new TxChksumGenerator())
   io.in <> tx_aes_encrypter.io.in
   tx_aes_encrypter.io.out <> tx_chksum_generator.io.in

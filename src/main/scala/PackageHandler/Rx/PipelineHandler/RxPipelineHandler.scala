@@ -14,7 +14,7 @@ class RxPipelineHandler extends Module with NetFunc{
   val in_reg = RegEnable(Cat(io.in.rx_info.asUInt,io.in.tuser,io.in.tdata,io.in.tvalid,io.in.tlast),1.U,in_shake_hand).asTypeOf(new RxPipelineHandlerReg)
 //  val extern_config_reg = RegEnable(io.in.extern_config.asUInt,0.U,in_shake_hand).asTypeOf(new ExternConfig)
 
-  val first_beat_reg = RegEnable(in_reg.tlast,true.B,in_shake_hand)
+  val first_beat_reg = RegEnable(in_reg.tlast,true.B,in_shake_hand) // current beat is the first beat
   val in_reg_used_reg = RegInit(false.B) // used when pipeline is stuck
   when (in_shake_hand){
     in_reg_used_reg := true.B
@@ -33,12 +33,12 @@ class RxPipelineHandler extends Module with NetFunc{
 
 // 8 bit op:
 // op = 00000000: do nothing
-// op(3) : RxStrMatcher -> op(2,0): function(<(4),>(2),=(1),!=(0))
+// op(3) : RxStrMatcher -> op(2,0): function(<(100),>(010),=(001),!=(000), expr like >=(011) is available)
 // op(4) : RxStrSearcher
 // op(5) : RxRSSHasher
-// op(6) : ChksumGenerator / ChksumVerifier (control in Tx/RxBufferFifo)
+// op(6) : TxChksumGenerator / RxChksumVerifier (cal in Pipeline, insert in BufferFIFO)
 // op(7) : RxRESearcher
-
+// op(8) : TxAESEncrypter / RxAESDecrypter
+//
 // notice:
-// if we want to cal qid not only by the first beat but also by the whole packet,
-// we need to add fifo in this pipeline, and use qid calculated in tlast beat
+// we eventually use qid calculated in the last beat
