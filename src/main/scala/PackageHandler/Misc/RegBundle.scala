@@ -5,6 +5,7 @@ import chisel3.util._
 
 class TxInfo extends Bundle {
   val mty = UInt(6.W)
+  val pkt_type = UInt(2.W)
   val ip_chksum = UInt(32.W)
   val tcp_chksum = UInt(32.W)
 }
@@ -19,6 +20,7 @@ class TxPipelineHandlerReg extends Bundle {
 class RxInfo extends Bundle {
   val tlen   = UInt(16.W)
   val qid    = UInt(6.W)
+  val pkt_type = UInt(2.W)
   val ip_chksum = UInt(32.W)
   val tcp_chksum = UInt(32.W)
 }

@@ -101,8 +101,7 @@ class TxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
         when (!is_overflowed){
           // normal transmission process
           when (!info_buf_reg(wr_index_reg).used) { //ready to receive this package; first burst
-            info_buf_reg(wr_index_reg).pkt_type := Cat((change_order_16(io.in.tdata(111,96)) === "h_0800".U) & (io.in.tdata(191,184) === 6.U),
-                                                        change_order_16(io.in.tdata(111,96)) === "h_0800".U)
+            info_buf_reg(wr_index_reg).pkt_type := io.in.tx_info.pkt_type
             info_buf_reg(wr_index_reg).used := true.B
             info_buf_reg(wr_index_reg).chksum_offload := io.in.extern_config.op(6)
           }
@@ -148,7 +147,6 @@ class TxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
   val rd_data = data_buf_reg(Mux(out_shake_hand, rd_pos_next, rd_pos_reg))
 
   //calculate and insert chksum into first beat of data
-
 
   val rev_ip_chksum = change_order_16(info_buf_reg(rd_index_reg).ip_chksum)
   val rev_tcp_chksum = change_order_16(info_buf_reg(rd_index_reg).tcp_chksum)

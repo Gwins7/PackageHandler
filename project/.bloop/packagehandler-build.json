@@ -2,15 +2,15 @@
     "version": "1.4.0",
     "project": {
         "name": "packagehandler-build",
-        "directory": "D:\\Chisel\\dev\\packagehandler\\project",
-        "workspaceDir": "D:\\Chisel\\dev\\packagehandler\\project",
+        "directory": "D:\\workload\\SmartNIC\\dev\\packagehandler\\project",
+        "workspaceDir": "D:\\workload\\SmartNIC\\dev\\packagehandler\\project",
         "sources": [
-            "D:\\Chisel\\dev\\packagehandler\\project\\src\\main\\scala",
-            "D:\\Chisel\\dev\\packagehandler\\project\\src\\main\\scala-2.12",
-            "D:\\Chisel\\dev\\packagehandler\\project\\src\\main\\scala-2",
-            "D:\\Chisel\\dev\\packagehandler\\project\\src\\main\\java",
-            "D:\\Chisel\\dev\\packagehandler\\project\\src\\main\\scala-sbt-1.0",
-            "D:\\Chisel\\dev\\packagehandler\\project\\target\\scala-2.12\\sbt-1.0\\src_managed\\main"
+            "D:\\workload\\SmartNIC\\dev\\packagehandler\\project\\src\\main\\scala",
+            "D:\\workload\\SmartNIC\\dev\\packagehandler\\project\\src\\main\\scala-2.12",
+            "D:\\workload\\SmartNIC\\dev\\packagehandler\\project\\src\\main\\scala-2",
+            "D:\\workload\\SmartNIC\\dev\\packagehandler\\project\\src\\main\\java",
+            "D:\\workload\\SmartNIC\\dev\\packagehandler\\project\\src\\main\\scala-sbt-1.0",
+            "D:\\workload\\SmartNIC\\dev\\packagehandler\\project\\target\\scala-2.12\\sbt-1.0\\src_managed\\main"
         ],
         "dependencies": [
             
@@ -105,11 +105,11 @@
             "C:\\Users\\Gwins7\\AppData\\Local\\Coursier\\cache\\v1\\https\\repo1.maven.org\\maven2\\com\\squareup\\okio\\okio\\1.17.2\\okio-1.17.2.jar",
             "C:\\Users\\Gwins7\\AppData\\Local\\Coursier\\cache\\v1\\https\\repo1.maven.org\\maven2\\com\\typesafe\\config\\1.3.3\\config-1.3.3.jar"
         ],
-        "out": "D:\\Chisel\\dev\\packagehandler\\project\\.bloop\\packagehandler-build",
-        "classesDir": "D:\\Chisel\\dev\\packagehandler\\project\\.bloop\\packagehandler-build\\scala-2.12\\sbt-1.0\\classes",
+        "out": "D:\\workload\\SmartNIC\\dev\\packagehandler\\project\\.bloop\\packagehandler-build",
+        "classesDir": "D:\\workload\\SmartNIC\\dev\\packagehandler\\project\\.bloop\\packagehandler-build\\scala-2.12\\sbt-1.0\\classes",
         "resources": [
-            "D:\\Chisel\\dev\\packagehandler\\project\\src\\main\\resources",
-            "D:\\Chisel\\dev\\packagehandler\\project\\target\\scala-2.12\\sbt-1.0\\resource_managed\\main"
+            "D:\\workload\\SmartNIC\\dev\\packagehandler\\project\\src\\main\\resources",
+            "D:\\workload\\SmartNIC\\dev\\packagehandler\\project\\target\\scala-2.12\\sbt-1.0\\resource_managed\\main"
         ],
         "scala": {
             "organization": "org.scala-lang",
@@ -193,7 +193,7 @@
             "config": {
                 "home": "D:\\java-17-openjdk-17.0.4.1.1-1.win.x86_64",
                 "options": [
-                    "-Duser.dir=D:\\Chisel\\dev\\packagehandler\\project"
+                    "-Duser.dir=D:\\workload\\SmartNIC\\dev\\packagehandler\\project"
                 ]
             },
             "mainClass": [

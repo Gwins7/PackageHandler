@@ -80,9 +80,9 @@ class TxBufferFIFO2 extends Module with NetFunc {
 
   io.out.tdata := Mux(out_first_beat_reg & io.in.extern_config.op(6),
     Cat(tx_data_fifo.io.m_axis.tdata(511, 416),
-        Mux(change_order_16(tx_data_fifo.io.m_axis.tdata(111, 96)) === "h_0800".U && tx_data_fifo.io.m_axis.tdata(191, 184) === 6.U, rev_tcp_chksum, tx_data_fifo.io.m_axis.tdata(415, 400)),
+        Mux(pkt_info.pkt_type(0) & pkt_info.pkt_type(1), rev_tcp_chksum, tx_data_fifo.io.m_axis.tdata(415, 400)),
         tx_data_fifo.io.m_axis.tdata(399, 208),
-        Mux(change_order_16(tx_data_fifo.io.m_axis.tdata(111, 96)) === "h_0800".U, rev_ip_chksum, tx_data_fifo.io.m_axis.tdata(207, 192)),
+        Mux(pkt_info.pkt_type(0), rev_ip_chksum, tx_data_fifo.io.m_axis.tdata(207, 192)),
         tx_data_fifo.io.m_axis.tdata(191, 0)),
         tx_data_fifo.io.m_axis.tdata)
 

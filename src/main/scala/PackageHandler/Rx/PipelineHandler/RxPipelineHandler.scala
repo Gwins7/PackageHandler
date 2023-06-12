@@ -4,6 +4,7 @@ import PackageHandler.Misc._
 import chisel3._
 import chisel3.util._
 
+// base module of RxPipelineHandler
 class RxPipelineHandler extends Module with NetFunc{
   val io = IO(new Bundle {
     val in = new RxPipelineAxisIO()
@@ -11,11 +12,17 @@ class RxPipelineHandler extends Module with NetFunc{
   })
   val in_shake_hand  = io.in.tready  & io.in.tvalid
   val out_shake_hand = io.out.tready & io.out.tvalid
-  val in_reg = RegEnable(Cat(io.in.rx_info.asUInt,io.in.tuser,io.in.tdata,io.in.tvalid,io.in.tlast),1.U,in_shake_hand).asTypeOf(new RxPipelineHandlerReg)
-//  val extern_config_reg = RegEnable(io.in.extern_config.asUInt,0.U,in_shake_hand).asTypeOf(new ExternConfig)
+
+  // save current beat's info
+  val in_reg = RegEnable(Cat(io.in.rx_info.asUInt,
+                             io.in.tuser,
+                             io.in.tdata,
+                             io.in.tvalid,
+                             io.in.tlast),1.U,in_shake_hand).asTypeOf(new RxPipelineHandlerReg)
 
   val first_beat_reg = RegEnable(in_reg.tlast,true.B,in_shake_hand) // current beat is the first beat
-  val in_reg_used_reg = RegInit(false.B) // used when pipeline is stuck
+
+  val in_reg_used_reg = RegInit(false.B)
   when (in_shake_hand){
     in_reg_used_reg := true.B
   }.elsewhen(out_shake_hand){

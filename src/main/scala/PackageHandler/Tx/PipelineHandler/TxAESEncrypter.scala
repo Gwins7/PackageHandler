@@ -90,8 +90,9 @@ class TxAESEncrypter extends TxPipelineHandler with cal_gf256 {
     tmp_tdata_reg := tmp_result(cur_round_counter(1, 0))
   }
 
-  when (io.in.extern_config.op(8) && !first_beat_reg){
+  when (io.in.extern_config.op(8) && !first_beat_reg && in_reg.tx_info.pkt_type(0)){
     // ATTENTION: when in first beat, we don't do encryption
+    // only IP packet do decryption
     io.out.tdata := tmp_tdata_reg
     io.in.tready := (cur_round_counter >= 11.U) & (out_shake_hand | !in_reg_used_reg)
     io.out.tvalid := (cur_round_counter === 51.U) & (in_reg.tvalid & in_reg_used_reg)

@@ -33,14 +33,13 @@ class RxRSSHasher extends RxPipelineHandler {
   // use jump table to handle the RSS result
   // we limit the hash_result and the actual rx_queue number in 16 (0~15), so jump-target's width for every hash_result is 4.
   // if you want to extend it, you just need to extend the length of jump_table and jump-target's width for every hash_result
-  val jump_table = Cat(io.in.extern_config.arg(4),
-    io.in.extern_config.arg(5))
-  val jump_offset = hash_xor_result(3,0) << 2.U
-  val cal_qid = (jump_table << jump_offset)(63,60)
+  val jump_table = Cat(io.in.extern_config.arg(4), io.in.extern_config.arg(5))
+  val jump_offset = Cat(~hash_xor_result(3,0),0.U(2.W)) // 60 - 4*result
+  val cal_qid = (jump_table >> jump_offset)(3,0)
 
   //  save the qid calculated in first beat and use it for whole packet
   val cur_packet_qid_reg = RegEnable(cal_qid,0.U,in_shake_hand & first_beat_reg)
-  when (io.in.extern_config.op(5)){
+  when (io.in.extern_config.op(5) && in_reg.rx_info.pkt_type(0)){
     io.out.rx_info.qid := Mux(first_beat_reg,cal_qid,cur_packet_qid_reg)
   }
 }

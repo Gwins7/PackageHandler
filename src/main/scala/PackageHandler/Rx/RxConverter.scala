@@ -4,7 +4,7 @@ import PackageHandler.Misc._
 import chisel3._
 import chisel3.util._
 
-class RxConverter extends Module{
+class RxConverter extends Module with NetFunc {
   val io = IO(new Bundle {
     val in = new CMACAxisIO()
     val out = Flipped(new RxPipelineAxisIO())
@@ -32,13 +32,16 @@ class RxConverter extends Module{
   // count tlen
   val tlen_reg = RegInit(0.U(16.W))
   when (in_shake_hand) {
-      tlen_reg := Mux(first_beat_reg,cur_burst_size,tlen_reg + cur_burst_size)
-  }
+      tlen_reg := Mux(first_beat_reg, cur_burst_size, tlen_reg + cur_burst_size)
+    }
   // extend tkeep
   val keep_val = Wire(Vec(512,UInt(1.W)))
   for (i <- 0 until 512){
     keep_val(i) := in_reg.tkeep(i/8)
   }
+  val pkt_type = Cat((change_order_16(io.in.tdata(111, 96)) === "h_0800".U) & (io.in.tdata(191, 184) === 6.U),
+                      change_order_16(io.in.tdata(111, 96)) === "h_0800".U)
+  val pkt_type_reg = RegEnable(pkt_type, 0.U(2.W), in_shake_hand && in_reg.tlast) // 2 bit: TCP / IPV4
 
   io.out.tuser  := in_reg.tuser
   io.out.tdata  := in_reg.tdata & keep_val.asUInt // we only use valid part of tdata
@@ -47,6 +50,7 @@ class RxConverter extends Module{
   io.in.tready  := io.out.tready | !in_reg_used_reg
   io.out.rx_info := WireDefault(0.U.asTypeOf(new RxInfo))
   io.out.rx_info.tlen := Mux(first_beat_reg,cur_burst_size,tlen_reg + cur_burst_size)
+  io.out.rx_info.pkt_type := pkt_type_reg
   io.out.rx_info.qid := 0.U
   io.out.extern_config := io.extern_config
 }

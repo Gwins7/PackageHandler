@@ -45,6 +45,7 @@ class RxHandler extends Module{
 
   val rx_buffer_fifo = Module(new RxBufferFIFO())
   rx_pipeline.io.out <> rx_buffer_fifo.io.in
+
   rx_buffer_fifo.io.reset_counter := io.reset_counter
   io.c2h_pack_counter := rx_buffer_fifo.io.c2h_pack_counter
   io.c2h_err_counter := rx_buffer_fifo.io.c2h_err_counter

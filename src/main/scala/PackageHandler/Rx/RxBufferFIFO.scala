@@ -35,8 +35,8 @@ class RxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
     val c2h_err_counter  = Output(UInt(32.W))
   })
 
-  def index_inc(index: UInt): UInt ={
-    (index + 1.U) & (depth-1).U // cycle in depth
+  def index_inc(index: UInt): UInt = {
+    (index + 1.U) & (depth - 1).U // cycle in depth
   }
 
   val burst_unit_num = depth * burst_size
@@ -118,8 +118,7 @@ class RxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
         // normal transmission process
         when (!info_buf_reg(wr_index_reg).used) { //ready to receive this package; first burst
           info_buf_reg(wr_index_reg).used := true.B
-          info_buf_reg(wr_index_reg).pkt_type := Cat((change_order_16(io.in.tdata(111,96)) === "h_0800".U) & (io.in.tdata(191,184) === 6.U), //TCP
-                                                      change_order_16(io.in.tdata(111,96)) === "h_0800".U) // IPV4
+          info_buf_reg(wr_index_reg).pkt_type := io.in.rx_info.pkt_type // IPV4
           info_buf_reg(wr_index_reg).chksum_offload := io.in.extern_config.op(6)
         }
         data_buf_reg(wr_pos_reg) := io.in.tdata

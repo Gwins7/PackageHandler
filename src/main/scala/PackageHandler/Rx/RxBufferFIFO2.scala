@@ -31,7 +31,7 @@ class RxBufferFIFO2 extends Module with NetFunc {
   rx_data_fifo.io.s_axis_aresetn := !reset.asBool
 
   val c2h_pack_counter_reg = RegInit(0.U(32.W))
-  val c2h_err_counter_reg  = RegInit(0.U(32.W))//unused
+  val c2h_err_counter_reg  = RegInit(0.U(32.W)) //unused
   val wrong_chksum_counter = RegInit(0.U(32.W))
 
   val in_shake_hand = io.in.tvalid & io.in.tready
@@ -51,8 +51,8 @@ class RxBufferFIFO2 extends Module with NetFunc {
 
   def chksum_pass: Bool = {
     !io.in.extern_config.op(6) ||
-      !(change_order_16(rx_data_fifo.io.m_axis.tdata(111, 96)) === "h_0800".U) ||
-      end_ip_chksum === 0.U && (!(rx_data_fifo.io.m_axis.tdata(191, 184) === 6.U) || end_tcp_chksum === 0.U)
+      !pkt_info.pkt_type(0) ||
+      end_ip_chksum === 0.U && !(pkt_info.pkt_type(1) || end_tcp_chksum === 0.U)
   }
 
   val true_in_shake_hand = io.in.tvalid & io.in.tready & !io.in.tuser
