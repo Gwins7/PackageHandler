@@ -84,7 +84,7 @@ class RxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
   val end_tcp_chksum = Wire(UInt(16.W))
   end_tcp_chksum := ~chksum_cal(mid_tcp_chksum)(15,0)
   // write part of ring buffer
-  when (io.reset_counter){ // if the counter need to be reset, then reset the register
+  when (io.reset_counter) { // if the counter need to be reset, then reset the register
     pack_counter := 0.U
     err_counter := 0.U
   }
@@ -100,7 +100,7 @@ class RxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
         // otherwise the next burst will be lost;
         // the overflow counter will +1 to save this information correctly.
       }
-        .otherwise{
+        .otherwise {
           wr_pos_reg := wr_index_reg << log2Ceil(burst_size).U
           // rewrite the same wr unit
         }
@@ -112,9 +112,9 @@ class RxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
       err_counter := err_counter + 1.U
       wr_pos_reg := wr_index_reg << log2Ceil(burst_size).U
       info_buf_reg(wr_index_reg) := 0.U.asTypeOf(new BufferInfo)
-    }.elsewhen(io.in.tvalid){
+    }.elsewhen(io.in.tvalid) {
       // normal condition (overflow just not started in this beat)
-      when (!is_overflowed){
+      when (!is_overflowed) {
         // normal transmission process
         when (!info_buf_reg(wr_index_reg).used) { //ready to receive this package; first burst
           info_buf_reg(wr_index_reg).used := true.B
@@ -125,9 +125,9 @@ class RxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
         info_buf_reg(wr_index_reg).burst := info_buf_reg(wr_index_reg).burst + 1.U
         when (io.in.tlast) {
           info_buf_reg(wr_index_reg).pre_valid := true.B
-          when (info_buf_reg(wr_index_reg).burst =/= 0.U) {
-            info_buf_reg(wr_index_reg).valid := true.B
-          }
+//          when (info_buf_reg(wr_index_reg).burst =/= 0.U) {
+//            info_buf_reg(wr_index_reg).valid := true.B
+//          }
           // we use the information given by tlast beat as packet's final information
           info_buf_reg(wr_index_reg).ip_chksum := end_ip_chksum
           info_buf_reg(wr_index_reg).tcp_chksum := end_tcp_chksum
@@ -169,14 +169,14 @@ class RxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
   // otherwise in next beat we read current data
   io.out.tdata  := data_buf_reg(Mux(out_shake_hand, rd_pos_next, rd_pos_reg))
 
-  when (out_shake_hand){
+  when (out_shake_hand) {
       // data_buf_reg(rd_pos_reg) := 0.U
       rd_pos_reg := rd_pos_next
       // the last beat
       when (info_buf_reg(rd_index_reg).burst === 1.U) {
         info_buf_reg(rd_index_reg) := 0.U.asTypeOf(new BufferInfo)
         rd_index_reg := index_inc(rd_index_reg)
-      }.otherwise{
+      }.otherwise {
         info_buf_reg(rd_index_reg).burst := info_buf_reg(rd_index_reg).burst - 1.U
       }
   }
@@ -184,7 +184,7 @@ class RxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
   // combination logic
   when (info_buf_reg(rd_index_reg).burst === 1.U) {
     rd_pos_next := index_inc(rd_index_reg) << log2Ceil(burst_size).U
-  }.otherwise{
+  }.otherwise {
     rd_pos_next := rd_pos_reg + 1.U
   }
 

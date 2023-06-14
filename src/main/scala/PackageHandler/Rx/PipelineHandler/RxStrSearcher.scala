@@ -9,9 +9,9 @@ class RxStrSearcher extends RxPipelineHandler {
   // arg0: content; arg1: mask
   // almost the same as RxStrMatcher
 
-  val search_op      = Mux(in_shake_hand,io.in.extern_config.op,io.in.extern_config.op)
-  val search_content = Mux(in_shake_hand,io.in.extern_config.arg(0),io.in.extern_config.arg(0))
-  val search_mask    = Mux(in_shake_hand,io.in.extern_config.arg(1),io.in.extern_config.arg(1))
+  val search_op      = io.in.extern_config.op
+  val search_content = io.in.extern_config.arg(0)
+  val search_mask    = io.in.extern_config.arg(1)
 
   val search_value = search_content & search_mask
 

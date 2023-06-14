@@ -112,7 +112,7 @@ class TxBufferFIFO(val depth: Int = 2, val burst_size: Int = 32) extends Module 
               // we read the value before write; so we need to wait for one beat and then read
             info_buf_reg(wr_index_reg).pre_valid := true.B
             when(info_buf_reg(wr_index_reg).burst =/= 0.U) {
-              info_buf_reg(wr_index_reg).valid := true.B
+//              info_buf_reg(wr_index_reg).valid := true.B
               info_buf_reg(wr_index_reg).mty   := io.in.tx_info.mty // packet min length is 64B
             }
             info_buf_reg(wr_index_reg).ip_chksum  := end_ip_chksum
