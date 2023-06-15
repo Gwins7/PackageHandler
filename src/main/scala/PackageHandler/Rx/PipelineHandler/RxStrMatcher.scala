@@ -30,7 +30,6 @@ class RxStrMatcher extends RxPipelineHandler {
   // ceil align 64; we assume that the padding 0 in the last beat won't interfere matching process
   // the match place in current beat (if it is in)
   val in_beat_place = match_place - cur_place
-  // the match content in current beat (if it is in)
 
   when (match_place >= cur_place) {
     // start in current beat
